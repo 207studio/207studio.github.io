@@ -76,6 +76,7 @@
       "contact.eyebrow": "04 / GET IN TOUCH",
       "contact.title": "Let’s talk.",
       "contact.text": "For company and product inquiries.",
+      "contact.link": "Contact support",
       "footer.tagline": "Software for making and teaching.",
       "footer.linksLabel": "Support and legal",
       "footer.support": "Support",
@@ -89,32 +90,32 @@
       "skip": "본문으로 건너뛰기",
       "brand.home": "207스튜디오 홈",
       "nav.label": "주 메뉴",
-      "nav.work": "만드는 것",
+      "nav.work": "제품",
       "nav.studio": "스튜디오",
       "toggle.text": "English",
       "toggle.label": "View in English",
       "hero.eyebrow": "독립 소프트웨어 스튜디오 · 대한민국",
       "hero.title": "교실에서<br>시작하는<br><span class=\"serif\">소프트웨어.</span>",
       "hero.intro": "가르치는 일상을 위한 세심한 도구. 그 일을 직접 아는 초등학교 교사가 만듭니다.",
-      "hero.cta": "만드는 것 보기",
+      "hero.cta": "제품 보기",
       "panel.label": "우리가 집중하는 일: 준비, 수업, 돌아보기",
       "panel.top": "207 / 현장 노트",
       "panel.prepare": "준비.",
       "panel.prepareText": "자료를 수업으로 바꿉니다.",
       "panel.teach": "수업.",
-      "panel.teachText": "학급이 수업에 집중하게 합니다.",
+      "panel.teachText": "수업의 흐름을 놓치지 않게 합니다.",
       "panel.reflect": "돌아보기.",
       "panel.reflectText": "평가를 쓸모 있게 만듭니다.",
       "panel.bottom": "작은 스튜디오. 실용적인 소프트웨어.",
       "band.teacher": "교사 주도",
       "band.classroom": "교실 중심",
       "band.independent": "독립 개발",
-      "work.eyebrow": "01 / 만드는 것",
+      "work.eyebrow": "01 / 제품",
       "work.title": "쓰임이 분명한<br><span class=\"serif\">도구.</span>",
-      "work.intro": "교사가 매일 다시 마주하는 일에서 개발을 시작합니다. 수업을 보여 주고, 자료를 다루고, 평가를 이해하는 일입니다.",
+      "work.intro": "교사가 매일 다시 마주하는 일에서 개발을 시작합니다. 수업을 진행하고, 자료를 다루고, 평가 결과를 살피는 일입니다.",
       "tag.dev": "개발 중",
       "concept.label": "작업 흐름 개념도 · 실제 앱 화면 아님",
-      "chalk.kicker": "01 / 수업 발표",
+      "chalk.kicker": "01 / 수업 진행",
       "chalk.lead": "선생님의 수업 자료를<br>더 자연스럽게 펼치는 곳.",
       "chalk.desc": "선생님이 이미 쓰는 자료를 중심으로 설계한 아이패드 수업·판서 앱입니다.",
       "chalk.f1": "PPTX, PDF, HTML 수업 자료 사용",
@@ -138,11 +139,11 @@
       "checky.gradeText": "답안을 검토합니다",
       "checky.analyze": "분석",
       "checky.analyzeText": "다음 수업에 반영합니다",
-      "work.availability": "모두 개발 중인 프로젝트입니다. 기능과 출시 일정은 바뀔 수 있으며, 이 페이지는 공개 출시를 알리지 않습니다.",
+      "work.availability": "모두 개발 중인 프로젝트입니다. 기능과 출시 일정은 바뀔 수 있으며, 이 페이지는 정식 출시 안내가 아닙니다.",
       "other.eyebrow": "교실 밖의 작업",
       "other.desc": "Mac과 iPad를 원격으로 잇는 프로젝트도 진행하고 있습니다. 여러 기기를 오가며 더 유연하게 일하는 방법을 찾습니다.",
       "studio.eyebrow": "02 / 스튜디오",
-      "studio.title": "일 가까이에서.<br><span class=\"serif\">도구는 신중하게.</span>",
+      "studio.title": "현장 가까이에서.<br><span class=\"serif\">도구는 신중하게.</span>",
       "studio.lead": "207스튜디오는 대한민국의 초등학교 교사가 설립한 독립 소프트웨어 스튜디오입니다.",
       "studio.body": "교실의 일을 중심으로 실용적인 소프트웨어를 만듭니다. 그래서 자료 준비, 수업 진행, 평가 정리에 쓸모 있는 도구에 집중합니다.",
       "facts.established": "설립",
@@ -152,8 +153,9 @@
       "facts.focus": "분야",
       "facts.focusValue": "수업·생산성 소프트웨어",
       "contact.eyebrow": "03 / 문의",
-      "contact.title": "이야기 나눠요.",
+      "contact.title": "문의하기",
       "contact.text": "회사와 제품에 관한 문의를 받습니다.",
+      "contact.link": "지원 페이지에서 문의하기",
       "footer.tagline": "만들고 가르치는 일을 위한 소프트웨어.",
       "footer.linksLabel": "지원 및 법적 고지",
       "footer.support": "지원",
@@ -183,9 +185,24 @@
     } catch (e) {}
   }
 
+  // URL의 lang 값을 소문자로 돌려준다. 없거나 디코딩·읽기에 실패하면 null.
   function readQuery() {
-    var match = /[?&]lang=([^&#]*)/.exec(window.location.search);
-    return match ? decodeURIComponent(match[1]).toLowerCase() : null;
+    try {
+      var match = /[?&]lang=([^&#]*)/.exec(window.location.search);
+      return match ? decodeURIComponent(match[1]).toLowerCase() : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  // 브라우저 언어가 ko로 시작하면 "ko", 그 밖이나 읽기 실패 시 "en".
+  function navigatorLang() {
+    try {
+      var nav = (navigator.languages && navigator.languages[0]) || navigator.language || "";
+      return String(nav).toLowerCase().indexOf("ko") === 0 ? "ko" : "en";
+    } catch (e) {
+      return "en";
+    }
   }
 
   function initialLang() {
@@ -193,8 +210,7 @@
     if (isSupported(fromQuery)) return fromQuery;
     var stored = readStored();
     if (isSupported(stored)) return stored;
-    var nav = (navigator.languages && navigator.languages[0]) || navigator.language || "";
-    return nav.toLowerCase().indexOf("ko") === 0 ? "ko" : "en";
+    return navigatorLang();
   }
 
   function each(selector, fn) {
@@ -233,9 +249,9 @@
   }
 
   function syncQuery(lang) {
-    if (!readQuery() || !window.history || !window.history.replaceState) return;
-    var search = window.location.search.replace(/([?&]lang=)[^&#]*/, "$1" + lang);
     try {
+      if (!/[?&]lang=/.test(window.location.search) || !window.history || !window.history.replaceState) return;
+      var search = window.location.search.replace(/([?&]lang=)[^&#]*/, "$1" + lang);
       window.history.replaceState(null, "", search + window.location.hash);
     } catch (e) {}
   }
