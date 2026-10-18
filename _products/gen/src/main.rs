@@ -12,7 +12,18 @@ struct SiteData {
     last_updated: String,
     support_email: String,
     listing: Listing,
+    organization: Organization,
     products: Vec<Product>,
+}
+
+#[derive(Deserialize)]
+struct Organization {
+    name: String,
+    url: String,
+    email: String,
+    country: String,
+    #[serde(rename = "sameAs")]
+    same_as: Vec<String>,
 }
 
 #[derive(Deserialize)]
@@ -39,6 +50,25 @@ struct Product {
     image_webp_640: String,
     image_webp_1200: String,
     image_jpg: String,
+    category: String,
+    related: Vec<String>,
+    tier_note: Option<String>,
+    upsell: Option<Upsell>,
+    includes: Option<Includes>,
+    badge: Option<String>,
+}
+
+#[derive(Deserialize)]
+struct Upsell {
+    text: String,
+    link: String,
+    link_text: String,
+}
+
+#[derive(Deserialize)]
+struct Includes {
+    text: String,
+    links: Vec<[String; 2]>,
 }
 
 #[derive(Deserialize)]
@@ -46,6 +76,8 @@ struct Tier {
     name: String,
     price_usd: i64,
     url: String,
+    lemonsqueezy_url: Option<String>,
+    booth_url: Option<String>,
 }
 
 const FAVICON: &str = "<link rel=\"icon\" type=\"image/svg+xml\" href=\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%23102b32'/%3E%3Cpath d='M10 12h20v4L20 29h-6l10-13H10z' fill='%23d5f66b'/%3E%3C/svg%3E\">";
@@ -81,11 +113,12 @@ fn generate(data: &SiteData, root: &Path) -> Result<(), String> {
     write_file(root, "products/index.html", &render_listing(data)?)?;
     for product in &data.products {
         let path = format!("products/{}/index.html", product.slug);
-        write_file(root, &path, &render_product(data, product))?;
+        write_file(root, &path, &render_product(data, product)?)?;
     }
     write_file(root, "products/products.css", CSS)?;
     write_file(root, "sitemap.xml", &render_sitemap(data))?;
     write_file(root, "robots.txt", &render_robots(data))?;
+    write_file(root, "llms.txt", &render_llms(data))?;
     Ok(())
 }
 
@@ -187,34 +220,116 @@ fn price(price_usd: i64) -> String {
     format!("{price_usd}.00")
 }
 
-fn offer(tier: &Tier) -> Value {
-    json!({
-        "@type": "Offer",
-        "name": tier.name,
-        "price": price(tier.price_usd),
-        "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock",
-        "url": tier.url,
-    })
+fn sku(slug: &str, tier: &Tier) -> String {
+    format!("{slug}-{}", tier.name.to_lowercase().replace([' ', '/'], "-"))
+}
+
+fn offers(data: &SiteData, product: &Product) -> Vec<Value> {
+    product
+        .tiers
+        .iter()
+        .map(|tier| {
+            json!({
+                "@type": "Offer",
+                "name": tier.name,
+                "sku": sku(&product.slug, tier),
+                "price": price(tier.price_usd),
+                "priceCurrency": "USD",
+                "availability": "https://schema.org/InStock",
+                "url": tier.url,
+                "seller": {
+                    "@type": "Organization",
+                    "name": data.organization.name,
+                    "url": data.organization.url,
+                },
+            })
+        })
+        .collect()
 }
 
 fn brand() -> Value {
     json!({ "@type": "Brand", "name": "207 Studio" })
 }
 
-fn buy_row(tiers: &[Tier]) -> String {
+fn checkout_url(tier: &Tier, slug: &str, place: &str) -> String {
+    format!(
+        "{}?utm_source=207studio.dev&utm_medium=site&utm_campaign={slug}&utm_content={place}",
+        tier.url
+    )
+}
+
+fn buy_row(product: &Product, place: &str) -> String {
     let mut out = String::from("<div class=\"buy-row\">");
-    for (index, tier) in tiers.iter().enumerate() {
+    for (index, tier) in product.tiers.iter().enumerate() {
         let class = if index == 0 { "buy primary" } else { "buy" };
         out.push_str(&format!(
             "<a class=\"{class}\" href=\"{}\">{} · ${}</a>",
-            esc(&tier.url),
+            esc(&checkout_url(tier, &product.slug, place)),
             esc(&tier.name),
             tier.price_usd
         ));
     }
     out.push_str("</div>");
+    out.push_str(&store_links(&product.tiers));
     out
+}
+
+fn store_links(tiers: &[Tier]) -> String {
+    let links: Vec<String> = tiers
+        .iter()
+        .flat_map(|tier| {
+            [
+                (tier.lemonsqueezy_url.as_ref(), "Lemon Squeezy"),
+                (tier.booth_url.as_ref(), "BOOTH"),
+            ]
+        })
+        .filter_map(|(url, label)| url.map(|url| format!("<a href=\"{}\">{label}</a>", esc(url))))
+        .collect();
+    if links.is_empty() {
+        String::new()
+    } else {
+        format!("<p class=\"also\">Also on {}</p>", links.join(" "))
+    }
+}
+
+fn upsell_box(product: &Product) -> String {
+    match &product.upsell {
+        Some(upsell) => format!(
+            "<aside class=\"upsell\"><p>{}</p><a class=\"buy\" href=\"{}\">{}</a></aside>\n",
+            esc(&upsell.text),
+            esc(&upsell.link),
+            esc(&upsell.link_text)
+        ),
+        None => String::new(),
+    }
+}
+
+fn related_section(data: &SiteData, product: &Product) -> Result<String, String> {
+    let mut out = String::from(
+        "<section class=\"related\"><h2>Related products</h2><div class=\"related-grid\">",
+    );
+    for slug in &product.related {
+        let other = data
+            .products
+            .iter()
+            .find(|p| &p.slug == slug)
+            .ok_or_else(|| format!("product {} lists unknown related product {slug}", product.slug))?;
+        let lowest = other
+            .tiers
+            .iter()
+            .map(|tier| tier.price_usd)
+            .min()
+            .ok_or_else(|| format!("product {} has no tiers", other.slug))?;
+        out.push_str(&format!(
+            "<a class=\"related-card\" href=\"/products/{}/\"><img src=\"{}\" width=\"640\" height=\"360\" alt=\"{name} cover\" loading=\"lazy\" decoding=\"async\"><span class=\"related-name\">{name}</span><span class=\"related-summary\">{}</span><span class=\"related-price\">From ${lowest}</span></a>",
+            esc(&other.slug),
+            esc(&other.image_webp_640),
+            esc(&other.summary),
+            name = esc(&other.name),
+        ));
+    }
+    out.push_str("</div></section>\n");
+    Ok(out)
 }
 
 fn picture(inner_class: Option<&str>, product: &Product, loading: &str) -> String {
@@ -236,7 +351,7 @@ fn render_card(product: &Product, loading: &str) -> String {
     format!(
         "<article class=\"card\" id=\"{slug}\">\n\
 <a class=\"card-media\" href=\"/products/{slug}/\">{picture}</a>\n\
-<h3><a href=\"/products/{slug}/\">{name}</a></h3>\n\
+{badge}<h3><a href=\"/products/{slug}/\">{name}</a></h3>\n\
 <p class=\"summary\">{summary}</p>\n\
 {buy}\n\
 <p class=\"note\">One-time purchase.</p>\n\
@@ -244,7 +359,11 @@ fn render_card(product: &Product, loading: &str) -> String {
         picture = picture(None, product, loading),
         name = esc(&product.name),
         summary = esc(&product.summary),
-        buy = buy_row(&product.tiers),
+        badge = match &product.badge {
+            Some(badge) => format!("<span class=\"badge\">{}</span>", esc(badge)),
+            None => String::new(),
+        },
+        buy = buy_row(product, "card"),
     )
 }
 
@@ -302,15 +421,38 @@ fn render_listing(data: &SiteData) -> Result<String, String> {
                     "image": absolute(&data.base_url, &product.image_jpg),
                     "url": canonical_product(&data.base_url, &product.slug),
                     "brand": brand(),
-                    "offers": product.tiers.iter().map(offer).collect::<Vec<Value>>(),
+                    "category": product.category,
+                    "offers": offers(data, product),
                 },
             })
         })
         .collect();
+    let org = &data.organization;
+    let org_id = format!("{}/#org", org.url);
     out.push_str(&script(&json!({
         "@context": "https://schema.org",
-        "@type": "ItemList",
-        "itemListElement": items,
+        "@graph": [
+            {
+                "@type": "Organization",
+                "@id": org_id,
+                "name": org.name,
+                "url": org.url,
+                "email": org.email,
+                "address": { "@type": "PostalAddress", "addressCountry": org.country },
+                "sameAs": org.same_as,
+            },
+            {
+                "@type": "WebSite",
+                "@id": format!("{}/#website", org.url),
+                "name": org.name,
+                "url": format!("{}/", org.url),
+                "publisher": { "@id": org_id },
+            },
+            {
+                "@type": "ItemList",
+                "itemListElement": items,
+            },
+        ],
     })));
 
     out.push_str("</main>\n");
@@ -319,7 +461,7 @@ fn render_listing(data: &SiteData) -> Result<String, String> {
     Ok(out)
 }
 
-fn render_product(data: &SiteData, product: &Product) -> String {
+fn render_product(data: &SiteData, product: &Product) -> Result<String, String> {
     let canonical = canonical_product(&data.base_url, &product.slug);
 
     let mut out = head(
@@ -341,9 +483,32 @@ fn render_product(data: &SiteData, product: &Product) -> String {
         "<p class=\"lede\">{}</p>\n",
         esc(&product.summary)
     ));
+    if let Some(includes) = &product.includes {
+        let links: Vec<String> = includes
+            .links
+            .iter()
+            .map(|[label, href]| format!("<a href=\"{}\">{}</a>", esc(href), esc(label)))
+            .collect();
+        out.push_str(&format!(
+            "<p class=\"includes\">{} {}</p>\n",
+            esc(&includes.text),
+            links.join(" · ")
+        ));
+    }
     out.push_str(&format!("{}\n", picture(Some("hero-media"), product, "eager")));
-    out.push_str(&format!("{}\n", buy_row(&product.tiers)));
+    out.push_str(&format!("{}\n", buy_row(product, "top")));
     out.push_str("<p class=\"note\">One-time purchase.</p>\n");
+    if let Some(note) = &product.tier_note {
+        if product.tiers.len() == 1 {
+            out.push_str(&format!("<p class=\"tier-note-small\">{}</p>\n", esc(note)));
+        } else {
+            out.push_str(&format!(
+                "<aside class=\"tier-note\"><h2>Which one do I need?</h2><p>{}</p></aside>\n",
+                esc(note)
+            ));
+        }
+    }
+    out.push_str(&upsell_box(product));
 
     out.push_str(&format!(
         "<section><h2>What it is</h2><p>{}</p></section>\n",
@@ -380,7 +545,9 @@ fn render_product(data: &SiteData, product: &Product) -> String {
     }
     out.push_str("</section>\n");
 
-    out.push_str(&format!("{}\n", buy_row(&product.tiers)));
+    out.push_str(&related_section(data, product)?);
+    out.push_str(&upsell_box(product));
+    out.push_str(&format!("{}\n", buy_row(product, "bottom")));
     out.push_str("<p class=\"note\">One-time purchase.</p>\n");
     out.push_str("<p><a href=\"/products/\">← All products</a></p>\n");
 
@@ -392,7 +559,8 @@ fn render_product(data: &SiteData, product: &Product) -> String {
         "image": absolute(&data.base_url, &product.image_jpg),
         "url": canonical,
         "brand": brand(),
-        "offers": product.tiers.iter().map(offer).collect::<Vec<Value>>(),
+        "category": product.category,
+        "offers": offers(data, product),
     });
     let faq_ld = json!({
         "@type": "FAQPage",
@@ -427,7 +595,7 @@ fn render_product(data: &SiteData, product: &Product) -> String {
     out.push_str("</main>\n");
     out.push_str(&footer(data));
     out.push_str("</body>\n</html>\n");
-    out
+    Ok(out)
 }
 
 fn render_sitemap(data: &SiteData) -> String {
@@ -450,6 +618,21 @@ fn render_sitemap(data: &SiteData) -> String {
         ));
     }
     out.push_str("</urlset>\n");
+    out
+}
+
+fn render_llms(data: &SiteData) -> String {
+    let mut out = String::from(
+        "# 207 Studio\n\n> Developer kits and classroom tools from 207 Studio (207studio.dev), South Korea. One-time purchase, full source.\n\n## Products\n\n",
+    );
+    for product in &data.products {
+        out.push_str(&format!(
+            "- [{}]({}): {}\n",
+            product.name,
+            canonical_product(&data.base_url, &product.slug),
+            product.summary
+        ));
+    }
     out
 }
 
@@ -507,4 +690,9 @@ details p{margin:10px 0 0}
 pre{background:#102b32;color:#e9f1ee;padding:16px;border-radius:8px;overflow-x:auto}
 pre code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:14px}
 .crumbs{font-size:14px;color:var(--muted);margin:24px 0 8px}
+.tier-note{border:1px solid var(--line);border-radius:8px;padding:16px 20px;margin:8px 0 24px;background:#fff}.tier-note h2{font-size:18px;margin:0 0 6px}.tier-note p{margin:0;color:var(--muted)}
+.tier-note-small{color:var(--muted);font-size:15px;margin:4px 0 20px}
+.upsell{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;background:#f3fbd9;border:1px solid #c8e98a;border-radius:8px;padding:16px 20px;margin:16px 0}.upsell p{margin:0;flex:1 1 320px}
+.includes{color:var(--muted)}.badge{display:inline-block;background:var(--lime);color:var(--ink);font-weight:700;font-size:13px;padding:3px 10px;border-radius:30px;margin:4px 0 8px}
+.related-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}@media (max-width:760px){.related-grid{grid-template-columns:1fr}}.related-card{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:inherit}.related-card img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:8px;border:1px solid var(--line)}.related-name{font-weight:600}.related-summary{color:var(--muted);font-size:15px}.related-price{font-weight:600;font-size:14px}.also{font-size:14px;color:var(--muted)}
 ";
