@@ -1,0 +1,15 @@
+# 207 Studio
+
+> Developer kits and classroom tools from 207 Studio (207studio.dev), South Korea. One-time purchase, full source.
+
+## Products
+
+- [PPTX Player SDK – Play PowerPoint in the Browser](https://207studio.dev/products/pptx-player-sdk/): Play PowerPoint in the browser with every animation: a client-side PPTX to HTML/SVG engine that works offline.
+- [PadswayCore SDK — Mac-to-iPad Screen Streaming](https://207studio.dev/products/padsway-core-sdk/): Put a live Mac screen on an iPad and send touch, keyboard, clipboard and dictation back: the streaming engine from a working Mac + iPad remote app, as a Swift package.
+- [Scan-to-Grade: Scanned Exams to Excel (Python)](https://207studio.dev/products/scan-to-grade-bundle/): QR Cropper and OMR Auto-Grader together: a scanned batch in, an Excel gradebook out.
+- [OMR Auto-Grader – Bubbles, O/X, Circled Answers](https://207studio.dev/products/omr-auto-grader/): Reads bubbles, circled words, O/X boxes and ordering marks on scanned sheets, and fills in only the grades it is sure of.
+- [QR Answer-Sheet Cropper – Crop Every Answer Box](https://207studio.dev/products/qr-cropper/): Print a QR on each sheet, scan a mixed batch, and get every answer cell back as a clean, aligned image.
+- [Context-Gated Voice Commands – Offline](https://207studio.dev/products/voice-command-engine/): A Rust library and CLI that infers the current situation from audio features and lets through only the voice commands that fit it.
+- [ShapeFit – Hold-to-Shape for Swift & Rust](https://207studio.dev/products/shapefit/): Turn a hand-drawn stroke into a clean line, circle, rectangle or polygon when the user pauses, for your own drawing app.
+- [Exam + OMR Sheet Builder – Paper, Sheet & Key](https://207studio.dev/products/exam-sheet-builder/): Write an exam once and print a matching exam paper, OMR answer sheet, answer key, explanation sheet and cover page.
+- [Offline Classroom Tools – Seating, PACER Timer](https://207studio.dev/products/classroom-html-tools/): Four single-file classroom tools: a seating chart with attendance, a morning board, a fitness test recorder and Wi-Fi QR cards.

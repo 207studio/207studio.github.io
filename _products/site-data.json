@@ -76,7 +76,7 @@
     ],
     [
      "Which tier should I buy?",
-     "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development."
+     "Developer is for one developer, and that includes shipping the player inside your own paid or free apps as bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase."
     ],
     [
      "What do I get after paying?",
@@ -107,7 +107,7 @@
     "padsway-core-sdk",
     "shapefit"
    ],
-   "tier_note": "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development.",
+   "tier_note": "Developer is for one developer, and that includes shipping the player inside your own paid or free apps as bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase.",
    "upsell": null,
    "includes": null,
    "badge": null
@@ -194,7 +194,7 @@
     "pptx-player-sdk",
     "shapefit"
    ],
-   "tier_note": null,
+   "tier_note": "For a company or organisation (more than one person), including in its apps as compiled code, with priority email support. One-time purchase.",
    "upsell": null,
    "includes": null,
    "badge": null
@@ -262,7 +262,7 @@
     ],
     [
      "Which tier should I buy?",
-     "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development."
+     "Personal is for one person, and that includes shipping it inside your own paid or free apps as compiled or bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase."
     ],
     [
      "What do I get after paying?",
@@ -293,7 +293,7 @@
     "exam-sheet-builder",
     "classroom-html-tools"
    ],
-   "tier_note": "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development.",
+   "tier_note": "Personal is for one person, and that includes shipping it inside your own paid or free apps as compiled or bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase.",
    "upsell": null,
    "includes": {
     "text": "Includes QR Answer-Sheet Cropper ($39) and OMR Auto-Grader ($59): $98 bought separately.",
@@ -377,7 +377,7 @@
     ],
     [
      "Which tier should I buy?",
-     "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development."
+     "Personal is for one person, and that includes shipping it inside your own paid or free apps as compiled or bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase."
     ],
     [
      "What do I get after paying?",
@@ -408,7 +408,7 @@
     "scan-to-grade-bundle",
     "qr-cropper"
    ],
-   "tier_note": "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development.",
+   "tier_note": "Personal is for one person, and that includes shipping it inside your own paid or free apps as compiled or bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase.",
    "upsell": {
     "text": "Need both? The Scan-to-Grade Bundle has the QR Cropper and the OMR Auto-Grader together: $79 instead of $98 (save $19), or $299 instead of $398 for Commercial (save $99).",
     "link": "/products/scan-to-grade-bundle/",
@@ -484,7 +484,7 @@
     ],
     [
      "Which tier should I buy?",
-     "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development."
+     "Personal is for one person, and that includes shipping it inside your own paid or free apps as compiled or bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase."
     ],
     [
      "What do I get after paying?",
@@ -515,7 +515,7 @@
     "scan-to-grade-bundle",
     "omr-auto-grader"
    ],
-   "tier_note": "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development.",
+   "tier_note": "Personal is for one person, and that includes shipping it inside your own paid or free apps as compiled or bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase.",
    "upsell": {
     "text": "Need both? The Scan-to-Grade Bundle has the QR Cropper and the OMR Auto-Grader together: $79 instead of $98 (save $19), or $299 instead of $398 for Commercial (save $99).",
     "link": "/products/scan-to-grade-bundle/",
@@ -586,7 +586,7 @@
     ],
     [
      "Which tier should I buy?",
-     "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development."
+     "Personal/Research is for one person, and that includes shipping the engine inside your own paid or free apps as compiled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase."
     ],
     [
      "What do I get after paying?",
@@ -617,7 +617,7 @@
     "pptx-player-sdk",
     "padsway-core-sdk"
    ],
-   "tier_note": "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development.",
+   "tier_note": "Personal/Research is for one person, and that includes shipping the engine inside your own paid or free apps as compiled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase.",
    "upsell": null,
    "includes": null,
    "badge": null
@@ -679,7 +679,7 @@
     ],
     [
      "Which tier should I buy?",
-     "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development."
+     "Personal is for one person, and that includes shipping it inside your own paid or free apps as compiled or bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase."
     ],
     [
      "What do I get after paying?",
@@ -710,7 +710,7 @@
     "padsway-core-sdk",
     "pptx-player-sdk"
    ],
-   "tier_note": "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development.",
+   "tier_note": "Personal is for one person, and that includes shipping it inside your own paid or free apps as compiled or bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase.",
    "upsell": null,
    "includes": null,
    "badge": null
@@ -773,7 +773,7 @@
     ],
     [
      "Which tier should I buy?",
-     "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development."
+     "Personal is for one person, and that includes shipping it inside your own paid or free apps as compiled or bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase."
     ],
     [
      "What do I get after paying?",
@@ -804,7 +804,7 @@
     "omr-auto-grader",
     "classroom-html-tools"
    ],
-   "tier_note": "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development.",
+   "tier_note": "Personal is for one person, and that includes shipping it inside your own paid or free apps as compiled or bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase.",
    "upsell": null,
    "includes": null,
    "badge": null
@@ -867,7 +867,7 @@
     ],
     [
      "Which tier should I buy?",
-     "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development."
+     "Teacher is for one teacher, in your own classes or inside your own paid or free products. School covers every teacher and staff member in one school and adds priority email support. Both include all four tools. One-time purchase."
     ],
     [
      "What do I get after paying?",
@@ -898,7 +898,7 @@
     "exam-sheet-builder",
     "scan-to-grade-bundle"
    ],
-   "tier_note": "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development.",
+   "tier_note": "Teacher is for one teacher, in your own classes or inside your own paid or free products. School covers every teacher and staff member in one school and adds priority email support. Both include all four tools. One-time purchase.",
    "upsell": null,
    "includes": null,
    "badge": null

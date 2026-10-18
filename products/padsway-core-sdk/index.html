@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#102b32">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%23102b32'/%3E%3Cpath d='M10 12h20v4L20 29h-6l10-13H10z' fill='%23d5f66b'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/products/products.css">
+<title>PadswayCore SDK – Stream a Mac Screen to iPad (Swift)</title>
+<meta name="description" content="Swift package that streams a Mac screen to an iPad with hardware H.264/HEVC, 60/120 fps and touch, keyboard and clipboard back. Full source. One-time purchase.">
+<link rel="canonical" href="https://207studio.dev/products/padsway-core-sdk/">
+<meta property="og:title" content="PadswayCore SDK – Stream a Mac Screen to iPad (Swift)">
+<meta property="og:description" content="Swift package that streams a Mac screen to an iPad with hardware H.264/HEVC, 60/120 fps and touch, keyboard and clipboard back. Full source. One-time purchase.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://207studio.dev/products/padsway-core-sdk/">
+<meta property="og:image" content="https://207studio.dev/assets/products/padsway-core-sdk-1200.jpg">
+<meta property="og:site_name" content="207 Studio">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<header class="site-header wrap"><a class="brand" href="/"><span class="brand-mark">207</span><span>STUDIO</span></a><nav aria-label="Main navigation"><a href="/">Home</a><a href="/products/">Products</a></nav></header>
+<main class="wrap product-page">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/products/">Products</a> / <span>PadswayCore SDK — Mac-to-iPad Screen Streaming</span></nav>
+<h1>PadswayCore SDK – Stream a Mac Screen to iPad (Swift)</h1>
+<p class="lede">Put a live Mac screen on an iPad and send touch, keyboard, clipboard and dictation back: the streaming engine from a working Mac + iPad remote app, as a Swift package.</p>
+<picture class="hero-media"><source type="image/webp" srcset="/assets/products/padsway-core-sdk-640.webp 640w, /assets/products/padsway-core-sdk-1200.webp 1200w" sizes="(max-width: 760px) 100vw, 50vw"><img src="/assets/products/padsway-core-sdk-1200.jpg" width="1200" height="675" alt="PadswayCore SDK — Mac-to-iPad Screen Streaming cover" loading="eager" decoding="async"></picture>
+<div class="buy-row"><a class="buy primary" href="https://buy.polar.sh/polar_cl_X4vNDyrdEHsK4LYKEg9WZWqtrbe6SzxzHU8zu0lQfSH?utm_source=207studio.dev&amp;utm_medium=site&amp;utm_campaign=padsway-core-sdk&amp;utm_content=top">Commercial · $129</a></div>
+<p class="note">One-time purchase.</p>
+<p class="tier-note-small">For a company or organisation (more than one person), including in its apps as compiled code, with priority email support. One-time purchase.</p>
+<section><h2>What it is</h2><p>PadswayCore SDK is a pure-Swift package for macOS 13+ and iPadOS 17+ that streams a Mac screen to an iPad. It captures with ScreenCaptureKit, encodes and decodes with VideoToolbox H.264/HEVC at 60 or 120 fps (Full HD), paces frames by the iPad&#39;s acknowledgements to keep lag low, and sends pointer, keys, text, Apple Pencil and clipboard back over TLS 1.2 with a per-pairing key. Full source and 550+ tests.</p></section>
+<section><h2>Quick start</h2><pre><code>swift build
+swift run padsway self-test
+swift test</code></pre></section>
+<section><h2>Compared with</h2><div class="table-wrap"><table>
+<thead><tr><th>Tool</th><th>Type</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>RealVNC SDK</td><td>Commercial VNC SDK</td><td>Price by quote; £1 one-month evaluation</td></tr>
+<tr><td>Splashtop OEM SDK</td><td>Commercial OEM / private label</td><td>Price by quote</td></tr>
+<tr><td>RoyalVNC</td><td>Free open-source Swift VNC/RFB SDK</td><td>VNC protocol; no hardware HEVC pipeline</td></tr>
+<tr class="ours"><td>PadswayCore SDK</td><td>Swift package, source included</td><td>$129 one-time; ScreenCaptureKit + VideoToolbox, receiver-paced frames, TLS pairing</td></tr>
+</tbody>
+</table></div></section>
+<section><h2>FAQ</h2>
+<details><summary>How do I stream a Mac screen to an iPad in Swift?</summary><p>Add PadswayCore to both apps. On the Mac create a Pairing and start a HostSession; on the iPad decode the pairing and connect a ClientSession, then draw each CVPixelBuffer it hands you. INTEGRATION.md has the full wiring, and that code is compiled by the test suite.</p></details>
+<details><summary>Can I try it without a Mac, network or permissions?</summary><p>Yes. `swift run padsway self-test` encodes 120 frames, sends them over TLS on loopback and decodes them in about 2 seconds, and ClientSession.demo() streams a simulated Mac in-process for onboarding and App Review.</p></details>
+<details><summary>Can the Mac side ship on the Mac App Store?</summary><p>No. The host injects input through the Accessibility API, so it can&#39;t run sandboxed. Ship it as a signed, notarized app. The iPad side has no such limit.</p></details>
+<details><summary>Does it work over the internet?</summary><p>It works on the local network out of the box. An optional bridge built on the open-source tsnet library is included as source for use without port forwarding.</p></details>
+<details><summary>What frame rate and resolution?</summary><p>Full HD (1920×1080). 120 fps is requested on ProMotion iPads and 60 fps elsewhere; it is not a throughput guarantee. After a sudden network-delay jump a slow iPad can drop to about 11 fps for a few seconds.</p></details>
+<details><summary>Is it a subscription?</summary><p>No. One-time purchase, full source included.</p></details>
+<details><summary>What do I get after paying?</summary><p>A zip with the full source, README and runnable demo. Polar shows the download right after checkout and in the receipt email.</p></details>
+</section>
+<section class="related"><h2>Related products</h2><div class="related-grid"><a class="related-card" href="/products/pptx-player-sdk/"><img src="/assets/products/pptx-player-sdk-640.webp" width="640" height="360" alt="PPTX Player SDK – Play PowerPoint in the Browser cover" loading="lazy" decoding="async"><span class="related-name">PPTX Player SDK – Play PowerPoint in the Browser</span><span class="related-summary">Play PowerPoint in the browser with every animation: a client-side PPTX to HTML/SVG engine that works offline.</span><span class="related-price">From $14</span></a><a class="related-card" href="/products/shapefit/"><img src="/assets/products/shapefit-640.webp" width="640" height="360" alt="ShapeFit – Hold-to-Shape for Swift &amp; Rust cover" loading="lazy" decoding="async"><span class="related-name">ShapeFit – Hold-to-Shape for Swift &amp; Rust</span><span class="related-summary">Turn a hand-drawn stroke into a clean line, circle, rectangle or polygon when the user pauses, for your own drawing app.</span><span class="related-price">From $9</span></a></div></section>
+<div class="buy-row"><a class="buy primary" href="https://buy.polar.sh/polar_cl_X4vNDyrdEHsK4LYKEg9WZWqtrbe6SzxzHU8zu0lQfSH?utm_source=207studio.dev&amp;utm_medium=site&amp;utm_campaign=padsway-core-sdk&amp;utm_content=bottom">Commercial · $129</a></div>
+<p class="note">One-time purchase.</p>
+<p><a href="/products/">← All products</a></p>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://207studio.dev/products/padsway-core-sdk/#product","@type":"Product","brand":{"@type":"Brand","name":"207 Studio"},"category":"DeveloperApplication","description":"Swift package that streams a Mac screen to an iPad with hardware H.264/HEVC, 60/120 fps and touch, keyboard and clipboard back. Full source. One-time purchase.","image":"https://207studio.dev/assets/products/padsway-core-sdk-1200.jpg","name":"PadswayCore SDK — Mac-to-iPad Screen Streaming","offers":[{"@type":"Offer","availability":"https://schema.org/InStock","name":"Commercial","price":"129.00","priceCurrency":"USD","seller":{"@type":"Organization","name":"207 Studio","url":"https://207studio.dev"},"sku":"padsway-core-sdk-commercial","url":"https://buy.polar.sh/polar_cl_X4vNDyrdEHsK4LYKEg9WZWqtrbe6SzxzHU8zu0lQfSH"}],"url":"https://207studio.dev/products/padsway-core-sdk/"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Add PadswayCore to both apps. On the Mac create a Pairing and start a HostSession; on the iPad decode the pairing and connect a ClientSession, then draw each CVPixelBuffer it hands you. INTEGRATION.md has the full wiring, and that code is compiled by the test suite."},"name":"How do I stream a Mac screen to an iPad in Swift?"},{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Yes. `swift run padsway self-test` encodes 120 frames, sends them over TLS on loopback and decodes them in about 2 seconds, and ClientSession.demo() streams a simulated Mac in-process for onboarding and App Review."},"name":"Can I try it without a Mac, network or permissions?"},{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"No. The host injects input through the Accessibility API, so it can't run sandboxed. Ship it as a signed, notarized app. The iPad side has no such limit."},"name":"Can the Mac side ship on the Mac App Store?"},{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"It works on the local network out of the box. An optional bridge built on the open-source tsnet library is included as source for use without port forwarding."},"name":"Does it work over the internet?"},{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Full HD (1920×1080). 120 fps is requested on ProMotion iPads and 60 fps elsewhere; it is not a throughput guarantee. After a sudden network-delay jump a slow iPad can drop to about 11 fps for a few seconds."},"name":"What frame rate and resolution?"},{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"No. One-time purchase, full source included."},"name":"Is it a subscription?"},{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"A zip with the full source, README and runnable demo. Polar shows the download right after checkout and in the receipt email."},"name":"What do I get after paying?"}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://207studio.dev/products/","name":"Products","position":1},{"@type":"ListItem","item":"https://207studio.dev/products/padsway-core-sdk/","name":"PadswayCore SDK — Mac-to-iPad Screen Streaming","position":2}]}]}</script>
+</main>
+<footer class="site-footer wrap"><p>207 Studio (207studio.dev), South Korea. Support: <a href="mailto:kiwigod@207studio.dev">kiwigod@207studio.dev</a></p><p>Last updated 2026-10-18. © 2026 207 Studio</p></footer>
+</body>
+</html>
