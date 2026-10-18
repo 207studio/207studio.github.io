@@ -11,9 +11,9 @@
  "products": [
   {
    "slug": "pptx-player-sdk",
-   "name": "PPTX Player SDK",
+   "name": "PPTX Player SDK – Play PowerPoint in the Browser",
    "audience": "developers",
-   "title": "PPTX Player SDK – Play PowerPoint in the Browser, Animations Intact",
+   "title": "PPTX Player SDK – Play PowerPoint in the Browser",
    "description": "Client-side JS engine that plays .pptx click-by-click: build animations, morph, media, offline. No server, no Office. One-time $14, source included.",
    "summary": "Play PowerPoint in the browser with every animation: a client-side PPTX to HTML/SVG engine that works offline.",
    "what": "PPTX Player SDK is a client-side JavaScript engine that renders PowerPoint .pptx decks to HTML and SVG and plays them click by click: entrance, exit and emphasis effects, morph transitions and embedded media. It runs offline in any modern browser or WebView, with no server conversion and no Office install. Full source included.",
@@ -89,9 +89,9 @@
   },
   {
    "slug": "scan-to-grade-bundle",
-   "name": "Scan-to-Grade Bundle (Cropper + OMR)",
+   "name": "Scan-to-Grade: Scanned Exams to Excel (Python)",
    "audience": "developers",
-   "title": "Scan-to-Grade: Scanned Exams → Excel Gradebook (Python)",
+   "title": "Scan-to-Grade: Scanned Exams to Excel (Python)",
    "description": "Cropper + OMR grader together: drop in a scanner batch, get an Excel gradebook. Runs offline; student data never leaves your PC. One-time, source.",
    "summary": "QR Cropper and OMR Auto-Grader together: a scanned batch in, an Excel gradebook out.",
    "what": "Scan-to-Grade is a Python package that turns a batch of scanned answer sheets into an Excel gradebook. It reads the QR on each page, pairs fronts and backs, deskews and crops every answer cell, grades bubbles, multi-answer marks, O/X parts and ordering bubbles, and writes scores, item analysis and a re-check list. It runs offline.",
@@ -167,9 +167,9 @@
   },
   {
    "slug": "omr-auto-grader",
-   "name": "Answer Sheet OMR & Auto-Grader",
+   "name": "OMR Auto-Grader – Bubbles, O/X, Circled Answers",
    "audience": "developers",
-   "title": "OMR Auto-Grader – Bubbles, O/X, Circled Words, Ordering",
+   "title": "OMR Auto-Grader – Bubbles, O/X, Circled Answers",
    "description": "Python OMR that grades bubbles, multi-marks, O/X and circled answers, fills only confident grades, never overwrites teacher marks. One-time purchase.",
    "summary": "Reads bubbles, circled words, O/X boxes and ordering marks on scanned sheets, and fills in only the grades it is sure of.",
    "what": "Answer Sheet OMR & Auto-Grader is a Python OMR engine for scanned answer sheets. Beyond A–E bubbles, it reads multi-answer marks, circled words, O/X boxes and ordering bubbles. It fills in only grades it is confident about, never overwrites a mark a teacher already made, and sends the rest to a re-check list. Runnable demo exports to Excel.",
@@ -245,9 +245,9 @@
   },
   {
    "slug": "qr-cropper",
-   "name": "QR-Anchored Answer Sheet Cropper",
+   "name": "QR Answer-Sheet Cropper – Crop Every Answer Box",
    "audience": "developers",
-   "title": "QR Answer-Sheet Cropper – Python: Crop Every Answer Box",
+   "title": "QR Answer-Sheet Cropper – Crop Every Answer Box",
    "description": "Print a QR on each page, scan a mixed batch, get every answer cell as an aligned image. Python + OpenCV, runnable demo, one-time purchase.",
    "summary": "Print a QR on each sheet, scan a mixed batch, and get every answer cell back as a clean, aligned image.",
    "what": "QR-Anchored Answer Sheet Cropper is a Python and OpenCV tool for scanned exams. Print a small QR on each sheet and drop in a mixed scanner batch. It identifies each page by its QR, pairs fronts and backs, corrects rotation and skew, and crops every answer cell into a clean, aligned image at about 200 dpi. It runs offline.",
@@ -323,13 +323,17 @@
   },
   {
    "slug": "voice-command-engine",
-   "name": "Context-Aware Voice Command Engine",
+   "name": "Context-Gated Voice Commands – Offline",
    "audience": "developers",
-   "title": "Context-Gated Voice Commands – Swift + Python, Offline",
-   "description": "Knows what's happening (lecture, Q&A, group work…) second by second and accepts only commands that fit, ignoring background talk. Sticky HMM, no cloud.",
-   "summary": "Infers the current situation from live audio and accepts only the voice commands that fit it, cutting false triggers.",
-   "what": "Context-Aware Voice Command Engine infers the current situation from live audio, second by second, and uses it to decide which utterances should count as voice commands. Background talk that does not fit the situation is ignored, which cuts false triggers. It ships with a 13-situation classroom model as the reference example and a simulator that reports detection latency and false switches.",
-   "quickstart": [],
+   "title": "Context-Gated Voice Commands – Offline",
+   "description": "Rust engine that tracks the current situation second by second and runs only the voice commands that fit it, ignoring background talk. Offline.",
+   "summary": "A Rust library and CLI that infers the current situation from audio features and lets through only the voice commands that fit it.",
+   "what": "Context-Gated Voice Commands is a Rust library and CLI that estimates which phase a scene is in (a lesson, a meeting, a shop floor) from acoustic features and cues, second by second, and decides whether each voice command may run, needs a wake word, or is blocked. It runs offline and ships with classroom, meeting and retail presets plus a seeded simulator.",
+   "quickstart": [
+    "cargo build --release",
+    "./target/release/scene-engine simulate --preset all --sessions 100 --seed 20261018 --out out",
+    "cat out/report.md"
+   ],
    "compare": [
     [
      "Picovoice Rhino",
@@ -347,31 +351,31 @@
      "Fixed command grammars, no situation model"
     ],
     [
-     "Context-Aware Voice Command Engine",
-     "Engine and simulator, source included",
-     "$29 one-time; gates commands by the detected situation, offline"
+     "Context-Gated Voice Commands",
+     "Rust library + CLI, source included",
+     "$29 one-time; gates commands by the detected phase, offline"
     ]
    ],
    "faq": [
     [
      "How do I reduce false voice command triggers in a noisy room?",
-     "Gate commands by context. The engine tracks which situation is active and accepts only the commands that fit it."
+     "Gate commands by context. The engine tracks which phase is active and, per phase, allows a command, requires a wake word or blocks it."
     ],
     [
      "How does it detect the situation?",
-     "A sticky hidden Markov model with change-point filtering estimates the active situation from acoustic features, second by second."
+     "A probabilistic filter over phases with configured transitions and acoustic profiles (voice count, loudness, overlap, main-speaker share, media playing), plus optional spoken or app cues, updated once per second."
     ],
     [
-     "Does it need the cloud?",
-     "No. It runs locally, with no account or API key."
+     "Can I model my own situations?",
+     "Yes. Define phases, durations, transitions, acoustic profiles and command rules in a TOML file, validate it with scene-engine validate, and simulate it. Classroom, meeting and retail-store presets are built in."
     ],
     [
-     "Can I model situations other than a classroom?",
-     "Yes. The classroom model is the reference example; you can define your own situations and command rules."
+     "How do I use it in my app?",
+     "Add it as a Rust path dependency, feed one observation per second to SceneFilter and call gate::decide for each command. The CLI can also stream JSONL observations in and phase snapshots out."
     ],
     [
-     "Is it a subscription?",
-     "No. One-time purchase, full source included."
+     "Does it need the cloud or Python?",
+     "No. It runs locally with Rust 1.85 or newer, with no account, API key or Python. One-time purchase, full source included."
     ]
    ],
    "tiers": [
@@ -392,9 +396,9 @@
   },
   {
    "slug": "shapefit",
-   "name": "ShapeFit Hold-to-Shape",
+   "name": "ShapeFit – Hold-to-Shape for Swift & Rust",
    "audience": "developers",
-   "title": "ShapeFit – Apple Notes-Style Hold-to-Shape for Swift & Rust",
+   "title": "ShapeFit – Hold-to-Shape for Swift & Rust",
    "description": "Pause on a stroke and it snaps to a clean line, circle, rectangle or polygon. No ML, no MAU limits, zero dependencies. PencilKit-ready. $9, source.",
    "summary": "Turn a hand-drawn stroke into a clean line, circle, rectangle or polygon when the user pauses, for your own drawing app.",
    "what": "ShapeFit adds the hold-to-shape gesture from Apple Notes and GoodNotes to your own drawing app. When the user pauses at the end of a stroke, it snaps to a clean line, circle, ellipse, rectangle, triangle or polygon, and leaves scribbles alone. Pure geometry, no ML model, zero dependencies: a Rust crate plus a drop-in Swift file with identical results.",
@@ -460,9 +464,9 @@
   },
   {
    "slug": "exam-sheet-builder",
-   "name": "Exam & OMR Sheet Builder",
+   "name": "Exam + OMR Sheet Builder – Paper, Sheet & Key",
    "audience": "teachers",
-   "title": "Exam + OMR Sheet Builder – Paper, Bubble Sheet, Key in Sync",
+   "title": "Exam + OMR Sheet Builder – Paper, Sheet & Key",
    "description": "Write an exam once; print the paper, OMR sheet, answer key, explanations and cover, always matching. Offline single file + MCP server for AI. $12.",
    "summary": "Write an exam once and print a matching exam paper, OMR answer sheet, answer key, explanation sheet and cover page.",
    "what": "Exam & OMR Sheet Builder lets you write an exam once and print five matching documents: the exam paper, an OMR bubble answer sheet, the answer key, an explanation sheet and a cover page. All five come from the same data, so they never disagree. The editor is a single offline HTML file, and an MCP server lets an AI assistant draft exams.",
@@ -533,9 +537,9 @@
   },
   {
    "slug": "classroom-html-tools",
-   "name": "Classroom HTML Tools",
+   "name": "Offline Classroom Tools – Seating, PACER Timer",
    "audience": "teachers",
-   "title": "Offline Classroom Tools – Seating, Attendance, PACER Timer",
+   "title": "Offline Classroom Tools – Seating, PACER Timer",
    "description": "Four single-file HTML tools: seating + attendance board, weekly attendance to Excel, PACER beep test recorder, Wi-Fi QR cards. No account. $9.",
    "summary": "Four single-file classroom tools: a seating chart with attendance, a morning board, a fitness test recorder and Wi-Fi QR cards.",
    "what": "Classroom HTML Tools is four single-file classroom tools that open with a double-click: a drag-and-drop seating chart with attendance, a morning board that exports a weekly attendance log to Excel, a PACER beep test timer and fitness test recorder, and printable Wi-Fi QR cards. No install, no account, no server; data stays in the browser.",
