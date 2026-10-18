@@ -69,23 +69,135 @@
     [
      "Is it a subscription?",
      "No. One-time purchase, full source included."
+    ],
+    [
+     "Is there a free PPTX viewer for JavaScript?",
+     "Yes, for example @web-ppt/viewer-core and pptx-viewer. Pick this SDK if you want a single client-side engine with full source and no server, and you'd rather pay once than maintain a fork."
+    ],
+    [
+     "Which tier should I buy?",
+     "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development."
+    ],
+    [
+     "What do I get after paying?",
+     "A zip with the full source, README and runnable demo. Polar shows the download right after checkout and in the receipt email."
     ]
    ],
    "tiers": [
     {
      "name": "Developer",
      "price_usd": 14,
-     "url": "https://buy.polar.sh/polar_cl_75Don0VoNVcrgJ7mx9b32yZq5v4ZydBu37uwN1getXd"
+     "url": "https://buy.polar.sh/polar_cl_75Don0VoNVcrgJ7mx9b32yZq5v4ZydBu37uwN1getXd",
+     "lemonsqueezy_url": null,
+     "booth_url": null
     },
     {
      "name": "Commercial",
      "price_usd": 129,
-     "url": "https://buy.polar.sh/polar_cl_6i0GKBLIeSNUMjqLDt8U9dAVfJxnGIrx7j5qf36gWcX"
+     "url": "https://buy.polar.sh/polar_cl_6i0GKBLIeSNUMjqLDt8U9dAVfJxnGIrx7j5qf36gWcX",
+     "lemonsqueezy_url": null,
+     "booth_url": null
     }
    ],
    "image_webp_640": "/assets/products/pptx-player-sdk-640.webp",
    "image_webp_1200": "/assets/products/pptx-player-sdk-1200.webp",
-   "image_jpg": "/assets/products/pptx-player-sdk-1200.jpg"
+   "image_jpg": "/assets/products/pptx-player-sdk-1200.jpg",
+   "category": "DeveloperApplication",
+   "related": [
+    "padsway-core-sdk",
+    "shapefit"
+   ],
+   "tier_note": "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development.",
+   "upsell": null,
+   "includes": null,
+   "badge": null
+  },
+  {
+   "slug": "padsway-core-sdk",
+   "name": "PadswayCore SDK — Mac-to-iPad Screen Streaming",
+   "audience": "developers",
+   "description": "Swift package that streams a Mac screen to an iPad with hardware H.264/HEVC, 60/120 fps and touch, keyboard and clipboard back. Full source. One-time purchase.",
+   "summary": "Put a live Mac screen on an iPad and send touch, keyboard, clipboard and dictation back: the streaming engine from a working Mac + iPad remote app, as a Swift package.",
+   "what": "PadswayCore SDK is a pure-Swift package for macOS 13+ and iPadOS 17+ that streams a Mac screen to an iPad. It captures with ScreenCaptureKit, encodes and decodes with VideoToolbox H.264/HEVC at 60 or 120 fps (Full HD), paces frames by the iPad's acknowledgements to keep lag low, and sends pointer, keys, text, Apple Pencil and clipboard back over TLS 1.2 with a per-pairing key. Full source and 550+ tests.",
+   "quickstart": [
+    "swift build",
+    "swift run padsway self-test",
+    "swift test"
+   ],
+   "compare": [
+    [
+     "RealVNC SDK",
+     "Commercial VNC SDK",
+     "Price by quote; £1 one-month evaluation"
+    ],
+    [
+     "Splashtop OEM SDK",
+     "Commercial OEM / private label",
+     "Price by quote"
+    ],
+    [
+     "RoyalVNC",
+     "Free open-source Swift VNC/RFB SDK",
+     "VNC protocol; no hardware HEVC pipeline"
+    ],
+    [
+     "PadswayCore SDK",
+     "Swift package, source included",
+     "$129 one-time; ScreenCaptureKit + VideoToolbox, receiver-paced frames, TLS pairing"
+    ]
+   ],
+   "faq": [
+    [
+     "How do I stream a Mac screen to an iPad in Swift?",
+     "Add PadswayCore to both apps. On the Mac create a Pairing and start a HostSession; on the iPad decode the pairing and connect a ClientSession, then draw each CVPixelBuffer it hands you. INTEGRATION.md has the full wiring, and that code is compiled by the test suite."
+    ],
+    [
+     "Can I try it without a Mac, network or permissions?",
+     "Yes. `swift run padsway self-test` encodes 120 frames, sends them over TLS on loopback and decodes them in about 2 seconds, and ClientSession.demo() streams a simulated Mac in-process for onboarding and App Review."
+    ],
+    [
+     "Can the Mac side ship on the Mac App Store?",
+     "No. The host injects input through the Accessibility API, so it can't run sandboxed. Ship it as a signed, notarized app. The iPad side has no such limit."
+    ],
+    [
+     "Does it work over the internet?",
+     "It works on the local network out of the box. An optional bridge built on the open-source tsnet library is included as source for use without port forwarding."
+    ],
+    [
+     "What frame rate and resolution?",
+     "Full HD (1920×1080). 120 fps is requested on ProMotion iPads and 60 fps elsewhere; it is not a throughput guarantee. After a sudden network-delay jump a slow iPad can drop to about 11 fps for a few seconds."
+    ],
+    [
+     "Is it a subscription?",
+     "No. One-time purchase, full source included."
+    ],
+    [
+     "What do I get after paying?",
+     "A zip with the full source, README and runnable demo. Polar shows the download right after checkout and in the receipt email."
+    ]
+   ],
+   "tiers": [
+    {
+     "name": "Commercial",
+     "price_usd": 129,
+     "url": "https://buy.polar.sh/polar_cl_X4vNDyrdEHsK4LYKEg9WZWqtrbe6SzxzHU8zu0lQfSH",
+     "lemonsqueezy_url": null,
+     "booth_url": null
+    }
+   ],
+   "image_webp_640": "/assets/products/padsway-core-sdk-640.webp",
+   "image_webp_1200": "/assets/products/padsway-core-sdk-1200.webp",
+   "image_jpg": "/assets/products/padsway-core-sdk-1200.jpg",
+   "title": "PadswayCore SDK – Stream a Mac Screen to iPad (Swift)",
+   "category": "DeveloperApplication",
+   "related": [
+    "pptx-player-sdk",
+    "shapefit"
+   ],
+   "tier_note": null,
+   "upsell": null,
+   "includes": null,
+   "badge": null
   },
   {
    "slug": "scan-to-grade-bundle",
@@ -147,23 +259,56 @@
     [
      "What do I need to run it?",
      "Python 3.10+, opencv-python-headless, numpy and openpyxl. One-time purchase, full source included."
+    ],
+    [
+     "Which tier should I buy?",
+     "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development."
+    ],
+    [
+     "What do I get after paying?",
+     "A zip with the full source, README and runnable demo. Polar shows the download right after checkout and in the receipt email."
     ]
    ],
    "tiers": [
     {
      "name": "Personal",
      "price_usd": 79,
-     "url": "https://buy.polar.sh/polar_cl_8xf9e2PzkppWPIh7ZQ339nUMWpKB2jNuTtbqm3pruPj"
+     "url": "https://buy.polar.sh/polar_cl_8xf9e2PzkppWPIh7ZQ339nUMWpKB2jNuTtbqm3pruPj",
+     "lemonsqueezy_url": null,
+     "booth_url": null
     },
     {
      "name": "Commercial",
      "price_usd": 299,
-     "url": "https://buy.polar.sh/polar_cl_DrRGNlKtA1G62gZFWa1OcfYSAXcrPIQmmi7Qb1492lC"
+     "url": "https://buy.polar.sh/polar_cl_DrRGNlKtA1G62gZFWa1OcfYSAXcrPIQmmi7Qb1492lC",
+     "lemonsqueezy_url": null,
+     "booth_url": null
     }
    ],
    "image_webp_640": "/assets/products/scan-to-grade-bundle-640.webp",
    "image_webp_1200": "/assets/products/scan-to-grade-bundle-1200.webp",
-   "image_jpg": "/assets/products/scan-to-grade-bundle-1200.jpg"
+   "image_jpg": "/assets/products/scan-to-grade-bundle-1200.jpg",
+   "category": "DeveloperApplication",
+   "related": [
+    "exam-sheet-builder",
+    "classroom-html-tools"
+   ],
+   "tier_note": "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development.",
+   "upsell": null,
+   "includes": {
+    "text": "Includes QR Answer-Sheet Cropper ($39) and OMR Auto-Grader ($59): $98 bought separately.",
+    "links": [
+     [
+      "QR Answer-Sheet Cropper",
+      "/products/qr-cropper/"
+     ],
+     [
+      "OMR Auto-Grader",
+      "/products/omr-auto-grader/"
+     ]
+    ]
+   },
+   "badge": "Save $19"
   },
   {
    "slug": "omr-auto-grader",
@@ -225,23 +370,52 @@
     [
      "Is it a subscription?",
      "No. One-time purchase, full source included."
+    ],
+    [
+     "Is there a commercial OMR library without AGPL terms?",
+     "Yes. This engine ships under the 207studio license with full source; MarkShark is AGPL and OpenMCR is GPL-3."
+    ],
+    [
+     "Which tier should I buy?",
+     "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development."
+    ],
+    [
+     "What do I get after paying?",
+     "A zip with the full source, README and runnable demo. Polar shows the download right after checkout and in the receipt email."
     ]
    ],
    "tiers": [
     {
      "name": "Personal",
      "price_usd": 59,
-     "url": "https://buy.polar.sh/polar_cl_xJBFocaAKSaFNLgPJ2VNceLFqkmxwm4coi0el0BvhI6"
+     "url": "https://buy.polar.sh/polar_cl_xJBFocaAKSaFNLgPJ2VNceLFqkmxwm4coi0el0BvhI6",
+     "lemonsqueezy_url": null,
+     "booth_url": null
     },
     {
      "name": "Commercial",
      "price_usd": 249,
-     "url": "https://buy.polar.sh/polar_cl_pqx1PzwSBoayvSaeHpmuLc64XiqSolIxeC1re3Q13oo"
+     "url": "https://buy.polar.sh/polar_cl_pqx1PzwSBoayvSaeHpmuLc64XiqSolIxeC1re3Q13oo",
+     "lemonsqueezy_url": null,
+     "booth_url": null
     }
    ],
    "image_webp_640": "/assets/products/omr-auto-grader-640.webp",
    "image_webp_1200": "/assets/products/omr-auto-grader-1200.webp",
-   "image_jpg": "/assets/products/omr-auto-grader-1200.jpg"
+   "image_jpg": "/assets/products/omr-auto-grader-1200.jpg",
+   "category": "DeveloperApplication",
+   "related": [
+    "scan-to-grade-bundle",
+    "qr-cropper"
+   ],
+   "tier_note": "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development.",
+   "upsell": {
+    "text": "Need both? The Scan-to-Grade Bundle has the QR Cropper and the OMR Auto-Grader together: $79 instead of $98 (save $19), or $299 instead of $398 for Commercial (save $99).",
+    "link": "/products/scan-to-grade-bundle/",
+    "link_text": "See the Scan-to-Grade Bundle"
+   },
+   "includes": null,
+   "badge": null
   },
   {
    "slug": "qr-cropper",
@@ -303,23 +477,52 @@
     [
      "What do I need to run it?",
      "Python 3.10+, opencv-python-headless and numpy on Windows, macOS or Linux. One-time purchase, full source included."
+    ],
+    [
+     "How do I crop answer boxes from scanned exams with a QR code in Python?",
+     "Print the QR on each sheet, scan the batch, and run the demo: each page is identified by its QR, deskewed to the template and cut into one image per answer cell."
+    ],
+    [
+     "Which tier should I buy?",
+     "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development."
+    ],
+    [
+     "What do I get after paying?",
+     "A zip with the full source, README and runnable demo. Polar shows the download right after checkout and in the receipt email."
     ]
    ],
    "tiers": [
     {
      "name": "Personal",
      "price_usd": 39,
-     "url": "https://buy.polar.sh/polar_cl_QnpaugxcXgYeD3NfSmdOoQIZ8s5NxWnsXHF250GoQDD"
+     "url": "https://buy.polar.sh/polar_cl_QnpaugxcXgYeD3NfSmdOoQIZ8s5NxWnsXHF250GoQDD",
+     "lemonsqueezy_url": null,
+     "booth_url": null
     },
     {
      "name": "Commercial",
      "price_usd": 149,
-     "url": "https://buy.polar.sh/polar_cl_LHfw7BoxPMPXDMx5scbvqxyWA0f2QWrbvO9CL0f3euT"
+     "url": "https://buy.polar.sh/polar_cl_LHfw7BoxPMPXDMx5scbvqxyWA0f2QWrbvO9CL0f3euT",
+     "lemonsqueezy_url": null,
+     "booth_url": null
     }
    ],
    "image_webp_640": "/assets/products/qr-cropper-640.webp",
    "image_webp_1200": "/assets/products/qr-cropper-1200.webp",
-   "image_jpg": "/assets/products/qr-cropper-1200.jpg"
+   "image_jpg": "/assets/products/qr-cropper-1200.jpg",
+   "category": "DeveloperApplication",
+   "related": [
+    "scan-to-grade-bundle",
+    "omr-auto-grader"
+   ],
+   "tier_note": "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development.",
+   "upsell": {
+    "text": "Need both? The Scan-to-Grade Bundle has the QR Cropper and the OMR Auto-Grader together: $79 instead of $98 (save $19), or $299 instead of $398 for Commercial (save $99).",
+    "link": "/products/scan-to-grade-bundle/",
+    "link_text": "See the Scan-to-Grade Bundle"
+   },
+   "includes": null,
+   "badge": null
   },
   {
    "slug": "voice-command-engine",
@@ -376,23 +579,48 @@
     [
      "Does it need the cloud or Python?",
      "No. It runs locally with Rust 1.85 or newer, with no account, API key or Python. One-time purchase, full source included."
+    ],
+    [
+     "How do I stop background talk from triggering voice commands?",
+     "Gate commands by context. The engine estimates which phase the scene is in (lesson, meeting, shop floor) second by second from acoustic features and cues, and lets a command run, asks for a wake word, or blocks it. It runs offline as a Rust library and CLI."
+    ],
+    [
+     "Which tier should I buy?",
+     "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development."
+    ],
+    [
+     "What do I get after paying?",
+     "A zip with the full source, README and runnable demo. Polar shows the download right after checkout and in the receipt email."
     ]
    ],
    "tiers": [
     {
      "name": "Personal/Research",
      "price_usd": 29,
-     "url": "https://buy.polar.sh/polar_cl_wTaaxiMXwBpLPJBlzBKZ4xGAa4JTMz9kzp24r0g8L8Y"
+     "url": "https://buy.polar.sh/polar_cl_wTaaxiMXwBpLPJBlzBKZ4xGAa4JTMz9kzp24r0g8L8Y",
+     "lemonsqueezy_url": null,
+     "booth_url": null
     },
     {
      "name": "Commercial",
      "price_usd": 99,
-     "url": "https://buy.polar.sh/polar_cl_mCFCRFkwWmVTk9k5xz4YeJUkURL9oVwEzz8nv3I7uAZ"
+     "url": "https://buy.polar.sh/polar_cl_mCFCRFkwWmVTk9k5xz4YeJUkURL9oVwEzz8nv3I7uAZ",
+     "lemonsqueezy_url": null,
+     "booth_url": null
     }
    ],
    "image_webp_640": "/assets/products/voice-command-engine-640.webp",
    "image_webp_1200": "/assets/products/voice-command-engine-1200.webp",
-   "image_jpg": "/assets/products/voice-command-engine-1200.jpg"
+   "image_jpg": "/assets/products/voice-command-engine-1200.jpg",
+   "category": "DeveloperApplication",
+   "related": [
+    "pptx-player-sdk",
+    "padsway-core-sdk"
+   ],
+   "tier_note": "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development.",
+   "upsell": null,
+   "includes": null,
+   "badge": null
   },
   {
    "slug": "shapefit",
@@ -444,23 +672,48 @@
     [
      "Is it a subscription?",
      "No. One-time purchase, full source included."
+    ],
+    [
+     "Is there a PencilKit shape-snapping library without ML or MAU limits?",
+     "Yes. ShapeFit is pure geometry: no model, no per-user limits, zero dependencies, with a Rust crate and a Swift file that give identical results."
+    ],
+    [
+     "Which tier should I buy?",
+     "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development."
+    ],
+    [
+     "What do I get after paying?",
+     "A zip with the full source, README and runnable demo. Polar shows the download right after checkout and in the receipt email."
     ]
    ],
    "tiers": [
     {
      "name": "Personal",
      "price_usd": 9,
-     "url": "https://buy.polar.sh/polar_cl_tZQVB8rHo2KdpUwZrUmXr80Sb6RO9xRNwV3qZ2jd3xV"
+     "url": "https://buy.polar.sh/polar_cl_tZQVB8rHo2KdpUwZrUmXr80Sb6RO9xRNwV3qZ2jd3xV",
+     "lemonsqueezy_url": null,
+     "booth_url": null
     },
     {
      "name": "Commercial",
      "price_usd": 29,
-     "url": "https://buy.polar.sh/polar_cl_sgn4wIILsccvCLPOfmephnAIJCKoh7Q8WHWrp2iJFdE"
+     "url": "https://buy.polar.sh/polar_cl_sgn4wIILsccvCLPOfmephnAIJCKoh7Q8WHWrp2iJFdE",
+     "lemonsqueezy_url": null,
+     "booth_url": null
     }
    ],
    "image_webp_640": "/assets/products/shapefit-640.webp",
    "image_webp_1200": "/assets/products/shapefit-1200.webp",
-   "image_jpg": "/assets/products/shapefit-1200.jpg"
+   "image_jpg": "/assets/products/shapefit-1200.jpg",
+   "category": "DeveloperApplication",
+   "related": [
+    "padsway-core-sdk",
+    "pptx-player-sdk"
+   ],
+   "tier_note": "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development.",
+   "upsell": null,
+   "includes": null,
+   "badge": null
   },
   {
    "slug": "exam-sheet-builder",
@@ -499,10 +752,6 @@
    ],
    "faq": [
     [
-     "Can I make an OMR answer sheet that matches my exam automatically?",
-     "Yes. The bubble sheet is generated from the same exam data as the paper and the answer key, so they always match."
-    ],
-    [
      "Does it need an account or install?",
      "No. The editor is a single HTML file that opens with a double-click, with live preview and autosave."
     ],
@@ -517,23 +766,48 @@
     [
      "How do I print?",
      "A4 through the browser; save as PDF from the print dialog. One-time purchase, full source included."
+    ],
+    [
+     "Can I make an OMR answer sheet that matches my exam automatically?",
+     "Yes. The exam paper, OMR sheet, answer key, explanations and cover all come from one exam file, so they always match."
+    ],
+    [
+     "Which tier should I buy?",
+     "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development."
+    ],
+    [
+     "What do I get after paying?",
+     "A zip with the full source, README and runnable demo. Polar shows the download right after checkout and in the receipt email."
     ]
    ],
    "tiers": [
     {
      "name": "Personal",
      "price_usd": 12,
-     "url": "https://buy.polar.sh/polar_cl_N7RdBS3uUXglH4Kk6ei4gjn42J2ehQxT18EvN372jsJ"
+     "url": "https://buy.polar.sh/polar_cl_N7RdBS3uUXglH4Kk6ei4gjn42J2ehQxT18EvN372jsJ",
+     "lemonsqueezy_url": null,
+     "booth_url": null
     },
     {
      "name": "Commercial",
      "price_usd": 35,
-     "url": "https://buy.polar.sh/polar_cl_tctZA7z5EjURT3yPhV4ozdQQxZwfjJLyn8MVX3Ab9BE"
+     "url": "https://buy.polar.sh/polar_cl_tctZA7z5EjURT3yPhV4ozdQQxZwfjJLyn8MVX3Ab9BE",
+     "lemonsqueezy_url": null,
+     "booth_url": null
     }
    ],
    "image_webp_640": "/assets/products/exam-sheet-builder-640.webp",
    "image_webp_1200": "/assets/products/exam-sheet-builder-1200.webp",
-   "image_jpg": "/assets/products/exam-sheet-builder-1200.jpg"
+   "image_jpg": "/assets/products/exam-sheet-builder-1200.jpg",
+   "category": "EducationalApplication",
+   "related": [
+    "omr-auto-grader",
+    "classroom-html-tools"
+   ],
+   "tier_note": "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development.",
+   "upsell": null,
+   "includes": null,
+   "badge": null
   },
   {
    "slug": "classroom-html-tools",
@@ -590,23 +864,54 @@
     [
      "Is it a subscription?",
      "No. One-time purchase, full source included."
+    ],
+    [
+     "Which tier should I buy?",
+     "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development."
+    ],
+    [
+     "What do I get after paying?",
+     "A zip with the full source, README and runnable demo. Polar shows the download right after checkout and in the receipt email."
     ]
    ],
    "tiers": [
     {
      "name": "Teacher",
      "price_usd": 9,
-     "url": "https://buy.polar.sh/polar_cl_QTRPbU8ny7asrhpuYWkaZ1I3wGILT2qXKlIUG1ZQ3Ue"
+     "url": "https://buy.polar.sh/polar_cl_QTRPbU8ny7asrhpuYWkaZ1I3wGILT2qXKlIUG1ZQ3Ue",
+     "lemonsqueezy_url": null,
+     "booth_url": null
     },
     {
      "name": "School",
      "price_usd": 19,
-     "url": "https://buy.polar.sh/polar_cl_6CQvHSVi6j8a5Z5bNYTC1rEoeprhab1xfob2J06on67"
+     "url": "https://buy.polar.sh/polar_cl_6CQvHSVi6j8a5Z5bNYTC1rEoeprhab1xfob2J06on67",
+     "lemonsqueezy_url": null,
+     "booth_url": null
     }
    ],
    "image_webp_640": "/assets/products/classroom-html-tools-640.webp",
    "image_webp_1200": "/assets/products/classroom-html-tools-1200.webp",
-   "image_jpg": "/assets/products/classroom-html-tools-1200.jpg"
+   "image_jpg": "/assets/products/classroom-html-tools-1200.jpg",
+   "category": "EducationalApplication",
+   "related": [
+    "exam-sheet-builder",
+    "scan-to-grade-bundle"
+   ],
+   "tier_note": "Both tiers include the same full source and the same license, which allows use in your own personal or commercial projects. Pick the higher tier if your company or school is buying, or to support further development.",
+   "upsell": null,
+   "includes": null,
+   "badge": null
   }
- ]
+ ],
+ "organization": {
+  "name": "207 Studio",
+  "url": "https://207studio.dev",
+  "email": "kiwigod@207studio.dev",
+  "country": "KR",
+  "sameAs": [
+   "https://github.com/207studio",
+   "https://dev.to/207studio"
+  ]
+ }
 }
