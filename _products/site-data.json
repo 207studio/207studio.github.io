@@ -1,0 +1,608 @@
+{
+ "base_url": "https://207studio.dev",
+ "last_updated": "2026-10-18",
+ "support_email": "kiwigod@207studio.dev",
+ "listing": {
+  "title": "Products – Developer Kits and Classroom Tools | 207 Studio",
+  "description": "Developer kits and classroom tools from 207 Studio (207studio.dev), South Korea: PPTX player, OMR grading, voice commands, exam sheets. One-time purchase.",
+  "h1": "Products",
+  "intro": "Developer kits and classroom tools from a working teacher. One-time purchase, full source."
+ },
+ "products": [
+  {
+   "slug": "pptx-player-sdk",
+   "name": "PPTX Player SDK",
+   "audience": "developers",
+   "title": "PPTX Player SDK – Play PowerPoint in the Browser, Animations Intact",
+   "description": "Client-side JS engine that plays .pptx click-by-click: build animations, morph, media, offline. No server, no Office. One-time $14, source included.",
+   "summary": "Play PowerPoint in the browser with every animation: a client-side PPTX to HTML/SVG engine that works offline.",
+   "what": "PPTX Player SDK is a client-side JavaScript engine that renders PowerPoint .pptx decks to HTML and SVG and plays them click by click: entrance, exit and emphasis effects, morph transitions and embedded media. It runs offline in any modern browser or WebView, with no server conversion and no Office install. Full source included.",
+   "quickstart": [
+    "python3 -m http.server 8000",
+    "open http://localhost:8000/demo.html",
+    "press → or Space to step through the deck"
+   ],
+   "compare": [
+    [
+     "@web-ppt/viewer-core",
+     "Free npm package",
+     "Click animations and 41 transitions"
+    ],
+    [
+     "pptx-viewer (ChristopherVR)",
+     "Free open source",
+     "39 animation presets, 57 transitions including Morph"
+    ],
+    [
+     "SlideKiln",
+     "Hosted conversion API",
+     "Free 2 conversions/month, Pro $29/month"
+    ],
+    [
+     "Aspose.Slides",
+     "Server-side SDK",
+     "From $999"
+    ],
+    [
+     "PPTX Player SDK",
+     "Client-side engine, source included",
+     "$14 one-time; plays offline in the browser or a WKWebView"
+    ]
+   ],
+   "faq": [
+    [
+     "Can I play a PowerPoint file in the browser with its animations?",
+     "Yes. The engine renders each slide to HTML/SVG and steps through the click sequence: entrance, exit and emphasis effects, morph transitions and media."
+    ],
+    [
+     "Does it need a server or Microsoft Office?",
+     "No. Everything runs client-side. Serve the player folder from any static web server and open it in a browser."
+    ],
+    [
+     "Does it work offline or inside a native app?",
+     "Yes. It runs offline, and on iOS, iPadOS and macOS you can load the same folder in a WKWebView. Android and Electron WebViews work the same way."
+    ],
+    [
+     "What happens with a slide whose XML is broken?",
+     "The engine repairs stray & characters and plays the slide normally. If the XML is still broken, it renders what it can and reports an error instead of dropping the slide silently."
+    ],
+    [
+     "Is it a subscription?",
+     "No. One-time purchase, full source included."
+    ]
+   ],
+   "tiers": [
+    {
+     "name": "Developer",
+     "price_usd": 14,
+     "url": "https://buy.polar.sh/polar_cl_75Don0VoNVcrgJ7mx9b32yZq5v4ZydBu37uwN1getXd"
+    },
+    {
+     "name": "Commercial",
+     "price_usd": 129,
+     "url": "https://buy.polar.sh/polar_cl_6i0GKBLIeSNUMjqLDt8U9dAVfJxnGIrx7j5qf36gWcX"
+    }
+   ],
+   "image_webp_640": "/assets/products/pptx-player-sdk-640.webp",
+   "image_webp_1200": "/assets/products/pptx-player-sdk-1200.webp",
+   "image_jpg": "/assets/products/pptx-player-sdk-1200.jpg"
+  },
+  {
+   "slug": "scan-to-grade-bundle",
+   "name": "Scan-to-Grade Bundle (Cropper + OMR)",
+   "audience": "developers",
+   "title": "Scan-to-Grade: Scanned Exams → Excel Gradebook (Python)",
+   "description": "Cropper + OMR grader together: drop in a scanner batch, get an Excel gradebook. Runs offline; student data never leaves your PC. One-time, source.",
+   "summary": "QR Cropper and OMR Auto-Grader together: a scanned batch in, an Excel gradebook out.",
+   "what": "Scan-to-Grade is a Python package that turns a batch of scanned answer sheets into an Excel gradebook. It reads the QR on each page, pairs fronts and backs, deskews and crops every answer cell, grades bubbles, multi-answer marks, O/X parts and ordering bubbles, and writes scores, item analysis and a re-check list. It runs offline.",
+   "quickstart": [
+    "pip install -r requirements.txt",
+    "python demo.py",
+    "open out/"
+   ],
+   "compare": [
+    [
+     "Remark Office OMR",
+     "Desktop OMR software",
+     "$1,195–$1,295"
+    ],
+    [
+     "Gradient",
+     "OMR grading service",
+     "$149.99/year"
+    ],
+    [
+     "OMRChecker",
+     "Free open source (MIT)",
+     "Bubble grading; you build the scan-to-Excel pipeline"
+    ],
+    [
+     "EUI OMR Engine",
+     "Free open source",
+     "OMR with Excel roster write-back"
+    ],
+    [
+     "Scan-to-Grade Bundle",
+     "Python package, source included",
+     "$79 one-time; QR page sorting, cropping, grading and Excel export in one"
+    ]
+   ],
+   "faq": [
+    [
+     "Can I turn scanned paper tests into an Excel gradebook automatically?",
+     "Yes. Drop the scanner batch in a folder and run it. You get gradebook.xlsx with scores, item analysis and a re-check list, plus results.json and recheck.csv."
+    ],
+    [
+     "Does student data leave my computer?",
+     "No. It runs offline on Windows, macOS or Linux. Nothing is uploaded."
+    ],
+    [
+     "Can the pages be scanned in any order or rotation?",
+     "Yes. Each page carries a QR, so mixed batches, back sides and 90/180/270-degree turns are sorted out automatically."
+    ],
+    [
+     "Does it grade handwriting or essays?",
+     "No. Short answers, essays and handwriting stay with the teacher, who sees the cropped cell images."
+    ],
+    [
+     "What do I need to run it?",
+     "Python 3.10+, opencv-python-headless, numpy and openpyxl. One-time purchase, full source included."
+    ]
+   ],
+   "tiers": [
+    {
+     "name": "Personal",
+     "price_usd": 79,
+     "url": "https://buy.polar.sh/polar_cl_8xf9e2PzkppWPIh7ZQ339nUMWpKB2jNuTtbqm3pruPj"
+    },
+    {
+     "name": "Commercial",
+     "price_usd": 299,
+     "url": "https://buy.polar.sh/polar_cl_DrRGNlKtA1G62gZFWa1OcfYSAXcrPIQmmi7Qb1492lC"
+    }
+   ],
+   "image_webp_640": "/assets/products/scan-to-grade-bundle-640.webp",
+   "image_webp_1200": "/assets/products/scan-to-grade-bundle-1200.webp",
+   "image_jpg": "/assets/products/scan-to-grade-bundle-1200.jpg"
+  },
+  {
+   "slug": "omr-auto-grader",
+   "name": "Answer Sheet OMR & Auto-Grader",
+   "audience": "developers",
+   "title": "OMR Auto-Grader – Bubbles, O/X, Circled Words, Ordering",
+   "description": "Python OMR that grades bubbles, multi-marks, O/X and circled answers, fills only confident grades, never overwrites teacher marks. One-time purchase.",
+   "summary": "Reads bubbles, circled words, O/X boxes and ordering marks on scanned sheets, and fills in only the grades it is sure of.",
+   "what": "Answer Sheet OMR & Auto-Grader is a Python OMR engine for scanned answer sheets. Beyond A–E bubbles, it reads multi-answer marks, circled words, O/X boxes and ordering bubbles. It fills in only grades it is confident about, never overwrites a mark a teacher already made, and sends the rest to a re-check list. Runnable demo exports to Excel.",
+   "quickstart": [
+    "pip install -r requirements.txt",
+    "python demo.py",
+    "open out/"
+   ],
+   "compare": [
+    [
+     "OMRChecker",
+     "Free open source (MIT)",
+     "Bubble sheets"
+    ],
+    [
+     "MarkShark",
+     "Open source (AGPL)",
+     "Commercial terms by contact"
+    ],
+    [
+     "Aspose.OMR",
+     "SDK",
+     "From $599 (Small Business $839, OEM $2,517)"
+    ],
+    [
+     "LEADTOOLS OMR",
+     "SDK",
+     "$795"
+    ],
+    [
+     "OMR Auto-Grader",
+     "Python engine, source included",
+     "$59 one-time; O/X, circled words, ordering; keeps teacher marks"
+    ]
+   ],
+   "faq": [
+    [
+     "Which mark types can it read?",
+     "Single and multi-answer bubbles, circled words, O/X boxes and ordering bubbles."
+    ],
+    [
+     "Will it overwrite grades a teacher already entered?",
+     "No. It fills only confident grades, keeps existing teacher marks and lists any disagreement for re-checking."
+    ],
+    [
+     "Is there an open-source alternative?",
+     "Yes, for example OMRChecker (MIT) for bubble sheets. This engine adds O/X, circled-word and ordering items and the confident-only grading rule."
+    ],
+    [
+     "Does it work with my scanner?",
+     "It works on scanned images from any scanner. Pair it with the QR Cropper, or get both in the Scan-to-Grade Bundle."
+    ],
+    [
+     "Is it a subscription?",
+     "No. One-time purchase, full source included."
+    ]
+   ],
+   "tiers": [
+    {
+     "name": "Personal",
+     "price_usd": 59,
+     "url": "https://buy.polar.sh/polar_cl_xJBFocaAKSaFNLgPJ2VNceLFqkmxwm4coi0el0BvhI6"
+    },
+    {
+     "name": "Commercial",
+     "price_usd": 249,
+     "url": "https://buy.polar.sh/polar_cl_pqx1PzwSBoayvSaeHpmuLc64XiqSolIxeC1re3Q13oo"
+    }
+   ],
+   "image_webp_640": "/assets/products/omr-auto-grader-640.webp",
+   "image_webp_1200": "/assets/products/omr-auto-grader-1200.webp",
+   "image_jpg": "/assets/products/omr-auto-grader-1200.jpg"
+  },
+  {
+   "slug": "qr-cropper",
+   "name": "QR-Anchored Answer Sheet Cropper",
+   "audience": "developers",
+   "title": "QR Answer-Sheet Cropper – Python: Crop Every Answer Box",
+   "description": "Print a QR on each page, scan a mixed batch, get every answer cell as an aligned image. Python + OpenCV, runnable demo, one-time purchase.",
+   "summary": "Print a QR on each sheet, scan a mixed batch, and get every answer cell back as a clean, aligned image.",
+   "what": "QR-Anchored Answer Sheet Cropper is a Python and OpenCV tool for scanned exams. Print a small QR on each sheet and drop in a mixed scanner batch. It identifies each page by its QR, pairs fronts and backs, corrects rotation and skew, and crops every answer cell into a clean, aligned image at about 200 dpi. It runs offline.",
+   "quickstart": [
+    "pip install -r requirements.txt",
+    "python demo.py",
+    "open out/"
+   ],
+   "compare": [
+    [
+     "Stack Overflow / OpenCV forum recipes",
+     "Free code snippets",
+     "QR-anchored perspective warp; you write the rest"
+    ],
+    [
+     "OMR projects (rbaron/omr, OMR-Grader)",
+     "Free open source",
+     "Bubble grading"
+    ],
+    [
+     "Dynamsoft Document Normalizer",
+     "SDK",
+     "From $1,249/year"
+    ],
+    [
+     "Aspose.OMR",
+     "SDK",
+     "From $599"
+    ],
+    [
+     "QR Answer-Sheet Cropper",
+     "Python package, source included",
+     "$39 one-time; batch sorting, front/back pairing and cell cropping"
+    ]
+   ],
+   "faq": [
+    [
+     "How do I crop answer regions from scanned exam sheets with a QR code?",
+     "Print the QR payload on each sheet, scan the batch and run the cropper. It reads the QR in the page corners, warps each answer table to a millimetre grid and cuts every cell."
+    ],
+    [
+     "Can I sort a mixed scanner batch by student?",
+     "Yes. Pages are grouped into front/back pairs per student from their QR codes. Pages from another exam are reported as stray."
+    ],
+    [
+     "Does rotation or skew matter?",
+     "No. It handles skew and 90/180/270-degree turns."
+    ],
+    [
+     "What scan resolution do I need?",
+     "150 dpi or higher. The demo uses 200 dpi."
+    ],
+    [
+     "What do I need to run it?",
+     "Python 3.10+, opencv-python-headless and numpy on Windows, macOS or Linux. One-time purchase, full source included."
+    ]
+   ],
+   "tiers": [
+    {
+     "name": "Personal",
+     "price_usd": 39,
+     "url": "https://buy.polar.sh/polar_cl_QnpaugxcXgYeD3NfSmdOoQIZ8s5NxWnsXHF250GoQDD"
+    },
+    {
+     "name": "Commercial",
+     "price_usd": 149,
+     "url": "https://buy.polar.sh/polar_cl_LHfw7BoxPMPXDMx5scbvqxyWA0f2QWrbvO9CL0f3euT"
+    }
+   ],
+   "image_webp_640": "/assets/products/qr-cropper-640.webp",
+   "image_webp_1200": "/assets/products/qr-cropper-1200.webp",
+   "image_jpg": "/assets/products/qr-cropper-1200.jpg"
+  },
+  {
+   "slug": "voice-command-engine",
+   "name": "Context-Aware Voice Command Engine",
+   "audience": "developers",
+   "title": "Context-Gated Voice Commands – Swift + Python, Offline",
+   "description": "Knows what's happening (lecture, Q&A, group work…) second by second and accepts only commands that fit, ignoring background talk. Sticky HMM, no cloud.",
+   "summary": "Infers the current situation from live audio and accepts only the voice commands that fit it, cutting false triggers.",
+   "what": "Context-Aware Voice Command Engine infers the current situation from live audio, second by second, and uses it to decide which utterances should count as voice commands. Background talk that does not fit the situation is ignored, which cuts false triggers. It ships with a 13-situation classroom model as the reference example and a simulator that reports detection latency and false switches.",
+   "quickstart": [],
+   "compare": [
+    [
+     "Picovoice Rhino",
+     "On-device speech-to-intent",
+     "Free non-commercial (1 MAU); Foundation $6,000/year"
+    ],
+    [
+     "Research papers",
+     "Methods only",
+     "No packaged product"
+    ],
+    [
+     "Hobby voice-command repos",
+     "Free open source",
+     "Fixed command grammars, no situation model"
+    ],
+    [
+     "Context-Aware Voice Command Engine",
+     "Engine and simulator, source included",
+     "$29 one-time; gates commands by the detected situation, offline"
+    ]
+   ],
+   "faq": [
+    [
+     "How do I reduce false voice command triggers in a noisy room?",
+     "Gate commands by context. The engine tracks which situation is active and accepts only the commands that fit it."
+    ],
+    [
+     "How does it detect the situation?",
+     "A sticky hidden Markov model with change-point filtering estimates the active situation from acoustic features, second by second."
+    ],
+    [
+     "Does it need the cloud?",
+     "No. It runs locally, with no account or API key."
+    ],
+    [
+     "Can I model situations other than a classroom?",
+     "Yes. The classroom model is the reference example; you can define your own situations and command rules."
+    ],
+    [
+     "Is it a subscription?",
+     "No. One-time purchase, full source included."
+    ]
+   ],
+   "tiers": [
+    {
+     "name": "Personal/Research",
+     "price_usd": 29,
+     "url": "https://buy.polar.sh/polar_cl_wTaaxiMXwBpLPJBlzBKZ4xGAa4JTMz9kzp24r0g8L8Y"
+    },
+    {
+     "name": "Commercial",
+     "price_usd": 99,
+     "url": "https://buy.polar.sh/polar_cl_mCFCRFkwWmVTk9k5xz4YeJUkURL9oVwEzz8nv3I7uAZ"
+    }
+   ],
+   "image_webp_640": "/assets/products/voice-command-engine-640.webp",
+   "image_webp_1200": "/assets/products/voice-command-engine-1200.webp",
+   "image_jpg": "/assets/products/voice-command-engine-1200.jpg"
+  },
+  {
+   "slug": "shapefit",
+   "name": "ShapeFit Hold-to-Shape",
+   "audience": "developers",
+   "title": "ShapeFit – Apple Notes-Style Hold-to-Shape for Swift & Rust",
+   "description": "Pause on a stroke and it snaps to a clean line, circle, rectangle or polygon. No ML, no MAU limits, zero dependencies. PencilKit-ready. $9, source.",
+   "summary": "Turn a hand-drawn stroke into a clean line, circle, rectangle or polygon when the user pauses, for your own drawing app.",
+   "what": "ShapeFit adds the hold-to-shape gesture from Apple Notes and GoodNotes to your own drawing app. When the user pauses at the end of a stroke, it snaps to a clean line, circle, ellipse, rectangle, triangle or polygon, and leaves scribbles alone. Pure geometry, no ML model, zero dependencies: a Rust crate plus a drop-in Swift file with identical results.",
+   "quickstart": [
+    "cargo test",
+    "cargo run --bin shapefit-demo",
+    "open out/shapes.svg"
+   ],
+   "compare": [
+    [
+     "Desert Ant Labs Shapes",
+     "Swift SDK with an ML model",
+     "Free up to 100k MAU"
+    ],
+    [
+     "guessture, $P stroke recognizers",
+     "Free Rust crates",
+     "Gesture recognizers, not shape beautification"
+    ],
+    [
+     "ShapeFit",
+     "Rust crate + Swift file, source included",
+     "$9 one-time; no ML, no MAU limits, identical Rust and Swift output"
+    ]
+   ],
+   "faq": [
+    [
+     "How do I add Apple Notes-style hold-to-shape to my app?",
+     "Feed the stroke points to ShapeFit when the pen pauses. It returns a clean shape, or leaves the stroke alone if it is a scribble."
+    ],
+    [
+     "Does it work with PencilKit?",
+     "Yes. The Swift file works with PencilKit or any canvas."
+    ],
+    [
+     "Which shapes does it recognise?",
+     "Lines with 45° snap, circles and ellipses, upright rectangles, triangles and polygons up to 6 corners."
+    ],
+    [
+     "Does it use machine learning?",
+     "No. It is pure geometry with zero dependencies and no training data. The Rust and Swift versions give identical results, checked on 600 strokes."
+    ],
+    [
+     "Is it a subscription?",
+     "No. One-time purchase, full source included."
+    ]
+   ],
+   "tiers": [
+    {
+     "name": "Personal",
+     "price_usd": 9,
+     "url": "https://buy.polar.sh/polar_cl_tZQVB8rHo2KdpUwZrUmXr80Sb6RO9xRNwV3qZ2jd3xV"
+    },
+    {
+     "name": "Commercial",
+     "price_usd": 29,
+     "url": "https://buy.polar.sh/polar_cl_sgn4wIILsccvCLPOfmephnAIJCKoh7Q8WHWrp2iJFdE"
+    }
+   ],
+   "image_webp_640": "/assets/products/shapefit-640.webp",
+   "image_webp_1200": "/assets/products/shapefit-1200.webp",
+   "image_jpg": "/assets/products/shapefit-1200.jpg"
+  },
+  {
+   "slug": "exam-sheet-builder",
+   "name": "Exam & OMR Sheet Builder",
+   "audience": "teachers",
+   "title": "Exam + OMR Sheet Builder – Paper, Bubble Sheet, Key in Sync",
+   "description": "Write an exam once; print the paper, OMR sheet, answer key, explanations and cover, always matching. Offline single file + MCP server for AI. $12.",
+   "summary": "Write an exam once and print a matching exam paper, OMR answer sheet, answer key, explanation sheet and cover page.",
+   "what": "Exam & OMR Sheet Builder lets you write an exam once and print five matching documents: the exam paper, an OMR bubble answer sheet, the answer key, an explanation sheet and a cover page. All five come from the same data, so they never disagree. The editor is a single offline HTML file, and an MCP server lets an AI assistant draft exams.",
+   "quickstart": [
+    "node build.mjs examples/demo-science-en.json out",
+    "open out/exam.html",
+    "node build-standalone.mjs"
+   ],
+   "compare": [
+    [
+     "EdFleet",
+     "Free web exam paper maker",
+     "Exam paper"
+    ],
+    [
+     "PuzzlePage",
+     "Free web generator",
+     "Bubble sheet"
+    ],
+    [
+     "Sigma Prep MCP",
+     "Free MCP server",
+     "AI worksheet generation"
+    ],
+    [
+     "Exam & OMR Sheet Builder",
+     "Single offline file + MCP server, source included",
+     "$12 one-time; paper, OMR sheet, key, explanations and cover from one file"
+    ]
+   ],
+   "faq": [
+    [
+     "Can I make an OMR answer sheet that matches my exam automatically?",
+     "Yes. The bubble sheet is generated from the same exam data as the paper and the answer key, so they always match."
+    ],
+    [
+     "Does it need an account or install?",
+     "No. The editor is a single HTML file that opens with a double-click, with live preview and autosave."
+    ],
+    [
+     "Which question types are supported?",
+     "Passages, images, tables, graphs, multiple choice with any number of options, short answer, essay, blanks and ordering."
+    ],
+    [
+     "Can an AI assistant build exams with it?",
+     "Yes. The included MCP server lets an AI assistant draft, validate and render exams with the same renderer."
+    ],
+    [
+     "How do I print?",
+     "A4 through the browser; save as PDF from the print dialog. One-time purchase, full source included."
+    ]
+   ],
+   "tiers": [
+    {
+     "name": "Personal",
+     "price_usd": 12,
+     "url": "https://buy.polar.sh/polar_cl_N7RdBS3uUXglH4Kk6ei4gjn42J2ehQxT18EvN372jsJ"
+    },
+    {
+     "name": "Commercial",
+     "price_usd": 35,
+     "url": "https://buy.polar.sh/polar_cl_tctZA7z5EjURT3yPhV4ozdQQxZwfjJLyn8MVX3Ab9BE"
+    }
+   ],
+   "image_webp_640": "/assets/products/exam-sheet-builder-640.webp",
+   "image_webp_1200": "/assets/products/exam-sheet-builder-1200.webp",
+   "image_jpg": "/assets/products/exam-sheet-builder-1200.jpg"
+  },
+  {
+   "slug": "classroom-html-tools",
+   "name": "Classroom HTML Tools",
+   "audience": "teachers",
+   "title": "Offline Classroom Tools – Seating, Attendance, PACER Timer",
+   "description": "Four single-file HTML tools: seating + attendance board, weekly attendance to Excel, PACER beep test recorder, Wi-Fi QR cards. No account. $9.",
+   "summary": "Four single-file classroom tools: a seating chart with attendance, a morning board, a fitness test recorder and Wi-Fi QR cards.",
+   "what": "Classroom HTML Tools is four single-file classroom tools that open with a double-click: a drag-and-drop seating chart with attendance, a morning board that exports a weekly attendance log to Excel, a PACER beep test timer and fitness test recorder, and printable Wi-Fi QR cards. No install, no account, no server; data stays in the browser.",
+   "quickstart": [
+    "open the fitness recorder and press Start",
+    "paste the sample roster into the class board",
+    "export a JSON backup"
+   ],
+   "compare": [
+    [
+     "TpT Smart Seating Chart Generator",
+     "Single-file HTML",
+     "$5.00, seating only"
+    ],
+    [
+     "GOGO PACER tool",
+     "Free web app",
+     "PACER timer with roster tap-out, online"
+    ],
+    [
+     "RunTrak",
+     "Fitness test app",
+     "One-time purchase"
+    ],
+    [
+     "Classroom HTML Tools",
+     "Four offline HTML files, source included",
+     "$9 one-time; seating, attendance to Excel, PACER recorder, Wi-Fi QR cards"
+    ]
+   ],
+   "faq": [
+    [
+     "Is there an offline PACER beep test timer that records results?",
+     "Yes. The fitness test recorder has a PACER beep timer and records sit and reach, curl-up, long jump, height and weight, with CSV import and export."
+    ],
+    [
+     "Can I export daily attendance to Excel?",
+     "Yes. The morning board exports the attendance log to Excel, one sheet per week."
+    ],
+    [
+     "Does it need an account or internet?",
+     "No. Each tool is a single HTML file. Data stays in the browser, with JSON backup."
+    ],
+    [
+     "How do the Wi-Fi QR cards work?",
+     "Print cards for a student and a staff network; phones join by scanning. You can edit names and passwords in place."
+    ],
+    [
+     "Is it a subscription?",
+     "No. One-time purchase, full source included."
+    ]
+   ],
+   "tiers": [
+    {
+     "name": "Teacher",
+     "price_usd": 9,
+     "url": "https://buy.polar.sh/polar_cl_QTRPbU8ny7asrhpuYWkaZ1I3wGILT2qXKlIUG1ZQ3Ue"
+    },
+    {
+     "name": "School",
+     "price_usd": 19,
+     "url": "https://buy.polar.sh/polar_cl_6CQvHSVi6j8a5Z5bNYTC1rEoeprhab1xfob2J06on67"
+    }
+   ],
+   "image_webp_640": "/assets/products/classroom-html-tools-640.webp",
+   "image_webp_1200": "/assets/products/classroom-html-tools-1200.webp",
+   "image_jpg": "/assets/products/classroom-html-tools-1200.jpg"
+  }
+ ]
+}
