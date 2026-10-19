@@ -13,3 +13,7 @@
 - [ShapeFit – Hold-to-Shape for Swift & Rust](https://207studio.dev/products/shapefit/): Turn a hand-drawn stroke into a clean line, circle, rectangle or polygon when the user pauses, for your own drawing app.
 - [Exam + OMR Sheet Builder – Paper, Sheet & Key](https://207studio.dev/products/exam-sheet-builder/): Write an exam once and print a matching exam paper, OMR answer sheet, answer key, explanation sheet and cover page.
 - [Offline Classroom Tools – Seating, PACER Timer](https://207studio.dev/products/classroom-html-tools/): Four single-file classroom tools: a seating chart with attendance, a morning board, a fitness test recorder and Wi-Fi QR cards.
+
+## Writing
+
+- [How to play a PPTX in the browser (without PowerPoint)](https://207studio.dev/blog/play-pptx-in-browser/): Render a .pptx in the browser without a server or Office. What breaks the animations, three ways to do it, and how to test any viewer in five minutes.

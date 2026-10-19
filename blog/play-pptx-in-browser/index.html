@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#102b32">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%23102b32'/%3E%3Cpath d='M10 12h20v4L20 29h-6l10-13H10z' fill='%23d5f66b'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/products/products.css">
+<link rel="stylesheet" href="/blog/blog.css">
+<title>Play a PPTX in the browser without PowerPoint | 207 Studio</title>
+<meta name="description" content="Render a .pptx in the browser without a server or Office. What breaks the animations, three ways to do it, and how to test any viewer in five minutes.">
+<link rel="canonical" href="https://207studio.dev/blog/play-pptx-in-browser/">
+<meta property="og:title" content="Play a PPTX in the browser without PowerPoint | 207 Studio">
+<meta property="og:description" content="Render a .pptx in the browser without a server or Office. What breaks the animations, three ways to do it, and how to test any viewer in five minutes.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://207studio.dev/blog/play-pptx-in-browser/">
+<meta property="og:image" content="https://207studio.dev/assets/products/pptx-player-sdk-1200.jpg">
+<meta name="twitter:image" content="https://207studio.dev/assets/products/pptx-player-sdk-1200.jpg">
+<meta property="og:site_name" content="207 Studio">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<header class="site-header wrap"><a class="brand" href="/"><span class="brand-mark">207</span><span>STUDIO</span></a><nav aria-label="Main navigation"><a href="/">Home</a><a href="/products/">Products</a><a href="/blog/" aria-current="page">Writing</a></nav></header>
+<main class="wrap product-page blog-post">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/blog/">Writing</a> / <span>How to play a PPTX in the browser (without PowerPoint)</span></nav>
+<article class="prose">
+<h1>How to play a PPTX in the browser (without PowerPoint)</h1>
+<p class="post-meta">2026-10-20 · 207 Studio</p>
+<figure class="post-figure"><img src="/assets/products/pptx-player-sdk-1200.jpg" alt="PPTX Player SDK diagram: a slide stepped with click 1, click 2, then a morph transition" loading="eager"><figcaption>A deck steps the way PowerPoint plays it: click 1, click 2, then a morph transition between slides.</figcaption></figure>
+<h2>TL;DR</h2>
+<ul>
+<li>There are three ways to show a <code>.pptx</code> in a browser: render it client-side, convert it on your server, or embed a hosted viewer.</li>
+<li>Only client-side rendering keeps the click sequence, so if the deck has animations, that is the option to look at first.</li>
+<li>Test any viewer with one deck that has a morph transition, a font you do not ship, and a video. If the deck survives that, it will survive the real ones.</li>
+</ul>
+<h2>The short answer</h2>
+<p>You play a <code>.pptx</code> in the browser by unzipping the file, reading the slide XML, and drawing each shape as HTML or SVG in the order the animation timing tree says. That can happen in the browser (client-side), on your server before it reaches the browser, or inside a third-party viewer you link to. A <code>.pptx</code> is not a picture format, so how you convert it decides whether the deck still behaves like a presentation or turns into a stack of slides.</p>
+<h2>Why the animations break in the first place</h2>
+<p>A <code>.pptx</code> file is a zip of XML parts. Each slide has a shape tree that says what is drawn and a timing tree that says when each piece appears, moves, or leaves. Most browser converters read the shape tree and skip the timing tree, because drawing shapes is easy and replaying a timeline is not.</p>
+<p>Three more things go wrong on the way:</p>
+<p><strong>Fonts.</strong> The deck names fonts, it does not carry them. If the reader&#39;s machine does not have the font, text reflows, and anything anchored to a text box (connectors, badges, arrows) drifts away from it. Korean and Japanese decks hit this first.</p>
+<p><strong>Morph transitions.</strong> A morph is not a transition effect that can be dropped in. The renderer has to match shapes on the outgoing slide with shapes on the incoming slide and interpolate between them. Renderers that support 40 entrance effects can still fail here.</p>
+<p><strong>Media.</strong> Embedded video and audio live in separate parts of the package. A converter that outputs images drops them without telling you.</p>
+<h2>Three ways to do it</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Approach</th><th>What you ship</th><th>Keeps click animations</th><th>Works offline</th><th>What it costs</th></tr></thead>
+<tbody>
+<tr><td>Client-side render</td><td>A JS engine that reads the package and draws HTML/SVG</td><td>Yes, if the engine reads the timing tree</td><td>Yes</td><td>One-time licence, or free if you use an open source project and maintain it</td></tr>
+<tr><td>Server conversion</td><td>A converted deck pushed to the browser as HTML or images</td><td>Usually no</td><td>No, the browser needs your server</td><td>Server time and storage per deck</td></tr>
+<tr><td>Hosted viewer</td><td>An embed or a link to someone else&#39;s viewer</td><td>Depends on the vendor</td><td>No</td><td>Monthly plan or per-conversion quota</td></tr>
+</tbody>
+</table></div>
+<p>Server conversion and hosted viewers are fine when you only need to show slides, for example a preview thumbnail in a file picker. They are the wrong tool when the deck is the product, a lesson, or a sales pitch, because the thing people came for is the sequence.</p>
+<h2>How to test any viewer in five minutes</h2>
+<p>Do this before you read the pricing page. Build one test deck that contains all five of these:</p>
+<ol>
+<li>A slide pair with a morph transition between them.</li>
+<li>A text box in a font the test machine does not have. A Korean font is a good pick.</li>
+<li>One embedded video.</li>
+<li>A bulleted list where each bullet is a separate click entrance, then an exit effect on the whole list.</li>
+<li>A deliberately damaged file: put a stray <code>&amp;</code> inside a text box.</li>
+</ol>
+<p>Then watch for four things:</p>
+<ul>
+<li><strong>Order.</strong> Click through and compare against PowerPoint slide by slide. Out of order is worse than missing, because the reader notices.</li>
+<li><strong>Reflow.</strong> If the missing font changes line breaks, does the layout hold or do the boxes overlap?</li>
+<li><strong>Media.</strong> Does the video play, or is it a black rectangle?</li>
+<li><strong>Failure mode.</strong> On the damaged file, does the viewer show the slide it can render and say something, or does it go blank?</li>
+</ul>
+<p>That last one tells you how the rest of the integration will go. A viewer that fails silently will fail silently in front of your users too.</p>
+<h2>A minimal setup that runs offline</h2>
+<p>With a client-side engine, deployment is a folder of static files. No server conversion, no Office install, no network at run time.</p>
+<pre><code class="language-bash">python3 -m http.server 8000
+open http://localhost:8000/demo.html
+# then press the right arrow or Space to step through the deck</code></pre>
+<p>That is the whole loop while you evaluate. When you move it into an app, the same folder goes inside the bundle and loads in a <code>WKWebView</code> on iOS, iPadOS and macOS, or any Android or Electron WebView. There is nothing to call out to, so the deck keeps working on a school network with no internet.</p>
+<h2>What people get wrong</h2>
+<ul>
+<li><strong>Shipping the conversion, not the player.</strong> A converted deck looks right in a screenshot and dead in a demo.</li>
+<li><strong>Shipping the player without a font plan.</strong> Embed the fonts the deck needs, or accept silent reflow.</li>
+<li><strong>Testing with the default template.</strong> The default template has one font, no media and no morph. It hides every problem.</li>
+<li><strong>Treating PDF as an equivalent.</strong> A PDF loses the click sequence in the same way images do.</li>
+<li><strong>Loading over <code>file://</code>.</strong> Most engines fetch the package parts, and browsers block that from a local file. Serve from a static server, or bundle the folder so it loads as a resource.</li>
+<li><strong>Large decks.</strong> A 200 slide deck with a lot of images needs a release step or you will watch memory climb.</li>
+</ul>
+<h2>Free libraries, paid engines, and when each makes sense</h2>
+<p>Free options exist and they are real. <a href="https://www.npmjs.com/package/@web-ppt/viewer-core" rel="noopener"><code>@web-ppt/viewer-core</code></a> and <a href="https://github.com/ChristopherVR/pptx-viewer/" rel="noopener"><code>pptx-viewer</code></a> both render PPTX in the browser with click animations, and <a href="https://gitbrent.github.io/PptxGenJS/" rel="noopener"><code>PptxGenJS</code></a> is the common choice for the other direction, writing files. Server-side engines such as <a href="https://products.aspose.com/slides/" rel="noopener">Aspose.Slides</a> start at $999 according to their pricing page. If you want to see how a browser-native renderer handles the slide tree, <a href="https://ooxml.silurus.dev/pptx/" rel="noopener"><code>@silurus/ooxml</code></a> is a good read, and the <a href="https://stackoverflow.com/questions/64939067/best-way-to-read-pptx-with-javascript" rel="noopener">Stack Overflow thread on reading PPTX in JavaScript</a> is still the place where the hard parts get named.</p>
+<p>Pick a free library when you have someone who can maintain it. A viewer is a moving target: PowerPoint adds effects, and every fix lands in your fork. Pick a one-time source licence when you would rather own the engine than the maintenance. The $999 figure is Aspose&#39;s own starting price, so check their current tier list before you put it in a budget.</p>
+<p><a href="https://207studio.dev/products/pptx-player-sdk/" rel="noopener">PPTX Player SDK</a> is our client-side engine. It renders a deck to HTML and SVG and replays entrance, exit and emphasis effects, morph transitions and embedded media, offline, in a normal browser or a WebView. Full source is included, and the licence is one-time: $14 for one developer shipping it inside their own apps, $129 for a company where more than one person uses it, with priority email support. Neither tier lets you redistribute the source itself.</p>
+<h2>FAQ</h2>
+<details><summary>Can you play a PowerPoint file in a browser with its animations?</summary><p>Yes. The engine renders each slide to HTML or SVG and steps through the click sequence. Animations survive when the engine reads the timing tree in the file, which is the part most converters skip.</p></details>
+<details><summary>Do I need a server or Microsoft Office?</summary><p>Not for client-side rendering. The browser reads the <code>.pptx</code> package itself, so there is no conversion service and no Office install.</p></details>
+<details><summary>Does it work offline, or inside an iPad app?</summary><p>Yes. The same static folder runs offline in a browser and in a <code>WKWebView</code> on iOS, iPadOS and macOS, and in Android and Electron WebViews.</p></details>
+<details><summary>What happens when the file is broken?</summary><p>A deck with a stray <code>&amp;</code> in the text is repaired and plays normally. If the XML is still broken, the engine renders what it can and reports an error instead of dropping the slide silently.</p></details>
+<details><summary>Are the free libraries enough?</summary><p>They can be, if you are ready to maintain a fork. Check the animation and morph coverage in each README first, and test them with the five item deck above before you commit.</p></details>
+<details><summary>Which licence tier do I need?</summary><p>Developer at $14 is one developer, and you can ship the player inside your own paid or free apps as bundled code. Commercial at $129 is for a company or organisation where more than one person uses it, and adds priority email support. Both include the full source. Neither lets you share the source itself.</p></details>
+</article>
+</main>
+<footer class="site-footer wrap"><p>207 Studio (207studio.dev), South Korea. Support: <a href="mailto:kiwigod@207studio.dev">kiwigod@207studio.dev</a></p><p>Last updated 2026-10-18. © 2026 207 Studio</p></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://207studio.dev/blog/play-pptx-in-browser/#article","headline":"How to play a PPTX in the browser (without PowerPoint)","description":"Render a .pptx in the browser without a server or Office. What breaks the animations, three ways to do it, and how to test any viewer in five minutes.","datePublished":"2026-10-20","dateModified":"2026-10-20","author":{"@type":"Organization","name":"207 Studio","url":"https://207studio.dev/"},"publisher":{"@type":"Organization","name":"207 Studio","url":"https://207studio.dev/"},"mainEntityOfPage":"https://207studio.dev/blog/play-pptx-in-browser/","keywords":"webdev, javascript, pptx","image":"https://207studio.dev/assets/products/pptx-player-sdk-1200.jpg","inLanguage":"en"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Writing","item":"https://207studio.dev/blog/"},{"@type":"ListItem","position":2,"name":"How to play a PPTX in the browser (without PowerPoint)","item":"https://207studio.dev/blog/play-pptx-in-browser/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can you play a PowerPoint file in a browser with its animations?","acceptedAnswer":{"@type":"Answer","text":"Yes. The engine renders each slide to HTML or SVG and steps through the click sequence. Animations survive when the engine reads the timing tree in the file, which is the part most converters skip."}},{"@type":"Question","name":"Do I need a server or Microsoft Office?","acceptedAnswer":{"@type":"Answer","text":"Not for client-side rendering. The browser reads the `.pptx` package itself, so there is no conversion service and no Office install."}},{"@type":"Question","name":"Does it work offline, or inside an iPad app?","acceptedAnswer":{"@type":"Answer","text":"Yes. The same static folder runs offline in a browser and in a `WKWebView` on iOS, iPadOS and macOS, and in Android and Electron WebViews."}},{"@type":"Question","name":"What happens when the file is broken?","acceptedAnswer":{"@type":"Answer","text":"A deck with a stray `&` in the text is repaired and plays normally. If the XML is still broken, the engine renders what it can and reports an error instead of dropping the slide silently."}},{"@type":"Question","name":"Are the free libraries enough?","acceptedAnswer":{"@type":"Answer","text":"They can be, if you are ready to maintain a fork. Check the animation and morph coverage in each README first, and test them with the five item deck above before you commit."}},{"@type":"Question","name":"Which licence tier do I need?","acceptedAnswer":{"@type":"Answer","text":"Developer at $14 is one developer, and you can ship the player inside your own paid or free apps as bundled code. Commercial at $129 is for a company or organisation where more than one person uses it, and adds priority email support. Both include the full source. Neither lets you share the source itself."}}]}]}</script>
+</body>
+</html>
