@@ -1,6 +1,6 @@
 {
  "base_url": "https://207studio.dev",
- "last_updated": "2026-10-18",
+ "last_updated": "2026-10-19",
  "support_email": "kiwigod@207studio.dev",
  "listing": {
   "title": "Products – Developer Kits and Classroom Tools | 207 Studio",
@@ -899,6 +899,89 @@
     "scan-to-grade-bundle"
    ],
    "tier_note": "Teacher is for one teacher, in your own classes or inside your own paid or free products. School covers every teacher and staff member in one school and adds priority email support. Both include all four tools. One-time purchase.",
+   "upsell": null,
+   "includes": null,
+   "badge": null
+  },
+  {
+   "slug": "send-approval-gate-mcp",
+   "name": "Send Approval Gate MCP – Plan, Approve, Send, Verify",
+   "audience": "developers",
+   "title": "Send Approval Gate MCP – Plan, Approve, Send, Verify",
+   "description": "An MCP server that keeps an AI agent's sends exact and single: approval is bound to the body hash, recipient, account and environment. Node 22+, no dependencies, full source, one-time purchase.",
+   "summary": "Plan, approve, send, verify: the gate refuses when anything about the message changed or the result is unknown.",
+   "what": "Send Approval Gate MCP sits between an AI agent and a message-sending backend. The agent plans a message, an approval that matches that plan is required, and the gate dispatches it once and records the evidence. Approval is bound to the body hash, recipient, account and execution-environment hash, so any change needs a new approval. The same plan cannot be sent twice, an unknown send result is stored as result_unknown so nothing is resent, and missing evidence fails closed. The sending system is a plugin: a mock backend ships for tests and demos. It keeps a cooperative agent's sends exact, single and auditable; it is not a security boundary against an agent you do not trust.",
+   "quickstart": [
+    "node src/cli.mjs --backend mock status",
+    "node src/cli.mjs --backend mock plan-send --input \"$PWD/examples/mock-plan.json\"",
+    "node src/cli.mjs --backend-module \"$PWD/examples/example-backend.mjs\" --state-dir \"$PWD/.state\" mcp",
+    "node --test test/*.test.mjs"
+   ],
+   "compare": [
+    [
+     "Hand-rolled send tool",
+     "Your own code",
+     "No approval binding, no replay block, nothing recorded"
+    ],
+    [
+     "Manual review in chat",
+     "A person reads along",
+     "No hash binding; the message can change after the yes"
+    ],
+    [
+     "Send Approval Gate MCP",
+     "Node MCP server, source included",
+     "$29 one-time; approval bound to the body, duplicate blocked, fails closed"
+    ]
+   ],
+   "faq": [
+    [
+     "What does it actually prevent?",
+     "Changed content after approval, a second send of the same plan, and silent retries after an unknown result. Each of those needs a new planned message and a new approval."
+    ],
+    [
+     "Can it stop an agent that ignores the gate?",
+     "No. The approval is a value passed to send, so an agent that can call every tool can build a matching approval. It keeps a cooperative agent exact and auditable; for human-only approval, produce the approval somewhere the agent cannot reach."
+    ],
+    [
+     "Does it send messages by itself?",
+     "No. It calls a backend plugin that you supply; a mock backend ships for tests and demos. There is no messenger integration in the package."
+    ],
+    [
+     "What do I need to run it?",
+     "Node.js 22 or later. No runtime dependencies and no install step."
+    ],
+    [
+     "How is it licensed?",
+     "Developer is for one developer, including shipping it inside your own paid or free apps as compiled or bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. One-time purchase."
+    ],
+    [
+     "Where do refunds go?",
+     "Polar is the seller of record and handles refunds under its own policy; request it through your Polar order."
+    ]
+   ],
+   "tiers": [
+    {
+     "name": "Developer",
+     "price_usd": 29,
+     "url": "https://buy.polar.sh/polar_cl_pisramo6U68y8MnVzhsf8GEGaI9YAIbFTQsHo34ITnm",
+     "lemonsqueezy_url": null,
+     "booth_url": null
+    },
+    {
+     "name": "Commercial",
+     "price_usd": 99,
+     "url": "https://buy.polar.sh/polar_cl_LlYHKLJekKIlUW6LAdcbOkqzpo9zA6FoBFqgz43kFXg",
+     "lemonsqueezy_url": null,
+     "booth_url": null
+    }
+   ],
+   "image_webp_640": "/assets/products/send-approval-gate-mcp-640.webp",
+   "image_webp_1200": "/assets/products/send-approval-gate-mcp-1200.webp",
+   "image_jpg": "/assets/products/send-approval-gate-mcp-1200.jpg",
+   "category": "DeveloperApplication",
+   "related": [],
+   "tier_note": "Developer is for one developer, including shipping it inside their own paid or free apps as compiled or bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase.",
    "upsell": null,
    "includes": null,
    "badge": null

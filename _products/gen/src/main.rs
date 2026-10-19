@@ -626,11 +626,17 @@ fn render_llms(data: &SiteData) -> String {
         "# 207 Studio\n\n> Developer kits and classroom tools from 207 Studio (207studio.dev), South Korea. One-time purchase, full source.\n\n## Products\n\n",
     );
     for product in &data.products {
+        let prices: Vec<String> = product
+            .tiers
+            .iter()
+            .map(|tier| format!("{} ${}", tier.name, tier.price_usd))
+            .collect();
         out.push_str(&format!(
-            "- [{}]({}): {}\n",
+            "- [{}]({}): {} {} one-time.\n",
             product.name,
             canonical_product(&data.base_url, &product.slug),
-            product.summary
+            product.summary,
+            prices.join(" / ")
         ));
     }
     out
