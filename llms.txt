@@ -4,15 +4,15 @@
 
 ## Products
 
-- [PPTX Player SDK – Play PowerPoint in the Browser](https://207studio.dev/products/pptx-player-sdk/): Play PowerPoint in the browser with every animation: a client-side PPTX to HTML/SVG engine that works offline.
-- [PadswayCore SDK — Mac-to-iPad Screen Streaming](https://207studio.dev/products/padsway-core-sdk/): Put a live Mac screen on an iPad and send touch, keyboard, clipboard and dictation back: the streaming engine from a working Mac + iPad remote app, as a Swift package.
-- [Scan-to-Grade: Scanned Exams to Excel (Python)](https://207studio.dev/products/scan-to-grade-bundle/): QR Cropper and OMR Auto-Grader together: a scanned batch in, an Excel gradebook out.
-- [OMR Auto-Grader – Bubbles, O/X, Circled Answers](https://207studio.dev/products/omr-auto-grader/): Reads bubbles, circled words, O/X boxes and ordering marks on scanned sheets, and fills in only the grades it is sure of.
-- [QR Answer-Sheet Cropper – Crop Every Answer Box](https://207studio.dev/products/qr-cropper/): Print a QR on each sheet, scan a mixed batch, and get every answer cell back as a clean, aligned image.
-- [Context-Gated Voice Commands – Offline](https://207studio.dev/products/voice-command-engine/): A Rust library and CLI that infers the current situation from audio features and lets through only the voice commands that fit it.
-- [ShapeFit – Hold-to-Shape for Swift & Rust](https://207studio.dev/products/shapefit/): Turn a hand-drawn stroke into a clean line, circle, rectangle or polygon when the user pauses, for your own drawing app.
-- [Exam + OMR Sheet Builder – Paper, Sheet & Key](https://207studio.dev/products/exam-sheet-builder/): Write an exam once and print a matching exam paper, OMR answer sheet, answer key, explanation sheet and cover page.
-- [Offline Classroom Tools – Seating, PACER Timer](https://207studio.dev/products/classroom-html-tools/): Four single-file classroom tools: a seating chart with attendance, a morning board, a fitness test recorder and Wi-Fi QR cards.
+- [PPTX Player SDK – Play PowerPoint in the Browser](https://207studio.dev/products/pptx-player-sdk/): Play PowerPoint in the browser with every animation: a client-side PPTX to HTML/SVG engine that works offline. Prices: Developer $14 / Commercial $129.
+- [PadswayCore SDK — Mac-to-iPad Screen Streaming](https://207studio.dev/products/padsway-core-sdk/): Put a live Mac screen on an iPad and send touch, keyboard, clipboard and dictation back: the streaming engine from a working Mac + iPad remote app, as a Swift package. Prices: Commercial $129.
+- [Scan-to-Grade: Scanned Exams to Excel (Python)](https://207studio.dev/products/scan-to-grade-bundle/): QR Cropper and OMR Auto-Grader together: a scanned batch in, an Excel gradebook out. Prices: Personal $79 / Commercial $299.
+- [OMR Auto-Grader – Bubbles, O/X, Circled Answers](https://207studio.dev/products/omr-auto-grader/): Reads bubbles, circled words, O/X boxes and ordering marks on scanned sheets, and fills in only the grades it is sure of. Prices: Personal $59 / Commercial $249.
+- [QR Answer-Sheet Cropper – Crop Every Answer Box](https://207studio.dev/products/qr-cropper/): Print a QR on each sheet, scan a mixed batch, and get every answer cell back as a clean, aligned image. Prices: Personal $39 / Commercial $149.
+- [Context-Gated Voice Commands – Offline](https://207studio.dev/products/voice-command-engine/): A Rust library and CLI that infers the current situation from audio features and lets through only the voice commands that fit it. Prices: Personal/Research $29 / Commercial $99.
+- [ShapeFit – Hold-to-Shape for Swift & Rust](https://207studio.dev/products/shapefit/): Turn a hand-drawn stroke into a clean line, circle, rectangle or polygon when the user pauses, for your own drawing app. Prices: Personal $9 / Commercial $29.
+- [Exam + OMR Sheet Builder – Paper, Sheet & Key](https://207studio.dev/products/exam-sheet-builder/): Write an exam once and print a matching exam paper, OMR answer sheet, answer key, explanation sheet and cover page. Prices: Personal $12 / Commercial $35.
+- [Offline Classroom Tools – Seating, PACER Timer](https://207studio.dev/products/classroom-html-tools/): Four single-file classroom tools: a seating chart with attendance, a morning board, a fitness test recorder and Wi-Fi QR cards. Prices: Teacher $9 / School $19.
 
 ## Writing
 
