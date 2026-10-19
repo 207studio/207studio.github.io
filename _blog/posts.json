@@ -1,0 +1,17 @@
+[
+  {
+    "slug": "play-pptx-in-browser",
+    "title": "How to play a PPTX in the browser (without PowerPoint)",
+    "meta_title": "Play a PPTX in the browser without PowerPoint | 207 Studio",
+    "description": "Render a .pptx in the browser without a server or Office. What breaks the animations, three ways to do it, and how to test any viewer in five minutes.",
+    "date": "2026-10-20",
+    "tags": [
+      "webdev",
+      "javascript",
+      "pptx"
+    ],
+    "image": "/assets/products/pptx-player-sdk-1200.jpg",
+    "image_alt": "PPTX Player SDK diagram: a slide stepped with click 1, click 2, then a morph transition",
+    "image_caption": "A deck steps the way PowerPoint plays it: click 1, click 2, then a morph transition between slides."
+  }
+]

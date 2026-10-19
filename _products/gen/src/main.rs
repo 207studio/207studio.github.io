@@ -199,7 +199,7 @@ fn header(products_current: bool) -> String {
         ""
     };
     format!(
-        "<header class=\"site-header wrap\"><a class=\"brand\" href=\"/\"><span class=\"brand-mark\">207</span><span>STUDIO</span></a><nav aria-label=\"Main navigation\"><a href=\"/\">Home</a><a href=\"/products/\"{current}>Products</a></nav></header>\n"
+        "<header class=\"site-header wrap\"><a class=\"brand\" href=\"/\"><span class=\"brand-mark\">207</span><span>STUDIO</span></a><nav aria-label=\"Main navigation\"><a href=\"/\">Home</a><a href=\"/products/\"{current}>Products</a><a href=\"/blog/\">Writing</a></nav></header>\n"
     )
 }
 
