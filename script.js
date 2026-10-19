@@ -94,6 +94,7 @@
       "footer.linksLabel": "Support and legal",
       "footer.support": "Support",
       "footer.privacy": "Privacy Policy",
+      "footer.refunds": "Refund Policy",
       "footer.terms": "Terms of Use",
       "footer.copyright": "© 2026 207 Studio"
     },
@@ -186,6 +187,7 @@
       "footer.linksLabel": "지원 및 법적 고지",
       "footer.support": "지원",
       "footer.privacy": "개인정보 처리방침",
+      "footer.refunds": "환불 정책",
       "footer.terms": "이용약관",
       "footer.copyright": "© 2026 207스튜디오"
     }

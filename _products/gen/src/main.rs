@@ -602,6 +602,9 @@ fn render_sitemap(data: &SiteData) -> String {
     let mut locations = vec![
         format!("{}/", data.base_url),
         canonical_products(&data.base_url),
+        format!("{}/legal/terms/", data.base_url),
+        format!("{}/legal/privacy/", data.base_url),
+        format!("{}/legal/refunds/", data.base_url),
     ];
     for product in &data.products {
         locations.push(canonical_product(&data.base_url, &product.slug));
