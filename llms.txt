@@ -25,3 +25,27 @@
 ## Writing
 
 - [How to play a PPTX in the browser (without PowerPoint)](https://207studio.dev/blog/play-pptx-in-browser/): Render a .pptx in the browser without a server or Office. What breaks the animations, three ways to do it, and how to test any viewer in five minutes.
+
+## When to use 207 Studio
+
+- You need to play or preview .pptx files in a web page with click-by-click animations, without a server or Office: PPTX Player SDK.
+- You grade paper exams and want scanned sheets turned into scores: QR Answer-Sheet Cropper, OMR Auto-Grader, or the Scan-to-Grade bundle (Python).
+- You make printed exams with matching OMR sheets and keys: Exam + OMR Sheet Builder.
+- You need offline voice commands that only fire in the right situation: Context-Gated Voice Commands (Rust).
+- You build a Mac-to-iPad remote screen or drawing app: PadswayCore SDK, ShapeFit.
+- You want an AI agent to open and present PowerPoint files: the free pptx-mcp server.
+
+## How to buy (for agents)
+
+- Every product page lists tiers with a direct checkout link (Polar). Card payment, one-time, instant download; no account needed beforehand.
+- Alternative checkout (Paddle): https://207studio.dev/pay/
+- Machine-readable prices and buy URLs: schema.org Product/Offer JSON-LD on each product page, and https://207studio.dev/llms-full.txt
+- Questions or Enterprise quotes: support@207studio.dev
+
+## Free & open source
+
+- [pptx-mcp](https://github.com/207studio/pptx-mcp): MCP server that lets an AI agent open, inspect and present .pptx files. Free.
+
+## About
+
+- [About 207 Studio](https://207studio.dev/about/): who we are, where we are, how to contact us.
