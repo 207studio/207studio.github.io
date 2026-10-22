@@ -78,6 +78,7 @@ struct Tier {
     url: String,
     lemonsqueezy_url: Option<String>,
     booth_url: Option<String>,
+    paddle_price_id: Option<String>,
 }
 
 const FAVICON: &str = "<link rel=\"icon\" type=\"image/svg+xml\" href=\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%23102b32'/%3E%3Cpath d='M10 12h20v4L20 29h-6l10-13H10z' fill='%23d5f66b'/%3E%3C/svg%3E\">";
@@ -285,11 +286,30 @@ fn store_links(tiers: &[Tier]) -> String {
         })
         .filter_map(|(url, label)| url.map(|url| format!("<a href=\"{}\">{label}</a>", esc(url))))
         .collect();
-    if links.is_empty() {
-        String::new()
-    } else {
-        format!("<p class=\"also\">Also on {}</p>", links.join(" "))
+    let paddle: Vec<String> = tiers
+        .iter()
+        .filter_map(|tier| {
+            tier.paddle_price_id.as_ref().map(|id| {
+                format!(
+                    "<a href=\"/pay/?price={}\">{} ${}</a>",
+                    esc(id),
+                    esc(&tier.name),
+                    tier.price_usd
+                )
+            })
+        })
+        .collect();
+    let mut out = String::new();
+    if !links.is_empty() {
+        out.push_str(&format!("<p class=\"also\">Also on {}</p>", links.join(" ")));
     }
+    if !paddle.is_empty() {
+        out.push_str(&format!(
+            "<p class=\"also paddle\">Card or PayPal via Paddle: {}</p>",
+            paddle.join(" · ")
+        ));
+    }
+    out
 }
 
 fn upsell_box(product: &Product) -> String {

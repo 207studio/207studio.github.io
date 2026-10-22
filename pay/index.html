@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Checkout · 207studio</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="/style.css">
+<style>
+main{max-width:720px;margin:3rem auto;padding:0 1.2rem;font-family:system-ui,sans-serif}
+.opt{display:flex;justify-content:space-between;align-items:center;padding:.7rem 0;border-bottom:1px solid #0001}
+.opt button{background:#102b32;color:#d5f66b;border:0;border-radius:6px;padding:.5rem 1rem;cursor:pointer}
+.note{color:#666;font-size:.9rem}
+</style>
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+</head>
+<body>
+<main>
+<h1>Checkout</h1>
+<p class="note">Pay by card or PayPal. Paddle is the merchant of record and handles tax and receipts. One-time purchase, no subscription. Prefer Polar? Use the buttons on each <a href="/products/">product page</a>.</p>
+<p id="status" class="note" role="status"></p>
+<div id="list"></div>
+<p class="note">Commercial licenses are for companies with annual revenue up to $1M; larger companies, contact <a href="mailto:support@207studio.dev">support@207studio.dev</a> for an Enterprise license. See <a href="/legal/terms/">terms</a> and <a href="/legal/refunds/">refunds</a>.</p>
+</main>
+<script>
+const PADDLE_CLIENT_TOKEN = "live_921720ef6a39cb7ecbf5f3ee891";
+const OPTIONS = [
+  ["PPTX Player SDK", "Developer", 14, "pri_01m5b3w956pnn7nb0daa1nazyd"],
+  ["PPTX Player SDK", "Commercial", 129, "pri_01m5b3w9tttrw2fvt79r0hw80r"],
+  ["PadswayCore SDK", "Commercial", 129, "pri_01m5b3x0phe8gmxs2031tc27ev"],
+  ["Scan-to-Grade", "Personal", 79, "pri_01m5b3wxcpw9a6k2z2409257vq"],
+  ["Scan-to-Grade", "Commercial", 299, "pri_01m5b3wy1v674a97k9c8prnf1c"],
+  ["OMR Auto-Grader", "Personal", 59, "pri_01m5b3wcc9s6j78tczvdm78vb0"],
+  ["OMR Auto-Grader", "Commercial", 249, "pri_01m5b3wd1nh1g0kc9mfk08f4sr"],
+  ["QR Answer-Sheet Cropper", "Personal", 39, "pri_01m5b3wf3y8bk9yk9hj7k2zx4f"],
+  ["QR Answer-Sheet Cropper", "Commercial", 149, "pri_01m5b3wft5q20m6xwb7y1x0bys"],
+  ["Context-Gated Voice Commands", "Personal/Research", 29, "pri_01m5b3wmm0rp3pwgmytf1r1f97"],
+  ["Context-Gated Voice Commands", "Commercial", 99, "pri_01m5b3wnx4n9m9x3q5mrvcqggh"],
+  ["ShapeFit", "Personal", 9, "pri_01m5b3wqzm2ejd05extzz6scap"],
+  ["ShapeFit", "Commercial", 29, "pri_01m5b3wrmz6vh8gtq0m3bywbzx"],
+  ["Exam + OMR Sheet Builder", "Personal", 12, "pri_01m5b3whxnme0w2dpts4y8ay2d"],
+  ["Exam + OMR Sheet Builder", "Commercial", 35, "pri_01m5b3wjk2yjcge5x58yqbjd41"],
+  ["Offline Classroom Tools", "Teacher", 9, "pri_01m5b3wtntp9zjbjey9b91r93t"],
+  ["Offline Classroom Tools", "School", 19, "pri_01m5b3wvb9k111j05r0jp5k3et"],
+  ["Send Approval Gate MCP", "Developer", 29, "pri_01m5b3x2s88jdhw0b04f6x13td"],
+  ["Send Approval Gate MCP", "Commercial", 99, "pri_01m5b3x3ew5tdk8k5fzs5awcrx"]
+];
+const status = document.getElementById("status");
+const params = new URLSearchParams(location.search);
+// Paddle's default payment link sends buyers here with ?_ptxn=txn_...
+const txn = params.get("_ptxn");
+const wanted = params.get("price");
+let ready = false;
+try {
+  Paddle.Initialize({ token: PADDLE_CLIENT_TOKEN, checkout: { settings: { displayMode: "overlay", successUrl: location.origin + "/pay/?thanks=1" } } });
+  ready = true;
+} catch (e) { status.textContent = "Checkout could not load. Please use the Polar buttons on the product page."; }
+function open(priceId) {
+  if (!ready) return;
+  Paddle.Checkout.open({ items: [{ priceId, quantity: 1 }] });
+}
+const list = document.getElementById("list");
+for (const [name, tier, usd, id] of OPTIONS) {
+  const row = document.createElement("div");
+  row.className = "opt";
+  const label = document.createElement("span");
+  label.textContent = `${name} · ${tier} · $${usd}`;
+  const btn = document.createElement("button");
+  btn.textContent = "Buy";
+  btn.addEventListener("click", () => open(id));
+  row.append(label, btn);
+  list.append(row);
+}
+if (params.get("thanks")) status.textContent = "Thank you. Paddle has emailed your receipt and download.";
+else if (txn && ready) Paddle.Checkout.open({ transactionId: txn });
+else if (wanted && OPTIONS.some((o) => o[3] === wanted)) open(wanted);
+</script>
+</body>
+</html>
