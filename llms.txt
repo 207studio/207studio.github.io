@@ -20,7 +20,7 @@
 
 ## Licensing
 
-- Commercial licenses cover companies with annual revenue up to $1M. Above that, email kiwigod@207studio.dev for an Enterprise license. All purchases are one-time; no subscriptions.
+- Commercial licenses cover companies with annual revenue up to $1M. Above that, email support@207studio.dev for an Enterprise license. All purchases are one-time; no subscriptions.
 
 ## Writing
 
