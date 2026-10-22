@@ -1,0 +1,140 @@
+# 207 Studio: full product reference
+
+> https://207studio.dev · support@207studio.dev · South Korea. One-time purchase, full source. Commercial tiers cover companies with annual revenue up to $1M; above that, email support@207studio.dev for an Enterprise license.
+
+## PPTX Player SDK – Play PowerPoint in the Browser
+
+URL: https://207studio.dev/products/pptx-player-sdk/
+
+Play PowerPoint in the browser with every animation: a client-side PPTX to HTML/SVG engine that works offline.
+
+Client-side JS engine that plays .pptx click-by-click: build animations, morph, media, offline. No server, no Office. One-time $14, source included.
+
+Tiers (USD, one-time):
+- Developer: $14 - buy: https://buy.polar.sh/polar_cl_75Don0VoNVcrgJ7mx9b32yZq5v4ZydBu37uwN1getXd
+- Commercial: $129 - buy: https://buy.polar.sh/polar_cl_6i0GKBLIeSNUMjqLDt8U9dAVfJxnGIrx7j5qf36gWcX
+
+Developer is for one developer, and that includes shipping the player inside your own paid or free apps as bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase.
+
+## PadswayCore SDK: Mac-to-iPad Screen Streaming
+
+URL: https://207studio.dev/products/padsway-core-sdk/
+
+Put a live Mac screen on an iPad and send touch, keyboard, clipboard and dictation back: the streaming engine from a working Mac + iPad remote app, as a Swift package.
+
+Swift package that streams a Mac screen to an iPad with hardware H.264/HEVC, 60/120 fps and touch, keyboard and clipboard back. Full source. One-time purchase.
+
+Tiers (USD, one-time):
+- Commercial: $129 - buy: https://buy.polar.sh/polar_cl_X4vNDyrdEHsK4LYKEg9WZWqtrbe6SzxzHU8zu0lQfSH
+
+For a company or organisation (more than one person), including in its apps as compiled code, with priority email support. One-time purchase. Commercial covers companies with annual revenue up to $1M. Above that, email support@207studio.dev for an Enterprise license.
+
+## Scan-to-Grade: Scanned Exams to Excel (Python)
+
+URL: https://207studio.dev/products/scan-to-grade-bundle/
+
+QR Cropper and OMR Auto-Grader together: a scanned batch in, an Excel gradebook out.
+
+Cropper + OMR grader together: drop in a scanner batch, get an Excel gradebook. Runs offline; student data never leaves your PC. One-time, source.
+
+Tiers (USD, one-time):
+- Personal: $79 - buy: https://buy.polar.sh/polar_cl_8xf9e2PzkppWPIh7ZQ339nUMWpKB2jNuTtbqm3pruPj
+- Commercial: $299 - buy: https://buy.polar.sh/polar_cl_DrRGNlKtA1G62gZFWa1OcfYSAXcrPIQmmi7Qb1492lC
+
+Personal is for one person, and that includes shipping it inside your own paid or free apps as compiled or bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase.
+
+Includes:
+- text
+- links
+
+## OMR Auto-Grader – Bubbles, O/X, Circled Answers
+
+URL: https://207studio.dev/products/omr-auto-grader/
+
+Reads bubbles, circled words, O/X boxes and ordering marks on scanned sheets, and fills in only the grades it is sure of.
+
+Python OMR that grades bubbles, multi-marks, O/X and circled answers, fills only confident grades, never overwrites teacher marks. One-time purchase.
+
+Tiers (USD, one-time):
+- Personal: $59 - buy: https://buy.polar.sh/polar_cl_xJBFocaAKSaFNLgPJ2VNceLFqkmxwm4coi0el0BvhI6
+- Commercial: $249 - buy: https://buy.polar.sh/polar_cl_pqx1PzwSBoayvSaeHpmuLc64XiqSolIxeC1re3Q13oo
+
+Personal is for one person, and that includes shipping it inside your own paid or free apps as compiled or bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase.
+
+## QR Answer-Sheet Cropper – Crop Every Answer Box
+
+URL: https://207studio.dev/products/qr-cropper/
+
+Print a QR on each sheet, scan a mixed batch, and get every answer cell back as a clean, aligned image.
+
+Print a QR on each page, scan a mixed batch, get every answer cell as an aligned image. Python + OpenCV, runnable demo, one-time purchase.
+
+Tiers (USD, one-time):
+- Personal: $39 - buy: https://buy.polar.sh/polar_cl_QnpaugxcXgYeD3NfSmdOoQIZ8s5NxWnsXHF250GoQDD
+- Commercial: $149 - buy: https://buy.polar.sh/polar_cl_LHfw7BoxPMPXDMx5scbvqxyWA0f2QWrbvO9CL0f3euT
+
+Personal is for one person, and that includes shipping it inside your own paid or free apps as compiled or bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase.
+
+## Context-Gated Voice Commands – Offline
+
+URL: https://207studio.dev/products/voice-command-engine/
+
+A Rust library and CLI that infers the current situation from audio features and lets through only the voice commands that fit it.
+
+Rust engine that tracks the current situation second by second and runs only the voice commands that fit it, ignoring background talk. Offline.
+
+Tiers (USD, one-time):
+- Personal/Research: $29 - buy: https://buy.polar.sh/polar_cl_wTaaxiMXwBpLPJBlzBKZ4xGAa4JTMz9kzp24r0g8L8Y
+- Commercial: $99 - buy: https://buy.polar.sh/polar_cl_mCFCRFkwWmVTk9k5xz4YeJUkURL9oVwEzz8nv3I7uAZ
+
+Personal/Research is for one person, and that includes shipping the engine inside your own paid or free apps as compiled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase.
+
+## ShapeFit – Hold-to-Shape for Swift & Rust
+
+URL: https://207studio.dev/products/shapefit/
+
+Turn a hand-drawn stroke into a clean line, circle, rectangle or polygon when the user pauses, for your own drawing app.
+
+Pause on a stroke and it snaps to a clean line, circle, rectangle or polygon. No ML, no MAU limits, zero dependencies. PencilKit-ready. $9, source.
+
+Tiers (USD, one-time):
+- Personal: $9 - buy: https://buy.polar.sh/polar_cl_tZQVB8rHo2KdpUwZrUmXr80Sb6RO9xRNwV3qZ2jd3xV
+- Commercial: $29 - buy: https://buy.polar.sh/polar_cl_sgn4wIILsccvCLPOfmephnAIJCKoh7Q8WHWrp2iJFdE
+
+Personal is for one person, and that includes shipping it inside your own paid or free apps as compiled or bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase.
+
+## Exam + OMR Sheet Builder – Paper, Sheet & Key
+
+URL: https://207studio.dev/products/exam-sheet-builder/
+
+Write an exam once and print a matching exam paper, OMR answer sheet, answer key, explanation sheet and cover page.
+
+Write an exam once; print the paper, OMR sheet, answer key, explanations and cover, always matching. Offline single file + MCP server for AI. $12.
+
+Tiers (USD, one-time):
+- Personal: $12 - buy: https://buy.polar.sh/polar_cl_N7RdBS3uUXglH4Kk6ei4gjn42J2ehQxT18EvN372jsJ
+- Commercial: $35 - buy: https://buy.polar.sh/polar_cl_tctZA7z5EjURT3yPhV4ozdQQxZwfjJLyn8MVX3Ab9BE
+
+Personal is for one person, and that includes shipping it inside your own paid or free apps as compiled or bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase.
+
+## Offline Classroom Tools – Seating, PACER Timer
+
+URL: https://207studio.dev/products/classroom-html-tools/
+
+Four single-file classroom tools: a seating chart with attendance, a morning board, a fitness test recorder and Wi-Fi QR cards.
+
+Four single-file HTML tools: seating + attendance board, weekly attendance to Excel, PACER beep test recorder, Wi-Fi QR cards. No account. $9.
+
+Tiers (USD, one-time):
+- Teacher: $9 - buy: https://buy.polar.sh/polar_cl_QTRPbU8ny7asrhpuYWkaZ1I3wGILT2qXKlIUG1ZQ3Ue
+- School: $19 - buy: https://buy.polar.sh/polar_cl_6CQvHSVi6j8a5Z5bNYTC1rEoeprhab1xfob2J06on67
+
+Teacher is for one teacher, in your own classes or inside your own paid or free products. School covers every teacher and staff member in one school and adds priority email support. Both include all four tools. One-time purchase.
+
+## Pairy: Connecting Devices (iOS/iPadOS app)
+
+https://apps.apple.com/app/id6815584225 - remote desktop for your tablet. Paid app, one-time purchase ($4.99 in the US).
+
+## pptx-mcp (free)
+
+https://github.com/207studio/pptx-mcp - MCP server for opening and presenting .pptx files from an AI agent.
