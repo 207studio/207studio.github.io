@@ -76,7 +76,7 @@
     ],
     [
      "Which tier should I buy?",
-     "Developer is for one developer, and that includes shipping the player inside your own paid or free apps as bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase."
+     "Developer is for one developer, and that includes shipping the player inside your own paid or free apps as bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase. Commercial covers companies with annual revenue up to $1M. Above that, email kiwigod@207studio.dev for an Enterprise license."
     ],
     [
      "What do I get after paying?",
@@ -116,7 +116,7 @@
   },
   {
    "slug": "padsway-core-sdk",
-   "name": "PadswayCore SDK — Mac-to-iPad Screen Streaming",
+   "name": "PadswayCore SDK: Mac-to-iPad Screen Streaming",
    "audience": "developers",
    "description": "Swift package that streams a Mac screen to an iPad with hardware H.264/HEVC, 60/120 fps and touch, keyboard and clipboard back. Full source. One-time purchase.",
    "summary": "Put a live Mac screen on an iPad and send touch, keyboard, clipboard and dictation back: the streaming engine from a working Mac + iPad remote app, as a Swift package.",
@@ -197,7 +197,7 @@
     "pptx-player-sdk",
     "shapefit"
    ],
-   "tier_note": "For a company or organisation (more than one person), including in its apps as compiled code, with priority email support. One-time purchase.",
+   "tier_note": "For a company or organisation (more than one person), including in its apps as compiled code, with priority email support. One-time purchase. Commercial covers companies with annual revenue up to $1M. Above that, email kiwigod@207studio.dev for an Enterprise license.",
    "upsell": null,
    "includes": null,
    "badge": null
@@ -265,7 +265,7 @@
     ],
     [
      "Which tier should I buy?",
-     "Personal is for one person, and that includes shipping it inside your own paid or free apps as compiled or bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase."
+     "Personal is for one person, and that includes shipping it inside your own paid or free apps as compiled or bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase. Commercial covers companies with annual revenue up to $1M. Above that, email kiwigod@207studio.dev for an Enterprise license."
     ],
     [
      "What do I get after paying?",
@@ -382,7 +382,7 @@
     ],
     [
      "Which tier should I buy?",
-     "Personal is for one person, and that includes shipping it inside your own paid or free apps as compiled or bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase."
+     "Personal is for one person, and that includes shipping it inside your own paid or free apps as compiled or bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase. Commercial covers companies with annual revenue up to $1M. Above that, email kiwigod@207studio.dev for an Enterprise license."
     ],
     [
      "What do I get after paying?",
@@ -491,7 +491,7 @@
     ],
     [
      "Which tier should I buy?",
-     "Personal is for one person, and that includes shipping it inside your own paid or free apps as compiled or bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase."
+     "Personal is for one person, and that includes shipping it inside your own paid or free apps as compiled or bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase. Commercial covers companies with annual revenue up to $1M. Above that, email kiwigod@207studio.dev for an Enterprise license."
     ],
     [
      "What do I get after paying?",
@@ -595,7 +595,7 @@
     ],
     [
      "Which tier should I buy?",
-     "Personal/Research is for one person, and that includes shipping the engine inside your own paid or free apps as compiled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase."
+     "Personal/Research is for one person, and that includes shipping the engine inside your own paid or free apps as compiled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase. Commercial covers companies with annual revenue up to $1M. Above that, email kiwigod@207studio.dev for an Enterprise license."
     ],
     [
      "What do I get after paying?",
@@ -690,7 +690,7 @@
     ],
     [
      "Which tier should I buy?",
-     "Personal is for one person, and that includes shipping it inside your own paid or free apps as compiled or bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase."
+     "Personal is for one person, and that includes shipping it inside your own paid or free apps as compiled or bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase. Commercial covers companies with annual revenue up to $1M. Above that, email kiwigod@207studio.dev for an Enterprise license."
     ],
     [
      "What do I get after paying?",
@@ -786,7 +786,7 @@
     ],
     [
      "Which tier should I buy?",
-     "Personal is for one person, and that includes shipping it inside your own paid or free apps as compiled or bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase."
+     "Personal is for one person, and that includes shipping it inside your own paid or free apps as compiled or bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase. Commercial covers companies with annual revenue up to $1M. Above that, email kiwigod@207studio.dev for an Enterprise license."
     ],
     [
      "What do I get after paying?",
