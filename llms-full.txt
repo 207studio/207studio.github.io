@@ -131,6 +131,19 @@ Tiers (USD, one-time):
 
 Teacher is for one teacher, in your own classes or inside your own paid or free products. School covers every teacher and staff member in one school and adds priority email support. Both include all four tools. One-time purchase.
 
+## Async Securities API Client: Toss Securities Open API for Python
+
+URL: https://207studio.dev/products/async-securities-api-client/
+
+A small httpx package that handles the plumbing of the Toss Securities Open API: tokens, rate limits and Decimal-safe order bodies, with ambiguous order writes never re-sent.
+
+The order methods place real orders immediately: no paper mode, arming step or order-size limit. Requires Python 3.10+, httpx, your own app key and a calling IP registered in Toss Securities WTS. Not affiliated with Toss Securities.
+
+Tiers (USD, one-time):
+- Personal: $49 - buy: https://207studio.dev/products/async-securities-api-client/
+
+Personal only: one individual, own account and apps. No company use (the Toss Securities terms exclude corporate customers), so there is no Commercial or Enterprise tier. Questions: support@207studio.dev.
+
 ## Pairy: Connecting Devices (iOS/iPadOS app)
 
 https://apps.apple.com/app/id6815584225 - remote desktop for your tablet. Paid app, one-time purchase ($4.99 in the US).

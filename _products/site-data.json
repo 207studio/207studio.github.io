@@ -919,6 +919,78 @@
    "upsell": null,
    "includes": null,
    "badge": null
+  },
+  {
+   "slug": "async-securities-api-client",
+   "name": "Async Securities API Client: Toss Securities Open API for Python",
+   "audience": "developers",
+   "description": "Asyncio Python client for the Toss Securities Open API: OAuth tokens, server-driven rate limits, Decimal-safe orders, no duplicate order writes. Source included. One-time purchase.",
+   "summary": "A small httpx package that handles the plumbing of the Toss Securities Open API: tokens, rate limits and Decimal-safe order bodies, with ambiguous order writes never re-sent.",
+   "what": "Async Securities API Client is an asyncio Python package (Python 3.10+, httpx) for the Toss Securities Open API. It issues and reuses OAuth client-credentials tokens with one reissue on expiry, follows the server's x-ratelimit headers per group, builds Decimal-safe order bodies, and covers market data (prices, candles, order book, trades, rankings, market calendar), account (holdings, buying power, orders) and orders (create, cancel, OCO). Order writes are never re-sent after a 5xx or transport error. The order methods place real orders immediately: there is no paper mode, arming step or order-size limit. Not affiliated with Toss Securities.",
+   "quickstart": [
+    "pip install httpx",
+    "python -m pytest -q"
+   ],
+   "compare": [
+    [
+     "Raw HTTP calls",
+     "Write token, rate-limit and retry handling yourself",
+     "Free; easy to double-send an order after a timeout"
+    ],
+    [
+     "Async Securities API Client",
+     "asyncio Python package, source included",
+     "$49 one-time; tokens, server-driven rate limits, no re-sent order writes"
+    ]
+   ],
+   "faq": [
+    [
+     "Does it trade for me?",
+     "No. It has no strategy and no automatic decisions; the order methods send a real order the moment you call them."
+    ],
+    [
+     "Can I try it without money at risk?",
+     "Not in this package: there is no paper mode, arming step or order-size limit. Add those in your own code before the first live call."
+    ],
+    [
+     "Do I need my own key?",
+     "Yes. Use your own Toss Securities app key, and register your calling IP in Toss Securities WTS; unregistered IPs get 403."
+    ],
+    [
+     "Can my company use it?",
+     "No. The Toss Securities terms exclude corporate customers, which is why there is only a Personal tier."
+    ],
+    [
+     "Is this an official Toss Securities product?",
+     "No. It is an independent client for the public Open API, not affiliated with or endorsed by Toss Securities."
+    ],
+    [
+     "Is it a subscription?",
+     "No. One-time purchase, full source included."
+    ]
+   ],
+   "tiers": [
+    {
+     "name": "Personal",
+     "price_usd": 49,
+     "url": "https://buy.polar.sh/TODO-async-checkout-link",
+     "lemonsqueezy_url": null,
+     "booth_url": null,
+     "paddle_price_id": null
+    }
+   ],
+   "image_webp_640": "/assets/products/async-securities-api-client-640.webp",
+   "image_webp_1200": "/assets/products/async-securities-api-client-1200.webp",
+   "image_jpg": "/assets/products/async-securities-api-client-1200.jpg",
+   "title": "Async Securities API Client – Toss Securities Open API (Python)",
+   "category": "DeveloperApplication",
+   "related": [
+    "pptx-player-sdk"
+   ],
+   "tier_note": "Personal only: one individual, for their own account and their own apps. No use by a company or organisation (the Toss Securities terms exclude corporate customers, so there is no Commercial or Enterprise tier). Questions: support@207studio.dev. One-time purchase.",
+   "upsell": null,
+   "includes": null,
+   "badge": null
   }
  ],
  "organization": {

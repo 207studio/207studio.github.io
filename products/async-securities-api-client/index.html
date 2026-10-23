@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#102b32">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%23102b32'/%3E%3Cpath d='M10 12h20v4L20 29h-6l10-13H10z' fill='%23d5f66b'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/products/products.css">
+<title>Async Securities API Client – Toss Securities Open API (Python)</title>
+<meta name="description" content="Asyncio Python client for the Toss Securities Open API: OAuth tokens, server-driven rate limits, Decimal-safe orders, no duplicate order writes. Source included. One-time purchase.">
+<link rel="canonical" href="https://207studio.dev/products/async-securities-api-client/">
+<meta property="og:title" content="Async Securities API Client – Toss Securities Open API (Python)">
+<meta property="og:description" content="Asyncio Python client for the Toss Securities Open API: OAuth tokens, server-driven rate limits, Decimal-safe orders, no duplicate order writes. Source included. One-time purchase.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://207studio.dev/products/async-securities-api-client/">
+<meta property="og:image" content="https://207studio.dev/assets/products/async-securities-api-client-1200.jpg">
+<meta property="og:site_name" content="207 Studio">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<header class="site-header wrap"><a class="brand" href="/"><span class="brand-mark">207</span><span>STUDIO</span></a><nav aria-label="Main navigation"><a href="/">Home</a><a href="/products/">Products</a><a href="/blog/">Writing</a></nav></header>
+<main class="wrap product-page">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/products/">Products</a> / <span>Async Securities API Client: Toss Securities Open API for Python</span></nav>
+<h1>Async Securities API Client – Toss Securities Open API (Python)</h1>
+<p class="lede">A small httpx package that handles the plumbing of the Toss Securities Open API: tokens, rate limits and Decimal-safe order bodies, with ambiguous order writes never re-sent.</p>
+<picture class="hero-media"><source type="image/webp" srcset="/assets/products/async-securities-api-client-640.webp 640w, /assets/products/async-securities-api-client-1200.webp 1200w" sizes="(max-width: 760px) 100vw, 50vw"><img src="/assets/products/async-securities-api-client-1200.jpg" width="1200" height="675" alt="Async Securities API Client: Toss Securities Open API for Python cover" loading="eager" decoding="async"></picture>
+<div class="buy-row"><a class="buy primary" href="https://buy.polar.sh/TODO-async-checkout-link?utm_source=207studio.dev&amp;utm_medium=site&amp;utm_campaign=async-securities-api-client&amp;utm_content=top">Personal · $49</a></div>
+<p class="note">One-time purchase.</p>
+<p class="tier-note-small">Personal only: one individual, for their own account and their own apps. No use by a company or organisation (the Toss Securities terms exclude corporate customers, so there is no Commercial or Enterprise tier). Questions: support@207studio.dev. One-time purchase.</p>
+<section><h2>What it is</h2><p>Async Securities API Client is an asyncio Python package (Python 3.10+, httpx) for the Toss Securities Open API. It issues and reuses OAuth client-credentials tokens with one reissue on expiry, follows the server&#39;s x-ratelimit headers per group, builds Decimal-safe order bodies, and covers market data (prices, candles, order book, trades, rankings, market calendar), account (holdings, buying power, orders) and orders (create, cancel, OCO). Order writes are never re-sent after a 5xx or transport error. The order methods place real orders immediately: there is no paper mode, arming step or order-size limit. Not affiliated with Toss Securities.</p></section>
+<section><h2>Quick start</h2><pre><code>pip install httpx
+python -m pytest -q</code></pre></section>
+<section><h2>Compared with</h2><div class="table-wrap"><table>
+<thead><tr><th>Tool</th><th>Type</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>Raw HTTP calls</td><td>Write token, rate-limit and retry handling yourself</td><td>Free; easy to double-send an order after a timeout</td></tr>
+<tr class="ours"><td>Async Securities API Client</td><td>asyncio Python package, source included</td><td>$49 one-time; tokens, server-driven rate limits, no re-sent order writes</td></tr>
+</tbody>
+</table></div></section>
+<section><h2>FAQ</h2>
+<details><summary>Does it trade for me?</summary><p>No. It has no strategy and no automatic decisions; the order methods send a real order the moment you call them.</p></details>
+<details><summary>Can I try it without money at risk?</summary><p>Not in this package: there is no paper mode, arming step or order-size limit. Add those in your own code before the first live call.</p></details>
+<details><summary>Do I need my own key?</summary><p>Yes. Use your own Toss Securities app key, and register your calling IP in Toss Securities WTS; unregistered IPs get 403.</p></details>
+<details><summary>Can my company use it?</summary><p>No. The Toss Securities terms exclude corporate customers, which is why there is only a Personal tier.</p></details>
+<details><summary>Is this an official Toss Securities product?</summary><p>No. It is an independent client for the public Open API, not affiliated with or endorsed by Toss Securities.</p></details>
+<details><summary>Is it a subscription?</summary><p>No. One-time purchase, full source included.</p></details>
+</section>
+<section class="related"><h2>Related products</h2><div class="related-grid"><a class="related-card" href="/products/pptx-player-sdk/"><img src="/assets/products/pptx-player-sdk-640.webp" width="640" height="360" alt="PPTX Player SDK – Play PowerPoint in the Browser cover" loading="lazy" decoding="async"><span class="related-name">PPTX Player SDK – Play PowerPoint in the Browser</span><span class="related-summary">Play PowerPoint in the browser with every animation: a client-side PPTX to HTML/SVG engine that works offline.</span><span class="related-price">From $14</span></a></div></section>
+<div class="buy-row"><a class="buy primary" href="https://buy.polar.sh/TODO-async-checkout-link?utm_source=207studio.dev&amp;utm_medium=site&amp;utm_campaign=async-securities-api-client&amp;utm_content=bottom">Personal · $49</a></div>
+<p class="note">One-time purchase.</p>
+<p><a href="/products/">← All products</a></p>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://207studio.dev/products/async-securities-api-client/#product","@type":"Product","brand":{"@type":"Brand","name":"207 Studio"},"category":"DeveloperApplication","description":"Asyncio Python client for the Toss Securities Open API: OAuth tokens, server-driven rate limits, Decimal-safe orders, no duplicate order writes. Source included. One-time purchase.","image":"https://207studio.dev/assets/products/async-securities-api-client-1200.jpg","name":"Async Securities API Client: Toss Securities Open API for Python","offers":[{"@type":"Offer","availability":"https://schema.org/InStock","name":"Personal","price":"49.00","priceCurrency":"USD","seller":{"@type":"Organization","name":"207 Studio","url":"https://207studio.dev"},"sku":"async-securities-api-client-personal","url":"https://buy.polar.sh/TODO-async-checkout-link"}],"url":"https://207studio.dev/products/async-securities-api-client/"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"No. It has no strategy and no automatic decisions; the order methods send a real order the moment you call them."},"name":"Does it trade for me?"},{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Not in this package: there is no paper mode, arming step or order-size limit. Add those in your own code before the first live call."},"name":"Can I try it without money at risk?"},{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"Yes. Use your own Toss Securities app key, and register your calling IP in Toss Securities WTS; unregistered IPs get 403."},"name":"Do I need my own key?"},{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"No. The Toss Securities terms exclude corporate customers, which is why there is only a Personal tier."},"name":"Can my company use it?"},{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"No. It is an independent client for the public Open API, not affiliated with or endorsed by Toss Securities."},"name":"Is this an official Toss Securities product?"},{"@type":"Question","acceptedAnswer":{"@type":"Answer","text":"No. One-time purchase, full source included."},"name":"Is it a subscription?"}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://207studio.dev/products/","name":"Products","position":1},{"@type":"ListItem","item":"https://207studio.dev/products/async-securities-api-client/","name":"Async Securities API Client: Toss Securities Open API for Python","position":2}]}]}</script>
+</main>
+<footer class="site-footer wrap"><p>207 Studio (207studio.dev), South Korea. Support: <a href="mailto:support@207studio.dev">support@207studio.dev</a></p><p>Last updated 2026-10-18. © 2026 207 Studio</p></footer>
+</body>
+</html>

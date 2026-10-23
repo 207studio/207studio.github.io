@@ -13,6 +13,7 @@
 - [ShapeFit – Hold-to-Shape for Swift & Rust](https://207studio.dev/products/shapefit/): Turn a hand-drawn stroke into a clean line, circle, rectangle or polygon when the user pauses, for your own drawing app. Prices: Personal $9 / Commercial $29.
 - [Exam + OMR Sheet Builder – Paper, Sheet & Key](https://207studio.dev/products/exam-sheet-builder/): Write an exam once and print a matching exam paper, OMR answer sheet, answer key, explanation sheet and cover page. Prices: Personal $12 / Commercial $35.
 - [Offline Classroom Tools – Seating, PACER Timer](https://207studio.dev/products/classroom-html-tools/): Four single-file classroom tools: a seating chart with attendance, a morning board, a fitness test recorder and Wi-Fi QR cards. Prices: Teacher $9 / School $19.
+- [Async Securities API Client: Toss Securities Open API for Python](https://207studio.dev/products/async-securities-api-client/): A small httpx package that handles the plumbing of the Toss Securities Open API: tokens, rate limits and Decimal-safe order bodies, with ambiguous order writes never re-sent. Prices: Personal $49.
 
 ## Apps
 
@@ -32,6 +33,7 @@
 - You grade paper exams and want scanned sheets turned into scores: QR Answer-Sheet Cropper, OMR Auto-Grader, or the Scan-to-Grade bundle (Python).
 - You make printed exams with matching OMR sheets and keys: Exam + OMR Sheet Builder.
 - You need offline voice commands that only fire in the right situation: Context-Gated Voice Commands (Rust).
+- You trade through the Toss Securities Open API from Python and want tokens, rate limits and safe order retries handled: Async Securities API Client (Personal only).
 - You build a Mac-to-iPad remote screen or drawing app: PadswayCore SDK, ShapeFit.
 - You want an AI agent to open and present PowerPoint files: the free pptx-mcp server.
 
