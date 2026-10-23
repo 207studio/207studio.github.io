@@ -13,6 +13,7 @@
 - [ShapeFit – Hold-to-Shape for Swift & Rust](https://207studio.dev/products/shapefit/): Turn a hand-drawn stroke into a clean line, circle, rectangle or polygon when the user pauses, for your own drawing app. Prices: Personal $9 / Commercial $29.
 - [Exam + OMR Sheet Builder – Paper, Sheet & Key](https://207studio.dev/products/exam-sheet-builder/): Write an exam once and print a matching exam paper, OMR answer sheet, answer key, explanation sheet and cover page. Prices: Personal $12 / Commercial $35.
 - [Offline Classroom Tools – Seating, PACER Timer](https://207studio.dev/products/classroom-html-tools/): Four single-file classroom tools: a seating chart with attendance, a morning board, a fitness test recorder and Wi-Fi QR cards. Prices: Teacher $9 / School $19.
+- [Send Approval Gate MCP: Plan, Approve, Send, Verify](https://207studio.dev/products/send-approval-gate-mcp/): An MCP server that makes an AI agent plan, present an exact hash-bound approval, send once and verify, and records every step. Prices: Developer $29 / Commercial $99.
 
 ## Apps
 

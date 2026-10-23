@@ -919,6 +919,89 @@
    "upsell": null,
    "includes": null,
    "badge": null
+  },
+  {
+   "slug": "send-approval-gate-mcp",
+   "name": "Send Approval Gate MCP: Plan, Approve, Send, Verify",
+   "audience": "developers",
+   "title": "Send Approval Gate MCP – Fail-Closed Sends for AI Agents (Node.js)",
+   "description": "MCP server that makes an AI agent plan, get an exact hash-bound approval, send once and verify. Node.js 22+, no dependencies. One-time purchase, source included.",
+   "summary": "An MCP server that makes an AI agent plan, present an exact hash-bound approval, send once and verify, and records every step.",
+   "what": "Send Approval Gate MCP is a Node.js 22+ MCP server (stdio) with six tools: status, account, contacts, plan-send, send and verify-send. The approval binds plan ID, account, recipient, message SHA-256, backend and environment hash, so any change needs a new approval. Duplicate sends are blocked, an uncertain result becomes result_unknown and is never retried, and every step goes to a local ledger with crash recovery. You attach your own channel through a small backend plugin contract; a mock backend and example plugin are included. 47 tests, no npm dependencies. It keeps a cooperative agent's sends exact, single and auditable; it is not a security boundary against an agent you do not trust.",
+   "quickstart": [
+    "node --test test/*.test.mjs",
+    "node src/cli.mjs --backend mock mcp",
+    "add it to your MCP client config"
+   ],
+   "compare": [
+    [
+     "Hand-written confirm prompt",
+     "Ask the agent to confirm",
+     "No hash binding, no ledger, retries can double-send"
+    ],
+    [
+     "Generic HITL frameworks",
+     "Approval steps inside an agent framework",
+     "Tied to one framework; not an MCP server"
+    ],
+    [
+     "Send Approval Gate MCP",
+     "MCP server, source included",
+     "$29 one-time; hash-bound approval, single send, result_unknown, ledger"
+    ]
+   ],
+   "faq": [
+    [
+     "How do I stop an AI agent from sending a message twice?",
+     "Route sends through plan-send and send. A plan can be sent once; a timeout or adapter failure is recorded as result_unknown and never retried automatically."
+    ],
+    [
+     "Does it include a Slack, email or messenger backend?",
+     "No. You write a small plugin with status, account, contacts, send and verifySend for your own channel. A mock backend and an example plugin are included."
+    ],
+    [
+     "Is it a security boundary?",
+     "No. The approval is a value passed to send, so an agent that can call every tool can build one. For human-only approval, create the approval and call send from a channel the agent cannot reach."
+    ],
+    [
+     "What do I need?",
+     "Node.js 22 or later and an MCP client that speaks stdio. No npm dependencies."
+    ],
+    [
+     "Is it a subscription?",
+     "No. One-time purchase, full source included."
+    ]
+   ],
+   "tiers": [
+    {
+     "name": "Developer",
+     "price_usd": 29,
+     "url": "https://kiwigod.gumroad.com/l/send-approval-gate-mcp-developer",
+     "lemonsqueezy_url": null,
+     "booth_url": null,
+     "paddle_price_id": "pri_01m5b3x2s88jdhw0b04f6x13td"
+    },
+    {
+     "name": "Commercial",
+     "price_usd": 99,
+     "url": "https://kiwigod.gumroad.com/l/send-approval-gate-mcp-commercial",
+     "lemonsqueezy_url": null,
+     "booth_url": null,
+     "paddle_price_id": "pri_01m5b3x3ew5tdk8k5fzs5awcrx"
+    }
+   ],
+   "image_webp_640": "/assets/products/send-approval-gate-mcp-640.webp",
+   "image_webp_1200": "/assets/products/send-approval-gate-mcp-1200.webp",
+   "image_jpg": "/assets/products/send-approval-gate-mcp-1200.jpg",
+   "category": "DeveloperApplication",
+   "related": [
+    "exam-sheet-builder",
+    "pptx-player-sdk"
+   ],
+   "tier_note": "Developer: one developer, own projects only, no company use. Commercial: one organisation and its staff, including in its products as compiled or bundled code, with priority email support. One-time purchase. Commercial covers companies with annual revenue up to $1M. Above that, email support@207studio.dev for an Enterprise license.",
+   "upsell": null,
+   "includes": null,
+   "badge": null
   }
  ],
  "organization": {
