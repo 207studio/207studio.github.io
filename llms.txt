@@ -50,3 +50,7 @@
 ## About
 
 - [About 207 Studio](https://207studio.dev/about/): who we are, where we are, how to contact us.
+
+## Contact
+
+- Email: support@207studio.dev

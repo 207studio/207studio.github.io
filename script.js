@@ -7,7 +7,7 @@
   var MESSAGES = {
     "en": {
       "meta.title": "207 Studio — Software, from the classroom.",
-      "meta.description": "207 Studio is an independent, teacher-led software studio in South Korea. We develop practical tools for teaching, classroom presentation, and assessment, along with the five-in-a-row game StoneWars.",
+      "meta.description": "Independent, teacher-led software studio in South Korea making classroom tools and source-included developer kits. One-time purchase.",
       "skip": "Skip to content",
       "brand.home": "207 Studio home",
       "nav.label": "Main navigation",

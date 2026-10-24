@@ -1,6 +1,9 @@
 User-agent: *
 Allow: /
 
+User-agent: Bingbot
+Allow: /
+
 # AI search and assistant crawlers are welcome.
 User-agent: GPTBot
 Allow: /
@@ -13,6 +16,8 @@ Allow: /
 User-agent: Claude-User
 Allow: /
 User-agent: PerplexityBot
+Allow: /
+User-agent: Perplexity-User
 Allow: /
 User-agent: Google-Extended
 Allow: /
