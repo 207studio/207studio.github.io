@@ -2,6 +2,8 @@
 
 > https://207studio.dev · support@207studio.dev · South Korea. One-time purchase, full source. Commercial tiers cover companies with annual revenue up to $1M; above that, email support@207studio.dev for an Enterprise license.
 
+Founder: Jang Yuil (장유일)
+
 ## PPTX Player SDK – Play PowerPoint in the Browser
 
 URL: https://207studio.dev/products/pptx-player-sdk/
