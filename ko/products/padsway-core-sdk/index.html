@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#102b32">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/products/products.css">
+<title>PadswayCore SDK: Mac 화면을 iPad로 스트리밍 (Swift) | 207 Studio</title>
+<meta name="description" content="Mac 화면을 iPad로 보내고 터치와 키보드, 클립보드를 되돌려 보내는 Swift 패키지예요. 하드웨어 H.264/HEVC, 60/120 fps, 전체 소스, 1회 구매.">
+<link rel="canonical" href="https://207studio.dev/ko/products/padsway-core-sdk/">
+<link rel="alternate" hreflang="en" href="https://207studio.dev/products/padsway-core-sdk/">
+<link rel="alternate" hreflang="ko" href="https://207studio.dev/ko/products/padsway-core-sdk/">
+<link rel="alternate" hreflang="x-default" href="https://207studio.dev/products/padsway-core-sdk/">
+<meta property="og:title" content="PadswayCore SDK: Mac 화면을 iPad로 스트리밍 (Swift) | 207 Studio">
+<meta property="og:description" content="Mac 화면을 iPad로 보내고 터치와 키보드, 클립보드를 되돌려 보내는 Swift 패키지예요. 하드웨어 H.264/HEVC, 60/120 fps, 전체 소스, 1회 구매.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://207studio.dev/ko/products/padsway-core-sdk/">
+<meta property="og:image" content="https://207studio.dev/assets/products/padsway-core-sdk-1200.jpg">
+<meta property="og:site_name" content="207 Studio">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PadswayCore SDK: Mac 화면을 iPad로 스트리밍 (Swift) | 207 Studio">
+<meta name="twitter:description" content="Mac 화면을 iPad로 보내고 터치와 키보드, 클립보드를 되돌려 보내는 Swift 패키지예요. 하드웨어 H.264/HEVC, 60/120 fps, 전체 소스, 1회 구매.">
+<meta name="twitter:image" content="https://207studio.dev/assets/products/padsway-core-sdk-1200.jpg">
+<meta name="twitter:site" content="@207_studio">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://207studio.dev/ko/products/padsway-core-sdk/#product","@type":"Product","brand":{"@id":"https://207studio.dev/#org"},"category":"DeveloperApplication","description":"Mac 화면을 iPad로 보내고 터치와 키보드, 클립보드를 되돌려 보내는 Swift 패키지예요. 하드웨어 H.264/HEVC, 60/120 fps, 전체 소스, 1회 구매.","image":"https://207studio.dev/assets/products/padsway-core-sdk-1200.jpg","name":"PadswayCore SDK: Mac 화면을 iPad로 스트리밍 (Swift)","inLanguage":"ko","offers":[{"@type":"Offer","availability":"https://schema.org/InStock","name":"Commercial","price":"129.00","priceCurrency":"USD","seller":{"@id":"https://207studio.dev/#org"},"sku":"padsway-core-sdk-commercial","url":"https://buy.polar.sh/polar_cl_X4vNDyrdEHsK4LYKEg9WZWqtrbe6SzxzHU8zu0lQfSH"}],"url":"https://207studio.dev/ko/products/padsway-core-sdk/"},{"@id":"https://207studio.dev/ko/products/padsway-core-sdk/#webpage","@type":"WebPage","url":"https://207studio.dev/ko/products/padsway-core-sdk/","name":"PadswayCore SDK: Mac 화면을 iPad로 스트리밍 (Swift) | 207 Studio","description":"Mac 화면을 iPad로 보내고 터치와 키보드, 클립보드를 되돌려 보내는 Swift 패키지예요. 하드웨어 H.264/HEVC, 60/120 fps, 전체 소스, 1회 구매.","inLanguage":"ko","isPartOf":{"@id":"https://207studio.dev/#website"}},{"@type":"FAQPage","inLanguage":"ko","mainEntity":[{"@type":"Question","name":"Swift로 Mac 화면을 iPad에 스트리밍하려면 어떻게 하나요?","acceptedAnswer":{"@type":"Answer","text":"두 앱 모두에 PadswayCore를 넣어요. Mac에서는 Pairing을 만들고 HostSession을 시작해요. iPad에서는 페어링 정보를 불러와 ClientSession을 연결한 뒤, 넘겨주는 CVPixelBuffer를 그리면 돼요. 연결 방법은 INTEGRATION.md에 있고, 그 코드는 테스트에서 컴파일 검증을 거쳐요."}},{"@type":"Question","name":"Mac이나 네트워크, 권한 없이도 시험해 볼 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"네. `swift run padsway self-test`가 120개 프레임을 인코딩해서 루프백 TLS로 보내고 약 2초 안에 디코딩해요. ClientSession.demo()는 시뮬레이션한 Mac을 프로세스 안에서 스트리밍해서 온보딩과 App Review에 쓸 수 있어요."}},{"@type":"Question","name":"Mac 쪽을 Mac App Store에 올릴 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"아니요. 호스트가 손쉬운 사용(Accessibility) API로 입력을 주입하기 때문에 샌드박스에서 돌 수 없어요. 서명하고 공증한 앱으로 배포해야 해요. iPad 쪽은 이런 제한이 없어요."}},{"@type":"Question","name":"다른 네트워크에서도 되나요?","acceptedAnswer":{"@type":"Answer","text":"기본으로는 같은 로컬 네트워크에서 동작해요. 포트 포워딩 없이 쓰고 싶을 때를 위해 오픈 소스 tsnet 라이브러리로 만든 선택형 브리지가 소스로 들어 있어요."}},{"@type":"Question","name":"프레임 레이트와 해상도는 어떻게 되나요?","acceptedAnswer":{"@type":"Answer","text":"Full HD(1920×1080)예요. ProMotion iPad에서는 120 fps를 요청하고 다른 기기에서는 60 fps를 요청해요. 처리량을 보장하는 숫자는 아니에요. 네트워크 지연이 갑자기 커지면 느린 iPad는 몇 초 동안 약 11 fps까지 떨어질 수 있어요."}},{"@type":"Question","name":"구독인가요?","acceptedAnswer":{"@type":"Answer","text":"아니요. 1회 구매이고 전체 소스가 포함돼요."}},{"@type":"Question","name":"결제하면 무엇을 받나요?","acceptedAnswer":{"@type":"Answer","text":"전체 소스와 README, 실행 가능한 데모가 든 zip을 받아요. 결제한 곳에서 결제 직후와 영수증 이메일로 다운로드 링크를 보여 줘요."}}]}]}</script>
+</head>
+<body>
+<header class="site-header wrap"><a class="brand" href="/ko/"><span class="brand-mark">207</span><span>STUDIO</span></a><nav aria-label="주 메뉴"><a href="/ko/">홈</a><a href="/ko/products/" aria-current="page">제품</a><a href="/ko/blog/">글</a><a href="/" lang="en" hreflang="en">English</a></nav></header>
+<main class="wrap product-page">
+<nav class="crumbs" aria-label="이동 경로"><a href="/ko/products/">제품</a> / <span>PadswayCore SDK: Mac 화면을 iPad로 스트리밍 (Swift)</span></nav>
+<h1>PadswayCore SDK: Mac 화면을 iPad로 스트리밍 (Swift)</h1>
+<p class="lede">Mac 화면을 iPad에 띄우고, 터치와 키보드, 클립보드, 받아쓰기를 다시 Mac으로 보내요. 실제로 동작하는 Mac + iPad 원격 앱의 스트리밍 엔진을 Swift 패키지로 묶었어요.</p>
+
+<picture class="hero-media"><source type="image/webp" srcset="/assets/products/padsway-core-sdk-640.webp 640w, /assets/products/padsway-core-sdk-1200.webp 1200w" sizes="(max-width: 760px) 100vw, 50vw"><img src="/assets/products/padsway-core-sdk-1200.jpg" width="1200" height="675" alt="PadswayCore SDK: Mac 화면을 iPad로 스트리밍 (Swift) 커버" loading="eager" decoding="async"></picture>
+<div class="buy-row"><a class="buy primary" href="https://buy.polar.sh/polar_cl_X4vNDyrdEHsK4LYKEg9WZWqtrbe6SzxzHU8zu0lQfSH?utm_source=207studio.dev&amp;utm_medium=site&amp;utm_campaign=padsway-core-sdk&amp;utm_content=top">Commercial · $129</a></div><p class="also paddle">기본 결제는 Polar, Paddle로도 카드 또는 PayPal 결제: <a href="/pay/?price=pri_01m5b3x0phe8gmxs2031tc27ev">Commercial $129</a></p>
+<p class="note">1회 구매.</p>
+<p class="tier-note-small">회사나 조직(여러 명)용이고, 직접 만든 앱에 컴파일된 코드로 넣을 수 있어요. 우선 이메일 지원이 붙어요. 1회 구매예요. Commercial은 연 매출 $1M 이하 회사를 대상으로 해요. 그보다 크면 support@207studio.dev로 Enterprise 라이선스를 문의해 주세요.</p>
+
+<section><h2>무엇인가요</h2><p>PadswayCore SDK는 macOS 13+와 iPadOS 17+에서 Mac 화면을 iPad로 보내는 순수 Swift 패키지예요. ScreenCaptureKit으로 화면을 잡고, VideoToolbox H.264/HEVC로 60 또는 120 fps(Full HD)로 인코딩·디코딩해요. iPad가 보내는 확인 응답에 맞춰 프레임을 조절해 지연을 낮게 유지하고, 포인터·키·텍스트·Apple Pencil·클립보드를 TLS 1.2와 페어링별 키로 되돌려 보내요. 전체 소스와 550개 이상의 테스트가 포함돼요.</p></section>
+<section><h2>빠르게 시작하기</h2><pre><code>swift build
+swift run padsway self-test
+swift test</code></pre></section>
+<section><h2>다른 도구와 비교</h2><div class="table-wrap"><table>
+<thead><tr><th>도구</th><th>종류</th><th>메모</th></tr></thead>
+<tbody>
+<tr><td>RealVNC SDK</td><td>상용 VNC SDK</td><td>가격은 견적, £1 한 달 평가판</td></tr><tr><td>Splashtop OEM SDK</td><td>상용 OEM·자체 브랜드</td><td>가격은 견적</td></tr><tr><td>RoyalVNC</td><td>무료 오픈 소스 Swift VNC/RFB SDK</td><td>VNC 프로토콜, 하드웨어 HEVC 파이프라인 없음</td></tr><tr class="ours"><td>PadswayCore SDK</td><td>Swift 패키지, 소스 포함</td><td>1회 $129, ScreenCaptureKit + VideoToolbox, 수신 측 응답에 맞춘 프레임, TLS 페어링</td></tr>
+</tbody>
+</table></div></section>
+<section><h2>자주 묻는 질문</h2>
+<details><summary>Swift로 Mac 화면을 iPad에 스트리밍하려면 어떻게 하나요?</summary><p>두 앱 모두에 PadswayCore를 넣어요. Mac에서는 Pairing을 만들고 HostSession을 시작해요. iPad에서는 페어링 정보를 불러와 ClientSession을 연결한 뒤, 넘겨주는 CVPixelBuffer를 그리면 돼요. 연결 방법은 INTEGRATION.md에 있고, 그 코드는 테스트에서 컴파일 검증을 거쳐요.</p></details><details><summary>Mac이나 네트워크, 권한 없이도 시험해 볼 수 있나요?</summary><p>네. `swift run padsway self-test`가 120개 프레임을 인코딩해서 루프백 TLS로 보내고 약 2초 안에 디코딩해요. ClientSession.demo()는 시뮬레이션한 Mac을 프로세스 안에서 스트리밍해서 온보딩과 App Review에 쓸 수 있어요.</p></details><details><summary>Mac 쪽을 Mac App Store에 올릴 수 있나요?</summary><p>아니요. 호스트가 손쉬운 사용(Accessibility) API로 입력을 주입하기 때문에 샌드박스에서 돌 수 없어요. 서명하고 공증한 앱으로 배포해야 해요. iPad 쪽은 이런 제한이 없어요.</p></details><details><summary>다른 네트워크에서도 되나요?</summary><p>기본으로는 같은 로컬 네트워크에서 동작해요. 포트 포워딩 없이 쓰고 싶을 때를 위해 오픈 소스 tsnet 라이브러리로 만든 선택형 브리지가 소스로 들어 있어요.</p></details><details><summary>프레임 레이트와 해상도는 어떻게 되나요?</summary><p>Full HD(1920×1080)예요. ProMotion iPad에서는 120 fps를 요청하고 다른 기기에서는 60 fps를 요청해요. 처리량을 보장하는 숫자는 아니에요. 네트워크 지연이 갑자기 커지면 느린 iPad는 몇 초 동안 약 11 fps까지 떨어질 수 있어요.</p></details><details><summary>구독인가요?</summary><p>아니요. 1회 구매이고 전체 소스가 포함돼요.</p></details><details><summary>결제하면 무엇을 받나요?</summary><p>전체 소스와 README, 실행 가능한 데모가 든 zip을 받아요. 결제한 곳에서 결제 직후와 영수증 이메일로 다운로드 링크를 보여 줘요.</p></details>
+</section>
+<section class="related"><h2>관련 제품</h2><div class="related-grid"><a class="related-card" href="/ko/products/pptx-player-sdk/"><img src="/assets/products/pptx-player-sdk-640.webp" width="640" height="360" alt="PPTX Player SDK: 브라우저에서 PowerPoint 재생 커버" loading="lazy" decoding="async"><span class="related-name">PPTX Player SDK: 브라우저에서 PowerPoint 재생</span><span class="related-summary">PowerPoint를 브라우저에서 애니메이션까지 재생해요. .pptx를 HTML/SVG로 바꾸는 클라이언트 사이드 엔진이고, 오프라인에서도 돌아가요.</span><span class="related-price">From $14</span></a><a class="related-card" href="/ko/products/shapefit/"><img src="/assets/products/shapefit-640.webp" width="640" height="360" alt="ShapeFit: Swift와 Rust용 hold-to-shape 커버" loading="lazy" decoding="async"><span class="related-name">ShapeFit: Swift와 Rust용 hold-to-shape</span><span class="related-summary">펜을 멈추면 획이 깔끔한 선, 원, 사각형, 다각형으로 바뀌어요. 직접 만드는 드로잉 앱에 넣을 수 있어요.</span><span class="related-price">From $9</span></a></div></section>
+
+<div class="buy-row"><a class="buy primary" href="https://buy.polar.sh/polar_cl_X4vNDyrdEHsK4LYKEg9WZWqtrbe6SzxzHU8zu0lQfSH?utm_source=207studio.dev&amp;utm_medium=site&amp;utm_campaign=padsway-core-sdk&amp;utm_content=bottom">Commercial · $129</a></div><p class="also paddle">기본 결제는 Polar, Paddle로도 카드 또는 PayPal 결제: <a href="/pay/?price=pri_01m5b3x0phe8gmxs2031tc27ev">Commercial $129</a></p>
+<p class="note">1회 구매.</p>
+<p><a href="/ko/products/">← 전체 제품</a></p>
+</main>
+<footer class="site-footer wrap"><p>207 Studio (207studio.dev), 대한민국. 지원: <a href="mailto:support@207studio.dev">support@207studio.dev</a> · <a href="/ko/about/">소개</a></p><p>마지막 업데이트 2026-10-24. © 2026 207 Studio</p></footer>
+</body>
+</html>
