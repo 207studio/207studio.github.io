@@ -191,7 +191,7 @@
    "image_webp_640": "/assets/products/padsway-core-sdk-640.webp",
    "image_webp_1200": "/assets/products/padsway-core-sdk-1200.webp",
    "image_jpg": "/assets/products/padsway-core-sdk-1200.jpg",
-   "title": "PadswayCore SDK – Stream a Mac Screen to iPad (Swift)",
+   "title": "PadswayCore SDK: Mac-to-iPad Screen Streaming",
    "category": "DeveloperApplication",
    "related": [
     "pptx-player-sdk",
@@ -237,7 +237,7 @@
      "OMR with Excel roster write-back"
     ],
     [
-     "Scan-to-Grade Bundle",
+     "Scan-to-Grade",
      "Python package, source included",
      "$79 one-time; QR page sorting, cropping, grading and Excel export in one"
     ]
@@ -322,7 +322,7 @@
    "title": "OMR Auto-Grader – Bubbles, O/X, Circled Answers",
    "description": "Python OMR that grades bubbles, multi-marks, O/X and circled answers, fills only confident grades, never overwrites teacher marks. One-time purchase.",
    "summary": "Reads bubbles, circled words, O/X boxes and ordering marks on scanned sheets, and fills in only the grades it is sure of.",
-   "what": "Answer Sheet OMR & Auto-Grader is a Python OMR engine for scanned answer sheets. Beyond A–E bubbles, it reads multi-answer marks, circled words, O/X boxes and ordering bubbles. It fills in only grades it is confident about, never overwrites a mark a teacher already made, and sends the rest to a re-check list. Runnable demo exports to Excel.",
+   "what": "OMR Auto-Grader is a Python OMR engine for scanned answer sheets. Beyond A–E bubbles, it reads multi-answer marks, circled words, O/X boxes and ordering bubbles. It fills in only grades it is confident about, never overwrites a mark a teacher already made, and sends the rest to a re-check list. Runnable demo exports to Excel.",
    "quickstart": [
     "pip install -r requirements.txt",
     "python demo.py",
@@ -338,6 +338,11 @@
      "MarkShark",
      "Open source (AGPL)",
      "Commercial terms by contact"
+    ],
+    [
+     "OpenMCR",
+     "Open source (GPL-3.0)",
+     "Open-source OMR"
     ],
     [
      "Aspose.OMR",
@@ -370,7 +375,7 @@
     ],
     [
      "Does it work with my scanner?",
-     "It works on scanned images from any scanner. Pair it with the QR Cropper, or get both in the Scan-to-Grade Bundle."
+     "It works on scanned images from any scanner. Pair it with the QR Cropper, or get both with Scan-to-Grade."
     ],
     [
      "Is it a subscription?",
@@ -417,9 +422,9 @@
    ],
    "tier_note": "Personal is for one person, and that includes shipping it inside your own paid or free apps as compiled or bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase.",
    "upsell": {
-    "text": "Need both? The Scan-to-Grade Bundle has the QR Cropper and the OMR Auto-Grader together: $79 instead of $98 (save $19), or $299 instead of $398 for Commercial (save $99).",
+    "text": "Need both? Scan-to-Grade has the QR Cropper and the OMR Auto-Grader together: $79 instead of $98 (save $19), or $299 instead of $398 for Commercial (save $99).",
     "link": "/products/scan-to-grade-bundle/",
-    "link_text": "See the Scan-to-Grade Bundle"
+    "link_text": "See Scan-to-Grade"
    },
    "includes": null,
    "badge": null
@@ -431,7 +436,7 @@
    "title": "QR Answer-Sheet Cropper – Crop Every Answer Box",
    "description": "Print a QR on each page, scan a mixed batch, get every answer cell as an aligned image. Python + OpenCV, runnable demo, one-time purchase.",
    "summary": "Print a QR on each sheet, scan a mixed batch, and get every answer cell back as a clean, aligned image.",
-   "what": "QR-Anchored Answer Sheet Cropper is a Python and OpenCV tool for scanned exams. Print a small QR on each sheet and drop in a mixed scanner batch. It identifies each page by its QR, pairs fronts and backs, corrects rotation and skew, and crops every answer cell into a clean, aligned image at about 200 dpi. It runs offline.",
+   "what": "QR Answer-Sheet Cropper is a Python and OpenCV tool for scanned exams. Print a small QR on each sheet and drop in a mixed scanner batch. It identifies each page by its QR, pairs fronts and backs, corrects rotation and skew, and crops every answer cell into a clean, aligned image at about 200 dpi. It runs offline.",
    "quickstart": [
     "pip install -r requirements.txt",
     "python demo.py",
@@ -467,7 +472,7 @@
    "faq": [
     [
      "How do I crop answer regions from scanned exam sheets with a QR code?",
-     "Print the QR payload on each sheet, scan the batch and run the cropper. It reads the QR in the page corners, warps each answer table to a millimetre grid and cuts every cell."
+     "Print the QR payload on each sheet, scan the batch and run the cropper. It reads the QR in the page corners, deskews each page to the template, warps each answer table to a millimetre grid and cuts every answer cell into its own image."
     ],
     [
      "Can I sort a mixed scanner batch by student?",
@@ -484,10 +489,6 @@
     [
      "What do I need to run it?",
      "Python 3.10+, opencv-python-headless and numpy on Windows, macOS or Linux. One-time purchase, full source included."
-    ],
-    [
-     "How do I crop answer boxes from scanned exams with a QR code in Python?",
-     "Print the QR on each sheet, scan the batch, and run the demo: each page is identified by its QR, deskewed to the template and cut into one image per answer cell."
     ],
     [
      "Which tier should I buy?",
@@ -526,9 +527,9 @@
    ],
    "tier_note": "Personal is for one person, and that includes shipping it inside your own paid or free apps as compiled or bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase.",
    "upsell": {
-    "text": "Need both? The Scan-to-Grade Bundle has the QR Cropper and the OMR Auto-Grader together: $79 instead of $98 (save $19), or $299 instead of $398 for Commercial (save $99).",
+    "text": "Need both? Scan-to-Grade has the QR Cropper and the OMR Auto-Grader together: $79 instead of $98 (save $19), or $299 instead of $398 for Commercial (save $99).",
     "link": "/products/scan-to-grade-bundle/",
-    "link_text": "See the Scan-to-Grade Bundle"
+    "link_text": "See Scan-to-Grade"
    },
    "includes": null,
    "badge": null
@@ -640,7 +641,7 @@
    "title": "ShapeFit – Hold-to-Shape for Swift & Rust",
    "description": "Pause on a stroke and it snaps to a clean line, circle, rectangle or polygon. No ML, no MAU limits, zero dependencies. PencilKit-ready. $9, source.",
    "summary": "Turn a hand-drawn stroke into a clean line, circle, rectangle or polygon when the user pauses, for your own drawing app.",
-   "what": "ShapeFit adds the hold-to-shape gesture from Apple Notes and GoodNotes to your own drawing app. When the user pauses at the end of a stroke, it snaps to a clean line, circle, ellipse, rectangle, triangle or polygon, and leaves scribbles alone. Pure geometry, no ML model, zero dependencies: a Rust crate plus a drop-in Swift file with identical results.",
+   "what": "ShapeFit adds the hold-to-shape gesture from note-taking apps to your own drawing app. When the user pauses at the end of a stroke, it snaps to a clean line, circle, ellipse, rectangle, triangle or polygon, and leaves scribbles alone. Pure geometry, no ML model, zero dependencies: a Rust crate plus a drop-in Swift file with identical results.",
    "quickstart": [
     "cargo test",
     "cargo run --bin shapefit-demo",
@@ -665,7 +666,7 @@
    ],
    "faq": [
     [
-     "How do I add Apple Notes-style hold-to-shape to my app?",
+     "How do I add hold-to-shape from note-taking apps to my app?",
      "Feed the stroke points to ShapeFit when the pen pauses. It returns a clean shape, or leaves the stroke alone if it is a scribble."
     ],
     [
@@ -735,7 +736,7 @@
    "title": "Exam + OMR Sheet Builder – Paper, Sheet & Key",
    "description": "Write an exam once; print the paper, OMR sheet, answer key, explanations and cover, always matching. Offline single file + MCP server for AI. $12.",
    "summary": "Write an exam once and print a matching exam paper, OMR answer sheet, answer key, explanation sheet and cover page.",
-   "what": "Exam & OMR Sheet Builder lets you write an exam once and print five matching documents: the exam paper, an OMR bubble answer sheet, the answer key, an explanation sheet and a cover page. All five come from the same data, so they never disagree. The editor is a single offline HTML file, and an MCP server lets an AI assistant draft exams.",
+   "what": "Exam + OMR Sheet Builder lets you write an exam once and print five matching documents: the exam paper, an OMR bubble answer sheet, the answer key, an explanation sheet and a cover page. All five come from the same data, so they never disagree. The editor is a single offline HTML file, and an MCP server lets an AI assistant draft exams.",
    "quickstart": [
     "node build.mjs examples/demo-science-en.json out",
     "open out/exam.html",
@@ -758,7 +759,7 @@
      "AI worksheet generation"
     ],
     [
-     "Exam & OMR Sheet Builder",
+     "Exam + OMR Sheet Builder",
      "Single offline file + MCP server, source included",
      "$12 one-time; paper, OMR sheet, key, explanations and cover from one file"
     ]
@@ -831,7 +832,7 @@
    "title": "Offline Classroom Tools – Seating, PACER Timer",
    "description": "Four single-file HTML tools: seating + attendance board, weekly attendance to Excel, PACER beep test recorder, Wi-Fi QR cards. No account. $9.",
    "summary": "Four single-file classroom tools: a seating chart with attendance, a morning board, a fitness test recorder and Wi-Fi QR cards.",
-   "what": "Classroom HTML Tools is four single-file classroom tools that open with a double-click: a drag-and-drop seating chart with attendance, a morning board that exports a weekly attendance log to Excel, a PACER beep test timer and fitness test recorder, and printable Wi-Fi QR cards. No install, no account, no server; data stays in the browser.",
+   "what": "Offline Classroom Tools is four single-file classroom tools that open with a double-click: a drag-and-drop seating chart with attendance, a morning board that exports a weekly attendance log to Excel, a PACER beep test timer and fitness test recorder, and printable Wi-Fi QR cards. No install, no account, no server; data stays in the browser.",
    "quickstart": [
     "open the fitness recorder and press Start",
     "paste the sample roster into the class board",
@@ -854,7 +855,7 @@
      "One-time purchase"
     ],
     [
-     "Classroom HTML Tools",
+     "Offline Classroom Tools",
      "Four offline HTML files, source included",
      "$9 one-time; seating, attendance to Excel, PACER recorder, Wi-Fi QR cards"
     ]
@@ -924,7 +925,7 @@
    "slug": "send-approval-gate-mcp",
    "name": "Send Approval Gate MCP: Plan, Approve, Send, Verify",
    "audience": "developers",
-   "title": "Send Approval Gate MCP – Fail-Closed Sends for AI Agents (Node.js)",
+   "title": "Send Approval Gate MCP: Plan, Approve, Send, Verify",
    "description": "MCP server that makes an AI agent plan, get an exact hash-bound approval, send once and verify. Node.js 22+, no dependencies. One-time purchase, source included.",
    "summary": "An MCP server that makes an AI agent plan, present an exact hash-bound approval, send once and verify, and records every step.",
    "what": "Send Approval Gate MCP is a Node.js 22+ MCP server (stdio) with six tools: status, account, contacts, plan-send, send and verify-send. The approval binds plan ID, account, recipient, message SHA-256, backend and environment hash, so any change needs a new approval. Duplicate sends are blocked, an uncertain result becomes result_unknown and is never retried, and every step goes to a local ledger with crash recovery. You attach your own channel through a small backend plugin contract; a mock backend and example plugin are included. 47 tests, no npm dependencies. It keeps a cooperative agent's sends exact, single and auditable; it is not a security boundary against an agent you do not trust.",
