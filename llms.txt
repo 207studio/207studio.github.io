@@ -2,6 +2,8 @@
 
 > Developer kits and classroom tools from 207 Studio (207studio.dev), South Korea. One-time purchase, full source.
 
+Founder: Jang Yuil (장유일)
+
 ## Products
 
 - [PPTX Player SDK – Play PowerPoint in the Browser](https://207studio.dev/products/pptx-player-sdk/): Play PowerPoint in the browser with every animation: a client-side PPTX to HTML/SVG engine that works offline. Prices: Developer $14 / Commercial $129.
@@ -50,3 +52,7 @@
 ## About
 
 - [About 207 Studio](https://207studio.dev/about/): who we are, where we are, how to contact us.
+
+## Contact
+
+- Email: support@207studio.dev
