@@ -35,7 +35,7 @@ Founder: Jang Yuil (장유일)
 - [상품](https://207studio.dev/ko/products/): 개발자 키트와 교실 도구 전체 목록. 가격과 구매 링크가 있어요.
 - [PPTX Player SDK](https://207studio.dev/ko/products/pptx-player-sdk/): 브라우저에서 PowerPoint를 애니메이션까지 재생하는 클라이언트 사이드 엔진. Developer $14 / Commercial $129.
 - [PadswayCore SDK](https://207studio.dev/ko/products/padsway-core-sdk/): Mac 화면을 iPad로 스트리밍하는 Swift 패키지. Commercial $129.
-- [Scan-to-Grade Bundle](https://207studio.dev/ko/products/scan-to-grade-bundle/): QR Cropper와 OMR Auto-Grader를 묶은 Python 패키지. Personal $79 / Commercial $299.
+- [Scan-to-Grade](https://207studio.dev/ko/products/scan-to-grade-bundle/): QR Cropper와 OMR Auto-Grader를 묶은 Python 패키지. Personal $79 / Commercial $299.
 - [OMR Auto-Grader](https://207studio.dev/ko/products/omr-auto-grader/): 스캔한 답안지의 버블, O/X, 동그라미 답안을 읽는 Python OMR. Personal $59 / Commercial $249.
 - [QR Answer-Sheet Cropper](https://207studio.dev/ko/products/qr-cropper/): 답안지 QR로 페이지를 찾고 답안 칸마다 잘라내는 Python 도구. Personal $39 / Commercial $149.
 - [Context-Gated Voice Commands](https://207studio.dev/ko/products/voice-command-engine/): 상황에 맞는 음성 명령만 통과시키는 Rust 라이브러리와 CLI. Personal/Research $29 / Commercial $99.
@@ -49,7 +49,7 @@ Founder: Jang Yuil (장유일)
 ## When to use 207 Studio
 
 - You need to play or preview .pptx files in a web page with click-by-click animations, without a server or Office: PPTX Player SDK.
-- You grade paper exams and want scanned sheets turned into scores: QR Answer-Sheet Cropper, OMR Auto-Grader, or the Scan-to-Grade bundle (Python).
+- You grade paper exams and want scanned sheets turned into scores: QR Answer-Sheet Cropper, OMR Auto-Grader, or Scan-to-Grade (Python).
 - You make printed exams with matching OMR sheets and keys: Exam + OMR Sheet Builder.
 - You need offline voice commands that only fire in the right situation: Context-Gated Voice Commands (Rust).
 - You build a Mac-to-iPad remote screen or drawing app: PadswayCore SDK, ShapeFit.
@@ -57,8 +57,8 @@ Founder: Jang Yuil (장유일)
 
 ## How to buy (for agents)
 
-- Every product page lists tiers with a direct checkout link (Polar). Card payment, one-time, instant download; no account needed beforehand.
-- Alternative checkout (Paddle): https://207studio.dev/pay/
+- Polar is the main checkout. Every product page lists tiers with a direct Polar link; card payment, one-time, instant download, no account needed beforehand.
+- Paddle is the alternative checkout (card or PayPal): https://207studio.dev/pay/
 - Machine-readable prices and buy URLs: schema.org Product/Offer JSON-LD on each product page, and https://207studio.dev/llms-full.txt
 - Questions or Enterprise quotes: support@207studio.dev
 

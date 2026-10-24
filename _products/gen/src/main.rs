@@ -305,7 +305,7 @@ fn store_links(tiers: &[Tier]) -> String {
     }
     if !paddle.is_empty() {
         out.push_str(&format!(
-            "<p class=\"also paddle\">Card or PayPal via Paddle: {}</p>",
+            "<p class=\"also paddle\">Polar is the main checkout. Paddle is the alternative, for card or PayPal: {}</p>",
             paddle.join(" · ")
         ));
     }
