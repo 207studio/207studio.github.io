@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#102b32">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/products/products.css">
+<title>Context-Gated Voice Commands: 오프라인 음성 명령 | 207 Studio</title>
+<meta name="description" content="지금 상황을 1초마다 추정하고 그 상황에 맞는 음성 명령만 실행하는 Rust 엔진이에요. 주변 대화는 무시하고, 오프라인으로 돌아가요.">
+<link rel="canonical" href="https://207studio.dev/ko/products/voice-command-engine/">
+<link rel="alternate" hreflang="en" href="https://207studio.dev/products/voice-command-engine/">
+<link rel="alternate" hreflang="ko" href="https://207studio.dev/ko/products/voice-command-engine/">
+<link rel="alternate" hreflang="x-default" href="https://207studio.dev/products/voice-command-engine/">
+<meta property="og:title" content="Context-Gated Voice Commands: 오프라인 음성 명령 | 207 Studio">
+<meta property="og:description" content="지금 상황을 1초마다 추정하고 그 상황에 맞는 음성 명령만 실행하는 Rust 엔진이에요. 주변 대화는 무시하고, 오프라인으로 돌아가요.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://207studio.dev/ko/products/voice-command-engine/">
+<meta property="og:image" content="https://207studio.dev/assets/products/voice-command-engine-1200.jpg">
+<meta property="og:site_name" content="207 Studio">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Context-Gated Voice Commands: 오프라인 음성 명령 | 207 Studio">
+<meta name="twitter:description" content="지금 상황을 1초마다 추정하고 그 상황에 맞는 음성 명령만 실행하는 Rust 엔진이에요. 주변 대화는 무시하고, 오프라인으로 돌아가요.">
+<meta name="twitter:image" content="https://207studio.dev/assets/products/voice-command-engine-1200.jpg">
+<meta name="twitter:site" content="@207_studio">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://207studio.dev/ko/products/voice-command-engine/#product","@type":"Product","brand":{"@id":"https://207studio.dev/#org"},"category":"DeveloperApplication","description":"지금 상황을 1초마다 추정하고 그 상황에 맞는 음성 명령만 실행하는 Rust 엔진이에요. 주변 대화는 무시하고, 오프라인으로 돌아가요.","image":"https://207studio.dev/assets/products/voice-command-engine-1200.jpg","name":"Context-Gated Voice Commands: 오프라인 음성 명령","inLanguage":"ko","offers":[{"@type":"Offer","availability":"https://schema.org/InStock","name":"Personal/Research","price":"29.00","priceCurrency":"USD","seller":{"@id":"https://207studio.dev/#org"},"sku":"voice-command-engine-personal-research","url":"https://buy.polar.sh/polar_cl_wTaaxiMXwBpLPJBlzBKZ4xGAa4JTMz9kzp24r0g8L8Y"},{"@type":"Offer","availability":"https://schema.org/InStock","name":"Commercial","price":"99.00","priceCurrency":"USD","seller":{"@id":"https://207studio.dev/#org"},"sku":"voice-command-engine-commercial","url":"https://buy.polar.sh/polar_cl_mCFCRFkwWmVTk9k5xz4YeJUkURL9oVwEzz8nv3I7uAZ"}],"url":"https://207studio.dev/ko/products/voice-command-engine/"},{"@id":"https://207studio.dev/ko/products/voice-command-engine/#webpage","@type":"WebPage","url":"https://207studio.dev/ko/products/voice-command-engine/","name":"Context-Gated Voice Commands: 오프라인 음성 명령 | 207 Studio","description":"지금 상황을 1초마다 추정하고 그 상황에 맞는 음성 명령만 실행하는 Rust 엔진이에요. 주변 대화는 무시하고, 오프라인으로 돌아가요.","inLanguage":"ko","isPartOf":{"@id":"https://207studio.dev/#website"}},{"@type":"FAQPage","inLanguage":"ko","mainEntity":[{"@type":"Question","name":"시끄러운 방에서 음성 명령이 잘못 실행되는 걸 어떻게 줄이나요?","acceptedAnswer":{"@type":"Answer","text":"명령을 상황으로 걸러요. 엔진이 지금 어떤 단계인지 추적하고, 단계마다 명령을 허용하거나 웨이크 워드를 요구하거나 막아요."}},{"@type":"Question","name":"상황은 어떻게 감지하나요?","acceptedAnswer":{"@type":"Answer","text":"단계와 설정한 전이, 음향 프로필(말하는 사람 수, 크기, 겹침, 주 화자 비율, 미디어 재생)에 확률 필터를 적용하고, 선택형 음성·앱 단서를 더해요. 1초에 한 번 갱신해요."}},{"@type":"Question","name":"내 상황을 직접 모델링할 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"네. TOML 파일에 단계, 길이, 전이, 음향 프로필, 명령 규칙을 정의하고 scene-engine validate로 검사한 뒤 시뮬레이션할 수 있어요. 교실, 회의, 매장 프리셋이 기본으로 들어 있어요."}},{"@type":"Question","name":"내 앱에서는 어떻게 쓰나요?","acceptedAnswer":{"@type":"Answer","text":"Rust 경로 의존성으로 추가하고, 1초에 한 번 관측값을 SceneFilter에 넣고, 명령마다 gate::decide를 호출해요. CLI는 JSONL 관측값을 넣고 단계 스냅숏을 받을 수도 있어요."}},{"@type":"Question","name":"클라우드나 Python이 필요한가요?","acceptedAnswer":{"@type":"Answer","text":"아니요. Rust 1.85 이상에서 로컬로 돌아가고, 계정도 API 키도 Python도 필요 없어요. 1회 구매이고 전체 소스가 포함돼요."}},{"@type":"Question","name":"주변 대화가 음성 명령을 실행하지 않게 하려면 어떻게 하나요?","acceptedAnswer":{"@type":"Answer","text":"명령을 상황으로 걸러요. 엔진이 수업, 회의, 매장 같은 장면의 단계를 음향 특징과 단서로 1초마다 추정하고, 명령을 실행하거나 웨이크 워드를 요구하거나 막아요. Rust 라이브러리와 CLI로 오프라인에서 돌아가요."}},{"@type":"Question","name":"어떤 등급을 사야 하나요?","acceptedAnswer":{"@type":"Answer","text":"Personal/Research는 한 사람용이고, 직접 만든 유료·무료 앱에 엔진을 컴파일된 코드로 넣을 수 있어요. Commercial은 회사나 조직에서 여러 명이 쓸 때이고 우선 이메일 지원이 붙어요. 두 등급 모두 소스 자체를 공유할 수는 없고, 전체 소스는 포함돼요. 1회 구매예요. Commercial은 연 매출 $1M 이하 회사를 대상으로 해요. 그보다 크면 support@207studio.dev로 Enterprise 라이선스를 문의해 주세요."}},{"@type":"Question","name":"결제하면 무엇을 받나요?","acceptedAnswer":{"@type":"Answer","text":"전체 소스와 README, 실행 가능한 데모가 든 zip을 받아요. Polar가 결제 직후와 영수증 이메일에서 다운로드 링크를 보여 줘요."}}]}]}</script>
+</head>
+<body>
+<header class="site-header wrap"><a class="brand" href="/ko/"><span class="brand-mark">207</span><span>STUDIO</span></a><nav aria-label="주 메뉴"><a href="/ko/">홈</a><a href="/ko/products/" aria-current="page">상품</a><a href="/ko/blog/">글</a><a href="/" lang="en" hreflang="en">English</a></nav></header>
+<main class="wrap product-page">
+<nav class="crumbs" aria-label="이동 경로"><a href="/ko/products/">상품</a> / <span>Context-Gated Voice Commands: 오프라인 음성 명령</span></nav>
+<h1>Context-Gated Voice Commands: 오프라인 음성 명령</h1>
+<p class="lede">오디오 특징으로 지금 상황을 추정하고, 그 상황에 맞는 음성 명령만 통과시키는 Rust 라이브러리와 CLI예요.</p>
+
+<picture class="hero-media"><source type="image/webp" srcset="/assets/products/voice-command-engine-640.webp 640w, /assets/products/voice-command-engine-1200.webp 1200w" sizes="(max-width: 760px) 100vw, 50vw"><img src="/assets/products/voice-command-engine-1200.jpg" width="1200" height="675" alt="Context-Gated Voice Commands: 오프라인 음성 명령 커버" loading="eager" decoding="async"></picture>
+<div class="buy-row"><a class="buy primary" href="https://buy.polar.sh/polar_cl_wTaaxiMXwBpLPJBlzBKZ4xGAa4JTMz9kzp24r0g8L8Y?utm_source=207studio.dev&amp;utm_medium=site&amp;utm_campaign=voice-command-engine&amp;utm_content=top">Personal/Research · $29</a><a class="buy" href="https://buy.polar.sh/polar_cl_mCFCRFkwWmVTk9k5xz4YeJUkURL9oVwEzz8nv3I7uAZ?utm_source=207studio.dev&amp;utm_medium=site&amp;utm_campaign=voice-command-engine&amp;utm_content=top">Commercial · $99</a></div><p class="also paddle">Paddle로 카드 또는 PayPal 결제: <a href="/pay/?price=pri_01m5b3wmm0rp3pwgmytf1r1f97">Personal/Research $29</a> · <a href="/pay/?price=pri_01m5b3wnx4n9m9x3q5mrvcqggh">Commercial $99</a></p>
+<p class="note">1회 구매.</p>
+<aside class="tier-note"><h2>어떤 등급을 사야 하나요?</h2><p>한 사람이 쓰는 라이선스예요. 직접 만든 유료·무료 앱에 엔진을 컴파일된 코드로 넣을 수 있어요. Commercial은 회사나 조직에서 여러 명이 쓸 때이고, 우선 이메일 지원이 붙어요. 두 등급 모두 소스 자체를 공유할 수는 없지만 전체 소스는 포함돼요. 1회 구매예요.</p></aside>
+
+<section><h2>무엇인가요</h2><p>Context-Gated Voice Commands는 Rust 라이브러리와 CLI예요. 수업, 회의, 매장 같은 장면이 지금 어느 단계인지 음향 특징과 단서로 1초마다 추정해요. 그리고 각 음성 명령을 바로 실행할지, 웨이크 워드를 요구할지, 막을지 정해요. 오프라인으로 돌아가고, 교실·회의·매장 프리셋과 시드가 있는 시뮬레이터가 들어 있어요.</p></section>
+<section><h2>빠르게 시작하기</h2><pre><code>cargo build --release
+./target/release/scene-engine simulate --preset all --sessions 100 --seed 20261018 --out out
+cat out/report.md</code></pre></section>
+<section><h2>다른 도구와 비교</h2><div class="table-wrap"><table>
+<thead><tr><th>도구</th><th>종류</th><th>메모</th></tr></thead>
+<tbody>
+<tr><td>Picovoice Rhino</td><td>온디바이스 음성 의도 인식</td><td>비상업 무료(MAU 1), Foundation 연 $6,000</td></tr><tr><td>연구 논문</td><td>방법만 있음</td><td>패키지 제품 없음</td></tr><tr><td>취미용 음성 명령 저장소</td><td>무료 오픈 소스</td><td>고정 명령 문법, 상황 모델 없음</td></tr><tr class="ours"><td>Context-Gated Voice Commands</td><td>Rust 라이브러리 + CLI, 소스 포함</td><td>1회 $29, 감지한 단계로 명령을 걸러 냄, 오프라인</td></tr>
+</tbody>
+</table></div></section>
+<section><h2>자주 묻는 질문</h2>
+<details><summary>시끄러운 방에서 음성 명령이 잘못 실행되는 걸 어떻게 줄이나요?</summary><p>명령을 상황으로 걸러요. 엔진이 지금 어떤 단계인지 추적하고, 단계마다 명령을 허용하거나 웨이크 워드를 요구하거나 막아요.</p></details><details><summary>상황은 어떻게 감지하나요?</summary><p>단계와 설정한 전이, 음향 프로필(말하는 사람 수, 크기, 겹침, 주 화자 비율, 미디어 재생)에 확률 필터를 적용하고, 선택형 음성·앱 단서를 더해요. 1초에 한 번 갱신해요.</p></details><details><summary>내 상황을 직접 모델링할 수 있나요?</summary><p>네. TOML 파일에 단계, 길이, 전이, 음향 프로필, 명령 규칙을 정의하고 scene-engine validate로 검사한 뒤 시뮬레이션할 수 있어요. 교실, 회의, 매장 프리셋이 기본으로 들어 있어요.</p></details><details><summary>내 앱에서는 어떻게 쓰나요?</summary><p>Rust 경로 의존성으로 추가하고, 1초에 한 번 관측값을 SceneFilter에 넣고, 명령마다 gate::decide를 호출해요. CLI는 JSONL 관측값을 넣고 단계 스냅숏을 받을 수도 있어요.</p></details><details><summary>클라우드나 Python이 필요한가요?</summary><p>아니요. Rust 1.85 이상에서 로컬로 돌아가고, 계정도 API 키도 Python도 필요 없어요. 1회 구매이고 전체 소스가 포함돼요.</p></details><details><summary>주변 대화가 음성 명령을 실행하지 않게 하려면 어떻게 하나요?</summary><p>명령을 상황으로 걸러요. 엔진이 수업, 회의, 매장 같은 장면의 단계를 음향 특징과 단서로 1초마다 추정하고, 명령을 실행하거나 웨이크 워드를 요구하거나 막아요. Rust 라이브러리와 CLI로 오프라인에서 돌아가요.</p></details><details><summary>어떤 등급을 사야 하나요?</summary><p>Personal/Research는 한 사람용이고, 직접 만든 유료·무료 앱에 엔진을 컴파일된 코드로 넣을 수 있어요. Commercial은 회사나 조직에서 여러 명이 쓸 때이고 우선 이메일 지원이 붙어요. 두 등급 모두 소스 자체를 공유할 수는 없고, 전체 소스는 포함돼요. 1회 구매예요. Commercial은 연 매출 $1M 이하 회사를 대상으로 해요. 그보다 크면 support@207studio.dev로 Enterprise 라이선스를 문의해 주세요.</p></details><details><summary>결제하면 무엇을 받나요?</summary><p>전체 소스와 README, 실행 가능한 데모가 든 zip을 받아요. Polar가 결제 직후와 영수증 이메일에서 다운로드 링크를 보여 줘요.</p></details>
+</section>
+<section class="related"><h2>관련 상품</h2><div class="related-grid"><a class="related-card" href="/ko/products/pptx-player-sdk/"><img src="/assets/products/pptx-player-sdk-640.webp" width="640" height="360" alt="PPTX Player SDK: 브라우저에서 PowerPoint 재생 커버" loading="lazy" decoding="async"><span class="related-name">PPTX Player SDK: 브라우저에서 PowerPoint 재생</span><span class="related-summary">PowerPoint를 브라우저에서 애니메이션까지 재생해요. .pptx를 HTML/SVG로 바꾸는 클라이언트 사이드 엔진이고, 오프라인에서도 돌아가요.</span><span class="related-price">From $14</span></a><a class="related-card" href="/ko/products/padsway-core-sdk/"><img src="/assets/products/padsway-core-sdk-640.webp" width="640" height="360" alt="PadswayCore SDK: Mac 화면을 iPad로 스트리밍 커버" loading="lazy" decoding="async"><span class="related-name">PadswayCore SDK: Mac 화면을 iPad로 스트리밍</span><span class="related-summary">Mac 화면을 iPad에 띄우고 터치와 키보드, 클립보드, 받아쓰기를 다시 보내요. 실제 Mac + iPad 원격 앱의 스트리밍 엔진을 Swift 패키지로 묶었어요.</span><span class="related-price">From $129</span></a></div></section>
+
+<div class="buy-row"><a class="buy primary" href="https://buy.polar.sh/polar_cl_wTaaxiMXwBpLPJBlzBKZ4xGAa4JTMz9kzp24r0g8L8Y?utm_source=207studio.dev&amp;utm_medium=site&amp;utm_campaign=voice-command-engine&amp;utm_content=bottom">Personal/Research · $29</a><a class="buy" href="https://buy.polar.sh/polar_cl_mCFCRFkwWmVTk9k5xz4YeJUkURL9oVwEzz8nv3I7uAZ?utm_source=207studio.dev&amp;utm_medium=site&amp;utm_campaign=voice-command-engine&amp;utm_content=bottom">Commercial · $99</a></div><p class="also paddle">Paddle로 카드 또는 PayPal 결제: <a href="/pay/?price=pri_01m5b3wmm0rp3pwgmytf1r1f97">Personal/Research $29</a> · <a href="/pay/?price=pri_01m5b3wnx4n9m9x3q5mrvcqggh">Commercial $99</a></p>
+<p class="note">1회 구매.</p>
+<p><a href="/ko/products/">← 전체 상품</a></p>
+</main>
+<footer class="site-footer wrap"><p>207 Studio (207studio.dev), 대한민국. 지원: <a href="mailto:support@207studio.dev">support@207studio.dev</a> · <a href="/ko/about/">소개</a></p><p>마지막 업데이트 2026-10-24. © 2026 207 Studio</p></footer>
+</body>
+</html>
