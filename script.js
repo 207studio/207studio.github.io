@@ -74,7 +74,7 @@
       "chalk.s2t": "Present it on your iPad",
       "chalk.s2d": "Show the material to your class.",
       "chalk.s3t": "Annotate as you teach",
-      "chalk.s3d": "Mark up the material while you explain, in English or Korean.",
+      "chalk.s3d": "Mark up the material while you explain.",
       "chalk.link": "Chalkieboard support",
       "chalk.slot": "Real app screens go here",
       "chalk.slotNote": "Chalkieboard screenshots are on their way.",

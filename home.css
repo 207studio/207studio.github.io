@@ -128,7 +128,7 @@ html:lang(ko) .concept-label{letter-spacing:.03em}
 .fall{position:absolute;top:-140px;left:min(var(--x),calc(100% - var(--size)));width:var(--size);height:var(--size);opacity:.95;filter:drop-shadow(0 6px 8px rgba(5,10,30,.4));animation:fall var(--dur) linear var(--delay) infinite;will-change:transform}
 @keyframes fall{0%{transform:translate(0,0) rotate(0)}50%{transform:translate(var(--sw),calc(50cqh + 70px)) rotate(150deg)}100%{transform:translate(0,calc(100cqh + 140px)) rotate(300deg)}}
 .board{margin:0;display:grid;gap:18px;justify-items:center}
-.board-art>svg{position:relative;z-index:1;width:min(440px,100%);height:auto;border-radius:26px;box-shadow:0 40px 70px -24px rgba(0,0,0,.7);transform:rotate(-3deg)}
+.board-art>svg{position:relative;z-index:1;width:min(260px,100%);aspect-ratio:9/19.5;height:auto;border-radius:26px;box-shadow:0 40px 70px -24px rgba(0,0,0,.7);transform:rotate(-3deg)}
 .board .concept-label{color:var(--muted2)}
 
 .panel[data-theme=pairy]{--bg:#3b4160;--fg:#fff;--muted2:#d3d8ee;--accent:#f3c34f;--line2:rgba(255,255,255,.24);background:radial-gradient(640px 420px at 100% 0%,rgba(190,170,255,.28),transparent 62%),linear-gradient(160deg,#4b5075,#2f3454)}
