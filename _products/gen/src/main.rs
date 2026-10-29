@@ -85,6 +85,12 @@ const FAVICON: &str = "<link rel=\"icon\" type=\"image/svg+xml\" href=\"data:ima
 
 fn main() {
     let args: Vec<String> = env::args().collect();
+    if args.len() >= 3 && args[1] == "merchant-fields" {
+        if let Err(err) = merchant_fields(Path::new(&args[2]), &args[3..]) {
+            die(&err);
+        }
+        return;
+    }
     if args.len() != 3 {
         die("usage: products-gen <site-data.json> <site-root>");
     }
@@ -250,30 +256,102 @@ fn offers(data: &SiteData, product: &Product) -> Vec<Value> {
         .collect()
 }
 
-// Digital download: no shipping, delivered instantly.
-const SOLD_TO: [&str; 12] = ["KR", "US", "JP", "GB", "CA", "AU", "DE", "FR", "NL", "SG", "TW", "IN"];
+// Sold worldwide: every officially assigned ISO 3166-1 alpha-2 code (schema.org has no "worldwide" value).
+const COUNTRIES: [&str; 249] = [
+    "AD", "AE", "AF", "AG", "AI", "AL", "AM", "AO", "AQ", "AR", "AS", "AT", "AU", "AW", "AX", "AZ", "BA", "BB", "BD", "BE",
+    "BF", "BG", "BH", "BI", "BJ", "BL", "BM", "BN", "BO", "BQ", "BR", "BS", "BT", "BV", "BW", "BY", "BZ", "CA", "CC", "CD",
+    "CF", "CG", "CH", "CI", "CK", "CL", "CM", "CN", "CO", "CR", "CU", "CV", "CW", "CX", "CY", "CZ", "DE", "DJ", "DK", "DM",
+    "DO", "DZ", "EC", "EE", "EG", "EH", "ER", "ES", "ET", "FI", "FJ", "FK", "FM", "FO", "FR", "GA", "GB", "GD", "GE", "GF",
+    "GG", "GH", "GI", "GL", "GM", "GN", "GP", "GQ", "GR", "GS", "GT", "GU", "GW", "GY", "HK", "HM", "HN", "HR", "HT", "HU",
+    "ID", "IE", "IL", "IM", "IN", "IO", "IQ", "IR", "IS", "IT", "JE", "JM", "JO", "JP", "KE", "KG", "KH", "KI", "KM", "KN",
+    "KP", "KR", "KW", "KY", "KZ", "LA", "LB", "LC", "LI", "LK", "LR", "LS", "LT", "LU", "LV", "LY", "MA", "MC", "MD", "ME",
+    "MF", "MG", "MH", "MK", "ML", "MM", "MN", "MO", "MP", "MQ", "MR", "MS", "MT", "MU", "MV", "MW", "MX", "MY", "MZ", "NA",
+    "NC", "NE", "NF", "NG", "NI", "NL", "NO", "NP", "NR", "NU", "NZ", "OM", "PA", "PE", "PF", "PG", "PH", "PK", "PL", "PM",
+    "PN", "PR", "PS", "PT", "PW", "PY", "QA", "RE", "RO", "RS", "RU", "RW", "SA", "SB", "SC", "SD", "SE", "SG", "SH", "SI",
+    "SJ", "SK", "SL", "SM", "SN", "SO", "SR", "SS", "ST", "SV", "SX", "SY", "SZ", "TC", "TD", "TF", "TG", "TH", "TJ", "TK",
+    "TL", "TM", "TN", "TO", "TR", "TT", "TV", "TW", "TZ", "UA", "UG", "UM", "US", "UY", "UZ", "VA", "VC", "VE", "VG", "VI",
+    "VN", "VU", "WF", "WS", "YE", "YT", "ZA", "ZM", "ZW",
+];
+// Google merchant listings: applicableCountry takes at most 50 countries per MerchantReturnPolicy,
+// so the list is split into chunks of 50 (also used for DefinedRegion to stay within the same limit).
+const COUNTRY_CHUNK: usize = 50;
 
+// Digital download: no shipping, delivered instantly.
 fn shipping_details() -> Value {
     let zero_days = json!({ "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "DAY" });
+    let regions: Vec<Value> = COUNTRIES
+        .chunks(COUNTRY_CHUNK)
+        .map(|chunk| json!({ "@type": "DefinedRegion", "addressCountry": chunk }))
+        .collect();
     json!({
         "@type": "OfferShippingDetails",
         "shippingRate": { "@type": "MonetaryAmount", "value": 0, "currency": "USD" },
-        "shippingDestination": { "@type": "DefinedRegion", "addressCountry": SOLD_TO },
+        "shippingDestination": regions,
         "deliveryTime": { "@type": "ShippingDeliveryTime", "handlingTime": zero_days, "transitTime": zero_days },
     })
 }
 
 // /legal/refunds/ defers to the store; Polar (seller of record) terms 10.2: refund requests within 10 days.
 fn return_policy() -> Value {
-    json!({
-        "@type": "MerchantReturnPolicy",
-        "applicableCountry": SOLD_TO,
-        "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
-        "merchantReturnDays": 10,
-        "returnFees": "https://schema.org/FreeReturn",
-        "refundType": "https://schema.org/FullRefund",
-        "merchantReturnLink": "https://207studio.dev/legal/refunds/",
-    })
+    let policies: Vec<Value> = COUNTRIES
+        .chunks(COUNTRY_CHUNK)
+        .map(|chunk| {
+            json!({
+                "@type": "MerchantReturnPolicy",
+                "applicableCountry": chunk,
+                "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                "merchantReturnDays": 10,
+                "returnFees": "https://schema.org/FreeReturn",
+                "refundType": "https://schema.org/FullRefund",
+                "merchantReturnLink": "https://207studio.dev/legal/refunds/",
+            })
+        })
+        .collect();
+    Value::Array(policies)
+}
+
+// `products-gen merchant-fields <site-root> <html>...`: rewrite only the merchant fields
+// (brand, shippingDetails, hasMerchantReturnPolicy) inside existing JSON-LD blocks, leaving the rest
+// of each page untouched. Pages were edited after the full generator last ran (hreflang, ko/, icons).
+fn merchant_fields(root: &Path, files: &[String]) -> Result<(), String> {
+    const OPEN: &str = "<script type=\"application/ld+json\">";
+    const CLOSE: &str = "</script>";
+    for rel in files {
+        let path = root.join(rel);
+        let html = fs::read_to_string(&path).map_err(|e| format!("{rel}: {e}"))?;
+        let mut out = String::with_capacity(html.len());
+        let mut rest = html.as_str();
+        while let Some(i) = rest.find(OPEN) {
+            let body_start = i + OPEN.len();
+            let j = rest[body_start..].find(CLOSE).ok_or(format!("{rel}: unclosed ld+json"))? + body_start;
+            let mut ld: Value = serde_json::from_str(&rest[body_start..j]).map_err(|e| format!("{rel}: {e}"))?;
+            set_merchant_fields(&mut ld);
+            out.push_str(&rest[..body_start]);
+            out.push_str(&serde_json::to_string(&ld).map_err(|e| e.to_string())?);
+            rest = &rest[j..];
+        }
+        out.push_str(rest);
+        fs::write(&path, out).map_err(|e| format!("{rel}: {e}"))?;
+    }
+    Ok(())
+}
+
+fn set_merchant_fields(v: &mut Value) {
+    match v {
+        Value::Object(map) => {
+            match map.get("@type").and_then(Value::as_str) {
+                Some("Product") => { map.insert("brand".into(), brand()); }
+                Some("Offer") => {
+                    map.insert("shippingDetails".into(), shipping_details());
+                    map.insert("hasMerchantReturnPolicy".into(), return_policy());
+                }
+                _ => {}
+            }
+            for child in map.values_mut() { set_merchant_fields(child); }
+        }
+        Value::Array(items) => items.iter_mut().for_each(set_merchant_fields),
+        _ => {}
+    }
 }
 
 fn brand() -> Value {
