@@ -45,19 +45,10 @@
 .direction{margin-top:56px;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,2.2fr);gap:36px;align-items:start;padding-top:44px;border-top:1px solid var(--line)}
 .direction-head h3{font-size:34px;letter-spacing:-.045em;line-height:1.1;margin-bottom:14px}
 .direction-head p{color:var(--muted);font-size:15px;margin:0}
-.direction-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.direction-list a{display:flex;flex-direction:column;gap:8px;height:100%;min-height:210px;padding:22px 20px;border-radius:18px;text-decoration:none;color:#fff;transition:transform .2s;position:relative}
-.direction-list a:after{content:"↘";position:absolute;right:18px;top:16px;font-size:20px;opacity:.7;transition:transform .2s}
-.direction-list a:hover{transform:translateY(-4px)}
-.direction-list a:hover:after{transform:translate(3px,3px)}
-.direction-list li:nth-child(1) a{background:#12332c}
-.direction-list li:nth-child(2) a{background:#2f4f8f}
-.direction-list li:nth-child(3) a{background:#17306b}
-.direction-list li:nth-child(4) a{background:#4a4f72}
-.dir-k{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--lime)}
-.dir-name{font-size:24px;letter-spacing:-.04em;font-weight:600}
-.dir-d{font-size:13.5px;line-height:1.5;color:#d5e0f2;margin-top:auto}
-html:lang(ko) .dir-k{text-transform:none;letter-spacing:.04em}
+.direction-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.direction-list li{display:flex;flex-direction:column;gap:10px;min-height:170px;padding:24px 22px;border-radius:18px;background:#12332c;color:#fff}
+.dir-name{font-size:22px;letter-spacing:-.04em;font-weight:600}
+.dir-d{font-size:14px;line-height:1.55;color:#d5e0f2;margin-top:auto}
 
 /* 제품 탭 */
 .work{padding-block:72px 96px}
@@ -110,11 +101,7 @@ html:lang(ko) .concept-label{letter-spacing:.03em}
 
 .panel[data-theme=chalk]{--bg:#12332c;--fg:#f3f6ec;--muted2:#b5cec4;--accent:#d5f66b;--line2:rgba(243,246,236,.22);background:radial-gradient(700px 420px at 90% 0%,rgba(255,255,255,.09),transparent 60%),radial-gradient(500px 300px at 0% 100%,rgba(213,246,107,.08),transparent 60%),#12332c}
 .device-slot{margin:0}
-.slot-frame{position:relative;aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:30px;border:2px dashed rgba(243,246,236,.4);border-radius:26px;background:repeating-linear-gradient(135deg,rgba(255,255,255,.035) 0 14px,transparent 14px 28px);color:var(--fg)}
-.slot-frame svg{width:min(240px,70%);height:26px;margin-top:14px;color:var(--accent)}
-.slot-badge{position:absolute;top:18px;left:18px;font-size:11px;font-weight:800;letter-spacing:.12em;background:var(--accent);color:#12332c;border-radius:6px;padding:4px 8px}
-.slot-title{font-family:Georgia,serif;font-size:clamp(26px,3vw,40px);line-height:1.2;margin:0;color:var(--accent)}
-.slot-note{font-size:14px;color:var(--muted2);margin:0}
+.slot-frame{aspect-ratio:4/3;border:2px solid rgba(243,246,236,.3);border-radius:26px;background:rgba(255,255,255,.03)}
 .formats{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:0;font-size:13px;color:var(--muted2)}
 .chip{border:1px solid var(--line2);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600;color:var(--fg)}
 
@@ -167,8 +154,8 @@ html:lang(ko) .concept-label{letter-spacing:.03em}
 .value-grid{grid-template-columns:1fr}
 .value{min-height:0}
 .value-n{margin-bottom:22px}
-.direction-list{grid-template-columns:1fr 1fr}
-.direction-list a{min-height:180px}
+.direction-list{grid-template-columns:1fr}
+.direction-list li{min-height:0}
 .work{padding-block:48px 64px}
 .tab{padding:14px 14px 12px}
 .tab-name{font-size:19px}
@@ -180,11 +167,9 @@ html:lang(ko) .concept-label{letter-spacing:.03em}
 .flow-card:nth-child(2){margin-left:14px}
 .flow-card:nth-child(3){margin-left:28px}
 .flow-sym{width:44px;height:44px}
-.slot-frame{aspect-ratio:auto;min-height:260px;padding:26px 18px}
-.slot-badge{display:none}
+.slot-frame{aspect-ratio:auto;min-height:260px}
 .fall{width:calc(var(--size) * .7);height:calc(var(--size) * .7)}
 .sky{inset:0}
-.slot-title{word-break:keep-all;text-wrap:balance}
 .kits{flex-direction:column;align-items:flex-start;padding:26px 22px}
 .home .section-head h2{font-size:42px}
 }
