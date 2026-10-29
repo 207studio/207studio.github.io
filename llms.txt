@@ -19,7 +19,10 @@ Founder: Jang Yuil (장유일)
 
 ## Apps
 
-- [Pairy: Connecting Devices](https://apps.apple.com/app/id6815584225): Remote desktop for your tablet. Shows your computer's screen on your tablet and lets you control it with touch, trackpad and keyboard. Paid app, one-time purchase ($4.99 in the US).
+- [Pairy: Connecting Devices](https://apps.apple.com/app/id6815584225): Remote desktop for your tablet. Shows your computer's screen on your tablet and lets you control it with touch, trackpad and keyboard. Paid app, one-time purchase ($4.99 in the US). Formerly named Padsway.
+- Chalkieboard: iPad app for classroom presentation and annotation of PPTX, PDF and HTML teaching materials. In development.
+- CheckyBoard: Python-based application for exam authoring, grading and analysis. In development.
+- StoneWars: five-in-a-row game for iPhone and iPad. Coming soon.
 
 ## Licensing
 
