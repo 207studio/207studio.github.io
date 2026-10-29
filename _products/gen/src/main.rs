@@ -243,9 +243,37 @@ fn offers(data: &SiteData, product: &Product) -> Vec<Value> {
                     "name": data.organization.name,
                     "url": data.organization.url,
                 },
+                "shippingDetails": shipping_details(),
+                "hasMerchantReturnPolicy": return_policy(),
             })
         })
         .collect()
+}
+
+// Digital download: no shipping, delivered instantly.
+const SOLD_TO: [&str; 12] = ["KR", "US", "JP", "GB", "CA", "AU", "DE", "FR", "NL", "SG", "TW", "IN"];
+
+fn shipping_details() -> Value {
+    let zero_days = json!({ "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "DAY" });
+    json!({
+        "@type": "OfferShippingDetails",
+        "shippingRate": { "@type": "MonetaryAmount", "value": 0, "currency": "USD" },
+        "shippingDestination": { "@type": "DefinedRegion", "addressCountry": SOLD_TO },
+        "deliveryTime": { "@type": "ShippingDeliveryTime", "handlingTime": zero_days, "transitTime": zero_days },
+    })
+}
+
+// /legal/refunds/ defers to the store; Polar (seller of record) terms 10.2: refund requests within 10 days.
+fn return_policy() -> Value {
+    json!({
+        "@type": "MerchantReturnPolicy",
+        "applicableCountry": SOLD_TO,
+        "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+        "merchantReturnDays": 10,
+        "returnFees": "https://schema.org/FreeReturn",
+        "refundType": "https://schema.org/FullRefund",
+        "merchantReturnLink": "https://207studio.dev/legal/refunds/",
+    })
 }
 
 fn brand() -> Value {
