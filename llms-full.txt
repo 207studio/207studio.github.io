@@ -149,7 +149,7 @@ Developer: one developer, own projects only, no company use. Commercial: one org
 
 ## Pairy: Connecting Devices (iOS/iPadOS app)
 
-https://apps.apple.com/app/id6815584225 - remote desktop for your tablet. Paid app, one-time purchase ($4.99 in the US).
+https://apps.apple.com/app/id6815584225 - remote desktop for your tablet.
 
 ## pptx-mcp (free)
 
