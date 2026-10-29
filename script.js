@@ -49,7 +49,7 @@
       "dir.3.k": "Play",
       "dir.3.d": "A five-in-a-row game for iPhone and iPad.",
       "dir.4.k": "Connect to Mac",
-      "dir.4.d": "A remote desktop for using your Mac from iPhone or iPad.",
+      "dir.4.d": "A remote desktop for your Mac from iPhone or iPad.",
       "work.eyebrow": "02 / OUR WORK",
       "work.title": "Four products,<br><span class=\"serif\">one studio.</span>",
       "work.intro": "Our work starts with the tasks teachers return to every day: presenting a lesson, working with materials, and understanding assessment.",
