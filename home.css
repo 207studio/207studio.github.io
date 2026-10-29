@@ -42,11 +42,6 @@
 .value:before{content:"";position:absolute;left:26px;top:0;width:44px;height:4px;border-radius:0 0 4px 4px;background:var(--lime);box-shadow:0 0 0 1px var(--ink)}
 .value h3{font-size:26px;letter-spacing:-.04em;line-height:1.15;margin-bottom:14px}
 .value p{font-size:15px;color:var(--muted);margin:0}
-.direction{margin-top:56px;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,2.2fr);gap:36px;align-items:start;padding-top:44px;border-top:1px solid var(--line)}
-.direction-head h3{font-size:34px;letter-spacing:-.045em;line-height:1.1;margin-bottom:14px}
-.direction-head p{color:var(--muted);font-size:15px;margin:0}
-.direction-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.direction-list li{display:flex;flex-direction:column;gap:10px;min-height:170px;padding:24px 22px;border-radius:18px;background:#12332c;color:#fff}
 .dir-name{font-size:22px;letter-spacing:-.04em;font-weight:600}
 .dir-d{font-size:14px;line-height:1.55;color:#d5e0f2;margin-top:auto}
 
@@ -137,7 +132,6 @@ html:lang(ko) .concept-label{letter-spacing:.03em}
 
 @media(max-width:1100px){
 .value-grid{grid-template-columns:repeat(2,1fr)}
-.direction{grid-template-columns:1fr}
 .panel{grid-template-columns:1fr;gap:40px;padding:44px 34px}
 .panel-desc{max-width:620px}
 .tabs ul{grid-template-columns:repeat(2,1fr)}
@@ -154,8 +148,6 @@ html:lang(ko) .concept-label{letter-spacing:.03em}
 .value-grid{grid-template-columns:1fr}
 .value{min-height:0}
 .value-n{margin-bottom:22px}
-.direction-list{grid-template-columns:1fr}
-.direction-list li{min-height:0}
 .work{padding-block:48px 64px}
 .tab{padding:14px 14px 12px}
 .tab-name{font-size:19px}
@@ -175,7 +167,7 @@ html:lang(ko) .concept-label{letter-spacing:.03em}
 }
 @media(prefers-reduced-motion:reduce){
 .fall{animation:none;top:var(--y);transform:rotate(18deg);will-change:auto}
-.on-dark .button:hover,.value:hover,.direction-list a:hover,.tab:hover{transform:none}
+.on-dark .button:hover,.value:hover,.tab:hover{transform:none}
 }
 
 .header nav a,.footer-links a,.text-link,.lang-toggle{position:relative}
