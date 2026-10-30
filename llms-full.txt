@@ -18,9 +18,9 @@ Tiers (USD, one-time):
 
 Developer is for one developer, and that includes shipping the player inside your own paid or free apps as bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase.
 
-## PadswayCore SDK: Mac-to-iPad Screen Streaming
+## PairyCore SDK: Mac-to-iPad Screen Streaming
 
-URL: https://207studio.dev/products/padsway-core-sdk/
+URL: https://207studio.dev/products/pairy-core-sdk/
 
 Put a live Mac screen on an iPad and send touch, keyboard, clipboard and dictation back: the streaming engine from a working Mac + iPad remote app, as a Swift package.
 
