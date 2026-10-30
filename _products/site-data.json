@@ -106,7 +106,7 @@
    "image_jpg": "/assets/products/pptx-player-sdk-1200.jpg",
    "category": "DeveloperApplication",
    "related": [
-    "padsway-core-sdk",
+    "pairy-core-sdk",
     "shapefit"
    ],
    "tier_note": "Developer is for one developer, and that includes shipping the player inside your own paid or free apps as bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase.",
@@ -115,12 +115,12 @@
    "badge": null
   },
   {
-   "slug": "padsway-core-sdk",
-   "name": "PadswayCore SDK: Mac-to-iPad Screen Streaming",
+   "slug": "pairy-core-sdk",
+   "name": "PairyCore SDK: Mac-to-iPad Screen Streaming",
    "audience": "developers",
    "description": "Swift package that streams a Mac screen to an iPad with hardware H.264/HEVC, 60/120 fps and touch, keyboard and clipboard back. Full source. One-time purchase.",
    "summary": "Put a live Mac screen on an iPad and send touch, keyboard, clipboard and dictation back: the streaming engine from a working Mac + iPad remote app, as a Swift package.",
-   "what": "PadswayCore SDK is a pure-Swift package for macOS 13+ and iPadOS 17+ that streams a Mac screen to an iPad. It captures with ScreenCaptureKit, encodes and decodes with VideoToolbox H.264/HEVC at 60 or 120 fps (Full HD), paces frames by the iPad's acknowledgements to keep lag low, and sends pointer, keys, text, Apple Pencil and clipboard back over TLS 1.2 with a per-pairing key. Full source and 550+ tests.",
+   "what": "PairyCore SDK is a pure-Swift package for macOS 13+ and iPadOS 17+ that streams a Mac screen to an iPad. It captures with ScreenCaptureKit, encodes and decodes with VideoToolbox H.264/HEVC at 60 or 120 fps (Full HD), paces frames by the iPad's acknowledgements to keep lag low, and sends pointer, keys, text, Apple Pencil and clipboard back over TLS 1.2 with a per-pairing key. Full source and 550+ tests.",
    "quickstart": [
     "swift build",
     "swift run padsway self-test",
@@ -143,7 +143,7 @@
      "VNC protocol; no hardware HEVC pipeline"
     ],
     [
-     "PadswayCore SDK",
+     "PairyCore SDK",
      "Swift package, source included",
      "$129 one-time; ScreenCaptureKit + VideoToolbox, receiver-paced frames, TLS pairing"
     ]
@@ -151,7 +151,7 @@
    "faq": [
     [
      "How do I stream a Mac screen to an iPad in Swift?",
-     "Add PadswayCore to both apps. On the Mac create a Pairing and start a HostSession; on the iPad decode the pairing and connect a ClientSession, then draw each CVPixelBuffer it hands you. INTEGRATION.md has the full wiring, and that code is compiled by the test suite."
+     "Add PairyCore to both apps. On the Mac create a Pairing and start a HostSession; on the iPad decode the pairing and connect a ClientSession, then draw each CVPixelBuffer it hands you. INTEGRATION.md has the full wiring, and that code is compiled by the test suite."
     ],
     [
      "Can I try it without a Mac, network or permissions?",
@@ -188,10 +188,10 @@
      "paddle_price_id": "pri_01m5b3x0phe8gmxs2031tc27ev"
     }
    ],
-   "image_webp_640": "/assets/products/padsway-core-sdk-640.webp",
-   "image_webp_1200": "/assets/products/padsway-core-sdk-1200.webp",
-   "image_jpg": "/assets/products/padsway-core-sdk-1200.jpg",
-   "title": "PadswayCore SDK: Mac-to-iPad Screen Streaming",
+   "image_webp_640": "/assets/products/pairy-core-sdk-640.webp",
+   "image_webp_1200": "/assets/products/pairy-core-sdk-1200.webp",
+   "image_jpg": "/assets/products/pairy-core-sdk-1200.jpg",
+   "title": "PairyCore SDK: Mac-to-iPad Screen Streaming",
    "category": "DeveloperApplication",
    "related": [
     "pptx-player-sdk",
@@ -627,7 +627,7 @@
    "category": "DeveloperApplication",
    "related": [
     "pptx-player-sdk",
-    "padsway-core-sdk"
+    "pairy-core-sdk"
    ],
    "tier_note": "Personal/Research is for one person, and that includes shipping the engine inside your own paid or free apps as compiled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase.",
    "upsell": null,
@@ -721,7 +721,7 @@
    "image_jpg": "/assets/products/shapefit-1200.jpg",
    "category": "DeveloperApplication",
    "related": [
-    "padsway-core-sdk",
+    "pairy-core-sdk",
     "pptx-player-sdk"
    ],
    "tier_note": "Personal is for one person, and that includes shipping it inside your own paid or free apps as compiled or bundled code. Commercial is for a company or organisation, where more than one person uses it, and adds priority email support. Neither lets you share the source itself. Both include the full source. One-time purchase.",
