@@ -129,3 +129,70 @@
     window.addEventListener("load", scheduleLoad, { once: true });
   }
 })();
+
+/* Walk: scroll position -> track offset + walk-cycle frame. Each stop owns one
+   segment of scroll: the first half walks in, the second half stops and points.
+   Only transform/opacity change; one rAF per scroll burst. */
+(function () {
+  "use strict";
+  var section = document.querySelector("[data-walk]");
+  if (!section || !window.requestAnimationFrame) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  var track = section.querySelector("[data-walk-track]");
+  var walker = section.querySelector("[data-walker]");
+  var sprite = section.querySelector("[data-walk-sprite]");
+  var stops = section.querySelectorAll("[data-stop]");
+  var n = stops.length;
+  var FRAMES = 8, STEPS_PER_STOP = 2.5, SEG_VH = 110;
+  var queued = false, here = -1, pointing = null, frame = -1;
+
+  section.classList.add("is-live");
+
+  function size() {
+    section.style.height = (n * SEG_VH + 100) + "vh";
+    update();
+  }
+  function ease(x) { return x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2; }
+
+  function update() {
+    queued = false;
+    var rect = section.getBoundingClientRect();
+    var range = section.offsetHeight - window.innerHeight;
+    var p = Math.min(Math.max(-rect.top / range, 0), 1);
+    var t = Math.min(p * n, n - 1e-6);
+    var k = Math.floor(t), u = t - k;
+    var walking = u < 0.5;
+    var pos = walking ? k - 1 + ease(u / 0.5) : k;
+    track.style.transform = "translate3d(" + (-pos * 100) + "%,0,0)";
+
+    if (walking !== pointing) {
+      pointing = walking;
+      walker.classList.toggle("is-pointing", !walking);
+    }
+    var nh = walking ? k - 1 : k;
+    if (!walking || u > 0.4) nh = k;
+    if (nh !== here) {
+      if (stops[here]) stops[here].classList.remove("is-here");
+      here = nh;
+      if (stops[here]) stops[here].classList.add("is-here");
+    }
+    if (walking) {
+      var f = Math.floor((pos + 1) * STEPS_PER_STOP * FRAMES) % FRAMES;
+      if (f < 0) f += FRAMES;
+      if (f !== frame) {
+        frame = f;
+        sprite.style.transform = "translate3d(" + (-f * 12.5) + "%,0,0)";
+      }
+      var bob = Math.abs(Math.sin((pos + 1) * STEPS_PER_STOP * Math.PI * 2)) * -4;
+      walker.style.transform = "translate3d(0," + bob.toFixed(1) + "px,0)";
+    } else {
+      walker.style.transform = "";
+    }
+  }
+  function onScroll() { if (!queued) { queued = true; requestAnimationFrame(update); } }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", size);
+  size();
+})();
