@@ -1737,9 +1737,11 @@ html { touch-action: manipulation; }
 .walk-end-p { margin: var(--space-2) 0 var(--space-3); color: var(--muted); }
 
 /* Posters: paper sheets with a clay-coloured edge; big name, one line, a link. */
-.poster { position: relative; display: flex; flex-direction: column; gap: var(--space-3); height: 100%; padding: 20px 22px 20px 28px; border-radius: 6px; background: var(--paper-light); color: inherit; text-decoration: none; box-shadow: 0 1px 1px rgba(23, 23, 23, 0.05), 0 12px 26px -16px rgba(23, 23, 23, 0.3); isolation: isolate; transition: box-shadow 0.4s var(--ease); }
+.poster { position: relative; display: flex; flex-direction: column; gap: var(--space-3); height: 100%; padding: 20px 22px 20px 28px; border-radius: 6px; background: var(--paper-light); color: inherit; text-decoration: none; box-shadow: 0 1px 1px rgba(23, 23, 23, 0.05), 0 12px 26px -16px rgba(23, 23, 23, 0.3); isolation: isolate; }
 .poster::before { position: absolute; top: 0; bottom: 0; left: 0; width: 8px; border-radius: 6px 0 0 6px; background: var(--accent); content: ""; }
-.poster:hover, .poster:focus-visible { box-shadow: 0 1px 1px rgba(23, 23, 23, 0.05), 0 20px 40px -18px rgba(23, 23, 23, 0.4); }
+/* Lit / hover shadow lives on its own layer and only fades (opacity). */
+.poster::after { position: absolute; inset: 0; z-index: -1; border-radius: inherit; box-shadow: 0 26px 48px -22px rgba(23, 23, 23, 0.42), 0 50px 80px -60px rgba(44, 90, 69, 0.3); opacity: 0; content: ""; pointer-events: none; transition: opacity 0.4s var(--ease); }
+.poster:hover::after, .poster:focus-visible::after { opacity: 1; }
 .poster:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
 .poster-head, .poster-body { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .poster-tag { display: flex; align-items: baseline; gap: 10px; color: var(--muted); font-size: 13px; font-weight: 500; }
@@ -1764,7 +1766,7 @@ html { touch-action: manipulation; }
 .walk.is-live .poster { height: auto; display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr); align-items: end; gap: var(--space-5); padding: 22px 26px 22px 34px; }
 .walk.is-live .poster-desc { font-size: 16px; }
 .walk.is-live .poster-go { font-size: 15px; }
-.walk.is-live .stop.is-here .poster { box-shadow: 0 1px 1px rgba(23, 23, 23, 0.05), 0 26px 48px -22px rgba(23, 23, 23, 0.42), 0 50px 80px -60px rgba(44, 90, 69, 0.3); }
+.walk.is-live .stop.is-here .poster::after { opacity: 1; }
 
 .walk.is-live .walker { position: absolute; top: auto; left: var(--mx); bottom: var(--mb); z-index: 3; width: var(--mw); height: var(--mh); pointer-events: none; }
 .walk.is-live .walker-layer { position: absolute; inset: 0; display: block; overflow: hidden; opacity: 0; }

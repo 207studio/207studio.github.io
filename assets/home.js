@@ -180,7 +180,7 @@
   // Depth: s = 1 / (1 - d) is the on-screen scale of something d units from the posters'
   // resting depth (d < 0 is behind). The camera backs up DEPTH_GAP units per walk.
   var DEPTH_GAP = 0.6, KZ = DEPTH_GAP / WALK_GAP, SEAM_GAP = 0.25, SEAM_S0 = 0.3;
-  var GAP = 14, MIN_MH = 220, LEDGE = 10, EDGE_PAD = 14;
+  var GAP = 14, MIN_MH = 220, LEDGE = 10, EDGE_PAD = 12;  // EDGE_PAD < poster right padding
 
   var vw = 0, vh = 0, mobile = false, range = 1, top0 = 0;
   var aL = 0, aB = 0, pw = 0, vpx = 0, vpy = 0, lw = 1, wallTop = 0, travel = 0;
@@ -241,7 +241,7 @@
 
     aB = Math.round(wt - GAP);
     for (i = 0; i < n; i++) { stops[i].style.left = aL + "px"; stops[i].style.top = (aB - heights[i]) + "px"; }
-    travel = vw - aL + 24;
+    travel = Math.min(vw - aL + 24, Math.max(140, vw - aL - pw + 120));
 
     // The wall converges on a point left of the posters, on their bottom line.
     vpy = aB;
@@ -341,9 +341,10 @@
         // Near the camera: it slides in from the right edge, a touch larger, and settles.
         var r = 1 - easeOut((u - ENTER) / (ARRIVE - ENTER));
         sc = 1 + r * 0.06; tx = r * travel; ty = h * (1 - sc);
-        // Fully opaque only once every line of text is inside the frame.
+        // Invisible while any of it is past the edge; it fades in over the last few pixels,
+        // which are inside its own padding, so no line of text is ever cut by the frame.
         var off = aL + tx + pw * sc - vw;
-        op = off <= 0 ? 1 : off < EDGE_PAD ? 1 - 0.45 * off / EDGE_PAD : 0.55 * clamp(1 - (off - EDGE_PAD) / (pw * 0.5));
+        op = off <= 0 ? 1 : clamp(1 - off / EDGE_PAD);
       } else if (u >= LEFT) {
         // Behind her now: it recedes with the wall toward the vanishing point and fades.
         sc = 1 / (1 + (u - LEFT) * KZ);
