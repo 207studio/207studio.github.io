@@ -130,31 +130,32 @@
   }
 })();
 
-/* Walk: the stops stand in a row ahead of Mimi (stop i sits i steps along).
-   Scroll -> distance pos; the whole row slides toward Mimi by pos steps while she
-   walks in place, then she stops and points at the card she reached. Each stop
-   owns one segment of scroll: walk for the first part, point for the rest.
-   Only transform/opacity change; one rAF per scroll burst. */
+/* Walk: Mimi walks toward the camera in place (front view); the camera backs up
+   with her. Stops stand along her path between her and the camera, so each one
+   comes in from the right edge (the side she is walking past), settles beside her
+   while she stops and points, then slides out past the edge toward the viewer.
+   Cards never grow out of the distance. Only transform/opacity change; one rAF
+   per scroll burst. */
 (function () {
   "use strict";
   var section = document.querySelector("[data-walk]");
   if (!section || !window.requestAnimationFrame) return;
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-  var track = section.querySelector("[data-walk-track]");
   var walker = section.querySelector("[data-walker]");
   var sprite = section.querySelector("[data-walk-sprite]");
   var stops = section.querySelectorAll("[data-stop]");
   var n = stops.length;
   var FRAMES = 12, STEPS_PER_STOP = 3, SEG_VH = 110, WALK = 0.55;
-  var queued = false, here = -1, pointing = null, frame = -1, step = 0, fades = [];
+  var queued = false, here = -1, pointing = null, frame = -1, travel = 0, state = [];
 
   section.classList.add("is-live");
-  for (var i = 0; i < n; i++) stops[i].style.setProperty("--i", i);
 
   function size() {
     section.style.height = (n * SEG_VH + 100) + "vh";
-    step = n > 1 ? stops[1].offsetLeft - stops[0].offsetLeft : 0;
+    var st = stops[0].getBoundingClientRect();
+    // Distance from a stop's resting place to just past the right edge of the screen.
+    travel = window.innerWidth - (st.left - (state[0] ? state[0].x : 0)) + 24;
     update();
   }
   function ease(x) { return x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2; }
@@ -167,15 +168,25 @@
     var k = Math.floor(t), u = t - k;
     var walking = u < WALK;
     var pos = walking ? k - 1 + ease(u / WALK) : k;
-    track.style.transform = "translate3d(" + (-pos * step).toFixed(1) + "px,0,0)";
     for (var i = 0; i < n; i++) {
-      // Stops Mimi has passed fade out behind her; the ones ahead stay put.
-      var op = Math.min(Math.max(1 + (i - pos) * 2.2, 0), 1);
-      if (op !== fades[i]) {
-        fades[i] = op;
-        stops[i].style.opacity = op.toFixed(3);
-        stops[i].style.visibility = op > 0 ? "" : "hidden";
+      var d = i - pos, x, sc = 1, op = 1;
+      if (d >= 0) {
+        // Still ahead: waiting just past the right edge, sliding in as she nears it.
+        x = Math.min(d, 1) * travel;
+        sc = 1 + Math.min(d, 1) * 0.06;
+      } else {
+        // Passed: slides out past the edge toward the camera, a little closer and larger.
+        var e = Math.min(-d, 1);
+        x = e * travel * 0.9;
+        sc = 1 + e * 0.12;
+        op = 1 - e;
       }
+      var s = state[i] || (state[i] = {});
+      var vis = op > 0.001 && d < 1;
+      var tf = "translate3d(" + x.toFixed(1) + "px,0,0) scale(" + sc.toFixed(3) + ")";
+      if (tf !== s.tf) { s.tf = tf; s.x = x; stops[i].style.transform = tf; }
+      var o = vis ? op.toFixed(3) : "0";
+      if (o !== s.o) { s.o = o; stops[i].style.opacity = o; stops[i].style.visibility = vis ? "visible" : "hidden"; }
     }
 
     if (walking !== pointing) {

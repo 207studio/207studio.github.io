@@ -1713,11 +1713,13 @@ html { touch-action: manipulation; }
   }
 }
 
-/* Walk: product stops already stand in a row ahead of Mimi. Scrolling pans the
-   whole row toward her while she walks in place (side view), then she stops and
-   points at the card she reached. No floor, no depth.
+/* Walk: Mimi walks toward the camera (front view, 12-frame cycle) while the
+   camera backs up with her, so she keeps her size on the left. The product stops
+   stand along her path between her and the camera: each one comes in from the
+   right edge, settles beside her, she stops and points, then it slides out past
+   the edge toward the viewer. Clean background, no floor.
    Default (no JS, reduced motion): a pointing Mimi beside a plain grid of linked cards.
-   .is-live (JS): sticky stage; scroll drives the row offset and the walk-cycle frame. */
+   .is-live (JS): sticky stage; scroll drives each card's offset and the walk frame. */
 .walk { position: relative; padding-block: clamp(56px, 8vw, 112px) 0; }
 .walk-head h2 { font-family: var(--font-display); font-size: clamp(2rem, 4.6vw, 3.6rem); line-height: 1.02; letter-spacing: -0.02em; margin: 0.3em 0 0.25em; }
 .walk-note { display: none; color: var(--muted); margin: 0; }
@@ -1740,15 +1742,15 @@ html { touch-action: manipulation; }
 .walk.is-live .walk-note { display: block; }
 .walk.is-live .walk-sticky { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; flex-direction: column; overflow: hidden; padding-top: clamp(96px, 13vh, 124px); }
 .walk.is-live .walk-stage { flex: 1; display: block; width: 100%; margin: 16px 0 0;
-  --h: min(46vh, 400px); --mx: 12%; --cw: min(46%, 520px); --cl: max(34%, calc(var(--mx) + var(--h) * .95)); --step: calc(100% - var(--cl) + 16px); }
-.walk.is-live .walk-track { position: absolute; inset: 0; display: block; will-change: transform; }
-.walk.is-live .stop { position: absolute; top: 4%; left: calc(var(--cl) + var(--i, 0) * var(--step)); width: var(--cw); }
+  --h: min(52svh, 440px); --mx: max(4%, calc((100% - 1200px) / 2)); --cw: min(52%, 600px); --cl: max(40%, calc(var(--mx) + var(--h) * .62)); }
+.walk.is-live .walk-track { position: absolute; inset: 0; display: block; }
+.walk.is-live .stop { position: absolute; top: 6%; left: var(--cl); width: var(--cw); opacity: 0; visibility: hidden; will-change: transform, opacity; transform-origin: 30% 60%; }
 .walk.is-live .stop-card { height: auto; }
 .walk.is-live .stop.is-here .stop-card { border-color: var(--line-strong); box-shadow: 0 18px 40px -24px rgba(23, 23, 23, .45); }
-.walk.is-live .walker { position: absolute; top: auto; left: var(--mx); bottom: 9%; width: var(--h); height: var(--h); max-width: none; pointer-events: none; z-index: 2; will-change: transform; }
-.walk.is-live .walker-cycle { display: block; position: absolute; left: 22%; bottom: 5%; height: 89%; aspect-ratio: 213 / 400; overflow: hidden; transition: opacity .18s; }
+.walk.is-live .walker { position: absolute; top: auto; left: var(--mx); bottom: 6%; width: calc(var(--h) * .7); height: var(--h); max-width: none; pointer-events: none; z-index: 2; }
+.walk.is-live .walker-cycle { display: block; position: absolute; left: 0; bottom: 0; height: 100%; aspect-ratio: 161 / 400; overflow: hidden; transition: opacity .15s; }
 .walk.is-live .walker-cycle img { display: block; height: 100%; width: 1200%; max-width: none; will-change: transform; }
-.walk.is-live .walker-point { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity .18s; }
+.walk.is-live .walker-point { position: absolute; left: 0; bottom: 0; width: auto; height: 100%; max-width: none; opacity: 0; transition: opacity .15s; }
 .walk.is-live .walker.is-pointing .walker-cycle { opacity: 0; }
 .walk.is-live .walker.is-pointing .walker-point { opacity: 1; }
 
@@ -1757,9 +1759,9 @@ html { touch-action: manipulation; }
   .walk-track { grid-column: 1; grid-row: 2; }
   .walker { position: static; width: 55%; max-width: 220px; }
   .walk.is-live .walk-sticky { padding-top: 84px; }
-  .walk.is-live .walk-stage { --h: min(30svh, 260px); --mx: 8px; --cw: min(88%, 420px); --cl: calc((100% - var(--cw)) / 2); }
-  .walk.is-live .stop { top: 0; }
-  .walk.is-live .walker { bottom: 6%; }
+  .walk.is-live .walk-stage { --h: min(34svh, 280px); --mx: 12px; --cw: min(64%, 300px); --cl: calc(100% - var(--cw) - 12px); }
+  .walk.is-live .stop { top: 2%; }
+  .walk.is-live .walker { bottom: 4%; }
   .walk.is-live .stop-media { aspect-ratio: auto; height: clamp(110px, 18svh, 150px); }
   .walk.is-live .stop-body { padding: 12px 14px 14px; }
   .walk.is-live .stop-desc { font-size: .92rem; }
