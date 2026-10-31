@@ -90,76 +90,85 @@
     <header class="walk-head wrap">
       <p class="eyebrow">A short walk</p>
       <h2 id="walk-title">Walk through<br>the work with Mimi.</h2>
-      <p class="walk-note">Scroll, and Mimi walks toward you. She stops at five products on the way and points each one out.</p>
+      <p class="walk-note">Scroll, and she walks you past five of the products, stopping at each one.</p>
     </header>
-    <div class="walk-run" data-walk-run>
-      <div class="walk-sticky" data-walk-sticky>
-        <div class="walk-stage" data-walk-stage>
-          <ol class="walk-track" aria-label="Five products on the walk">
-        <li class="stop" data-stop>
-          <a class="stop-card" href="/products/pairy-core-sdk/">
-            <span class="stop-media"><img src="/assets/products/pairy-core-sdk-card-640.webp" width="640" height="360" alt="" loading="lazy" decoding="async"></span>
-            <span class="stop-body">
-              <span class="stop-tag"><span class="stop-n">01</span><span>Latest</span></span>
-              <span class="stop-name">PairyCore SDK</span>
-              <span class="stop-desc">A live Mac screen on an iPad, with touch and keyboard coming back.</span>
-              <span class="stop-go">See details <span aria-hidden="true">↗</span></span>
-            </span>
-          </a>
-        </li>
-        <li class="stop" data-stop>
-          <a class="stop-card" href="/products/pptx-player-sdk/">
-            <span class="stop-media"><img src="/assets/products/pptx-player-sdk-card-640.webp" width="640" height="360" alt="" loading="lazy" decoding="async"></span>
-            <span class="stop-body">
-              <span class="stop-tag"><span class="stop-n">02</span><span>Developer kit</span></span>
-              <span class="stop-name">PPTX Player SDK</span>
-              <span class="stop-desc">Click-by-click PowerPoint playback in the browser. No server, no Office.</span>
-              <span class="stop-go">See details <span aria-hidden="true">↗</span></span>
-            </span>
-          </a>
-        </li>
-        <li class="stop" data-stop>
-          <a class="stop-card" href="/products/scan-to-grade-bundle/">
-            <span class="stop-media"><img src="/assets/products/scan-to-grade-bundle-card-640.webp" width="640" height="360" alt="" loading="lazy" decoding="async"></span>
-            <span class="stop-body">
-              <span class="stop-tag"><span class="stop-n">03</span><span>Developer kit</span></span>
-              <span class="stop-name">Scan-to-Grade</span>
-              <span class="stop-desc">A scanner batch in, a finished Excel gradebook out.</span>
-              <span class="stop-go">See details <span aria-hidden="true">↗</span></span>
-            </span>
-          </a>
-        </li>
-        <li class="stop" data-stop>
-          <a class="stop-card" href="/products/omr-auto-grader/">
-            <span class="stop-media"><img src="/assets/products/omr-auto-grader-card-640.webp" width="640" height="360" alt="" loading="lazy" decoding="async"></span>
-            <span class="stop-body">
-              <span class="stop-tag"><span class="stop-n">04</span><span>Developer kit</span></span>
-              <span class="stop-name">OMR Auto-Grader</span>
-              <span class="stop-desc">Reads bubbles, O/X, circled words and ordering marks.</span>
-              <span class="stop-go">See details <span aria-hidden="true">↗</span></span>
-            </span>
-          </a>
-        </li>
-        <li class="stop" data-stop>
-          <a class="stop-card" href="/products/exam-sheet-builder/">
-            <span class="stop-media"><img src="/assets/products/exam-sheet-builder-card-640.webp" width="640" height="360" alt="" loading="lazy" decoding="async"></span>
-            <span class="stop-body">
-              <span class="stop-tag"><span class="stop-n">05</span><span>Classroom tool</span></span>
-              <span class="stop-name">Exam + OMR Sheet Builder</span>
-              <span class="stop-desc">Exam paper, OMR sheet, key and explanations from one file.</span>
-              <span class="stop-go">See details <span aria-hidden="true">↗</span></span>
-            </span>
-          </a>
-        </li>
-          </ol>
-          <div class="walker" data-walker data-pose="point" aria-hidden="true">
-            <span class="walker-shadow" data-walk-shadow></span>
-            <span class="walker-strip walker-walk"><img src="/assets/mimi-walk-samehand.webp" width="2568" height="400" alt="" loading="lazy" decoding="async" data-sprite="walk"></span>
-            <span class="walker-strip walker-raise"><img src="/assets/mimi-raise-samehand.webp" width="856" height="400" alt="" loading="lazy" decoding="async" data-sprite="raise"></span>
-            <img class="walker-point" src="/assets/mimi-point-samehand.webp" width="214" height="400" alt="" loading="lazy" decoding="async" data-sprite="point">
-          </div>
-          <p class="walk-cue" aria-hidden="true" data-walk-cue>Scroll to walk</p>
-          <div class="walk-meter" aria-hidden="true"><span class="walk-count"><b data-walk-count>01</b> of 05</span><span class="walk-bar"><i data-walk-bar></i></span></div>
+    <div class="walk-scroller" data-walk-scroller>
+      <div class="walk-stage" data-walk-stage>
+        <ol class="walk-track" data-walk-track>
+          <li class="stop" data-stop>
+            <a class="stop-card" href="/products/pairy-core-sdk/">
+              <span class="stop-media"><img src="/assets/products/pairy-core-sdk-card-640.webp" width="640" height="360" alt="" loading="lazy" decoding="async"></span>
+              <span class="stop-body">
+                <span class="stop-tag"><span class="stop-n">01</span>Latest</span>
+                <span class="stop-name">PairyCore SDK</span>
+                <span class="stop-desc">A live Mac screen on an iPad, with touch and keyboard coming back.</span>
+                <span class="stop-go">See details <span aria-hidden="true">↗</span></span>
+              </span>
+            </a>
+          </li>
+          <li class="stop" data-stop>
+            <a class="stop-card" href="/products/pptx-player-sdk/">
+              <span class="stop-media"><img src="/assets/products/pptx-player-sdk-card-640.webp" width="640" height="360" alt="" loading="lazy" decoding="async"></span>
+              <span class="stop-body">
+                <span class="stop-tag"><span class="stop-n">02</span>Developer kit</span>
+                <span class="stop-name">PPTX Player SDK</span>
+                <span class="stop-desc">Click-by-click PowerPoint playback in the browser. No server, no Office.</span>
+                <span class="stop-go">See details <span aria-hidden="true">↗</span></span>
+              </span>
+            </a>
+          </li>
+          <li class="stop" data-stop>
+            <a class="stop-card" href="/products/scan-to-grade-bundle/">
+              <span class="stop-media"><img src="/assets/products/scan-to-grade-bundle-card-640.webp" width="640" height="360" alt="" loading="lazy" decoding="async"></span>
+              <span class="stop-body">
+                <span class="stop-tag"><span class="stop-n">03</span>Developer kit</span>
+                <span class="stop-name">Scan-to-Grade</span>
+                <span class="stop-desc">A scanner batch in, a finished Excel gradebook out.</span>
+                <span class="stop-go">See details <span aria-hidden="true">↗</span></span>
+              </span>
+            </a>
+          </li>
+          <li class="stop" data-stop>
+            <a class="stop-card" href="/products/omr-auto-grader/">
+              <span class="stop-media"><img src="/assets/products/omr-auto-grader-card-640.webp" width="640" height="360" alt="" loading="lazy" decoding="async"></span>
+              <span class="stop-body">
+                <span class="stop-tag"><span class="stop-n">04</span>Developer kit</span>
+                <span class="stop-name">OMR Auto-Grader</span>
+                <span class="stop-desc">Reads bubbles, O/X, circled words and ordering marks.</span>
+                <span class="stop-go">See details <span aria-hidden="true">↗</span></span>
+              </span>
+            </a>
+          </li>
+          <li class="stop" data-stop>
+            <a class="stop-card" href="/products/exam-sheet-builder/">
+              <span class="stop-media"><img src="/assets/products/exam-sheet-builder-card-640.webp" width="640" height="360" alt="" loading="lazy" decoding="async"></span>
+              <span class="stop-body">
+                <span class="stop-tag"><span class="stop-n">05</span>Classroom tool</span>
+                <span class="stop-name">Exam + OMR Sheet Builder</span>
+                <span class="stop-desc">Exam paper, OMR sheet, key and explanations from one file.</span>
+                <span class="stop-go">See details <span aria-hidden="true">↗</span></span>
+              </span>
+            </a>
+          </li>
+        </ol>
+        <div class="walker" data-walker>
+          <span class="walker-floor" aria-hidden="true" data-walk-floor></span>
+          <span class="walker-layer walker-walk" aria-hidden="true"><img src="/assets/mimi-walk-samehand.webp" width="2568" height="400" alt="" loading="lazy" decoding="async" data-walk-strip></span>
+          <span class="walker-layer walker-raise" aria-hidden="true"><img src="/assets/mimi-raise-samehand.webp" width="856" height="400" alt="" loading="lazy" decoding="async" data-raise-strip></span>
+          <img class="walker-point" src="/assets/mimi-point-samehand.webp" width="214" height="400" alt="Mimi, the clay character, pointing up and to the right with a wooden pointer" loading="lazy" decoding="async" data-point>
+          <span class="walker-tap" aria-hidden="true" data-walk-tap></span>
+        </div>
+        <ol class="walk-rail" aria-hidden="true">
+          <li><span class="rail-fill" data-rail-fill></span><span class="rail-name">PairyCore</span></li>
+          <li><span class="rail-fill" data-rail-fill></span><span class="rail-name">PPTX Player</span></li>
+          <li><span class="rail-fill" data-rail-fill></span><span class="rail-name">Scan-to-Grade</span></li>
+          <li><span class="rail-fill" data-rail-fill></span><span class="rail-name">OMR Auto-Grader</span></li>
+          <li><span class="rail-fill" data-rail-fill></span><span class="rail-name">Exam + OMR Builder</span></li>
+        </ol>
+        <div class="walk-end" data-walk-end>
+          <p class="walk-end-t">That’s five of ten.</p>
+          <p class="walk-end-p">The rest are right below, all with full source.</p>
+          <a class="text-link" href="#work">See all ten <span aria-hidden="true">↓</span></a>
         </div>
       </div>
     </div>
