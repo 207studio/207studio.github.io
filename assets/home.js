@@ -132,17 +132,20 @@
 
 /* Walk with Mimi. Scroll drives one timeline, measured in "stops" (t from 0 to TOTAL).
    Stop i owns [b, b + 1) with b = INTRO + i:
-     b+0.14..b+0.40  poster i slides in from the near (right) edge while she walks
+     ..b+0.40        she walks; poster i comes along the wall from the near edge
      b+0.40..b+0.48  she raises the pointer (raise frames 0, 2, 3; frame 1 is blurred)
      b+0.48..b+0.84  she points; the poster is lit
      b+0.84..b+0.92  she lowers it (same frames reversed)
-     b+0.92..b+1.12  she walks on; the poster falls behind toward the vanishing point
-   Mimi never moves sideways: her box is centred on the hero Mimi and keeps the hero's
-   height (shrunk only when a poster could not otherwise fit above her head). The camera
-   backs up with her, so the wall streams away from the viewer: seams and posters recede
-   toward the vanishing point and nothing grows out of the distance.
-   Every walk between stops lasts WALK_GAP and covers exactly two 12-frame cycles, so
-   each arrival lands on walk frame 4, the stride closest to raise frame 0.
+     b+0.92..        she walks on; the poster slides away along the wall
+   Mimi takes over from the hero Mimi: same figure height, same body centre, same feet, and
+   she only shows once her whole figure is inside the frame. She never moves after that.
+   The wall is one CSS 3D plane (rotateY) seen through the stage's perspective, so the wall,
+   its seams and the posters pasted on it share one vanishing point. Walking slides the
+   posters along that plane: they arrive from the near edge, stop where she can point at
+   them, then recede toward the far end. On wide screens the wall runs to her left, and she
+   is mirrored so the pointer reaches it; on phones it runs above her head.
+   Each walk between stops is eased and covers exactly two 12-frame cycles, so every arrival
+   lands on walk frame 4, the stride closest to raise frame 0.
    Smoothing: the drawn time eases toward the scroll time, like a short scrub. */
 (function () {
   "use strict";
@@ -158,33 +161,37 @@
   var pointImg = section.querySelector("[data-point]");
   var floor = section.querySelector("[data-walk-floor]");
   var end = section.querySelector("[data-walk-end]");
+  var wall = section.querySelector("[data-wall]");
   var face = section.querySelector("[data-wall-face]");
   var ledge = section.querySelector("[data-wall-ledge]");
-  var seams = [].slice.call(section.querySelectorAll("[data-seam]"));
+  var seams = section.querySelector("[data-seam]");
+  var track = section.querySelector("[data-walk-track]");
   var stops = [].slice.call(section.querySelectorAll("[data-stop]"));
   var fills = [].slice.call(section.querySelectorAll("[data-rail-fill]"));
   var railItems = fills.map(function (f) { return f.parentNode; });
   var rail = railItems.length ? railItems[0].parentNode : null;
-  var hero = document.querySelector("[data-mimi]");
+  var heroImg = document.querySelector("[data-mimi] img");
   var walkLayer = walkImg.parentNode, raiseLayer = raiseImg.parentNode;
   var n = stops.length;
 
   var INTRO = 0.25, ARRIVE = 0.40, RAISED = 0.48, LOWER = 0.84, LEFT = 0.92;
-  var ENTER = 0.14, EXIT_END = 1.12, LIT_A = 0.44, LIT_B = 0.88;
+  var LIT_A = 0.44, LIT_B = 0.88;
   var WALK_GAP = (1 - LEFT) + ARRIVE;          // 0.48
-  var FPS_UNIT = 24 / WALK_GAP;                // walk frames per walked unit
   var LAND = 4;                                // walk frame on arrival
+  var INTRO_FRAMES = 30;                       // first walk: 2.5 cycles, so it starts on frame 10
   var END_AT = INTRO + n, STAND = END_AT + ARRIVE, TOTAL = STAND + 0.35;
   var SEG_SVH = 96;
   var RAISE_SEQ = [0, 2, 3];
-  // Depth: s = 1 / (1 - d) is the on-screen scale of something d units from the posters'
-  // resting depth (d < 0 is behind). The camera backs up DEPTH_GAP units per walk.
-  var DEPTH_GAP = 0.6, KZ = DEPTH_GAP / WALK_GAP, SEAM_GAP = 0.25, SEAM_S0 = 0.3;
-  var GAP = 14, MIN_MH = 220, LEDGE = 10, EDGE_PAD = 12;  // EDGE_PAD < poster right padding
+  // Sprite geometry (214 x 400 cells; hero image 431 x 990), from the alpha channel.
+  var CELL_W = 214, HAND_FRAME = 10, HAND_BOX = [2, 3, 208, 398];   // walk frame 10
+  var HERO_BOX = [8, 6, 420, 982], MIN_X = 2, MAX_X = 211;          // widest walk/raise/point frame
+  var TIP_X = 0.986, TIP_Y = 0.202, TAP_R = 29;                     // pointer tip; tap ring radius
+  var K = 0.86, TILT = 20 * Math.PI / 180;     // far edge of the featured poster vs near edge
+  var GAP = 10;
 
-  var vw = 0, vh = 0, mobile = false, range = 1, top0 = 0;
-  var aL = 0, aB = 0, pw = 0, vpx = 0, vpy = 0, lw = 1, wallTop = 0, travel = 0;
-  var dHi = 0, dLo = 0, heights = [];
+  var vw = 0, vh = 0, mobile = false, flip = false, range = 1, top0 = 0, mb = 0, fadeIn = 1;
+  var L = 0, oy = 0, P = 1000, cs = 1, sn = 0, pwp = 0, step = 0, seamGap = 1, limit = 0;
+  var heights = [];
   var cur = -1, target = 0, last = 0, running = false, ready = false;
   var memo = [], drawn = {};
 
@@ -201,14 +208,22 @@
     var m = memo[key] || (memo[key] = {});
     if (m[prop] !== val) { m[prop] = val; el.style[prop] = val; }
   }
-
-  // The hero Mimi's box in page pixels, ignoring her pointer-follow nudge (a translate).
-  function heroBox() {
-    if (!hero || !hero.offsetHeight) return null;
-    var x = 0;
-    for (var el = hero; el; el = el.offsetParent) x += el.offsetLeft;
-    return { cx: x + hero.offsetWidth / 2, h: hero.offsetHeight };
+  function box(el, x, y, w, h) {
+    el.style.left = px(x); el.style.top = px(y); el.style.width = px(w); el.style.height = px(h);
   }
+
+  // The hero Mimi image in page pixels, ignoring her pointer-follow nudge (a translate).
+  function heroBox() {
+    if (!heroImg || !heroImg.offsetHeight) return null;
+    var x = 0, y = 0;
+    for (var el = heroImg; el; el = el.offsetParent) { x += el.offsetLeft; y += el.offsetTop; }
+    return { x: x, y: y, w: heroImg.offsetWidth, h: heroImg.offsetHeight };
+  }
+
+  // Plane x (0 = near edge of the featured poster) to screen x; perspective-origin x is L.
+  function scale(xp) { return P / (P + xp * sn); }
+  function proj(xp) { return L + xp * cs * scale(xp); }
+  function unproj(sx) { return P * (L - sx) / ((sx - L) * sn - cs * P); }
 
   function layout() {
     var i, ph = 0;
@@ -218,50 +233,89 @@
     var side = mobile ? 12 : Math.round(Math.max(24, vw * 0.033));
     ["--mh", "--mw", "--mx", "--mb"].forEach(function (p) { stage.style.removeProperty(p); });
 
-    // Posters: right-aligned on the wall, bottoms on one line just above her head.
-    pw = mobile ? vw - side * 2 : Math.min(780, vw - side * 2);
-    aL = vw - side - pw;
-    heights = [];
-    for (i = 0; i < n; i++) { stops[i].style.width = pw + "px"; heights[i] = stops[i].offsetHeight; ph = Math.max(ph, heights[i]); }
-    end.style.width = Math.min(mobile ? pw : 460, 460) + "px";
-    var eh = end.offsetHeight;
-
-    var hb = heroBox();
-    var H = hb ? hb.h : walker.offsetHeight;
-    var cx = hb ? hb.cx : walker.offsetLeft + walker.offsetWidth / 2;
-    var mb = mobile ? 20 : 24;
-    var room = vh - mb - H - GAP - Math.max(ph, mobile ? eh : 0) - dock;
-    if (room < 0) H = Math.max(MIN_MH, Math.floor(H + room));       // short screens only
-    else if (room > 24) mb += Math.round(room / 3);                 // lift the pair a little
-    var mw = H * 0.535, ml = cx - mw / 2, wt = vh - mb - H;
-    stage.style.setProperty("--mh", H + "px");
+    // Mimi: the hero's figure, feet and body centre, carried over exactly.
+    var hb = heroBox(), H, ml, wt;
+    if (hb) {
+      var figH = hb.h * (HERO_BOX[3] + 1 - HERO_BOX[1]) / 990;
+      H = figH * 400 / (HAND_BOX[3] + 1 - HAND_BOX[1]);
+      var foot = hb.y + hb.h * (HERO_BOX[3] + 1) / 990;
+      wt = foot - H * (HAND_BOX[3] + 1) / 400;
+      var heroCx = hb.x + hb.w * (HERO_BOX[0] + HERO_BOX[2] + 1) / 2 / 431;
+      var boxCx = hb.x + hb.w / 2;
+      var mw0 = H * CELL_W / 400;
+      var lo = HAND_BOX[0], hi = HAND_BOX[2] + 1;
+      flip = !mobile && (vw - side - (boxCx + mw0 / 2) < 300 || wt - dock < 200);
+      var bodyOff = ((flip ? CELL_W - hi + CELL_W - lo : lo + hi) / 2 - CELL_W / 2) * mw0 / CELL_W;
+      // Split the difference between the box centre and the body centre (both stay within 2px).
+      ml = boxCx - mw0 / 2 + ((heroCx - boxCx) - bodyOff) / 2;
+    } else {
+      H = walker.offsetHeight || 320; wt = vh - 24 - H; ml = walker.offsetLeft; flip = !mobile;
+    }
+    var mw = H * CELL_W / 400;
+    mb = Math.max(4, vh - wt - H);
+    wt = vh - mb - H;
+    stage.style.setProperty("--mh", H.toFixed(2) + "px");
     stage.style.setProperty("--mw", mw.toFixed(2) + "px");
     stage.style.setProperty("--mx", ml.toFixed(2) + "px");
-    stage.style.setProperty("--mb", mb + "px");
+    stage.style.setProperty("--mb", mb.toFixed(2) + "px");
+    walker.classList.toggle("is-flip", flip);
+    section.classList.toggle("is-above", !flip);
+    fadeIn = Math.max(60, vh * 0.12);
 
-    aB = Math.round(wt - GAP);
-    for (i = 0; i < n; i++) { stops[i].style.left = aL + "px"; stops[i].style.top = (aB - heights[i]) + "px"; }
-    travel = Math.min(vw - aL + 24, Math.max(140, vw - aL - pw + 120));
-
-    // The wall converges on a point left of the posters, on their bottom line.
-    vpy = aB;
-    vpx = Math.max(side + 4, aL - pw * 0.3);
-    lw = aL - vpx > pw * 0.2 ? aL - vpx : pw * 0.45;
-    wallTop = aB - ph - 28;
-    var sR = (vw + 2 - vpx) / lw, yT = vpy - (vpy - wallTop) * sR, yB = vpy + LEDGE * sR;
-    face.style.clipPath = "polygon(" + px(vpx) + " " + px(vpy) + "," + px(vw + 2) + " " + px(yT) + "," + px(vw + 2) + " " + px(yB) + ")";
-    var len = Math.hypot(vw + 2 - vpx, yB - vpy), ang = Math.atan2(yB - vpy, vw + 2 - vpx);
-    ledge.style.transform = "translate(" + px(vpx) + "," + px(vpy) + ") rotate(" + ang.toFixed(4) + "rad) scaleX(" + (len / 100).toFixed(3) + ")";
-    dHi = 1 - 1 / sR;
-    dLo = 1 - 1 / SEAM_S0;
-
-    if (mobile) {
-      end.style.left = aL + "px";
-      end.style.top = Math.round(aB - eh) + "px";
+    // The featured poster at its stop, on screen: [xl, xr], bottom on the line oy.
+    var xl, xr, tipY = wt + H * TIP_Y;
+    if (flip) {
+      var tipX = ml + mw * (1 - TIP_X);
+      xr = Math.min(ml + MIN_X * mw / CELL_W, tipX - TAP_R) - Math.max(16, H * 0.07);
+      xl = Math.max(side, xr - 600);
+      limit = ml + MIN_X * mw / CELL_W - 2;
     } else {
-      end.style.left = side + "px";
-      end.style.top = Math.round(Math.max(dock + 24, wt + H * 0.32 - eh / 2)) + "px";
-      end.style.width = Math.max(240, Math.min(460, ml - side - 40)) + "px";
+      xl = side; xr = vw - side; limit = Infinity;
+    }
+    // Perspective: heights fall off linearly toward the vanishing point vx, so the far edge
+    // of the featured poster is K times its near edge. TILT sets how much it is foreshortened.
+    var vx = (xr - K * xl) / (1 - K);
+    cs = Math.cos(TILT); sn = Math.sin(TILT);
+    L = xl; P = (vx - xl) * Math.tan(TILT);
+    pwp = (xr - xl) / (K * cs);
+    step = pwp * 1.12;
+    seamGap = step / 2;
+
+    section.classList.remove("is-tight");
+    for (i = 0; i < n; i++) { stops[i].style.width = px(pwp); }
+    for (var pass = 0; pass < 2; pass++) {
+      ph = 0; heights = [];
+      for (i = 0; i < n; i++) { heights[i] = stops[i].offsetHeight; ph = Math.max(ph, heights[i]); }
+      if (flip) oy = Math.max(tipY + 12, dock + 12 + ph / 2);
+      else oy = wt + H * HAND_BOX[1] / 400 - GAP;
+      if (flip || oy - ph >= dock + 6 || pass) break;
+      section.classList.add("is-tight");                 // short band above her head
+    }
+    stage.style.perspective = Math.round(P) + "px";
+    stage.style.perspectiveOrigin = px(L) + " " + px(oy);
+    var plane = "rotateY(" + TILT.toFixed(5) + "rad)";
+    [wall, track].forEach(function (el) { el.style.left = px(L); el.style.transform = plane; });
+    for (i = 0; i < n; i++) stops[i].style.top = px(oy - heights[i] * (flip ? 0.5 : 1));
+
+    // Wall: from past the near (left) edge to past the right edge. Its top clears the
+    // posters; its foot meets the floor just behind her feet.
+    var x0 = unproj(-40), x1 = Math.max(unproj(vw + 40), pwp * 2);
+    var sM = scale(unproj(ml + mw / 2));
+    var yB = oy + (wt + H * 0.95 - oy) / sM;
+    var yT = oy - Math.max(ph * (flip ? 0.5 : 1) + 48, (oy - Math.max(0, wt - H * 0.1)) / scale(unproj(vw)));
+    box(face, x0, yT, x1 - x0, yB - yT);
+    box(ledge, x0, yB - 1, x1 - x0, 3);
+    box(seams, x0 - seamGap, yT, x1 - x0 + seamGap * 2, yB - yT);
+    seams.style.backgroundSize = seamGap.toFixed(2) + "px 100%";
+
+    var ew;
+    if (flip) {
+      ew = Math.max(240, Math.min(460, xr - side));
+      end.style.width = px(ew); end.style.left = px(side);
+      end.style.top = px(Math.max(dock + 10, oy - end.offsetHeight / 2));
+    } else {
+      end.style.width = px(vw - side * 2); end.style.left = px(side);
+      end.style.top = px(Math.max(dock + 6, oy - end.offsetHeight));
     }
     if (rail) {
       rail.style.left = side + "px";
@@ -279,14 +333,19 @@
     return p * TOTAL;
   }
 
-  // Walked distance up to t: time minus every pause before it.
-  function walked(t) {
-    var w = t;
+  // Where the walk is, in stops: -1 at the start, i while paused at stop i, n at the end.
+  // Each walk eases in and out.
+  function along(t) {
+    var w0 = INTRO + ARRIVE;
+    if (t <= 0) return -1;
+    if (t < w0) return -1 + easeInOut(t / w0);
     for (var i = 0; i < n; i++) {
       var b = INTRO + i;
-      w -= Math.max(0, Math.min(t, b + LEFT) - (b + ARRIVE));
+      if (t < b + LEFT) return i;
+      var e = b + 1 + ARRIVE;
+      if (t < e) return i + easeInOut((t - b - LEFT) / (e - b - LEFT));
     }
-    return w - Math.max(0, t - STAND);
+    return n;
   }
 
   function pose(t) {
@@ -299,13 +358,13 @@
         return { layer: "raise", f: RAISE_SEQ[2 - Math.min(2, Math.floor((u - LOWER) / (LEFT - LOWER) * 3))], at: i };
       }
     }
-    var w0 = INTRO + ARRIVE; // walked distance at the first arrival
-    var f = (LAND + Math.floor((walked(t) - w0) * FPS_UNIT + 1e-6)) % 12;
+    var a = along(t), fr = a < 0 ? a * INTRO_FRAMES : a * 24;
+    var f = (LAND + Math.floor(fr + 1e-6)) % 12;
     return { layer: "walk", f: f < 0 ? f + 12 : f, at: -1 };
   }
 
   function drawMimi(t) {
-    var p = ready ? pose(t) : { layer: "point", f: 0, at: -1 };
+    var p = ready ? pose(t) : { layer: "walk", f: HAND_FRAME, at: -1 };
     put(walkLayer, "wl", "opacity", p.layer === "walk" ? "1" : "0");
     put(raiseLayer, "rl", "opacity", p.layer === "raise" ? "1" : "0");
     put(pointImg, "pi", "opacity", p.layer === "point" ? "1" : "0");
@@ -318,40 +377,29 @@
     if (drawn.tap !== tap) { drawn.tap = tap; walker.classList.toggle("is-tap", tap); }
   }
 
-  // Seams sit at fixed depths on the wall; as the camera backs up they slide toward the
-  // vanishing point, closing up and fading. A pool of spans is reused by depth slot.
-  function drawWall(t) {
-    var z = walked(t) * KZ, j0 = Math.ceil((z + dLo) / SEAM_GAP);
-    for (var m = 0; m < seams.length; m++) {
-      var d = (j0 + m) * SEAM_GAP - z, key = "w" + m;
-      if (d >= dHi) { put(seams[m], key + "o", "opacity", "0"); continue; }
-      var s = 1 / (1 - d), x = vpx + lw * s, y0 = vpy - (vpy - wallTop) * s, y1 = vpy + LEDGE * s;
-      put(seams[m], key + "t", "transform", "translate3d(" + x.toFixed(1) + "px," + y0.toFixed(1) + "px,0) scaleY(" + ((y1 - y0) / 1000).toFixed(4) + ")");
-      put(seams[m], key + "o", "opacity", opac(clamp((s - SEAM_S0) / 0.4)));
-    }
+  // She appears only once her whole figure is in the frame (the stage is still sliding up
+  // into view until it pins), and fades in from there.
+  function drawEntry() {
+    var a = window.pageYOffset - (top0 - mb);
+    put(walker, "wo", "opacity", opac(clamp(a / fadeIn)));
   }
 
-  function drawStops(t) {
+  function drawWall(a) {
+    var s = ((a * step) % seamGap + seamGap) % seamGap;
+    put(seams, "sm", "transform", "translate3d(" + s.toFixed(1) + "px,0,0)");
+  }
+
+  function drawStops(t, a) {
     for (var i = 0; i < n; i++) {
-      var u = t - (INTRO + i), el = stops[i], key = "s" + i, h = heights[i];
-      var tx = 0, ty = 0, sc = 1, op = 1;
-      if (u < ENTER || u >= EXIT_END) {
-        tx = travel; op = 0;
-      } else if (u < ARRIVE) {
-        // Near the camera: it slides in from the right edge, a touch larger, and settles.
-        var r = 1 - easeOut((u - ENTER) / (ARRIVE - ENTER));
-        sc = 1 + r * 0.06; tx = r * travel; ty = h * (1 - sc);
-        // Invisible while any of it is past the edge; it fades in over the last few pixels,
-        // which are inside its own padding, so no line of text is ever cut by the frame.
-        var off = aL + tx + pw * sc - vw;
-        op = off <= 0 ? 1 : clamp(1 - off / EDGE_PAD);
-      } else if (u >= LEFT) {
-        // Behind her now: it recedes with the wall toward the vanishing point and fades.
-        sc = 1 / (1 + (u - LEFT) * KZ);
-        tx = (vpx + (aL - vpx) * sc) - aL; ty = h * (1 - sc);
-        op = 1 - easeInOut((u - LEFT) / (EXIT_END - LEFT));
-      }
-      put(el, key + "t", "transform", "translate3d(" + tx.toFixed(1) + "px," + ty.toFixed(1) + "px,0) scale(" + sc.toFixed(4) + ")");
+      var u = t - (INTRO + i), el = stops[i], key = "s" + i;
+      var xp = (a - i) * step, op = 1, nearX = unproj(-40), farX = unproj(vw + 40);
+      var right = xp + pwp > nearX ? proj(xp + pwp) : -1e4;
+      if (right < -4 || xp > farX || proj(xp) > vw + 4) op = 0;
+      // Wide screens: once it starts to slide away toward her it fades, and it is gone
+      // before it could reach her.
+      else if (flip && xp > 0) op = clamp((limit - right) / Math.max(1, limit - proj(pwp)));
+      if (op === 0) xp = Math.min(Math.max(xp, nearX - pwp * 1.5), farX);
+      put(el, key + "t", "transform", "translate3d(" + xp.toFixed(1) + "px,0,0)");
       put(el, key + "o", "opacity", opac(op));
       var on = op > 0.5, lit = u >= LIT_A && u < LIT_B;
       if (drawn[key + "on"] !== on) { drawn[key + "on"] = on; el.classList.toggle("is-on", on); }
@@ -364,12 +412,13 @@
     }
     var v = t - END_AT;
     var k = easeOut(clamp((v - 0.1) / 0.3));
-    put(end, "et", "transform", "translate3d(0," + ((1 - k) * 24).toFixed(1) + "px,0)");
+    put(end, "et", "transform", "translate3d(0," + ((1 - k) * (flip ? 24 : -24)).toFixed(1) + "px,0)");
     put(end, "eo", "opacity", opac(k));
     if (drawn.end !== k > 0.5) { drawn.end = k > 0.5; end.classList.toggle("is-on", drawn.end); }
   }
 
-  function draw(t) { drawWall(t); drawStops(t); drawMimi(t); }
+  // The first poster is already half on the wall when she sets off, so the wall is never bare.
+  function draw(t) { var a = along(t); if (a < 0) a *= 0.55; drawWall(a); drawStops(t, a); drawMimi(t); }
 
   function tick(now) {
     var dt = Math.min(0.05, (now - last) / 1000 || 0.016);
@@ -384,6 +433,7 @@
 
   function kick() {
     target = scrollTime();
+    drawEntry();
     if (cur < 0) { cur = target; draw(cur); return; }
     if (!running) { running = true; last = performance.now(); requestAnimationFrame(tick); }
   }
@@ -391,7 +441,7 @@
   var resizeTimer = 0;
   function onResize() {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function () { layout(); cur = target = scrollTime(); draw(cur); }, 120);
+    resizeTimer = setTimeout(function () { layout(); cur = target = scrollTime(); drawEntry(); draw(cur); }, 120);
   }
 
   // Keyboard: focusing a poster scrolls to the moment Mimi points at it.
@@ -403,7 +453,7 @@
     // overflow:hidden still lets focus scroll the stage sideways; undo that.
     stage.scrollLeft = 0; stage.scrollTop = 0;
     if (Math.abs(window.pageYOffset - y) > 2) window.scrollTo({ top: y, behavior: "instant" });
-    cur = target = t; draw(cur);
+    cur = target = t; drawEntry(); draw(cur);
   });
 
   layout();
@@ -420,7 +470,7 @@
       if (!entries[0].isIntersecting) return;
       io.disconnect();
       imgs.forEach(function (img) { img.loading = "eager"; });
-      Promise.all(imgs.map(decoded)).then(function () { ready = true; memo = []; drawn = {}; draw(cur); });
+      Promise.all(imgs.map(decoded)).then(function () { ready = true; memo = []; drawn = {}; drawEntry(); draw(cur); });
     }, { rootMargin: "100% 0px" });
     io.observe(section);
   } else {
