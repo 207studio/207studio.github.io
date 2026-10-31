@@ -8,7 +8,7 @@
   if (document.documentElement.getAttribute("lang") === "ko") return;
   var MESSAGES = {
     "en": {
-      "meta.title": "207 Studio — Software, from the classroom.",
+      "meta.title": "207 Studio — Classroom tools and source-included dev kits",
       "meta.description": "Independent software studio in South Korea making classroom tools and source-included developer kits. One-time purchase.",
       "skip": "Skip to content",
       "brand.home": "207 Studio home",
@@ -101,7 +101,7 @@
       "footer.copyright": "© 2026 207 Studio"
     },
     "ko": {
-      "meta.title": "207스튜디오: 교실에서 시작하는 소프트웨어",
+      "meta.title": "207스튜디오: 교실 도구와 소스 포함 개발자 키트",
       "meta.description": "207스튜디오는 대한민국의 독립 소프트웨어 스튜디오입니다. 수업 준비와 판서, 평가에 쓰는 실용적인 도구와 오목 게임 StoneWars를 만듭니다.",
       "skip": "본문으로 건너뛰기",
       "brand.home": "207스튜디오 홈",
