@@ -30,9 +30,6 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/gabarito-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" as="image" href="/assets/clay-scene-poster.webp" media="(min-width: 1197px)" fetchpriority="high">
-<link rel="preload" as="image" href="/assets/clay-scene-poster-medium.webp" media="(min-width: 701px) and (max-width: 1196px)" fetchpriority="high">
-<link rel="preload" as="image" href="/assets/clay-scene-poster-mobile.webp" media="(max-width: 700px)" fetchpriority="high">
 <link rel="stylesheet" href="/assets/home.min.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://207studio.dev/#org","name":"207 Studio","url":"https://207studio.dev","description":"대한민국의 초등학교 교사가 설립한 독립 소프트웨어 스튜디오. 수업 도구와 소스 포함 개발자 키트를 1회 구매로 판매.","email":"support@207studio.dev","contactPoint":{"@type":"ContactPoint","contactType":"customer support","email":"support@207studio.dev","availableLanguage":["en","ko","ja"]},"address":{"@type":"PostalAddress","addressCountry":"KR"},"logo":"https://207studio.dev/assets/logo.png","founder":{"@type":"Person","name":"Jang Yuil","alternateName":"장유일"},"sameAs":["https://github.com/207studio","https://x.com/207_studio","https://dev.to/207studio"]},{"@type":"WebSite","@id":"https://207studio.dev/#website","name":"207 Studio","url":"https://207studio.dev/","inLanguage":"ko","publisher":{"@id":"https://207studio.dev/#org"}},{"@type":"WebPage","@id":"https://207studio.dev/ko/#webpage","url":"https://207studio.dev/ko/","name":"207 Studio — 교실 도구와 개발자 키트","description":"207 Studio는 교사와 개발자를 위해 교실 도구와 소스 포함 개발자 키트를 만드는 대한민국의 독립 스튜디오입니다. 공개 제품 10종, 1회 구매.","inLanguage":"ko","isPartOf":{"@id":"https://207studio.dev/#website"},"about":{"@id":"https://207studio.dev/#org"}}]}</script>
 </head>
@@ -69,9 +66,10 @@
     </div>
 
     <div class="hero-stage" data-scene>
+      <div class="mimi" data-mimi><img src="/assets/mimi.webp" srcset="/assets/mimi-640.webp 278w, /assets/mimi.webp 431w" sizes="(max-width: 700px) 140px, 280px" width="431" height="990" alt="한 손에 태블릿을 들고 손을 흔드는 207 스튜디오의 점토 캐릭터 미미" fetchpriority="high" decoding="async"></div>
       <div class="scene">
         <div class="scene-poster" aria-hidden="true"></div>
-        <canvas id="clay-scene" role="img" aria-label="검은 생머리와 앞머리가 있는 미미의 3D 점토 얼굴이 휴대용 콘솔, 연필, 별, 집, 점토 구슬과 함께 떠 있는 장면입니다. 조각을 끌어서 밀어 볼 수 있고, 놓으면 제자리로 돌아옵니다.">미미의 점토 얼굴, 휴대용 콘솔, 연필, 별, 집, 점토 구슬로 만든 3D 장면입니다.</canvas>
+        <canvas id="clay-scene" role="img" aria-label="미미 주위로 휴대용 콘솔, 연필, 별, 집, 점토 구슬이 떠 있는 3D 점토 장면입니다. 조각을 끌어서 밀어 볼 수 있고, 놓으면 제자리로 돌아옵니다.">휴대용 콘솔, 연필, 별, 집, 점토 구슬로 만든 3D 장면입니다.</canvas>
       </div>
       <p class="stage-mark" aria-hidden="true"><span class="stage-dot"></span>점토 습작 / 01 <b>207</b></p>
       <h1 class="wordmark" id="hero-title" aria-label="207 Studio">

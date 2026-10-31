@@ -29,9 +29,6 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/gabarito-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" as="image" href="/assets/clay-scene-poster.webp" media="(min-width: 1197px)" fetchpriority="high">
-<link rel="preload" as="image" href="/assets/clay-scene-poster-medium.webp" media="(min-width: 701px) and (max-width: 1196px)" fetchpriority="high">
-<link rel="preload" as="image" href="/assets/clay-scene-poster-mobile.webp" media="(max-width: 700px)" fetchpriority="high">
 <link rel="stylesheet" href="/assets/home.min.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://207studio.dev/#org","name":"207 Studio","url":"https://207studio.dev","description":"Independent, teacher-led software studio in South Korea selling source-included developer kits and classroom tools as one-time purchases.","email":"support@207studio.dev","contactPoint":{"@type":"ContactPoint","contactType":"customer support","email":"support@207studio.dev","availableLanguage":["en","ko","ja"]},"address":{"@type":"PostalAddress","addressCountry":"KR"},"logo":"https://207studio.dev/assets/logo.png","founder":{"@type":"Person","name":"Jang Yuil","alternateName":"장유일"},"sameAs":["https://github.com/207studio","https://x.com/207_studio","https://dev.to/207studio"]},{"@type":"WebSite","@id":"https://207studio.dev/#website","name":"207 Studio","url":"https://207studio.dev/","publisher":{"@id":"https://207studio.dev/#org"}}]}</script>
 </head>
@@ -68,9 +65,10 @@
     </div>
 
     <div class="hero-stage" data-scene>
+      <div class="mimi" data-mimi><img src="/assets/mimi.webp" srcset="/assets/mimi-640.webp 278w, /assets/mimi.webp 431w" sizes="(max-width: 700px) 140px, 280px" width="431" height="990" alt="Mimi, 207 Studio's clay character, waving hello with a tablet in her other hand" fetchpriority="high" decoding="async"></div>
       <div class="scene">
         <div class="scene-poster" aria-hidden="true"></div>
-        <canvas id="clay-scene" role="img" aria-label="A 3D clay portrait of Mimi with long black hair and a fringe, floating among a handheld console, a pencil, a star, a house and two clay beads. Drag the pieces to nudge them; they settle back.">A 3D clay scene with a portrait of Mimi, a handheld console, a pencil, a star, a house and clay beads.</canvas>
+        <canvas id="clay-scene" role="img" aria-label="A 3D clay scene with a handheld console, a pencil, a star, a house and two clay beads floating around Mimi. Drag the pieces to nudge them; they settle back.">A 3D clay scene with a handheld console, a pencil, a star, a house and clay beads.</canvas>
       </div>
       <p class="stage-mark" aria-hidden="true"><span class="stage-dot"></span>Clay study / 01 <b>207</b></p>
       <h1 class="wordmark" id="hero-title" aria-label="207 Studio">

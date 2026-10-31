@@ -211,255 +211,6 @@
       return part(v, faces, color, [0, 0, 0], options);
     }
 
-    /* --- Mimi: a smooth vector clay portrait with long black hair --- */
-
-    var SKIN_LIGHT = "#f9e8d0";
-    var SKIN_MID = "#f1d7b7";
-    var SKIN_DEEP = "#d9b18b";
-    var HAIR_LIGHT = "#3a322d";
-    var HAIR_MID = "#221d1a";
-    var HAIR_DEEP = "#151210";
-    var mimiPaths = null;
-
-    function buildMimi() {
-      var back = new Path2D();
-      back.moveTo(0, -1.06);
-      back.bezierCurveTo(0.64, -1.06, 1.03, -0.66, 1.05, -0.04);
-      back.bezierCurveTo(1.08, 0.62, 1.03, 1.14, 0.93, 1.44);
-      back.bezierCurveTo(0.88, 1.58, 0.66, 1.62, 0.56, 1.5);
-      back.bezierCurveTo(0.48, 1.4, 0.5, 1.12, 0.5, 0.96);
-      back.lineTo(0.48, 0.42);
-      back.bezierCurveTo(0.46, 0.1, 0.42, -0.2, 0.36, -0.38);
-      back.bezierCurveTo(0.24, -0.7, -0.2, -0.8, -0.36, -0.38);
-      back.bezierCurveTo(-0.42, -0.2, -0.46, 0.1, -0.48, 0.42);
-      back.lineTo(-0.5, 0.96);
-      back.bezierCurveTo(-0.5, 1.12, -0.48, 1.4, -0.56, 1.5);
-      back.bezierCurveTo(-0.66, 1.62, -0.88, 1.58, -0.93, 1.44);
-      back.bezierCurveTo(-1.03, 1.14, -1.08, 0.62, -1.05, -0.04);
-      back.bezierCurveTo(-1.03, -0.66, -0.64, -1.06, 0, -1.06);
-      back.closePath();
-
-      var face = new Path2D();
-      face.moveTo(0, -0.98);
-      face.bezierCurveTo(0.46, -0.98, 0.82, -0.68, 0.82, -0.14);
-      face.bezierCurveTo(0.82, 0.42, 0.5, 0.9, 0.02, 0.95);
-      face.bezierCurveTo(-0.48, 0.93, -0.82, 0.42, -0.82, -0.14);
-      face.bezierCurveTo(-0.82, -0.68, -0.46, -0.98, 0, -0.98);
-      face.closePath();
-
-      var fringe = new Path2D();
-      fringe.moveTo(-0.62, -0.48);
-      fringe.bezierCurveTo(-0.52, -0.78, -0.24, -0.95, 0.02, -0.93);
-      fringe.bezierCurveTo(0.34, -0.91, 0.56, -0.72, 0.68, -0.44);
-      fringe.bezierCurveTo(0.54, -0.36, 0.38, -0.3, 0.18, -0.28);
-      fringe.bezierCurveTo(-0.06, -0.25, -0.28, -0.32, -0.44, -0.38);
-      fringe.bezierCurveTo(-0.52, -0.41, -0.58, -0.44, -0.62, -0.48);
-      fringe.closePath();
-
-      var frame = new Path2D();
-      frame.moveTo(0, -1.07);
-      frame.bezierCurveTo(0.62, -1.07, 0.98, -0.72, 0.99, -0.12);
-      frame.bezierCurveTo(1.0, 0.35, 0.98, 0.85, 0.92, 1.2);
-      frame.bezierCurveTo(0.88, 1.42, 0.74, 1.52, 0.62, 1.46);
-      frame.bezierCurveTo(0.54, 1.42, 0.52, 1.2, 0.52, 1.0);
-      frame.lineTo(0.52, 0.18);
-      frame.bezierCurveTo(0.52, -0.12, 0.44, -0.34, 0.28, -0.43);
-      frame.bezierCurveTo(0.16, -0.5, 0.0, -0.53, -0.08, -0.5);
-      frame.bezierCurveTo(-0.28, -0.44, -0.44, -0.28, -0.46, 0.02);
-      frame.lineTo(-0.47, 1.0);
-      frame.bezierCurveTo(-0.47, 1.2, -0.5, 1.42, -0.58, 1.46);
-      frame.bezierCurveTo(-0.7, 1.52, -0.84, 1.42, -0.88, 1.2);
-      frame.bezierCurveTo(-0.94, 0.85, -0.96, 0.35, -0.95, -0.12);
-      frame.bezierCurveTo(-0.94, -0.72, -0.62, -1.07, 0, -1.07);
-      frame.closePath();
-
-      return { back: back, face: face, frame: frame, fringe: fringe };
-    }
-
-    function drawMimi(o) {
-      if (!mimiPaths) mimiPaths = buildMimi();
-      var p = cameraPoint([o.x, o.y + o.dy, o.z]);
-      var persp = FOCAL / Math.max(1, CAMERA_Z + o.z);
-      var R = o.scale * unit * persp;
-      var sway = o.rotZ * 0.8 + Math.sin(elapsed * 0.5 + o.phase) * 0.028;
-
-      ctx.save();
-      ctx.translate(p[0], p[1]);
-      ctx.rotate(sway);
-      ctx.scale(R, R);
-
-      /* long hair behind the face */
-      var backGradient = ctx.createLinearGradient(0, -1.1, 0, 1.65);
-      backGradient.addColorStop(0, HAIR_LIGHT);
-      backGradient.addColorStop(0.42, HAIR_MID);
-      backGradient.addColorStop(1, HAIR_DEEP);
-      ctx.fillStyle = backGradient;
-      ctx.fill(mimiPaths.back);
-
-      var backShine = ctx.createRadialGradient(-0.42, -0.72, 0.02, -0.1, -0.2, 1.35);
-      backShine.addColorStop(0, "rgba(255,244,226,0.2)");
-      backShine.addColorStop(0.42, "rgba(255,244,226,0.04)");
-      backShine.addColorStop(1, "rgba(255,244,226,0)");
-      ctx.fillStyle = backShine;
-      ctx.fill(mimiPaths.back);
-
-      /* face */
-      var faceGradient = ctx.createRadialGradient(-0.24, -0.36, 0.06, 0.02, 0.05, 1.02);
-      faceGradient.addColorStop(0, SKIN_LIGHT);
-      faceGradient.addColorStop(0.54, SKIN_MID);
-      faceGradient.addColorStop(1, SKIN_DEEP);
-      ctx.fillStyle = faceGradient;
-      ctx.fill(mimiPaths.face);
-
-      /* soft forehead shade and rounded jaw */
-      ctx.save();
-      ctx.clip(mimiPaths.face);
-      var forehead = ctx.createLinearGradient(0, -0.34, 0, 0.08);
-      forehead.addColorStop(0, "rgba(96,58,40,0.14)");
-      forehead.addColorStop(1, "rgba(96,58,40,0)");
-      ctx.fillStyle = forehead;
-      ctx.fillRect(-0.9, -0.36, 1.8, 0.46);
-      var jaw = ctx.createRadialGradient(0, 0.02, 0.52, 0, 0.08, 0.98);
-      jaw.addColorStop(0, "rgba(120,72,46,0)");
-      jaw.addColorStop(1, "rgba(120,72,46,0.16)");
-      ctx.fillStyle = jaw;
-      ctx.fillRect(-0.9, -0.9, 1.8, 1.9);
-      ctx.restore();
-
-      /* fringe and side hair in front of the face */
-      var frameGradient = ctx.createLinearGradient(-0.7, -1.05, 0.75, 1.4);
-      frameGradient.addColorStop(0, HAIR_LIGHT);
-      frameGradient.addColorStop(0.52, HAIR_MID);
-      frameGradient.addColorStop(1, HAIR_DEEP);
-      ctx.fillStyle = frameGradient;
-      ctx.fill(mimiPaths.frame);
-
-      var frameShine = ctx.createRadialGradient(-0.48, -0.78, 0.02, -0.18, -0.3, 1.1);
-      frameShine.addColorStop(0, "rgba(255,243,224,0.22)");
-      frameShine.addColorStop(0.38, "rgba(255,243,224,0.05)");
-      frameShine.addColorStop(1, "rgba(255,243,224,0)");
-      ctx.fillStyle = frameShine;
-      ctx.fill(mimiPaths.frame);
-
-      /* a side-swept fringe over the forehead */
-      var fringeGradient = ctx.createLinearGradient(-0.5, -0.95, 0.55, -0.3);
-      fringeGradient.addColorStop(0, HAIR_LIGHT);
-      fringeGradient.addColorStop(0.55, HAIR_MID);
-      fringeGradient.addColorStop(1, HAIR_DEEP);
-      ctx.fillStyle = fringeGradient;
-      ctx.fill(mimiPaths.fringe);
-      var fringeShine = ctx.createLinearGradient(-0.5, -0.9, 0.4, -0.35);
-      fringeShine.addColorStop(0, "rgba(255,242,222,0.13)");
-      fringeShine.addColorStop(0.55, "rgba(255,242,222,0.02)");
-      fringeShine.addColorStop(1, "rgba(255,242,222,0)");
-      ctx.fillStyle = fringeShine;
-      ctx.fill(mimiPaths.fringe);
-
-      /* brows */
-      ctx.strokeStyle = "rgba(80,56,44,0.7)";
-      ctx.lineWidth = 0.018;
-      ctx.lineCap = "round";
-      ctx.beginPath();
-      ctx.moveTo(-0.37, -0.24);
-      ctx.quadraticCurveTo(-0.3, -0.29, -0.22, -0.25);
-      ctx.moveTo(0.22, -0.25);
-      ctx.quadraticCurveTo(0.3, -0.29, 0.37, -0.24);
-      ctx.stroke();
-
-      /* eyes */
-      var eyeFill = ctx.createRadialGradient(-0.3, -0.04, 0.01, -0.28, 0.03, 0.16);
-      eyeFill.addColorStop(0, "#4a352b");
-      eyeFill.addColorStop(0.62, "#2b211d");
-      eyeFill.addColorStop(1, "#1d1715");
-      for (var side = -1; side <= 1; side += 2) {
-        ctx.save();
-        ctx.translate(side * 0.29, 0.02);
-        ctx.rotate(side * 0.03);
-        ctx.fillStyle = eyeFill;
-        ctx.beginPath();
-        ctx.ellipse(0, 0, 0.115, 0.15, 0, 0, TAU);
-        ctx.fill();
-
-        ctx.fillStyle = "rgba(255,250,240,0.96)";
-        ctx.beginPath();
-        ctx.ellipse(-0.035, -0.055, 0.036, 0.044, -0.25, 0, TAU);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(0.035, 0.075, 0.015, 0, TAU);
-        ctx.fill();
-
-        ctx.strokeStyle = "rgba(43,32,27,0.6)";
-        ctx.lineWidth = 0.018;
-        ctx.beginPath();
-        ctx.arc(0, 0.0, 0.15, Math.PI * 1.08, Math.PI * 1.62);
-        ctx.stroke();
-        ctx.restore();
-      }
-
-      /* blush */
-      for (var b = -1; b <= 1; b += 2) {
-        var blush = ctx.createRadialGradient(b * 0.45, 0.27, 0.01, b * 0.45, 0.27, 0.2);
-        blush.addColorStop(0, "rgba(224,139,129,0.3)");
-        blush.addColorStop(0.62, "rgba(224,139,129,0.13)");
-        blush.addColorStop(1, "rgba(224,139,129,0)");
-        ctx.fillStyle = blush;
-        ctx.beginPath();
-        ctx.ellipse(b * 0.45, 0.27, 0.2, 0.12, 0, 0, TAU);
-        ctx.fill();
-      }
-
-      /* nose and mouth */
-      ctx.fillStyle = "rgba(198,143,108,0.6)";
-      ctx.beginPath();
-      ctx.ellipse(0, 0.22, 0.034, 0.026, 0, 0, TAU);
-      ctx.fill();
-      ctx.fillStyle = "rgba(255,245,228,0.6)";
-      ctx.beginPath();
-      ctx.arc(-0.008, 0.21, 0.012, 0, TAU);
-      ctx.fill();
-
-      ctx.strokeStyle = "#a45c52";
-      ctx.lineWidth = 0.024;
-      ctx.lineCap = "round";
-      ctx.beginPath();
-      ctx.moveTo(-0.072, 0.42);
-      ctx.quadraticCurveTo(0, 0.475, 0.072, 0.42);
-      ctx.stroke();
-      ctx.strokeStyle = "rgba(255,235,220,0.4)";
-      ctx.lineWidth = 0.01;
-      ctx.beginPath();
-      ctx.moveTo(-0.045, 0.452);
-      ctx.quadraticCurveTo(0, 0.472, 0.045, 0.452);
-      ctx.stroke();
-
-      /* a soft cheek light and a glossy hair sheen */
-      var cheek = ctx.createRadialGradient(-0.3, 0.03, 0.02, -0.28, 0.08, 0.34);
-      cheek.addColorStop(0, "rgba(255,247,233,0.18)");
-      cheek.addColorStop(1, "rgba(255,247,233,0)");
-      ctx.fillStyle = cheek;
-      ctx.beginPath();
-      ctx.ellipse(-0.3, 0.08, 0.34, 0.3, 0, 0, TAU);
-      ctx.fill();
-
-      ctx.strokeStyle = "rgba(255,242,222,0.2)";
-      ctx.lineWidth = 0.04;
-      ctx.lineCap = "round";
-      ctx.beginPath();
-      ctx.moveTo(-0.56, -0.7);
-      ctx.bezierCurveTo(-0.4, -0.93, -0.12, -1.0, 0.12, -0.95);
-      ctx.stroke();
-
-      /* a quiet clay rim on the lower left */
-      ctx.strokeStyle = "rgba(255,238,214,0.13)";
-      ctx.lineWidth = 0.015;
-      ctx.beginPath();
-      ctx.moveTo(-0.74, 0.32);
-      ctx.bezierCurveTo(-0.65, 0.7, -0.3, 0.9, 0.06, 0.91);
-      ctx.stroke();
-
-      ctx.restore();
-    }
-
     /* --- the other pieces --- */
 
     function consoleParts() {
@@ -528,10 +279,6 @@
     }
 
     var objects = [
-      makeObject("head", "head", [], {
-        x: 0, y: 0, z: 50, scale: 78, rotX: -0.04, rotY: 0.16, rotZ: 0.02,
-        sway: 0.13, bob: 6, phase: 0.2, hitRadius: 100
-      }),
       makeObject("console", "console", consoleParts(), {
         x: 0, y: 0, z: -5, scale: 62, rotX: 0.86, rotY: 0.38, rotZ: -0.08,
         spin: 0.06, bob: 4, phase: 2.1, hitRadius: 62
@@ -559,8 +306,7 @@
     /* --- composition --- */
 
     var WIDE = {
-      head: { fx: 0.52, fy: 0.21, z: 50, scale: 86 },
-      console: { fx: 0.825, fy: 0.685, z: -5, scale: 62 },
+      console: { fx: 0.93, fy: 0.75, z: -5, scale: 62 },
       pencil: { fx: 0.665, fy: 0.835, z: -20, scale: 56 },
       star: { fx: 0.675, fy: 0.125, z: 40, scale: 40 },
       house: { fx: 0.87, fy: 0.205, z: -40, scale: 50 },
@@ -569,7 +315,6 @@
     };
 
     var MEDIUM = {
-      head: { fx: 0.72, fy: 0.16, z: 50, scale: 62 },
       console: { fx: 0.84, fy: 0.7, z: -5, scale: 50 },
       pencil: { fx: 0.66, fy: 0.84, z: -20, scale: 48 },
       star: { fx: 0.84, fy: 0.12, z: 40, scale: 34 },
@@ -579,13 +324,12 @@
     };
 
     var TALL = {
-      head: { fx: 0.7, fy: 0.14, z: 50, scale: 66 },
-      console: { fx: 0.79, fy: 0.525, z: -5, scale: 50 },
-      pencil: { fx: 0.245, fy: 0.59, z: -20, scale: 44 },
-      star: { fx: 0.47, fy: 0.085, z: 40, scale: 30 },
-      house: { fx: 0.155, fy: 0.135, z: -40, scale: 39 },
-      beadPink: { fx: 0.93, fy: 0.415, z: 60, scale: 26 },
-      beadSage: { fx: 0.09, fy: 0.37, z: 70, scale: 30 }
+      console: { fx: 0.16, fy: 0.56, z: -5, scale: 50 },
+      pencil: { fx: 0.42, fy: 0.62, z: -20, scale: 44 },
+      star: { fx: 0.47, fy: 0.33, z: 40, scale: 30 },
+      house: { fx: 0.13, fy: 0.33, z: -40, scale: 39 },
+      beadPink: { fx: 0.6, fy: 0.5, z: 60, scale: 26 },
+      beadSage: { fx: 0.06, fy: 0.45, z: 70, scale: 30 }
     };
 
     function applyLayout() {
@@ -700,15 +444,14 @@
     /* --- render --- */
 
     function drawShadow(o) {
-      var isHead = o.key === "head";
-      var drop = o.scale * (isHead ? 1.55 : 0.64);
+      var drop = o.scale * 0.64;
       var p = cameraPoint([o.x + 6, o.y + o.dy - drop, o.z]);
       var s = FOCAL / Math.max(1, CAMERA_Z + o.z);
-      var r = Math.max(10, o.scale * (isHead ? 0.78 : 0.64) * unit * s);
+      var r = Math.max(10, o.scale * 0.64 * unit * s);
       ctx.save();
       ctx.translate(p[0], p[1]);
       ctx.scale(1, 0.3);
-      var strength = o.key === "head" ? 1.55 : 1;
+      var strength = 1;
       var g = ctx.createRadialGradient(0, 0, 0, 0, 0, r);
       g.addColorStop(0, "rgba(45, 36, 26, " + (0.17 * strength) + ")");
       g.addColorStop(0.55, "rgba(45, 36, 26, " + (0.07 * strength) + ")");
@@ -793,7 +536,6 @@
         ctx.stroke();
       }
 
-      drawMimi(objects[0]);
     }
 
     /* --- physics --- */

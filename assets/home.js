@@ -112,6 +112,17 @@
   window.addEventListener("pointerup", onUp);
   window.addEventListener("pointercancel", onUp);
 
+  var mimi = document.querySelector("[data-mimi]");
+  if (mimi && window.matchMedia("(pointer: fine)").matches) {
+    window.addEventListener("pointermove", function (event) {
+      if (reduceMedia.matches) return;
+      var nx = event.clientX / window.innerWidth - 0.5;
+      var ny = event.clientY / window.innerHeight - 0.5;
+      mimi.style.setProperty("--mimi-x", (nx * 14).toFixed(1) + "px");
+      mimi.style.setProperty("--mimi-y", (ny * 8).toFixed(1) + "px");
+    }, { passive: true });
+  }
+
   if (document.readyState === "complete") {
     scheduleLoad();
   } else {
