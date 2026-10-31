@@ -1,4 +1,6 @@
-/* 207 Studio clay scene engine. Loaded on the first drag, after the poster. */
+/* 207 Studio clay scene engine.
+   A small hand-built renderer: smooth clay meshes, soft contact shadows, and a
+   gentle idle float. It wakes after the poster and pauses off-screen. */
 
 (function () {
   "use strict";
@@ -8,7 +10,7 @@
   function initScene() {
     var canvas = document.getElementById("clay-scene");
     if (!canvas) return;
-    var sceneEl = canvas.closest("[data-scene]");
+    var stage = canvas.closest("[data-scene]");
 
     var ctx = canvas.getContext("2d");
     if (!ctx) return;
@@ -23,15 +25,15 @@
     var H = 0;
     var dpr = 1;
     var unit = 1;
-    var elapsed = 0;
+    var elapsed = 1.2;
     var lastTime = 0;
     var raf = 0;
     var running = false;
-    var canAnimate = false;
     var inView = true;
     var drag = null;
     var pointer = { x: 0, y: 0, sx: 0, sy: 0, inside: false, mouse: false };
-    var light = normalize([-0.34, 0.7, 0.66]);
+    var light = normalize([-0.4, 0.72, 0.6]);
+    var detail = Math.min(window.innerWidth, window.innerHeight) < 760 ? 0.7 : 1;
 
     if (reduced && hint) {
       hint.textContent = isKo ? "정적 장면 · 모션 줄임" : "Static scene · reduced motion";
@@ -39,12 +41,15 @@
 
     /* --- mesh helpers --- */
 
-    function part(vertices, faces, color, center) {
+    function part(vertices, faces, color, center, options) {
+      var o = options || {};
       return {
         vertices: vertices,
         faces: faces,
         color: color,
-        center: center || [0, 0, 0]
+        center: center || [0, 0, 0],
+        gloss: o.gloss || 0,
+        bias: o.bias || 0
       };
     }
 
@@ -55,24 +60,15 @@
       });
     }
 
-    function box(w, h, d, color, offset) {
+    function box(w, h, d, color, offset, options) {
       var x = w / 2;
       var y = h / 2;
       var z = d / 2;
       var o = offset || [0, 0, 0];
-      var v = addOffset(
-        [
-          [-x, -y, -z],
-          [x, -y, -z],
-          [x, y, -z],
-          [-x, y, -z],
-          [-x, -y, z],
-          [x, -y, z],
-          [x, y, z],
-          [-x, y, z]
-        ],
-        o
-      );
+      var v = addOffset([
+        [-x, -y, -z], [x, -y, -z], [x, y, -z], [-x, y, -z],
+        [-x, -y, z], [x, -y, z], [x, y, z], [-x, y, z]
+      ], o);
       var f = [
         [4, 5, 6, 7],
         [1, 0, 3, 2],
@@ -81,10 +77,10 @@
         [7, 6, 2, 3],
         [0, 1, 5, 4]
       ];
-      return part(v, f, color, o);
+      return part(v, f, color, o, options);
     }
 
-    function cylinder(r, h, segments, color, offset) {
+    function cylinder(r, h, segments, color, offset, options) {
       var o = offset || [0, 0, 0];
       var v = [];
       var i;
@@ -110,10 +106,10 @@
         faces.push([topCenter, segments + i, segments + n]);
         faces.push([bottomCenter, n, i]);
       }
-      return part(v, faces, color, o);
+      return part(v, faces, color, o, options);
     }
 
-    function cone(r, h, segments, color, offset, phase) {
+    function cone(r, h, segments, color, offset, phase, options) {
       var o = offset || [0, 0, 0];
       var p = phase || 0;
       var v = [];
@@ -132,12 +128,12 @@
       for (i = 0; i < segments; i++) {
         var n = (i + 1) % segments;
         faces.push([i, n, apex]);
-        faces.push([bottomCenter, n, i]);
+        if (!(options && options.open)) faces.push([bottomCenter, n, i]);
       }
-      return part(v, faces, color, o);
+      return part(v, faces, color, o, options);
     }
 
-    function sphere(r, rings, segments, color, filter, offset, scale) {
+    function sphere(r, rings, segments, color, filter, offset, scale, options) {
       var o = offset || [0, 0, 0];
       var s = scale || [1, 1, 1];
       var v = [];
@@ -180,10 +176,10 @@
         }
       }
 
-      return part(v, faces, color, o);
+      return part(v, faces, color, o, options);
     }
 
-    function star(rOuter, rInner, depth, points, color) {
+    function star(rOuter, rInner, depth, points, color, options) {
       var v = [];
       var i;
       var a;
@@ -212,63 +208,294 @@
         faces.push([backCenter, total + n, total + i]);
         faces.push([i, total + i, total + n, n]);
       }
-      return part(v, faces, color, [0, 0, 0]);
+      return part(v, faces, color, [0, 0, 0], options);
     }
 
-    /* --- the pieces --- */
+    /* --- Mimi: a smooth vector clay portrait with long black hair --- */
 
-    function hairFilter(x, y, z) {
-      if (y > 0.32) return true;
-      if (z < 0.05) return true;
-      if (Math.abs(x) > 0.78 && y > -0.55) return true;
-      return false;
+    var SKIN_LIGHT = "#f9e8d0";
+    var SKIN_MID = "#f1d7b7";
+    var SKIN_DEEP = "#d9b18b";
+    var HAIR_LIGHT = "#3a322d";
+    var HAIR_MID = "#221d1a";
+    var HAIR_DEEP = "#151210";
+    var mimiPaths = null;
+
+    function buildMimi() {
+      var back = new Path2D();
+      back.moveTo(0, -1.06);
+      back.bezierCurveTo(0.64, -1.06, 1.03, -0.66, 1.05, -0.04);
+      back.bezierCurveTo(1.08, 0.62, 1.03, 1.14, 0.93, 1.44);
+      back.bezierCurveTo(0.88, 1.58, 0.66, 1.62, 0.56, 1.5);
+      back.bezierCurveTo(0.48, 1.4, 0.5, 1.12, 0.5, 0.96);
+      back.lineTo(0.48, 0.42);
+      back.bezierCurveTo(0.46, 0.1, 0.42, -0.2, 0.36, -0.38);
+      back.bezierCurveTo(0.24, -0.7, -0.2, -0.8, -0.36, -0.38);
+      back.bezierCurveTo(-0.42, -0.2, -0.46, 0.1, -0.48, 0.42);
+      back.lineTo(-0.5, 0.96);
+      back.bezierCurveTo(-0.5, 1.12, -0.48, 1.4, -0.56, 1.5);
+      back.bezierCurveTo(-0.66, 1.62, -0.88, 1.58, -0.93, 1.44);
+      back.bezierCurveTo(-1.03, 1.14, -1.08, 0.62, -1.05, -0.04);
+      back.bezierCurveTo(-1.03, -0.66, -0.64, -1.06, 0, -1.06);
+      back.closePath();
+
+      var face = new Path2D();
+      face.moveTo(0, -0.98);
+      face.bezierCurveTo(0.46, -0.98, 0.82, -0.68, 0.82, -0.14);
+      face.bezierCurveTo(0.82, 0.42, 0.5, 0.9, 0.02, 0.95);
+      face.bezierCurveTo(-0.48, 0.93, -0.82, 0.42, -0.82, -0.14);
+      face.bezierCurveTo(-0.82, -0.68, -0.46, -0.98, 0, -0.98);
+      face.closePath();
+
+      var fringe = new Path2D();
+      fringe.moveTo(-0.62, -0.48);
+      fringe.bezierCurveTo(-0.52, -0.78, -0.24, -0.95, 0.02, -0.93);
+      fringe.bezierCurveTo(0.34, -0.91, 0.56, -0.72, 0.68, -0.44);
+      fringe.bezierCurveTo(0.54, -0.36, 0.38, -0.3, 0.18, -0.28);
+      fringe.bezierCurveTo(-0.06, -0.25, -0.28, -0.32, -0.44, -0.38);
+      fringe.bezierCurveTo(-0.52, -0.41, -0.58, -0.44, -0.62, -0.48);
+      fringe.closePath();
+
+      var frame = new Path2D();
+      frame.moveTo(0, -1.07);
+      frame.bezierCurveTo(0.62, -1.07, 0.98, -0.72, 0.99, -0.12);
+      frame.bezierCurveTo(1.0, 0.35, 0.98, 0.85, 0.92, 1.2);
+      frame.bezierCurveTo(0.88, 1.42, 0.74, 1.52, 0.62, 1.46);
+      frame.bezierCurveTo(0.54, 1.42, 0.52, 1.2, 0.52, 1.0);
+      frame.lineTo(0.52, 0.18);
+      frame.bezierCurveTo(0.52, -0.12, 0.44, -0.34, 0.28, -0.43);
+      frame.bezierCurveTo(0.16, -0.5, 0.0, -0.53, -0.08, -0.5);
+      frame.bezierCurveTo(-0.28, -0.44, -0.44, -0.28, -0.46, 0.02);
+      frame.lineTo(-0.47, 1.0);
+      frame.bezierCurveTo(-0.47, 1.2, -0.5, 1.42, -0.58, 1.46);
+      frame.bezierCurveTo(-0.7, 1.52, -0.84, 1.42, -0.88, 1.2);
+      frame.bezierCurveTo(-0.94, 0.85, -0.96, 0.35, -0.95, -0.12);
+      frame.bezierCurveTo(-0.94, -0.72, -0.62, -1.07, 0, -1.07);
+      frame.closePath();
+
+      return { back: back, face: face, frame: frame, fringe: fringe };
     }
 
-    function headParts() {
-      return [
-        sphere(1, 6, 8, "#f0dfc6"),
-        sphere(1.05, 6, 8, "#2b211c", hairFilter),
-        sphere(1, 4, 6, "#241f1b", null, [0.32, -0.10, 1.08], [0.08, 0.105, 0.045]),
-        sphere(1, 4, 6, "#241f1b", null, [-0.32, -0.10, 1.08], [0.08, 0.105, 0.045]),
-        sphere(1, 3, 4, "#e6aaa5", null, [0.55, -0.27, 0.83], [0.14, 0.11, 0.045]),
-        sphere(1, 3, 4, "#e6aaa5", null, [-0.55, -0.27, 0.83], [0.14, 0.11, 0.045]),
-        sphere(1, 3, 4, "#241f1b", null, [0, -0.40, 0.98], [0.09, 0.025, 0.035])
-      ];
+    function drawMimi(o) {
+      if (!mimiPaths) mimiPaths = buildMimi();
+      var p = cameraPoint([o.x, o.y + o.dy, o.z]);
+      var persp = FOCAL / Math.max(1, CAMERA_Z + o.z);
+      var R = o.scale * unit * persp;
+      var sway = o.rotZ * 0.8 + Math.sin(elapsed * 0.5 + o.phase) * 0.028;
+
+      ctx.save();
+      ctx.translate(p[0], p[1]);
+      ctx.rotate(sway);
+      ctx.scale(R, R);
+
+      /* long hair behind the face */
+      var backGradient = ctx.createLinearGradient(0, -1.1, 0, 1.65);
+      backGradient.addColorStop(0, HAIR_LIGHT);
+      backGradient.addColorStop(0.42, HAIR_MID);
+      backGradient.addColorStop(1, HAIR_DEEP);
+      ctx.fillStyle = backGradient;
+      ctx.fill(mimiPaths.back);
+
+      var backShine = ctx.createRadialGradient(-0.42, -0.72, 0.02, -0.1, -0.2, 1.35);
+      backShine.addColorStop(0, "rgba(255,244,226,0.2)");
+      backShine.addColorStop(0.42, "rgba(255,244,226,0.04)");
+      backShine.addColorStop(1, "rgba(255,244,226,0)");
+      ctx.fillStyle = backShine;
+      ctx.fill(mimiPaths.back);
+
+      /* face */
+      var faceGradient = ctx.createRadialGradient(-0.24, -0.36, 0.06, 0.02, 0.05, 1.02);
+      faceGradient.addColorStop(0, SKIN_LIGHT);
+      faceGradient.addColorStop(0.54, SKIN_MID);
+      faceGradient.addColorStop(1, SKIN_DEEP);
+      ctx.fillStyle = faceGradient;
+      ctx.fill(mimiPaths.face);
+
+      /* soft forehead shade and rounded jaw */
+      ctx.save();
+      ctx.clip(mimiPaths.face);
+      var forehead = ctx.createLinearGradient(0, -0.34, 0, 0.08);
+      forehead.addColorStop(0, "rgba(96,58,40,0.14)");
+      forehead.addColorStop(1, "rgba(96,58,40,0)");
+      ctx.fillStyle = forehead;
+      ctx.fillRect(-0.9, -0.36, 1.8, 0.46);
+      var jaw = ctx.createRadialGradient(0, 0.02, 0.52, 0, 0.08, 0.98);
+      jaw.addColorStop(0, "rgba(120,72,46,0)");
+      jaw.addColorStop(1, "rgba(120,72,46,0.16)");
+      ctx.fillStyle = jaw;
+      ctx.fillRect(-0.9, -0.9, 1.8, 1.9);
+      ctx.restore();
+
+      /* fringe and side hair in front of the face */
+      var frameGradient = ctx.createLinearGradient(-0.7, -1.05, 0.75, 1.4);
+      frameGradient.addColorStop(0, HAIR_LIGHT);
+      frameGradient.addColorStop(0.52, HAIR_MID);
+      frameGradient.addColorStop(1, HAIR_DEEP);
+      ctx.fillStyle = frameGradient;
+      ctx.fill(mimiPaths.frame);
+
+      var frameShine = ctx.createRadialGradient(-0.48, -0.78, 0.02, -0.18, -0.3, 1.1);
+      frameShine.addColorStop(0, "rgba(255,243,224,0.22)");
+      frameShine.addColorStop(0.38, "rgba(255,243,224,0.05)");
+      frameShine.addColorStop(1, "rgba(255,243,224,0)");
+      ctx.fillStyle = frameShine;
+      ctx.fill(mimiPaths.frame);
+
+      /* a side-swept fringe over the forehead */
+      var fringeGradient = ctx.createLinearGradient(-0.5, -0.95, 0.55, -0.3);
+      fringeGradient.addColorStop(0, HAIR_LIGHT);
+      fringeGradient.addColorStop(0.55, HAIR_MID);
+      fringeGradient.addColorStop(1, HAIR_DEEP);
+      ctx.fillStyle = fringeGradient;
+      ctx.fill(mimiPaths.fringe);
+      var fringeShine = ctx.createLinearGradient(-0.5, -0.9, 0.4, -0.35);
+      fringeShine.addColorStop(0, "rgba(255,242,222,0.13)");
+      fringeShine.addColorStop(0.55, "rgba(255,242,222,0.02)");
+      fringeShine.addColorStop(1, "rgba(255,242,222,0)");
+      ctx.fillStyle = fringeShine;
+      ctx.fill(mimiPaths.fringe);
+
+      /* brows */
+      ctx.strokeStyle = "rgba(80,56,44,0.7)";
+      ctx.lineWidth = 0.018;
+      ctx.lineCap = "round";
+      ctx.beginPath();
+      ctx.moveTo(-0.37, -0.24);
+      ctx.quadraticCurveTo(-0.3, -0.29, -0.22, -0.25);
+      ctx.moveTo(0.22, -0.25);
+      ctx.quadraticCurveTo(0.3, -0.29, 0.37, -0.24);
+      ctx.stroke();
+
+      /* eyes */
+      var eyeFill = ctx.createRadialGradient(-0.3, -0.04, 0.01, -0.28, 0.03, 0.16);
+      eyeFill.addColorStop(0, "#4a352b");
+      eyeFill.addColorStop(0.62, "#2b211d");
+      eyeFill.addColorStop(1, "#1d1715");
+      for (var side = -1; side <= 1; side += 2) {
+        ctx.save();
+        ctx.translate(side * 0.29, 0.02);
+        ctx.rotate(side * 0.03);
+        ctx.fillStyle = eyeFill;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, 0.115, 0.15, 0, 0, TAU);
+        ctx.fill();
+
+        ctx.fillStyle = "rgba(255,250,240,0.96)";
+        ctx.beginPath();
+        ctx.ellipse(-0.035, -0.055, 0.036, 0.044, -0.25, 0, TAU);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(0.035, 0.075, 0.015, 0, TAU);
+        ctx.fill();
+
+        ctx.strokeStyle = "rgba(43,32,27,0.6)";
+        ctx.lineWidth = 0.018;
+        ctx.beginPath();
+        ctx.arc(0, 0.0, 0.15, Math.PI * 1.08, Math.PI * 1.62);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      /* blush */
+      for (var b = -1; b <= 1; b += 2) {
+        var blush = ctx.createRadialGradient(b * 0.45, 0.27, 0.01, b * 0.45, 0.27, 0.2);
+        blush.addColorStop(0, "rgba(224,139,129,0.3)");
+        blush.addColorStop(0.62, "rgba(224,139,129,0.13)");
+        blush.addColorStop(1, "rgba(224,139,129,0)");
+        ctx.fillStyle = blush;
+        ctx.beginPath();
+        ctx.ellipse(b * 0.45, 0.27, 0.2, 0.12, 0, 0, TAU);
+        ctx.fill();
+      }
+
+      /* nose and mouth */
+      ctx.fillStyle = "rgba(198,143,108,0.6)";
+      ctx.beginPath();
+      ctx.ellipse(0, 0.22, 0.034, 0.026, 0, 0, TAU);
+      ctx.fill();
+      ctx.fillStyle = "rgba(255,245,228,0.6)";
+      ctx.beginPath();
+      ctx.arc(-0.008, 0.21, 0.012, 0, TAU);
+      ctx.fill();
+
+      ctx.strokeStyle = "#a45c52";
+      ctx.lineWidth = 0.024;
+      ctx.lineCap = "round";
+      ctx.beginPath();
+      ctx.moveTo(-0.072, 0.42);
+      ctx.quadraticCurveTo(0, 0.475, 0.072, 0.42);
+      ctx.stroke();
+      ctx.strokeStyle = "rgba(255,235,220,0.4)";
+      ctx.lineWidth = 0.01;
+      ctx.beginPath();
+      ctx.moveTo(-0.045, 0.452);
+      ctx.quadraticCurveTo(0, 0.472, 0.045, 0.452);
+      ctx.stroke();
+
+      /* a soft cheek light and a glossy hair sheen */
+      var cheek = ctx.createRadialGradient(-0.3, 0.03, 0.02, -0.28, 0.08, 0.34);
+      cheek.addColorStop(0, "rgba(255,247,233,0.18)");
+      cheek.addColorStop(1, "rgba(255,247,233,0)");
+      ctx.fillStyle = cheek;
+      ctx.beginPath();
+      ctx.ellipse(-0.3, 0.08, 0.34, 0.3, 0, 0, TAU);
+      ctx.fill();
+
+      ctx.strokeStyle = "rgba(255,242,222,0.2)";
+      ctx.lineWidth = 0.04;
+      ctx.lineCap = "round";
+      ctx.beginPath();
+      ctx.moveTo(-0.56, -0.7);
+      ctx.bezierCurveTo(-0.4, -0.93, -0.12, -1.0, 0.12, -0.95);
+      ctx.stroke();
+
+      /* a quiet clay rim on the lower left */
+      ctx.strokeStyle = "rgba(255,238,214,0.13)";
+      ctx.lineWidth = 0.015;
+      ctx.beginPath();
+      ctx.moveTo(-0.74, 0.32);
+      ctx.bezierCurveTo(-0.65, 0.7, -0.3, 0.9, 0.06, 0.91);
+      ctx.stroke();
+
+      ctx.restore();
     }
+
+    /* --- the other pieces --- */
 
     function consoleParts() {
       return [
-        box(1.5, 0.22, 0.92, "#a9c3cb"),
-        box(0.98, 0.03, 0.56, "#354d43", [0, 0.125, -0.02]),
-        box(0.22, 0.04, 0.22, "#e9b949", [-0.55, 0.13, -0.04]),
-        cylinder(0.075, 0.04, 8, "#cd7c5c", [0.52, 0.13, -0.12]),
-        cylinder(0.075, 0.04, 8, "#e6aaa5", [0.52, 0.13, 0.08])
+        box(1.56, 0.3, 0.96, "#a9c3cb", null, { gloss: 0.35 }),
+        box(0.92, 0.03, 0.54, "#354d43", [0, 0.17, 0], { gloss: 0.45, bias: 2 }),
+        box(0.22, 0.035, 0.22, "#e4bb63", [-0.55, 0.18, -0.02], { gloss: 0.3, bias: 2 }),
+        cylinder(0.075, 0.04, 12, "#c78365", [0.55, 0.18, -0.13], { gloss: 0.35, bias: 2 }),
+        cylinder(0.075, 0.04, 12, "#ddafa8", [0.55, 0.18, 0.08], { gloss: 0.35, bias: 2 })
       ];
     }
 
     function pencilParts() {
       return [
-        cylinder(0.135, 1.45, 6, "#e9b949"),
-        cone(0.135, 0.35, 6, "#cd7c5c", [0, 0.9, 0]),
-        cone(0.045, 0.13, 6, "#2a2520", [0, 1.0, 0]),
-        cylinder(0.14, 0.12, 6, "#6d665b", [0, -0.79, 0]),
-        cylinder(0.13, 0.14, 6, "#e6aaa5", [0, -0.92, 0])
+        cylinder(0.135, 1.45, 12, "#e4bb63", null, { gloss: 0.35 }),
+        cone(0.135, 0.35, 12, "#c78365", [0, 0.9, 0], 0, { gloss: 0.25 }),
+        cone(0.045, 0.13, 10, "#2a2520", [0, 1.0, 0], 0, { gloss: 0.3 }),
+        cylinder(0.14, 0.12, 12, "#6d665b", [0, -0.79, 0], { gloss: 0.25 }),
+        cylinder(0.13, 0.14, 12, "#ddafa8", [0, -0.92, 0], { gloss: 0.3 })
       ];
     }
 
     function houseParts() {
       return [
-        box(1.02, 0.8, 0.9, "#efe3cc", [0, -0.1, 0]),
-        cone(0.8, 0.62, 4, "#cd7c5c", [0, 0.61, 0], Math.PI / 4),
-        box(0.24, 0.4, 0.06, "#4d6457", [0, -0.28, 0.45]),
-        box(0.17, 0.17, 0.05, "#e9b949", [0.27, 0.02, 0.45]),
-        cylinder(0.09, 0.24, 6, "#cd7c5c", [0.35, 0.72, -0.18])
+        box(1.02, 0.8, 0.6, "#efe3cc", [0, -0.1, 0], { gloss: 0.12 }),
+        cone(0.66, 0.46, 4, "#c78365", [0, 0.53, 0], Math.PI / 4, { gloss: 0.2, open: true }),
+        box(0.24, 0.4, 0.06, "#4d6457", [0, -0.28, 0.45], { gloss: 0.2 }),
+        box(0.17, 0.17, 0.05, "#e4bb63", [0.27, 0.02, 0.45], { gloss: 0.2 }),
+        cylinder(0.085, 0.3, 10, "#c78365", [0.28, 0.62, -0.13], { gloss: 0.2 })
       ];
     }
 
-    function makeObject(name, parts, options) {
+    function makeObject(name, key, parts, options) {
       var o = {
         name: name,
+        key: key,
         parts: parts,
         x: 0,
         y: 0,
@@ -282,15 +509,15 @@
         baseRotZ: 0,
         spin: 0.1,
         sway: 0,
-        bob: 3,
+        bob: 4,
         phase: 0,
         vx: 0,
         vy: 0,
         dy: 0,
         hitRadius: 1
       };
-      Object.keys(options || {}).forEach(function (key) {
-        o[key] = options[key];
+      Object.keys(options || {}).forEach(function (keyName) {
+        o[keyName] = options[keyName];
       });
       o.baseRotX = o.rotX;
       o.baseRotY = o.rotY;
@@ -301,35 +528,84 @@
     }
 
     var objects = [
-      makeObject("head", headParts(), {
-        x: -68, y: 32, z: 30, scale: 66,
-        rotX: -0.06, rotY: 0.12, rotZ: 0.02, sway: 0.18, bob: 4, phase: 0.2
+      makeObject("head", "head", [], {
+        x: 0, y: 0, z: 50, scale: 78, rotX: -0.04, rotY: 0.16, rotZ: 0.02,
+        sway: 0.13, bob: 6, phase: 0.2, hitRadius: 100
       }),
-      makeObject("console", consoleParts(), {
-        x: 96, y: -52, z: -5, scale: 54,
-        rotX: 0.45, rotY: 0.45, rotZ: -0.06, spin: 0.08, bob: 3, phase: 2.1, hitRadius: 58
+      makeObject("console", "console", consoleParts(), {
+        x: 0, y: 0, z: -5, scale: 62, rotX: 0.86, rotY: 0.38, rotZ: -0.08,
+        spin: 0.06, bob: 4, phase: 2.1, hitRadius: 62
       }),
-      makeObject("pencil", pencilParts(), {
-        x: -108, y: -102, z: -20, scale: 52,
-        rotX: 0.12, rotY: 0.28, rotZ: -1.0, spin: -0.07, bob: 3, phase: 4.2, hitRadius: 76
+      makeObject("pencil", "pencil", pencilParts(), {
+        x: 0, y: 0, z: -20, scale: 56, rotX: 0.10, rotY: 0.30, rotZ: -0.98,
+        spin: -0.05, bob: 3, phase: 4.2, hitRadius: 72
       }),
-      makeObject("star", [star(1, 0.45, 0.32, 5, "#f0cf7c")], {
-        x: 118, y: 108, z: 42, scale: 40,
-        rotX: 0.15, rotY: 0.45, rotZ: -0.08, spin: 0.14, bob: 4, phase: 1.1, hitRadius: 48
+      makeObject("star", "star", [star(1, 0.45, 0.32, 5, "#e8c66f", { gloss: 0.55 })], {
+        x: 0, y: 0, z: 40, scale: 40, rotX: 0.14, rotY: 0.45, rotZ: -0.06,
+        spin: 0.1, bob: 5, phase: 1.1, hitRadius: 46
       }),
-      makeObject("house", houseParts(), {
-        x: -146, y: 108, z: -50, scale: 46,
-        rotX: 0.06, rotY: -0.45, rotZ: 0.02, spin: 0.05, bob: 3, phase: 3.4, hitRadius: 52
+      makeObject("house", "house", houseParts(), {
+        x: 0, y: 0, z: -40, scale: 50, rotX: 0.05, rotY: -0.22, rotZ: 0.02,
+        spin: 0.04, bob: 3, phase: 3.4, hitRadius: 50
       }),
-      makeObject("bead", [sphere(0.35, 3, 5, "#e6aaa5")], {
-        x: 4, y: 158, z: 58, scale: 34,
-        rotX: 0.2, rotY: 0.2, spin: 0.2, bob: 5, phase: 5.5, hitRadius: 26
+      makeObject("bead", "beadPink", [sphere(0.35, 18, 14, "#ddafa8", null, null, [1, 1, 1], { gloss: 0.7 })], {
+        x: 0, y: 0, z: 60, scale: 30, rotX: 0.2, rotY: 0.2, spin: 0.14, bob: 6, phase: 5.5, hitRadius: 26
       }),
-      makeObject("bead", [sphere(0.35, 3, 5, "#a8bda0")], {
-        x: 176, y: -4, z: 70, scale: 40,
-        rotX: 0.1, rotY: -0.3, spin: 0.18, bob: 4, phase: 2.8, hitRadius: 28
+      makeObject("bead", "beadSage", [sphere(0.35, 18, 14, "#a8bda0", null, null, [1, 1, 1], { gloss: 0.55 })], {
+        x: 0, y: 0, z: 70, scale: 34, rotX: 0.1, rotY: -0.3, spin: 0.12, bob: 5, phase: 2.8, hitRadius: 28
       })
     ];
+
+    /* --- composition --- */
+
+    var WIDE = {
+      head: { fx: 0.52, fy: 0.21, z: 50, scale: 86 },
+      console: { fx: 0.825, fy: 0.685, z: -5, scale: 62 },
+      pencil: { fx: 0.665, fy: 0.835, z: -20, scale: 56 },
+      star: { fx: 0.675, fy: 0.125, z: 40, scale: 40 },
+      house: { fx: 0.87, fy: 0.205, z: -40, scale: 50 },
+      beadPink: { fx: 0.945, fy: 0.49, z: 60, scale: 34 },
+      beadSage: { fx: 0.475, fy: 0.735, z: 70, scale: 38 }
+    };
+
+    var MEDIUM = {
+      head: { fx: 0.72, fy: 0.16, z: 50, scale: 62 },
+      console: { fx: 0.84, fy: 0.7, z: -5, scale: 50 },
+      pencil: { fx: 0.66, fy: 0.84, z: -20, scale: 48 },
+      star: { fx: 0.84, fy: 0.12, z: 40, scale: 34 },
+      house: { fx: 0.92, fy: 0.23, z: -40, scale: 40 },
+      beadPink: { fx: 0.965, fy: 0.48, z: 60, scale: 28 },
+      beadSage: { fx: 0.44, fy: 0.76, z: 70, scale: 30 }
+    };
+
+    var TALL = {
+      head: { fx: 0.7, fy: 0.14, z: 50, scale: 66 },
+      console: { fx: 0.79, fy: 0.525, z: -5, scale: 50 },
+      pencil: { fx: 0.245, fy: 0.59, z: -20, scale: 44 },
+      star: { fx: 0.47, fy: 0.085, z: 40, scale: 30 },
+      house: { fx: 0.155, fy: 0.135, z: -40, scale: 39 },
+      beadPink: { fx: 0.93, fy: 0.415, z: 60, scale: 26 },
+      beadSage: { fx: 0.09, fy: 0.37, z: 70, scale: 30 }
+    };
+
+    function applyLayout() {
+      var layout = W > 1100 ? WIDE : W > 700 ? MEDIUM : TALL;
+      objects.forEach(function (o) {
+        var c = layout[o.key];
+        if (!c) return;
+        var persp = FOCAL / (CAMERA_Z + c.z);
+        o.z = c.z;
+        o.scale = c.scale;
+        o.hx = (c.fx * W - W / 2) / (unit * persp);
+        o.hy = (H / 2 - c.fy * H) / (unit * persp);
+        o.x = o.hx;
+        o.y = o.hy;
+        o.vx = 0;
+        o.vy = 0;
+        o.dy = 0;
+        o.hitRadius = Math.max(c.scale * 0.9, o.hitRadius * 0.6);
+      });
+    }
 
     /* --- vector maths --- */
 
@@ -404,15 +680,19 @@
       return rgb;
     }
 
-    function shadeColor(hex, n) {
+    function shadeColor(hex, n, view, gloss) {
       var c = hexToRgb(hex);
       var lambert = Math.max(0, dot(n, light));
-      var k = 0.56 + 0.62 * lambert;
+      var k = 0.54 + 0.62 * lambert;
+      var half = normalize([light[0] + view[0], light[1] + view[1], light[2] + view[2]]);
+      var spec = Math.pow(Math.max(0, dot(n, half)), 18) * gloss * 255;
+      var rim = Math.pow(1 - Math.max(0, dot(n, view)), 3) * 10;
+
       return (
         "rgb(" +
-        Math.min(255, Math.round(c[0] * k + 18)) + "," +
-        Math.min(255, Math.round(c[1] * k + 14)) + "," +
-        Math.min(255, Math.round(c[2] * k + 8)) +
+        Math.min(255, Math.round(c[0] * k + 18 + spec * 0.98 + rim)) + "," +
+        Math.min(255, Math.round(c[1] * k + 15 + spec * 0.94 + rim * 0.92)) + "," +
+        Math.min(255, Math.round(c[2] * k + 10 + spec * 0.86 + rim * 0.78)) +
         ")"
       );
     }
@@ -420,16 +700,19 @@
     /* --- render --- */
 
     function drawShadow(o) {
-      var p = cameraPoint([o.x + 8, o.y + o.dy - o.scale * 0.66, o.z]);
+      var isHead = o.key === "head";
+      var drop = o.scale * (isHead ? 1.55 : 0.64);
+      var p = cameraPoint([o.x + 6, o.y + o.dy - drop, o.z]);
       var s = FOCAL / Math.max(1, CAMERA_Z + o.z);
-      var r = Math.max(10, o.scale * 0.72 * unit * s);
+      var r = Math.max(10, o.scale * (isHead ? 0.78 : 0.64) * unit * s);
       ctx.save();
       ctx.translate(p[0], p[1]);
       ctx.scale(1, 0.3);
+      var strength = o.key === "head" ? 1.55 : 1;
       var g = ctx.createRadialGradient(0, 0, 0, 0, 0, r);
-      g.addColorStop(0, "rgba(29, 27, 23, 0.16)");
-      g.addColorStop(0.58, "rgba(29, 27, 23, 0.07)");
-      g.addColorStop(1, "rgba(29, 27, 23, 0)");
+      g.addColorStop(0, "rgba(45, 36, 26, " + (0.17 * strength) + ")");
+      g.addColorStop(0.55, "rgba(45, 36, 26, " + (0.07 * strength) + ")");
+      g.addColorStop(1, "rgba(45, 36, 26, 0)");
       ctx.fillStyle = g;
       ctx.beginPath();
       ctx.arc(0, 0, r, 0, TAU);
@@ -481,9 +764,9 @@
             }
 
             all.push({
-              z: center[2],
+              z: center[2] + piece.bias,
               points: points,
-              fill: shadeColor(piece.color, n)
+              fill: shadeColor(piece.color, n, view, piece.gloss)
             });
           });
         });
@@ -505,14 +788,19 @@
         ctx.closePath();
         ctx.fillStyle = face.fill;
         ctx.fill();
+        ctx.strokeStyle = face.fill;
+        ctx.lineWidth = 0.55;
+        ctx.stroke();
       }
+
+      drawMimi(objects[0]);
     }
 
     /* --- physics --- */
 
     function clampObject(o) {
-      var bx = W / (2 * unit) - 18;
-      var by = H / (2 * unit) - 18;
+      var bx = W / (2 * unit) - 20;
+      var by = H / (2 * unit) - 20;
       if (o.x > bx) {
         o.x = bx;
         o.vx *= -0.35;
@@ -535,9 +823,9 @@
           var dx = o.x - pointer.x;
           var dy = o.y - pointer.y;
           var d = Math.sqrt(dx * dx + dy * dy);
-          var reach = 82;
+          var reach = 88;
           if (d > 0.001 && d < reach) {
-            var force = (1 - d / reach) * 520 * dt;
+            var force = (1 - d / reach) * 420 * dt;
             o.vx += (dx / d) * force;
             o.vy += (dy / d) * force;
           }
@@ -561,16 +849,16 @@
         if (drag && drag.obj === o) {
           o.dy = 0;
         } else {
-          o.dy = Math.sin(elapsed * 1.1 + o.phase) * o.bob;
+          o.dy = Math.sin(elapsed * 1.05 + o.phase) * o.bob;
         }
 
         if (o.sway) {
-          o.rotY = o.baseRotY + Math.sin(elapsed * 0.55 + o.phase) * o.sway;
+          o.rotY = o.baseRotY + Math.sin(elapsed * 0.5 + o.phase) * o.sway;
         } else {
           o.rotY += o.spin * dt;
         }
-        o.rotX = o.baseRotX + Math.sin(elapsed * 0.7 + o.phase) * 0.04;
-        o.rotZ = o.baseRotZ + Math.cos(elapsed * 0.6 + o.phase) * 0.02;
+        o.rotX = o.baseRotX + Math.sin(elapsed * 0.62 + o.phase) * 0.035;
+        o.rotZ = o.baseRotZ + Math.cos(elapsed * 0.55 + o.phase) * 0.018;
       });
     }
 
@@ -615,16 +903,20 @@
       o.rotZ = o.baseRotZ;
     }
 
+    function isInteractive(target) {
+      return Boolean(target && target.closest && target.closest("a, button, input, textarea, select, label"));
+    }
+
     function onPointerDown(event) {
-      if (reduced) return;
+      if (reduced || isInteractive(event.target)) return;
       var p = pointerPosition(event);
       var hit = objectAt(p.sx, p.sy);
 
       if (hit) {
         drag = { obj: hit, id: event.pointerId, dx: hit.x - p.x, dy: hit.y - p.y, sx: p.sx, sy: p.sy };
-        canvas.classList.add("is-dragging");
+        stage.classList.add("is-dragging");
         try {
-          canvas.setPointerCapture(event.pointerId);
+          stage.setPointerCapture(event.pointerId);
         } catch (err) {}
       } else {
         objects.forEach(function (o) {
@@ -632,14 +924,13 @@
           var dy = o.y - p.y;
           var d = Math.sqrt(dx * dx + dy * dy);
           if (d > 0.001 && d < 190) {
-            var strength = (1 - d / 190) * 260;
+            var strength = (1 - d / 190) * 240;
             o.vx += (dx / d) * strength;
             o.vy += (dy / d) * strength;
           }
         });
       }
 
-      canAnimate = true;
       start();
     }
 
@@ -652,11 +943,6 @@
       pointer.y = p.y;
       pointer.inside = true;
       pointer.mouse = event.pointerType !== "touch";
-
-      if (!reduced) {
-        canAnimate = true;
-        start();
-      }
 
       if (drag && drag.id === event.pointerId) {
         var nx = p.x + drag.dx;
@@ -673,9 +959,9 @@
     function endDrag(event) {
       if (!drag) return;
       if (event && event.pointerId !== drag.id) return;
-      canvas.classList.remove("is-dragging");
+      stage.classList.remove("is-dragging");
       try {
-        canvas.releasePointerCapture(drag.id);
+        stage.releasePointerCapture(drag.id);
       } catch (err) {}
       drag = null;
     }
@@ -693,17 +979,18 @@
       endDrag(event);
     }
 
-    function onDoubleClick() {
+    function onDoubleClick(event) {
+      if (isInteractive(event.target)) return;
       objects.forEach(resetObject);
       render();
     }
 
-    canvas.addEventListener("pointerdown", onPointerDown);
-    canvas.addEventListener("pointermove", onPointerMove, { passive: true });
-    canvas.addEventListener("pointerup", onPointerUp);
-    canvas.addEventListener("pointercancel", onPointerCancel);
-    canvas.addEventListener("pointerleave", onPointerLeave);
-    canvas.addEventListener("dblclick", onDoubleClick);
+    stage.addEventListener("pointerdown", onPointerDown);
+    stage.addEventListener("pointermove", onPointerMove, { passive: true });
+    stage.addEventListener("pointerup", onPointerUp);
+    stage.addEventListener("pointercancel", onPointerCancel);
+    stage.addEventListener("pointerleave", onPointerLeave);
+    stage.addEventListener("dblclick", onDoubleClick);
     window.addEventListener("blur", function () {
       endDrag();
     });
@@ -714,23 +1001,22 @@
       var rect = canvas.getBoundingClientRect();
       W = Math.max(1, rect.width);
       H = Math.max(1, rect.height);
-      dpr = Math.min(window.devicePixelRatio || 1, W < 700 ? 1 : 1.25);
+      dpr = Math.min(window.devicePixelRatio || 1, W < 700 ? 1 : 1.35);
       canvas.width = Math.round(W * dpr);
       canvas.height = Math.round(H * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       unit = Math.min(W, H) / 500;
+      applyLayout();
       if (reduced || !running) render();
     }
 
     var lastRender = 0;
-    var stillTime = 0;
+    var frameInterval = 33;
 
     function frame(now) {
       if (!running) return;
-      if (now - lastRender < 32) {
-        raf = window.requestAnimationFrame(frame);
-        return;
-      }
+      raf = window.requestAnimationFrame(frame);
+      if (now - lastRender < frameInterval) return;
       if (!lastTime) lastTime = now;
       var dt = Math.min(0.05, (now - lastTime) / 1000);
       if (!dt || dt < 0) dt = 0.016;
@@ -739,37 +1025,14 @@
       elapsed += dt;
       step(dt);
       render();
-
-      var moving = Boolean(drag);
-      if (!moving) {
-        for (var i = 0; i < objects.length; i++) {
-          var o = objects[i];
-          if (Math.abs(o.vx) + Math.abs(o.vy) > 1.5 || Math.abs(o.x - o.hx) + Math.abs(o.y - o.hy) > 0.6) {
-            moving = true;
-            break;
-          }
-        }
-      }
-
-      if (moving) {
-        stillTime = 0;
-      } else {
-        stillTime += dt;
-        if (stillTime > 0.9) {
-          stop();
-          return;
-        }
-      }
-
-      raf = window.requestAnimationFrame(frame);
     }
 
     function start() {
-      if (reduced || running || !inView || !canAnimate || document.hidden) return;
+      if (reduced || running || !inView || document.hidden) return;
       running = true;
       lastTime = 0;
       lastRender = 0;
-      stillTime = 0;
+      frameInterval = W < 700 ? 45 : 33;
       raf = window.requestAnimationFrame(frame);
     }
 
@@ -816,7 +1079,6 @@
           objects.forEach(resetObject);
           render();
         } else {
-          canAnimate = true;
           start();
         }
       });
@@ -824,7 +1086,8 @@
 
     resize();
     render();
-    if (sceneEl) sceneEl.classList.add("is-live");
+    start();
+    if (stage) stage.classList.add("is-live");
   }
 
   window.initClayScene = initScene;

@@ -3,24 +3,24 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>207 Studio — Classroom tools and developer kits</title>
-<meta name="description" content="207 Studio is a teacher-led software studio in South Korea. Ten classroom tools and source-included developer kits, available today with full source. One-time purchase.">
+<title>207 Studio — Teacher-made classroom tools and dev kits</title>
+<meta name="description" content="207 Studio makes classroom tools and source-included developer kits for teachers and developers in South Korea. Ten products, one-time purchase, full source.">
 <link rel="canonical" href="https://207studio.dev/">
 <link rel="alternate" hreflang="en" href="https://207studio.dev/">
 <link rel="alternate" hreflang="ko" href="https://207studio.dev/ko/">
 <link rel="alternate" hreflang="x-default" href="https://207studio.dev/">
 <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt">
 <meta property="og:type" content="website">
-<meta property="og:title" content="207 Studio — Classroom tools and developer kits">
-<meta property="og:description" content="A teacher-led studio in South Korea. Ten released classroom tools and source-included developer kits. One-time purchase.">
+<meta property="og:title" content="207 Studio — Teacher-made classroom tools and dev kits">
+<meta property="og:description" content="Classroom tools and source-included developer kits from a teacher-led studio in South Korea. Ten products, one-time purchase, full source.">
 <meta property="og:url" content="https://207studio.dev/">
 <meta property="og:image" content="https://207studio.dev/assets/og-home-207studio.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:site_name" content="207 Studio">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="207 Studio — Classroom tools and developer kits">
-<meta name="twitter:description" content="A teacher-led studio in South Korea. Ten released classroom tools and source-included developer kits. One-time purchase.">
+<meta name="twitter:title" content="207 Studio — Teacher-made classroom tools and dev kits">
+<meta name="twitter:description" content="Classroom tools and source-included developer kits from a teacher-led studio in South Korea. Ten products, one-time purchase, full source.">
 <meta name="twitter:image" content="https://207studio.dev/assets/og-home-207studio.png">
 <meta name="twitter:site" content="@207_studio">
 <meta name="theme-color" content="#f2ede3">
@@ -29,7 +29,9 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/gabarito-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" as="image" href="/assets/clay-scene-poster.webp" fetchpriority="high">
+<link rel="preload" as="image" href="/assets/clay-scene-poster.webp" media="(min-width: 1197px)" fetchpriority="high">
+<link rel="preload" as="image" href="/assets/clay-scene-poster-medium.webp" media="(min-width: 701px) and (max-width: 1196px)" fetchpriority="high">
+<link rel="preload" as="image" href="/assets/clay-scene-poster-mobile.webp" media="(max-width: 700px)" fetchpriority="high">
 <link rel="stylesheet" href="/assets/home.min.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://207studio.dev/#org","name":"207 Studio","url":"https://207studio.dev","description":"Independent, teacher-led software studio in South Korea selling source-included developer kits and classroom tools as one-time purchases.","email":"support@207studio.dev","contactPoint":{"@type":"ContactPoint","contactType":"customer support","email":"support@207studio.dev","availableLanguage":["en","ko","ja"]},"address":{"@type":"PostalAddress","addressCountry":"KR"},"logo":"https://207studio.dev/assets/logo.png","founder":{"@type":"Person","name":"Jang Yuil","alternateName":"장유일"},"sameAs":["https://github.com/207studio","https://x.com/207_studio","https://dev.to/207studio"]},{"@type":"WebSite","@id":"https://207studio.dev/#website","name":"207 Studio","url":"https://207studio.dev/","publisher":{"@id":"https://207studio.dev/#org"}}]}</script>
 </head>
@@ -65,12 +67,17 @@
       </a>
     </div>
 
-    <div class="hero-grid">
-      <div class="hero-copy">
-        <h1 class="wordmark" id="hero-title" aria-label="207 Studio">
-          <span class="wm-207" aria-hidden="true">207</span>
-          <span class="wm-studio" aria-hidden="true">Studio<span class="wm-dot">.</span></span>
-        </h1>
+    <div class="hero-stage" data-scene>
+      <div class="scene">
+        <div class="scene-poster" aria-hidden="true"></div>
+        <canvas id="clay-scene" role="img" aria-label="A 3D clay portrait of Mimi with long black hair and a fringe, floating among a handheld console, a pencil, a star, a house and two clay beads. Drag the pieces to nudge them; they settle back.">A 3D clay scene with a portrait of Mimi, a handheld console, a pencil, a star, a house and clay beads.</canvas>
+      </div>
+      <p class="stage-mark" aria-hidden="true"><span class="stage-dot"></span>Clay study / 01 <b>207</b></p>
+      <h1 class="wordmark" id="hero-title" aria-label="207 Studio">
+        <span class="wm-207" aria-hidden="true">207</span>
+        <span class="wm-studio" aria-hidden="true">Studio<span class="wm-dot">.</span></span>
+      </h1>
+      <div class="hero-foot">
         <p class="intro">A teacher-led studio in South Korea making classroom tools and source-included developer kits.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#work">See the work <span class="btn-arrow" aria-hidden="true">↓</span></a>
@@ -78,24 +85,12 @@
         </div>
         <p class="hero-note">Full source included. One-time purchase. No subscriptions.</p>
       </div>
-
-      <div class="scene" data-scene>
-        <img class="scene-poster" src="/assets/clay-scene-poster.webp" alt="" aria-hidden="true" width="520" height="520" decoding="async" fetchpriority="high">
-        <canvas id="clay-scene" role="img" aria-label="A small 3D clay scene: a portrait head, a handheld console, a pencil, a star, a house and two clay beads. Drag the pieces to nudge them; they settle back.">A small 3D clay scene made of a portrait head, a handheld console, a pencil, a star, a house and clay beads.</canvas>
-        <div class="scene-top" aria-hidden="true">
-          <span>Clay study / 01</span>
-          <span class="scene-mark"><i></i>207</span>
-        </div>
-        <div class="scene-foot" aria-hidden="true">
-          <span data-scene-hint>Drag the pieces · they settle back</span>
-          <span>Code, not a model file</span>
-        </div>
-      </div>
+      <p class="stage-hint" data-scene-hint aria-hidden="true">Code, not a model file</p>
     </div>
 
     <div class="facts-strip" aria-label="Studio facts">
-      <div class="fact"><strong>10</strong><span>products shipped</span></div>
-      <div class="fact"><strong>0</strong><span>subscriptions</span></div>
+      <div class="fact"><strong>10</strong><span>products released</span></div>
+      <div class="fact"><strong>100%</strong><span>source included</span></div>
       <div class="fact"><strong>1</strong><span>teacher-founder</span></div>
       <div class="fact"><strong>2026</strong><span>studio founded</span></div>
     </div>
@@ -107,7 +102,7 @@
         <p class="eyebrow"><span class="eyebrow-index">01</span> Selected work</p>
         <h2 id="work-title">Made, tested,<br>released.</h2>
       </div>
-      <p class="section-note">Every product below is available today with full source, straight from the studio. No waitlist.</p>
+      <p class="section-note">Every product below is on sale now with full source. No waitlist.</p>
     </header>
 
     <div class="category">
@@ -123,8 +118,8 @@
         <a class="card card-wide reveal" href="/products/pptx-player-sdk/">
           <div class="card-media">
             <picture>
-              <source type="image/webp" srcset="/assets/products/pptx-player-sdk-640.webp 640w, /assets/products/pptx-player-sdk-1200.webp 1200w" sizes="(max-width: 620px) 318px, (max-width: 980px) 45vw, 600px">
-              <img src="/assets/products/pptx-player-sdk-1200.jpg" width="1200" height="675" alt="PPTX Player SDK cover" decoding="async" fetchpriority="high">
+              <source type="image/webp" srcset="/assets/products/pptx-player-sdk-card-640.webp 640w, /assets/products/pptx-player-sdk-card-1200.webp 1200w" sizes="(max-width: 620px) 318px, (max-width: 980px) 45vw, 600px">
+              <img src="/assets/products/pptx-player-sdk-card-1200.jpg" width="1200" height="675" alt="PPTX Player SDK cover" decoding="async" fetchpriority="high">
             </picture>
           </div>
           <div class="card-body">
@@ -139,8 +134,8 @@
           <div class="card-media">
             <span class="card-badge">Latest</span>
             <picture>
-              <source type="image/webp" srcset="/assets/products/pairy-core-sdk-640.webp 640w, /assets/products/pairy-core-sdk-1200.webp 1200w" sizes="(max-width: 620px) 318px, (max-width: 980px) 45vw, 600px">
-              <img src="/assets/products/pairy-core-sdk-1200.jpg" width="1200" height="675" alt="PairyCore SDK cover" decoding="async">
+              <source type="image/webp" srcset="/assets/products/pairy-core-sdk-card-640.webp 640w, /assets/products/pairy-core-sdk-card-1200.webp 1200w" sizes="(max-width: 620px) 318px, (max-width: 980px) 45vw, 600px">
+              <img src="/assets/products/pairy-core-sdk-card-1200.jpg" width="1200" height="675" alt="PairyCore SDK cover" decoding="async">
             </picture>
           </div>
           <div class="card-body">
@@ -154,8 +149,8 @@
         <a class="card reveal" href="/products/scan-to-grade-bundle/">
           <div class="card-media">
             <picture>
-              <source type="image/webp" srcset="/assets/products/scan-to-grade-bundle-640.webp 640w, /assets/products/scan-to-grade-bundle-1200.webp 1200w" sizes="(max-width: 620px) 318px, (max-width: 980px) 45vw, 400px">
-              <img src="/assets/products/scan-to-grade-bundle-1200.jpg" width="1200" height="675" alt="Scan-to-Grade cover" loading="lazy" decoding="async">
+              <source type="image/webp" srcset="/assets/products/scan-to-grade-bundle-card-640.webp 640w, /assets/products/scan-to-grade-bundle-card-1200.webp 1200w" sizes="(max-width: 620px) 318px, (max-width: 980px) 45vw, 400px">
+              <img src="/assets/products/scan-to-grade-bundle-card-1200.jpg" width="1200" height="675" alt="Scan-to-Grade cover" decoding="async">
             </picture>
           </div>
           <div class="card-body">
@@ -169,8 +164,8 @@
         <a class="card reveal" href="/products/omr-auto-grader/">
           <div class="card-media">
             <picture>
-              <source type="image/webp" srcset="/assets/products/omr-auto-grader-640.webp 640w, /assets/products/omr-auto-grader-1200.webp 1200w" sizes="(max-width: 620px) 318px, (max-width: 980px) 45vw, 400px">
-              <img src="/assets/products/omr-auto-grader-1200.jpg" width="1200" height="675" alt="OMR Auto-Grader cover" loading="lazy" decoding="async">
+              <source type="image/webp" srcset="/assets/products/omr-auto-grader-card-640.webp 640w, /assets/products/omr-auto-grader-card-1200.webp 1200w" sizes="(max-width: 620px) 318px, (max-width: 980px) 45vw, 400px">
+              <img src="/assets/products/omr-auto-grader-card-1200.jpg" width="1200" height="675" alt="OMR Auto-Grader cover" decoding="async">
             </picture>
           </div>
           <div class="card-body">
@@ -184,8 +179,8 @@
         <a class="card reveal" href="/products/qr-cropper/">
           <div class="card-media">
             <picture>
-              <source type="image/webp" srcset="/assets/products/qr-cropper-640.webp 640w, /assets/products/qr-cropper-1200.webp 1200w" sizes="(max-width: 620px) 318px, (max-width: 980px) 45vw, 400px">
-              <img src="/assets/products/qr-cropper-1200.jpg" width="1200" height="675" alt="QR Answer-Sheet Cropper cover" loading="lazy" decoding="async">
+              <source type="image/webp" srcset="/assets/products/qr-cropper-card-640.webp 640w, /assets/products/qr-cropper-card-1200.webp 1200w" sizes="(max-width: 620px) 318px, (max-width: 980px) 45vw, 400px">
+              <img src="/assets/products/qr-cropper-card-1200.jpg" width="1200" height="675" alt="QR Answer-Sheet Cropper cover" decoding="async">
             </picture>
           </div>
           <div class="card-body">
@@ -199,8 +194,8 @@
         <a class="card reveal" href="/products/voice-command-engine/">
           <div class="card-media">
             <picture>
-              <source type="image/webp" srcset="/assets/products/voice-command-engine-640.webp 640w, /assets/products/voice-command-engine-1200.webp 1200w" sizes="(max-width: 620px) 318px, (max-width: 980px) 45vw, 400px">
-              <img src="/assets/products/voice-command-engine-1200.jpg" width="1200" height="675" alt="Context-Gated Voice Commands cover" loading="lazy" decoding="async">
+              <source type="image/webp" srcset="/assets/products/voice-command-engine-card-640.webp 640w, /assets/products/voice-command-engine-card-1200.webp 1200w" sizes="(max-width: 620px) 318px, (max-width: 980px) 45vw, 400px">
+              <img src="/assets/products/voice-command-engine-card-1200.jpg" width="1200" height="675" alt="Context-Gated Voice Commands cover" decoding="async">
             </picture>
           </div>
           <div class="card-body">
@@ -214,8 +209,8 @@
         <a class="card reveal" href="/products/shapefit/">
           <div class="card-media">
             <picture>
-              <source type="image/webp" srcset="/assets/products/shapefit-640.webp 640w, /assets/products/shapefit-1200.webp 1200w" sizes="(max-width: 620px) 318px, (max-width: 980px) 45vw, 400px">
-              <img src="/assets/products/shapefit-1200.jpg" width="1200" height="675" alt="ShapeFit cover" loading="lazy" decoding="async">
+              <source type="image/webp" srcset="/assets/products/shapefit-card-640.webp 640w, /assets/products/shapefit-card-1200.webp 1200w" sizes="(max-width: 620px) 318px, (max-width: 980px) 45vw, 400px">
+              <img src="/assets/products/shapefit-card-1200.jpg" width="1200" height="675" alt="ShapeFit cover" decoding="async">
             </picture>
           </div>
           <div class="card-body">
@@ -229,8 +224,8 @@
         <a class="card reveal" href="/products/send-approval-gate-mcp/">
           <div class="card-media">
             <picture>
-              <source type="image/webp" srcset="/assets/products/send-approval-gate-mcp-640.webp 640w, /assets/products/send-approval-gate-mcp-1200.webp 1200w" sizes="(max-width: 620px) 318px, (max-width: 980px) 45vw, 400px">
-              <img src="/assets/products/send-approval-gate-mcp-1200.jpg" width="1200" height="675" alt="Send Approval Gate MCP cover" loading="lazy" decoding="async">
+              <source type="image/webp" srcset="/assets/products/send-approval-gate-mcp-card-640.webp 640w, /assets/products/send-approval-gate-mcp-card-1200.webp 1200w" sizes="(max-width: 620px) 318px, (max-width: 980px) 45vw, 400px">
+              <img src="/assets/products/send-approval-gate-mcp-card-1200.jpg" width="1200" height="675" alt="Send Approval Gate MCP cover" decoding="async">
             </picture>
           </div>
           <div class="card-body">
@@ -247,7 +242,7 @@
       <div class="cat-head reveal">
         <div>
           <h3>Classroom tools <span class="count" aria-label="2 products">02</span></h3>
-          <p>Single-file tools for the room where the work happens.</p>
+          <p>Single-file tools for the classroom.</p>
         </div>
         <span class="cat-note">Works offline</span>
       </div>
@@ -256,8 +251,8 @@
         <a class="card card-wide reveal" href="/products/exam-sheet-builder/">
           <div class="card-media">
             <picture>
-              <source type="image/webp" srcset="/assets/products/exam-sheet-builder-640.webp 640w, /assets/products/exam-sheet-builder-1200.webp 1200w" sizes="(max-width: 620px) 318px, (max-width: 980px) 45vw, 600px">
-              <img src="/assets/products/exam-sheet-builder-1200.jpg" width="1200" height="675" alt="Exam and OMR Sheet Builder cover" loading="lazy" decoding="async">
+              <source type="image/webp" srcset="/assets/products/exam-sheet-builder-card-640.webp 640w, /assets/products/exam-sheet-builder-card-1200.webp 1200w" sizes="(max-width: 620px) 318px, (max-width: 980px) 45vw, 600px">
+              <img src="/assets/products/exam-sheet-builder-card-1200.jpg" width="1200" height="675" alt="Exam and OMR Sheet Builder cover" decoding="async">
             </picture>
           </div>
           <div class="card-body">
@@ -271,8 +266,8 @@
         <a class="card card-wide reveal" href="/products/classroom-html-tools/">
           <div class="card-media">
             <picture>
-              <source type="image/webp" srcset="/assets/products/classroom-html-tools-640.webp 640w, /assets/products/classroom-html-tools-1200.webp 1200w" sizes="(max-width: 620px) 318px, (max-width: 980px) 45vw, 600px">
-              <img src="/assets/products/classroom-html-tools-1200.jpg" width="1200" height="675" alt="Offline Classroom Tools cover" loading="lazy" decoding="async">
+              <source type="image/webp" srcset="/assets/products/classroom-html-tools-card-640.webp 640w, /assets/products/classroom-html-tools-card-1200.webp 1200w" sizes="(max-width: 620px) 318px, (max-width: 980px) 45vw, 600px">
+              <img src="/assets/products/classroom-html-tools-card-1200.jpg" width="1200" height="675" alt="Offline Classroom Tools cover" decoding="async">
             </picture>
           </div>
           <div class="card-body">
@@ -304,7 +299,7 @@
         </div>
         <div class="studio-copy reveal">
           <p class="studio-lead">207 Studio is an independent software studio founded by an elementary school teacher in South Korea.</p>
-          <p>Every tool starts with a task that repeats in a real classroom — then gets stripped down until it is useful, quiet and quick. We sell it once, include the source, and skip the subscription.</p>
+          <p>Every tool starts with a task that repeats in a real classroom. We cut it down until it works, sell it once, and include the source. No subscription.</p>
           <dl class="facts">
             <div><dt>Founded</dt><dd>September 2026</dd></div>
             <div><dt>Based in</dt><dd>South Korea</dd></div>
@@ -376,7 +371,7 @@
         <a href="/legal/refunds/">Refund Policy</a>
       </nav>
     </div>
-    <img class="footer-word" src="/assets/footer-207.svg" alt="" aria-hidden="true" width="1513" height="700" loading="lazy" decoding="async">
+    <img class="footer-word" src="/assets/footer-207.svg" alt="" aria-hidden="true" width="1513" height="700" decoding="async">
     <div class="footer-bottom">
       <span>© 2026 207 Studio · South Korea</span>
       <a href="/ko/" lang="ko" hreflang="ko">한국어</a>
