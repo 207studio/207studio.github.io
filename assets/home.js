@@ -130,69 +130,78 @@
   }
 })();
 
-/* Walk: scroll position -> track offset + walk-cycle frame. Each stop owns one
-   segment of scroll: the first half walks in, the second half stops and points.
-   Only transform/opacity change; one rAF per scroll burst. */
+/* Walk (treadmill): scroll -> distance s. Stop i sits at depth i + 1; while
+   walking, s grows and every stop moves toward the viewer (translateZ); at each
+   stop Mimi pauses and points to its side. Only transform/opacity change. */
 (function () {
   "use strict";
   var section = document.querySelector("[data-walk]");
   if (!section || !window.requestAnimationFrame) return;
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-  var track = section.querySelector("[data-walk-track]");
   var walker = section.querySelector("[data-walker]");
   var sprite = section.querySelector("[data-walk-sprite]");
+  var floor = section.querySelector("[data-walk-floor]");
+  var stage = section.querySelector(".walk-stage");
   var stops = section.querySelectorAll("[data-stop]");
   var n = stops.length;
-  var FRAMES = 8, STEPS_PER_STOP = 2.5, SEG_VH = 110;
-  var queued = false, here = -1, pointing = null, frame = -1;
+  var FRAMES = 12, STEPS = 3, SEG_VH = 120, WALK = 0.6, DEPTH = 1500, STRIPE = 160;
+  var queued = false, here = -1, pose = "", frame = -1, cx = 0, cy = 0;
 
   section.classList.add("is-live");
+  for (var i = 0; i < n; i++) stops[i].dataset.side = i % 2 ? "r" : "l";
 
-  function size() {
+  function measure() {
     section.style.height = (n * SEG_VH + 100) + "vh";
+    var cs = getComputedStyle(stage);
+    var probe = document.createElement("div");
+    probe.style.cssText = "position:absolute;visibility:hidden;width:var(--cx);height:0";
+    stage.appendChild(probe); cx = probe.getBoundingClientRect().width; stage.removeChild(probe);
+    cy = parseFloat(cs.getPropertyValue("--cy")) / 100 * stage.clientHeight;
     update();
   }
   function ease(x) { return x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2; }
 
   function update() {
     queued = false;
-    var rect = section.getBoundingClientRect();
     var range = section.offsetHeight - window.innerHeight;
-    var p = Math.min(Math.max(-rect.top / range, 0), 1);
+    var p = Math.min(Math.max(-section.getBoundingClientRect().top / range, 0), 1);
     var t = Math.min(p * n, n - 1e-6);
     var k = Math.floor(t), u = t - k;
-    var walking = u < 0.5;
-    var pos = walking ? k - 1 + ease(u / 0.5) : k;
-    track.style.transform = "translate3d(" + (-pos * 100) + "%,0,0)";
+    var walking = u < WALK;
+    var s = walking ? k + ease(u / WALK) : k + 1;
 
-    if (walking !== pointing) {
-      pointing = walking;
-      walker.classList.toggle("is-pointing", !walking);
+    for (var i = 0; i < n; i++) {
+      var d = s - (i + 1);
+      var z = d * DEPTH;
+      var op = d < -1.9 ? 0 : d < -1 ? (d + 1.9) / 0.9 : d > 0.45 ? 0 : d > 0.15 ? (0.45 - d) / 0.3 : 1;
+      var side = i % 2 ? 1 : -1;
+      stops[i].style.transform = "translate3d(" + (side * cx).toFixed(1) + "px," + cy.toFixed(1) + "px," + z.toFixed(1) + "px)";
+      stops[i].style.opacity = op.toFixed(3);
+      stops[i].style.visibility = op > 0 ? "visible" : "hidden";
     }
-    var nh = walking ? k - 1 : k;
-    if (!walking || u > 0.4) nh = k;
+    floor.style.transform = "translate3d(0," + ((s * DEPTH * 0.35) % STRIPE).toFixed(1) + "px,0)";
+
+    var nh = walking ? (u / WALK > 0.75 ? k : -1) : k;
     if (nh !== here) {
       if (stops[here]) stops[here].classList.remove("is-here");
       here = nh;
       if (stops[here]) stops[here].classList.add("is-here");
     }
+    var np = walking ? "" : (k % 2 ? "r" : "l");
+    if (np !== pose) {
+      walker.classList.remove("is-pointing-l", "is-pointing-r");
+      if (np) walker.classList.add("is-pointing-" + np);
+      pose = np;
+    }
     if (walking) {
-      var f = Math.floor((pos + 1) * STEPS_PER_STOP * FRAMES) % FRAMES;
-      if (f < 0) f += FRAMES;
-      if (f !== frame) {
-        frame = f;
-        sprite.style.transform = "translate3d(" + (-f * 12.5) + "%,0,0)";
-      }
-      var bob = Math.abs(Math.sin((pos + 1) * STEPS_PER_STOP * Math.PI * 2)) * -4;
-      walker.style.transform = "translate3d(0," + bob.toFixed(1) + "px,0)";
-    } else {
-      walker.style.transform = "";
+      var f = Math.floor(s * STEPS * FRAMES) % FRAMES;
+      if (f !== frame) { frame = f; sprite.style.transform = "translate3d(" + (-f * 100 / FRAMES).toFixed(4) + "%,0,0)"; }
     }
   }
   function onScroll() { if (!queued) { queued = true; requestAnimationFrame(update); } }
 
   window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", size);
-  size();
+  window.addEventListener("resize", measure);
+  measure();
 })();
