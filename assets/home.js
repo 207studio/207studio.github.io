@@ -171,7 +171,7 @@
   var SEG_SVH = 96;
   var RAISE_SEQ = [0, 2, 3];
 
-  var vw = 0, vh = 0, travel = 0, range = 1, top0 = 0;
+  var vw = 0, vh = 0, mobile = false, travel = 0, range = 1, top0 = 0;
   var cur = -1, target = 0, last = 0, running = false, ready = false;
   var memo = [], drawn = {};
 
@@ -188,40 +188,58 @@
     if (m[prop] !== val) { m[prop] = val; el.style[prop] = val; }
   }
 
-  function layout(again) {
-    if (!again) stage.style.removeProperty("--mb");
+  // Mimi's figure tops out at 0.5% of her box; the pointer tip sits at (98.6%, 20.2%).
+  // The tap ring around the tip grows to ~29px, so desktop cards keep >= 34px from the tip.
+  // Phones stack the card above her head: it never shares a pixel with her.
+  var DOCK = 84, GAP = 14, MIN_MH = 220;
+
+  function place(st) {
     vw = stage.clientWidth; vh = stage.clientHeight;
     var ww = walker.offsetWidth, wh = walker.offsetHeight;
     var wl = walker.offsetLeft, wt = walker.offsetTop;
-    var tipX = wl + ww * 0.986, tipY = wt + wh * 0.202;
-    var mobile = vw <= 700, cardL, cardW, i, h;
+    var tipX = wl + ww * 0.986, tipY = wt + wh * 0.202, headTop = wt + wh * 0.005;
+    var cardL, cardW, i, h, y, H = 0;
+    mobile = vw <= 700;
 
     if (mobile) {
       cardL = Math.round(tipX - ww * 0.3);
       cardW = vw - cardL - 12;
     } else {
-      cardL = Math.round(tipX + Math.min(30, Math.max(14, vw * 0.018)));
+      cardL = Math.round(tipX + Math.max(34, Math.min(44, vw * 0.026)));
       cardW = Math.min(680, vw - cardL - Math.max(40, vw * 0.06));
     }
     for (i = 0; i < n; i++) stops[i].style.width = cardW + "px";
-    for (i = 0; i < n; i++) {
-      h = stops[i].offsetHeight;
-      var y = mobile ? tipY - h - 12 : tipY - h * 0.58;
-      y = Math.max(mobile ? 84 : 100, Math.min(y, vh - h - (mobile ? 40 : 76)));
-      stops[i].style.left = cardL + "px";
-      stops[i].style.top = Math.round(y) + "px";
-    }
-    // Tall phones: lift Mimi so she and the card sit centred under the dock, not on the floor.
-    if (mobile && !again) {
-      var cardTop = Infinity, mb = vh - wt - wh;
-      for (i = 0; i < n; i++) cardTop = Math.min(cardTop, stops[i].offsetTop);
-      var slack = (cardTop - 84) - mb;
-      if (slack > 24) { stage.style.setProperty("--mb", Math.round(mb + slack / 2) + "px"); return layout(true); }
+    for (i = 0; i < n; i++) H = Math.max(H, stops[i].offsetHeight);
+
+    if (mobile) {
+      var bottom = headTop - GAP, room = bottom - H - DOCK, mb = vh - wt - wh;
+      // Short phones: shrink Mimi until the tallest card fits between the dock and her head.
+      if (room < 0 && !st.lifted && wh > MIN_MH + 1) {
+        stage.style.setProperty("--mh", Math.max(MIN_MH, Math.floor(wh + room)) + "px");
+        return true;
+      }
+      // Tall phones: lift her so the pair sits centred under the dock, not on the floor.
+      if (!st.lifted && room - mb > 24) {
+        st.lifted = true;
+        stage.style.setProperty("--mb", Math.round(mb + (room - mb) / 2) + "px");
+        return true;
+      }
+      for (i = 0; i < n; i++) {
+        stops[i].style.left = cardL + "px";
+        stops[i].style.top = Math.round(bottom - stops[i].offsetHeight) + "px";
+      }
+    } else {
+      for (i = 0; i < n; i++) {
+        h = stops[i].offsetHeight;
+        y = Math.max(100, Math.min(tipY - h * 0.58, vh - h - 76));
+        stops[i].style.left = cardL + "px";
+        stops[i].style.top = Math.round(y) + "px";
+      }
     }
     end.style.width = Math.min(cardW, 460) + "px";
     var eh = end.offsetHeight;
     end.style.left = cardL + "px";
-    end.style.top = Math.round(Math.max(100, tipY - eh * (mobile ? 1.1 : 0.6))) + "px";
+    end.style.top = Math.round(mobile ? Math.max(DOCK, headTop - GAP - eh) : Math.max(100, tipY - eh * 0.6)) + "px";
     if (rail) {
       var rl = mobile ? wl + ww + 10 : cardL;
       rail.style.left = Math.round(rl) + "px";
@@ -229,6 +247,14 @@
       rail.style.top = Math.round(wt + wh - (mobile ? 6 : 26)) + "px";
     }
     travel = vw - cardL + 60;
+    return false;
+  }
+
+  function layout() {
+    stage.style.removeProperty("--mb");
+    stage.style.removeProperty("--mh");
+    var st = {};
+    for (var k = 0; k < 6 && place(st); k++) {}
     range = Math.max(1, scroller.offsetHeight - vh);
     top0 = scroller.getBoundingClientRect().top + window.pageYOffset;
     memo = []; drawn = {};
@@ -288,9 +314,9 @@
         var e = easeOut((u - ENTER) / (ARRIVE - ENTER)), r = 1 - e;
         x = r * travel; y = r * -vh * 0.015; ry = r * -26; sc = 1 + r * 0.05; ix = r * -6;
         op = clamp((u - ENTER) / 0.09);
-      } else if (u >= LEFT) {
+      } else if (u >= LEFT) { // phones leave up-right, away from her head
         var q = easeIn((u - LEFT) / (EXIT_END - LEFT));
-        x = q * travel * 0.9; y = q * vh * 0.12; ry = q * 18; sc = 1 + q * 0.16; ix = q * 6;
+        x = q * travel * 0.9; y = q * vh * (mobile ? -0.04 : 0.12); ry = q * 18; sc = 1 + q * 0.16; ix = q * 6;
         op = 1 - easeInOut(q);
       }
       put(el, key + "t", "transform", "translate3d(" + x.toFixed(1) + "px," + y.toFixed(1) + "px,0) rotateY(" + ry.toFixed(2) + "deg) scale(" + sc.toFixed(4) + ")");
