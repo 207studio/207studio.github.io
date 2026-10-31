@@ -1658,8 +1658,8 @@ h1, h2, h3 { text-wrap: balance; }
 p, dd, .row-desc { text-wrap: pretty; }
 .btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
 .btn-primary:hover { background: var(--accent-ink); border-color: var(--accent-ink); }
-.dock-nav a, .x-link, .lang-link, .footer-col a, .footer-bottom a, .text-link, .latest, .btn { min-height: 44px; }
-.dock-nav a, .footer-col a, .footer-bottom a, .text-link { display: inline-flex; align-items: center; }
+.brand, .email, .dock-nav a, .x-link, .lang-link, .footer-col a, .footer-bottom a, .text-link, .latest, .btn { min-height: 44px; }
+.email, .dock-nav a, .footer-col a, .footer-bottom a, .text-link { display: inline-flex; align-items: center; }
 a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 html { touch-action: manipulation; }
 .vh { position: absolute; width: 1px; height: 1px; margin: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
