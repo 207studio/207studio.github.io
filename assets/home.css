@@ -1662,6 +1662,7 @@ p, dd, .row-desc { text-wrap: pretty; }
 .email, .dock-nav a, .footer-col a, .footer-bottom a, .text-link { display: inline-flex; align-items: center; }
 a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 html { touch-action: manipulation; }
+.dock-nav a, .footer-col a { min-width: 44px; justify-content: center; }
 .vh { position: absolute; width: 1px; height: 1px; margin: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .count { font-variant-numeric: tabular-nums; }
 
