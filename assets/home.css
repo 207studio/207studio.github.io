@@ -1714,14 +1714,14 @@ html { touch-action: manipulation; }
 }
 
 /* Walk with Mimi.
-   Static (no JS, or reduced motion): heading, Mimi pointing, the five products as a list.
+   Static (no JS, or reduced motion): heading, Mimi standing, the five products as a list.
    Live (.is-live): a sticky 100svh scene. Mimi takes over from the hero Mimi at the same
    figure height, body centre and feet, and walks on the spot. Behind her a wall recedes in
    CSS 3D (one rotateY plane under the stage's perspective); five paper posters are pasted
    on that plane, so they share its vanishing point. Walking slides them along the wall:
-   one arrives from the near edge, she stops, raises the pointer, points, lowers it and walks
-   on while it slides away toward the far end. Wide screens: the wall runs to her left and
-   she is mirrored so the pointer reaches it. Phones: it runs above her head.
+   one arrives from the near edge, she stops beside it, then walks on while it slides away.
+   Wide screens: the posters hang on the wall to her left. Phones: above her head, with the
+   stop list on the floor below her when there is room.
    Only transform and opacity change per frame; geometry is measured on resize. */
 .walk { position: relative; padding-block: clamp(64px, 9vw, 128px) 0; }
 .walk-head h2 { margin: 0; font-family: var(--font-display); font-size: clamp(2.25rem, 5vw, 4rem); font-weight: 700; line-height: 0.98; letter-spacing: -0.035em; text-wrap: balance; }
@@ -1731,8 +1731,8 @@ html { touch-action: manipulation; }
 .walk-stage { position: relative; width: min(1240px, calc(100% - 96px)); margin: var(--space-8) auto 0; display: grid; grid-template-columns: minmax(150px, 240px) 1fr; gap: var(--space-6); align-items: start; }
 .walk-track { grid-column: 2; grid-row: 1; margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-4); }
 .walker { grid-column: 1; grid-row: 1 / span 2; position: sticky; top: 104px; }
-.walker-point { display: block; width: 100%; height: auto; }
-.walk-wall, .walker-layer, .walker-floor, .walker-tap, .walk-rail { display: none; }
+.walker-still { display: block; width: 100%; height: auto; }
+.walk-wall, .walker-layer, .walker-floor, .walk-rail { display: none; }
 .walk-end { grid-column: 2; padding: var(--space-5) 0 0; }
 .walk-end-t { margin: 0; font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; }
 .walk-end-p { margin: var(--space-2) 0 var(--space-3); color: var(--muted); }
@@ -1741,9 +1741,12 @@ html { touch-action: manipulation; }
    no lift and no shadow. Big name, one line, a link. */
 .poster { position: relative; display: flex; flex-direction: column; gap: var(--space-3); height: 100%; padding: 22px 24px 20px; border: 1px solid rgba(45, 36, 26, 0.12); border-radius: 2px; background: linear-gradient(180deg, #fdfcf8, #f8f6f0); color: inherit; text-decoration: none; isolation: isolate; }
 .poster::before { position: absolute; top: -7px; left: 50%; width: 64px; height: 15px; margin-left: -32px; border-radius: 1px; background: rgba(214, 203, 178, 0.55); content: ""; transform: rotate(-1.5deg); }
-/* Lit / hover: an accent rule around the sheet, faded by opacity only. */
-.poster::after { position: absolute; inset: -1px; border: 2px solid var(--accent); border-radius: inherit; opacity: 0; content: ""; pointer-events: none; transition: opacity 0.4s var(--ease); }
+/* Lit / hover: the sheet brightens (a white wash under the text) and its tape firms up,
+   both by opacity only. No border, no shadow. */
+.poster::before { opacity: 0.75; transition: opacity 0.4s var(--ease); }
+.poster::after { position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: #fffffd; opacity: 0; content: ""; pointer-events: none; transition: opacity 0.4s var(--ease); }
 .poster:hover::after, .poster:focus-visible::after { opacity: 1; }
+.poster:hover::before, .poster:focus-visible::before { opacity: 1; }
 .poster:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
 .poster-head, .poster-body { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .poster-tag { display: flex; align-items: baseline; gap: 10px; color: var(--muted); font-size: 13px; font-weight: 500; }
@@ -1768,26 +1771,18 @@ html { touch-action: manipulation; }
 
 .walk.is-live .stop { position: absolute; top: 0; left: 0; width: 520px; opacity: 0; pointer-events: none; transform-origin: 0 0; will-change: transform, opacity; }
 .walk.is-live .stop.is-on { pointer-events: auto; }
-.walk.is-live .poster { height: auto; gap: 16px; padding: 34px 40px 30px; }
+.walk.is-live .poster { height: auto; min-height: inherit; justify-content: space-between; gap: 16px; padding: 34px 40px 30px; background: linear-gradient(180deg, #f8f6ef, #f1eee5); }
 .walk.is-live .poster-head { gap: 10px; }
-.walk.is-live .poster-name { font-size: clamp(2rem, 3.3vw, 2.9rem); }
-.walk.is-live .poster-desc { max-width: 34ch; font-size: 19px; }
+.walk.is-live .poster-name { font-size: clamp(2.2rem, 3.9vw, 3.6rem); }
+.walk.is-live .poster-desc { max-width: 30ch; font-size: clamp(19px, 1.6vw, 23px); }
 .walk.is-live .poster-go { font-size: 17px; }
-.walk.is-live .stop.is-here .poster::after { opacity: 1; }
+.walk.is-live .stop.is-here .poster::after, .walk.is-live .stop.is-here .poster::before { opacity: 1; }
 
 .walk.is-live .walker { position: absolute; top: auto; left: var(--mx); bottom: var(--mb); z-index: 3; width: var(--mw); height: var(--mh); opacity: 0; pointer-events: none; }
-.walk.is-live .walker.is-flip { transform: scaleX(-1); }
-.walk.is-live .walker-layer { position: absolute; inset: 0; display: block; overflow: hidden; opacity: 0; }
+.walk.is-live .walker-layer { position: absolute; inset: 0; display: block; overflow: hidden; }
 .walk.is-live .walker-layer img { display: block; width: auto; height: 100%; max-width: none; will-change: transform; }
-.walk.is-live .walker-point { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; }
+.walk.is-live .walker-still { display: none; }
 .walk.is-live .walker-floor { position: absolute; left: 12%; bottom: -2.2%; z-index: -1; display: block; width: 72%; height: 5.5%; border-radius: 50%; background: radial-gradient(closest-side, rgba(45, 36, 26, 0.26), rgba(45, 36, 26, 0.1) 60%, rgba(45, 36, 26, 0)); transform-origin: 50% 50%; }
-.walk.is-live .walker-tap { position: absolute; left: 98.6%; top: 20.2%; display: block; width: 30px; height: 30px; margin: -15px 0 0 -15px; border: 2px solid var(--accent); border-radius: 50%; opacity: 0; }
-.walk.is-live .walker.is-tap .walker-tap { animation: walk-tap 0.7s var(--ease) both; }
-@keyframes walk-tap {
-  0% { opacity: 0.9; transform: scale(0.3); }
-  100% { opacity: 0; transform: scale(1.9); }
-}
-
 .walk.is-live .walk-rail { position: absolute; top: 0; left: 0; z-index: 2; display: flex; gap: 6px; margin: 0; padding: 0; list-style: none; }
 .walk.is-live .walk-rail li { position: relative; flex: 1; min-width: 0; padding-top: 12px; }
 .walk.is-live .walk-rail li::before, .walk.is-live .rail-fill { position: absolute; top: 0; left: 0; width: 100%; height: 2px; border-radius: 2px; content: ""; }
@@ -1827,4 +1822,9 @@ html { touch-action: manipulation; }
   .walk.is-live .rail-name { display: none; }
   .walk.is-live .walk-rail li { padding-top: 0; height: 10px; }
   .walk.is-live .walk-end-p { font-size: 15px; }
+  /* Tall phones: the stop list fills the floor below her. */
+  .walk.is-live.is-list .walk-rail { flex-direction: column; gap: 10px; }
+  .walk.is-live.is-list .walk-rail li { flex: none; height: auto; padding: 0 0 9px; }
+  .walk.is-live.is-list .walk-rail li::before, .walk.is-live.is-list .rail-fill { top: auto; bottom: 0; }
+  .walk.is-live.is-list .rail-name { display: block; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
 }
