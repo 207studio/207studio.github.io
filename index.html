@@ -65,7 +65,7 @@
     </div>
 
     <div class="hero-stage" data-scene>
-      <div class="mimi" data-mimi><img src="/assets/mimi.webp" srcset="/assets/mimi-640.webp 278w, /assets/mimi.webp 431w" sizes="(max-width: 700px) 140px, 280px" width="431" height="990" alt="Mimi, 207 Studio's clay character, waving hello with a tablet in her other hand" fetchpriority="high" decoding="async"></div>
+      <div class="mimi" data-mimi><img src="/assets/mimi.webp" srcset="/assets/mimi-640.webp 278w, /assets/mimi.webp 431w" sizes="(max-width: 700px) 140px, 280px" width="431" height="990" alt="Mimi, 207 Studio's clay character, standing ready to walk you through the products" fetchpriority="high" decoding="async"></div>
       <div class="scene">
         <div class="scene-poster" aria-hidden="true"></div>
         <canvas id="clay-scene" role="img" aria-label="A 3D clay scene with a handheld console, a pencil, a star, a house and two clay beads floating around Mimi. Drag the pieces to nudge them; they settle back.">A 3D clay scene with a handheld console, a pencil, a star, a house and clay beads.</canvas>
@@ -83,6 +83,82 @@
         <p class="hero-note">Full source included. One-time purchase. No subscriptions.</p>
       </div>
       <p class="stage-hint" data-scene-hint aria-hidden="true">Drag the pieces · they settle back</p>
+    </div>
+  </section>
+
+  <section class="walk" id="walk" aria-labelledby="walk-title" data-walk>
+    <header class="walk-head wrap">
+      <p class="eyebrow">A short walk</p>
+      <h2 id="walk-title">Walk through<br>the work with Mimi.</h2>
+      <p class="walk-note">Scroll, and she walks you past five of the products, stopping at each one.</p>
+    </header>
+    <div class="walk-scroller" data-walk-scroller>
+      <div class="walk-stage" data-walk-stage>
+        <div class="walk-wall" aria-hidden="true" data-wall>
+          <span class="wall-face" data-wall-face></span>
+          <span class="wall-ledge" data-wall-ledge></span>
+          <span class="wall-seams" data-seam></span>
+        </div>
+        <ol class="walk-track" data-walk-track>
+          <li class="stop" data-stop>
+            <a class="poster" href="/products/pairy-core-sdk/">
+              <span class="poster-head"><span class="poster-tag"><span class="poster-n">01</span>Latest</span>
+              <span class="poster-name">PairyCore SDK</span></span>
+              <span class="poster-body"><span class="poster-desc">A live Mac screen on an iPad, with touch and keyboard coming back.</span>
+              <span class="poster-go">See details <span aria-hidden="true">↗</span></span></span>
+            </a>
+          </li>
+          <li class="stop" data-stop>
+            <a class="poster" href="/products/pptx-player-sdk/">
+              <span class="poster-head"><span class="poster-tag"><span class="poster-n">02</span>Developer kit</span>
+              <span class="poster-name">PPTX Player SDK</span></span>
+              <span class="poster-body"><span class="poster-desc">Click-by-click PowerPoint playback in the browser. No server, no Office.</span>
+              <span class="poster-go">See details <span aria-hidden="true">↗</span></span></span>
+            </a>
+          </li>
+          <li class="stop" data-stop>
+            <a class="poster" href="/products/scan-to-grade-bundle/">
+              <span class="poster-head"><span class="poster-tag"><span class="poster-n">03</span>Developer kit</span>
+              <span class="poster-name">Scan-to-Grade</span></span>
+              <span class="poster-body"><span class="poster-desc">A scanner batch in, a finished Excel gradebook out.</span>
+              <span class="poster-go">See details <span aria-hidden="true">↗</span></span></span>
+            </a>
+          </li>
+          <li class="stop" data-stop>
+            <a class="poster" href="/products/omr-auto-grader/">
+              <span class="poster-head"><span class="poster-tag"><span class="poster-n">04</span>Developer kit</span>
+              <span class="poster-name">OMR Auto-Grader</span></span>
+              <span class="poster-body"><span class="poster-desc">Reads bubbles, O/X, circled words and ordering marks.</span>
+              <span class="poster-go">See details <span aria-hidden="true">↗</span></span></span>
+            </a>
+          </li>
+          <li class="stop" data-stop>
+            <a class="poster" href="/products/exam-sheet-builder/">
+              <span class="poster-head"><span class="poster-tag"><span class="poster-n">05</span>Classroom tool</span>
+              <span class="poster-name">Exam + OMR Sheet Builder</span></span>
+              <span class="poster-body"><span class="poster-desc">Exam paper, OMR sheet, key and explanations from one file.</span>
+              <span class="poster-go">See details <span aria-hidden="true">↗</span></span></span>
+            </a>
+          </li>
+        </ol>
+        <div class="walker" data-walker>
+          <span class="walker-floor" aria-hidden="true" data-walk-floor></span>
+          <span class="walker-layer walker-walk" aria-hidden="true"><img src="/assets/mimi-walk-front.webp" width="1944" height="420" alt="" loading="lazy" decoding="async" data-walk-strip></span>
+          <img class="walker-still" src="/assets/mimi-640.webp" width="278" height="640" alt="Mimi, the clay character, ready to walk you past the products" loading="lazy" decoding="async">
+        </div>
+        <ol class="walk-rail" aria-hidden="true">
+          <li><span class="rail-fill" data-rail-fill></span><span class="rail-name">PairyCore</span></li>
+          <li><span class="rail-fill" data-rail-fill></span><span class="rail-name">PPTX Player</span></li>
+          <li><span class="rail-fill" data-rail-fill></span><span class="rail-name">Scan-to-Grade</span></li>
+          <li><span class="rail-fill" data-rail-fill></span><span class="rail-name">OMR Auto-Grader</span></li>
+          <li><span class="rail-fill" data-rail-fill></span><span class="rail-name">Exam + OMR Builder</span></li>
+        </ol>
+        <div class="walk-end" data-walk-end>
+          <p class="walk-end-t">That’s five of ten.</p>
+          <p class="walk-end-p">The rest are right below, all with full source.</p>
+          <a class="text-link" href="#work">See all ten <span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
     </div>
   </section>
 
