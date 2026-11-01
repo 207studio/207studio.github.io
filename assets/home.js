@@ -390,6 +390,7 @@
   }
 
   function drawStops(t, a) {
+    var lastOp = 1;
     for (var i = 0; i < n; i++) {
       var u = t - (INTRO + i), el = stops[i], key = "s" + i;
       var xp = (a - i) * step, op = 1, nearX = unproj(-40), farX = unproj(vw + 40);
@@ -401,6 +402,7 @@
       if (op === 0) xp = Math.min(Math.max(xp, nearX - pwp * 1.5), farX);
       put(el, key + "t", "transform", "translate3d(" + xp.toFixed(1) + "px,0,0)");
       put(el, key + "o", "opacity", opac(op));
+      if (i === n - 1 && a > n - 1) lastOp = op;
       var on = op > 0.5, lit = u >= LIT_A && u < LIT_B;
       if (drawn[key + "on"] !== on) { drawn[key + "on"] = on; el.classList.toggle("is-on", on); }
       if (drawn[key + "lit"] !== lit) {
@@ -411,7 +413,8 @@
       if (fills[i]) put(fills[i], key + "f", "transform", "scaleX(" + clamp((u - (LEFT - 1)) / WALK_GAP).toFixed(3) + ")");
     }
     var v = t - END_AT;
-    var k = easeOut(clamp((v - 0.1) / 0.3));
+    // The closing block takes over as the last poster fades, so the wall is never bare.
+    var k = Math.max(easeOut(clamp((v - 0.1) / 0.3)), clamp(1 - lastOp * 2));
     put(end, "et", "transform", "translate3d(0," + ((1 - k) * (flip ? 24 : -24)).toFixed(1) + "px,0)");
     put(end, "eo", "opacity", opac(k));
     if (drawn.end !== k > 0.5) { drawn.end = k > 0.5; end.classList.toggle("is-on", drawn.end); }
