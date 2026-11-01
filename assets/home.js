@@ -283,11 +283,9 @@
     seamGap = step / 2;
 
     section.classList.remove("is-tight");
-    // Nearer the left edge the wall is closer, so a poster there is taller (sNear times);
-    // size the sheets so even that one stays clear of the rail.
+    // Nearer the left edge the wall is closer, so a poster there is taller (sNear times).
     var sNear = Math.max(1, scale(unproj(side)));
-    var minH = mobile ? 0 : Math.max(0, Math.min(460, vh * 0.5, 2 * (railTop - dock - 40) / (1 + sNear)));
-    for (i = 0; i < n; i++) { stops[i].style.width = px(pwp); stops[i].style.minHeight = minH ? px(minH) : ""; }
+    for (i = 0; i < n; i++) stops[i].style.width = px(pwp);
     for (var pass = 0; pass < 2; pass++) {
       ph = 0; heights = [];
       for (i = 0; i < n; i++) { heights[i] = stops[i].offsetHeight; ph = Math.max(ph, heights[i]); }

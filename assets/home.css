@@ -1771,7 +1771,7 @@ html { touch-action: manipulation; }
 
 .walk.is-live .stop { position: absolute; top: 0; left: 0; width: 520px; opacity: 0; pointer-events: none; transform-origin: 0 0; will-change: transform, opacity; }
 .walk.is-live .stop.is-on { pointer-events: auto; }
-.walk.is-live .poster { height: auto; min-height: inherit; justify-content: space-between; gap: 16px; padding: 34px 40px 30px; background: linear-gradient(180deg, #f8f6ef, #f1eee5); }
+.walk.is-live .poster { height: auto; gap: 16px; padding: 34px 40px 30px; background: linear-gradient(180deg, #f8f6ef, #f1eee5); }
 .walk.is-live .poster-head { gap: 10px; }
 .walk.is-live .poster-name { font-size: clamp(2.2rem, 3.9vw, 3.6rem); }
 .walk.is-live .poster-desc { max-width: 30ch; font-size: clamp(19px, 1.6vw, 23px); }
