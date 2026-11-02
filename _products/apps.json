@@ -68,10 +68,15 @@
     },
     {
       "id": "ttoryeot",
-      "name": {"en": "또렷", "ko": "또렷"},
-      "tag": {"en": "HWP viewer", "ko": "HWP 뷰어"},
-      "line": {"en": "An HWP viewer. View only.", "ko": "HWP 문서 뷰어. 보기 전용이에요."},
-      "todo": "TODO: English name, who it is for, platform, 3 key points, link or status."
+      "name": {"en": "Ttoryeot", "ko": "또렷"},
+      "tag": {"en": "Coming soon · Mac, iOS, Windows, web", "ko": "출시 예정 · Mac, iOS, Windows, 웹"},
+      "line": {"en": "Read HWP files without 한글 installed.", "ko": "한글 프로그램 없이 HWP 문서를 열어 봐요."},
+      "what": {"en": "Ttoryeot (또렷) is our HWP/HWPX document engine, written in Rust. It opens 한글 documents fast and renders them faithfully to PDF or images. View only, no editing.", "ko": "또렷은 Rust로 만든 HWP/HWPX 문서 엔진이에요. 한글 문서를 빠르게 열고 원본 모양 그대로 PDF나 이미지로 그려요. 보기 전용이라 편집은 안 돼요."},
+      "for": {"en": "anyone who needs to read 한글 (HWP) files without 한글 installed.", "ko": "한글 프로그램 없이 HWP 파일을 읽어야 하는 사람."},
+      "points": {
+        "en": ["Layout checked page by page against 한글 12.30 on real documents", "Fast and light. Images in an 80-image file take 7 ms, down from 196 ms. Peak memory on a large file fell from about 1 GB to 125 MB", "One engine for Mac, iOS, Windows and the web (WASM)"],
+        "ko": ["실제 문서로 한글 12.30 출력과 쪽마다 대조한 레이아웃", "빠르고 가벼워요. 이미지 80장 문서는 196ms에서 7ms로, 큰 문서의 최대 메모리는 약 1GB에서 125MB로 줄었어요", "Mac, iOS, Windows, 웹(WASM)을 엔진 하나로"]
+      }
     }
   ]
 }
