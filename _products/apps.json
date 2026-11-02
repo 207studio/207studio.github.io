@@ -1,5 +1,5 @@
 {
-  "_readme": "The seven apps on the home page walk, in order. Run python3 _products/walk-gen.py after editing. Each app's name sits on one line (en + ko), so a rename is a one-line change. Facts come only from the repo, the site and the App Store. Anything marked TODO still needs facts from the owners.",
+  "_readme": "The seven apps on the home page walk, in order. Run python3 _products/walk-gen.py after editing. Each app's name sits on one line (en + ko), so a rename is a one-line change. A link may add href_ko for the Korean page. Facts come only from the repo, the site and the App Store. Anything marked TODO still needs facts from the owners.",
   "apps": [
     {
       "id": "pairy",
@@ -16,15 +16,16 @@
     },
     {
       "id": "chalkieboard",
-      "name": {"en": "Chalkieboard", "ko": "왵키보드"},
-      "tag": {"en": "In development · iPad", "ko": "개발 중 · iPad"},
-      "line": {"en": "An iPad app for classroom presentation and annotation.", "ko": "아이패드 수업·판서 앱."},
-      "what": {"en": "An iPad app for classroom presentation and annotation, designed around the materials teachers already use.", "ko": "선생님이 이미 쓰는 자료를 중심으로 설계한 아이패드 수업·판서 앱입니다."},
-      "for": {"en": "teachers who present lessons on an iPad.", "ko": "아이패드로 수업하는 선생님."},
+      "name": {"en": "Chalkieboard", "ko": "초키보드"},
+      "tag": {"en": "Beta (TestFlight) · iPad", "ko": "베타 (TestFlight) · iPad"},
+      "line": {"en": "A lesson board app for teachers on iPad.", "ko": "선생님을 위한 아이패드 수업 판서 앱."},
+      "what": {"en": "An all-in-one board and lesson app for elementary classes. It is built to cover a teacher's whole lesson day in one app. It collects no personal data during class.", "ko": "초등 수업을 위한 올인원 판서·수업 앱이에요. 선생님의 하루 수업을 앱 하나로 해낼 수 있게 만들었어요. 수업 중에는 개인정보를 수집하지 않아요."},
+      "for": {"en": "elementary school teachers who teach with an iPad.", "ko": "아이패드로 수업하는 초등 선생님."},
       "points": {
-        "en": ["Work with PPTX, PDF and HTML teaching materials", "Annotate while presenting a lesson", "Support teaching in English and Korean"],
-        "ko": ["PPTX, PDF, HTML 수업 자료 사용", "수업하면서 바로 판서", "영어·한국어 수업 지원"]
-      }
+        "en": ["Handwriting on the board, plus subject tools", "Open lesson files, including PPTX and HWP, right in the app", "Send the board to the classroom display with AirPlay"],
+        "ko": ["판서와 교과별 도구", "PPTX, HWP 같은 수업 파일을 앱에서 바로 열기", "AirPlay로 교실 화면에 판서 띄우기"]
+      },
+      "link": {"href": "https://chalkieboard.207studio.dev/", "href_ko": "https://chalkieboard.207studio.dev/ko/", "en": "Chalkieboard site", "ko": "초키보드 사이트"}
     },
     {
       "id": "checkyboard",

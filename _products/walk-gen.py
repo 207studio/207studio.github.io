@@ -23,12 +23,13 @@ def stop(app, i, lang):
     name = escape(app["name"][lang])
     note_id = f"walk-note-{i + 1}"
     link = app.get("link")
+    href = link.get("href_" + lang, link["href"]) if link else None
     head = (f'<span class="poster-head"><span class="poster-tag"><span class="poster-n">{n}</span>{escape(app["tag"][lang])}</span>'
             f'<span class="poster-name">{name}</span></span>')
     body = f'<span class="poster-body"><span class="poster-desc">{escape(app["line"][lang])}</span>'
     if link:
         body += f'<span class="poster-go">{escape(link[lang])} <span aria-hidden="true">↗</span></span></span>'
-        poster = f'<a class="poster"{link_attrs(link["href"])}>{head}{body}</a>'
+        poster = f'<a class="poster"{link_attrs(href)}>{head}{body}</a>'
     else:
         body += "</span>"
         poster = f'<div class="poster" tabindex="0" aria-describedby="{note_id}">{head}{body}</div>'
@@ -39,7 +40,7 @@ def stop(app, i, lang):
     if app.get("points"):
         note.append('<ul class="note-pts">' + "".join(f"<li>{escape(p)}</li>" for p in app["points"][lang]) + "</ul>")
     if link:
-        note.append(f'<a class="note-go"{link_attrs(link["href"])}>{escape(link[lang])} <span aria-hidden="true">↗</span></a>')
+        note.append(f'<a class="note-go"{link_attrs(href)}>{escape(link[lang])} <span aria-hidden="true">↗</span></a>')
     on = " is-on" if i == 0 else ""
     thin = "" if app.get("what") else " note-thin"
     inner = "\n              ".join(note)
