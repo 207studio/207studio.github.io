@@ -1,25 +1,32 @@
 {
-  "_readme": "The seven apps on the home page walk, in order. Run python3 _products/walk-gen.py after editing. Each app's name sits on one line (en + ko), so a rename is a one-line change. A link may add href_ko for the Korean page. The download key names an entry in site-data.json downloads (URL, SHA-256, requirements). Facts come only from the repo, the site and the App Store. Anything marked TODO still needs facts from the owners.",
+  "_readme": "The seven apps on the home page walk, in order. Run python3 _products/walk-gen.py after editing. Each app's name sits on one line (en + ko), so a rename is a one-line change. A link may add href_ko for the Korean page. The download key names an entry in site-data.json downloads (URL, SHA-256, requirements). Facts come only from the repo, the site and the App Store. Anything marked TODO still needs facts from the owners. say is Mimi's one line for the app. icon (168 px webp) and shot (src without the -1200/-720.webp suffix, its size and alt) are real app images; an app without them shows text only.",
   "apps": [
     {
       "id": "pairy",
       "name": {"en": "Pairy", "ko": "Pairy"},
       "tag": {"en": "On the App Store", "ko": "App Store"},
       "line": {"en": "A live Mac screen on your iPad, with touch, keyboard and clipboard going back.", "ko": "Mac 화면을 iPad에 띄우고, 터치와 키보드, 클립보드를 다시 Mac으로 보냅니다."},
+      "say": {"en": "This is Pairy. Your Mac screen, live on your iPad.", "ko": "Pairy예요. Mac 화면이 iPad에 그대로 떠요."},
       "what": {"en": "A remote desktop app for your tablet. See your computer screen and control it with touch, trackpad and keyboard.", "ko": "태블릿용 원격 데스크톱 앱이에요. 컴퓨터 화면을 보면서 터치, 트랙패드, 키보드로 조작해요."},
       "for": {"en": "iPad, iPhone and Vision Pro owners with an Apple silicon Mac.", "ko": "Apple 실리콘 Mac과 iPad, iPhone, Vision Pro를 함께 쓰는 사람."},
       "points": {
         "en": ["Full HD streaming", "Touch, trackpad and keyboard input", "Encrypted connections between your devices"],
         "ko": ["Full HD 스트리밍", "터치, 트랙패드, 키보드 입력", "기기 사이 암호화 연결"]
       },
+      "icon": "/assets/apps/pairy/icon-168.webp",
+      "shot": {"src": "/assets/apps/pairy/remote", "w": 1200, "h": 690, "alt": {"en": "Pairy on an iPad showing a Mac desktop, with an iPhone beside it as the remote", "ko": "iPad에 Mac 화면을 띄운 Pairy, 옆의 iPhone은 리모컨"}},
+      "page": {"href": "/pairy/", "href_ko": "/ko/pairy/", "en": "More about Pairy", "ko": "Pairy 자세히 보기"},
       "download": "pairy-mac",
-      "link": {"href": "https://apps.apple.com/app/id6815584225", "en": "View on the App Store", "ko": "App Store에서 보기"}
+      "link": {"href": "https://apps.apple.com/app/id6815584225", "en": "App Store", "ko": "App Store"}
     },
     {
       "id": "chalkieboard",
       "name": {"en": "Chalkieboard", "ko": "초키보드"},
       "tag": {"en": "Beta (TestFlight) · iPad", "ko": "베타 (TestFlight) · iPad"},
       "line": {"en": "A lesson board app for teachers on iPad.", "ko": "선생님을 위한 아이패드 수업 판서 앱."},
+      "say": {"en": "Chalkieboard is a lesson board for teachers on iPad.", "ko": "초키보드는 선생님을 위한 iPad 판서 앱이에요."},
+      "icon": "/assets/apps/chalkieboard/icon-168.webp",
+      "shot": {"src": "/assets/apps/chalkieboard/home", "w": 1200, "h": 690, "alt": {"en": "Chalkieboard's lesson home on iPad: start a lesson, the timetable, a timer, a student picker and the clock", "ko": "iPad의 초키보드 수업 홈: 수업 시작, 시간표, 타이머, 학생 뽑기, 시계"}},
       "what": {"en": "An all-in-one board and lesson app for elementary classes. It is built to cover a teacher's whole lesson day in one app. It collects no personal data during class.", "ko": "초등 수업을 위한 올인원 판서·수업 앱이에요. 선생님의 하루 수업을 앱 하나로 해낼 수 있게 만들었어요. 수업 중에는 개인정보를 수집하지 않아요."},
       "for": {"en": "elementary school teachers who teach with an iPad.", "ko": "아이패드로 수업하는 초등 선생님."},
       "points": {
@@ -33,6 +40,7 @@
       "name": {"en": "CheckyBoard", "ko": "체키보드"},
       "tag": {"en": "In development · Windows", "ko": "개발 중 · Windows"},
       "line": {"en": "Check paper exams one question at a time.", "ko": "종이 시험을 문항별로 모아 보며 채점해요."},
+      "say": {"en": "CheckyBoard checks paper exams one question at a time.", "ko": "체키보드로 종이 시험을 문항별로 채점해요."},
       "what": {"en": "A Windows app for checking paper exams one question at a time. You mark each answer right or wrong. The app handles the work around it.", "ko": "종이 시험을 문항별로 모아 보며 O/X로 체크하는 Windows 앱이에요. 판정은 사람이 하고, 그 앞뒤 일은 프로그램이 맡아요."},
       "for": {"en": "teachers who grade paper exams.", "ko": "종이 시험을 채점하는 선생님."},
       "points": {
@@ -46,6 +54,7 @@
       "_name_note": "Working name, not final. Rename here (one line), then run walk-gen.py.",
       "tag": {"en": "Messenger · working name", "ko": "메신저 · 가칭"},
       "line": {"en": "A messenger app. More soon.", "ko": "메신저 앱이에요. 곧 소개할게요."},
+      "say": {"en": "Cool Kiwi is a messenger. More soon.", "ko": "쿨 키위는 메신저예요. 곧 더 알려 드릴게요."},
       "todo": "TODO: what it is (one line), who it is for, 3 key points, link or status."
     },
     {
@@ -53,6 +62,7 @@
       "name": {"en": "StoneWars", "ko": "스톤워즈"},
       "tag": {"en": "Coming soon · iPhone, iPad, Mac", "ko": "출시 준비 중 · iPhone, iPad, Mac"},
       "line": {"en": "Five in a row, where every stone has a character.", "ko": "돌마다 캐릭터가 있는 오목 게임."},
+      "say": {"en": "StoneWars is five in a row. Every stone has a character.", "ko": "스톤워즈는 오목이에요. 돌마다 캐릭터가 있어요."},
       "what": {"en": "A five-in-a-row game on a 15×15 board in 3D. Win with exactly five in a row or ten kills.", "ko": "15×15 입체 보드에서 두는 오목 게임이에요. 정확히 다섯 줄을 만들거나 열 번 처치하면 이겨요."},
       "points": {
         "en": ["Eight stone classes, each with its own skill", "Seven worlds that change the board", "Two players on one device or against the built-in AI, no account"],
@@ -66,6 +76,7 @@
       "name": {"en": "Deki Duck", "ko": "데키 덕"},
       "tag": {"en": "Coming soon", "ko": "준비 중"},
       "line": {"en": "More soon.", "ko": "곧 소개할게요."},
+      "say": {"en": "Deki Duck is coming soon.", "ko": "데키 덕은 준비 중이에요."},
       "todo": "TODO: what it is (one line), who it is for, 3 key points, link or status. Unconfirmed lead: the decky-duck repo name."
     },
     {
@@ -73,6 +84,7 @@
       "name": {"en": "Ttoryeot", "ko": "또렷"},
       "tag": {"en": "Coming soon · Mac, iOS, Windows, web", "ko": "출시 예정 · Mac, iOS, Windows, 웹"},
       "line": {"en": "Read HWP files without 한글 installed.", "ko": "한글 프로그램 없이 HWP 문서를 열어 봐요."},
+      "say": {"en": "Ttoryeot opens HWP files without 한글 installed.", "ko": "또렷은 한글 프로그램 없이 HWP 파일을 열어요."},
       "what": {"en": "Ttoryeot (또렷) is our HWP/HWPX document engine, written in Rust. It opens 한글 documents fast and renders them faithfully to PDF or images. View only, no editing.", "ko": "또렷은 Rust로 만든 HWP/HWPX 문서 엔진이에요. 한글 문서를 빠르게 열고 원본 모양 그대로 PDF나 이미지로 그려요. 보기 전용이라 편집은 안 돼요."},
       "for": {"en": "anyone who needs to read 한글 (HWP) files without 한글 installed.", "ko": "한글 프로그램 없이 HWP 파일을 읽어야 하는 사람."},
       "points": {

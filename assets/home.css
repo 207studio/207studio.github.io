@@ -1684,105 +1684,86 @@ html { touch-action: manipulation; }
 }
 
 /* Walk.
-   Static (no JS, or reduced motion): heading, then the seven posters in a grid, each with
-   its note underneath (what it is, who it is for, three points, a link).
-   Live (.js, motion allowed, tall enough): a pinned stage where the posters slide by one at
-   a time. See the block further down. */
+   Static (no JS, reduced motion, or a short screen): heading, then the seven cards in a grid.
+   Live (.js, motion allowed, tall enough): a pinned stage. Mimi stands on the left and names
+   each app in a speech bubble; one tall card sits to her right, and the next card comes up
+   from depth as the current one falls back. See the block further down. */
 .walk { position: relative; padding-block: clamp(64px, 9vw, 128px) 0; }
 .walk-head h2 { margin: 0; font-family: var(--font-display); font-size: clamp(2.25rem, 5vw, 4rem); font-weight: 700; line-height: 0.98; letter-spacing: -0.035em; text-wrap: balance; }
 .walk-note { max-width: 46ch; margin: var(--space-4) 0 0; color: var(--muted); font-size: 17px; line-height: 1.5; text-wrap: pretty; }
 
 .walk-scroller { position: relative; }
 .walk-stage { position: relative; width: min(1240px, calc(100% - 96px)); margin: var(--space-8) auto 0; }
-.walk-track { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-4); }
-.stop { display: flex; flex-direction: column; gap: var(--space-3); }
+.walk-track { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: var(--space-5); align-items: start; }
+.stop { display: flex; flex-direction: column; border-radius: 6px; overflow: hidden; box-shadow: 0 18px 40px rgba(4, 6, 20, 0.45); }
 .walk-end { width: min(1240px, calc(100% - 96px)); margin: 0 auto; padding: var(--space-5) 0 0; }
 .walk-end-t { margin: 0; font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; }
 .walk-end-p { margin: var(--space-2) 0 var(--space-3); color: var(--muted); }
 
-/* Posters: thin paper sheets pasted flat on the wall: a hairline edge and a strip of tape,
-   no lift and no shadow. Big name, one line, a link. */
-.poster { position: relative; display: flex; flex-direction: column; gap: var(--space-3); height: 100%; padding: 22px 24px 20px; border: 1px solid rgba(45, 36, 26, 0.12); border-radius: 2px; background: linear-gradient(180deg, #fdfcf8, #f8f6f0); color: inherit; text-decoration: none; isolation: isolate; }
-.poster::before { position: absolute; top: -7px; left: 50%; width: 64px; height: 15px; margin-left: -32px; border-radius: 1px; background: rgba(214, 203, 178, 0.55); content: ""; transform: rotate(-1.5deg); }
-/* Lit / hover: the sheet brightens (a white wash under the text) and its tape firms up,
-   both by opacity only. No border, no shadow. */
-.poster::before { opacity: 0.75; transition: opacity 0.4s var(--ease); }
-.poster::after { position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: #fffffd; opacity: 0; content: ""; pointer-events: none; transition: opacity 0.4s var(--ease); }
-.poster:hover::after, .poster:focus-visible::after { opacity: 1; }
-.poster:hover::before, .poster:focus-visible::before { opacity: 1; }
-.poster:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
-.poster-head, .poster-body { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+/* The card's top: a cream sheet with a strip of tape. Icon and name, the links, one line,
+   then the real app screen. */
+.poster {
+  position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas: "icon head" "acts acts" "desc desc" "shot shot";
+  align-items: center; gap: 14px 16px; padding: 24px 24px 22px;
+  background: linear-gradient(180deg, #fdfcf8, #f6f3ea);
+}
+.poster:not(:has(.poster-icon)) { grid-template-columns: 0 minmax(0, 1fr); column-gap: 0; }
+.poster::before { position: absolute; top: -1px; left: 50%; width: 64px; height: 15px; margin-left: -32px; border-radius: 1px; background: rgba(214, 203, 178, 0.7); content: ""; transform: rotate(-1.5deg); }
+.poster:focus-visible { outline: 3px solid var(--gold); outline-offset: -3px; }
+.poster-icon { grid-area: icon; width: 84px; height: 84px; border-radius: 19px; box-shadow: 0 6px 16px rgba(27, 24, 56, 0.25); }
+.poster-head { grid-area: head; display: flex; flex-direction: column; gap: 4px; min-width: 0; margin: 0; }
 .poster-tag { display: flex; align-items: baseline; gap: 10px; color: var(--muted); font-size: 13px; font-weight: 500; }
 .poster-n { color: var(--accent); font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
-.poster-name { font-family: var(--font-display); font-size: clamp(1.45rem, 2.5vw, 2.3rem); font-weight: 700; line-height: 1.04; letter-spacing: -0.03em; text-wrap: balance; }
-.poster-desc { max-width: 44ch; color: var(--ink-soft); line-height: 1.45; text-wrap: pretty; }
-.poster-go { color: var(--accent); font-weight: 600; }
-.stop .poster { height: auto; flex: none; }
+.poster-name { font-family: var(--font-display); font-size: clamp(1.6rem, 2.8vw, 2.7rem); font-weight: 700; line-height: 1.04; letter-spacing: -0.03em; text-wrap: balance; }
+.poster-acts { grid-area: acts; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin: 0; }
+.act { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; padding: 0 18px; border: 1px solid rgba(27, 24, 56, 0.35); border-radius: 999px; color: #1b1838; font-size: 15px; font-weight: 600; text-decoration: none; white-space: nowrap; transition: background-color 0.2s var(--ease), filter 0.2s var(--ease); }
+.act:hover { background: rgba(27, 24, 56, 0.06); }
+.act-main { border-color: var(--gold); background: var(--gold); }
+.act-main:hover { background: var(--gold); filter: brightness(1.06); }
+.act-req { flex-basis: 100%; color: var(--muted); font-size: 13px; }
+.poster-desc { grid-area: desc; max-width: 52ch; margin: 0; color: var(--ink-soft); font-size: 16px; line-height: 1.45; text-wrap: pretty; }
+.poster-shot { grid-area: shot; display: block; width: 100%; height: auto; border-radius: 10px; background: var(--night); box-shadow: 0 10px 26px rgba(27, 24, 56, 0.35); object-fit: cover; }
 
-/* Notes: night glass with cream type, a gold rule for the points. */
-.note { padding: 16px 18px 16px; border: 1px solid rgba(233, 196, 106, 0.28); border-radius: 4px; background: rgba(20, 26, 69, 0.72); color: var(--ink); font-size: 15px; line-height: 1.45; }
-.note-h { display: none; margin: 0 0 8px; font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; }
-.note-h .poster-n { margin-right: 10px; color: var(--gold); }
+/* The card's foot: night glass with cream type, a gold dot for each point. */
+.note { padding: 18px 24px 20px; border-top: 1px solid rgba(233, 196, 106, 0.28); background: var(--night-2); color: var(--ink); font-size: 15px; line-height: 1.45; }
 .note-what { margin: 0; font-weight: 600; text-wrap: pretty; }
 .note-for { margin: 8px 0 0; color: var(--muted); font-size: 14px; text-wrap: pretty; }
 .note-k { margin-right: 6px; color: var(--gold); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
 .note-pts { display: grid; gap: 6px; margin: 12px 0 0; padding: 0; list-style: none; color: var(--ink-soft); font-size: 14px; text-wrap: pretty; }
 .note-pts li { position: relative; padding-left: 16px; }
 .note-pts li::before { position: absolute; top: 0.62em; left: 0; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); content: ""; }
-.note-go { display: inline-block; margin-top: 12px; color: var(--gold); font-weight: 600; text-decoration: none; }
+.note-go { display: inline-flex; align-items: center; min-height: 44px; margin-top: 4px; color: var(--gold); font-weight: 600; text-decoration: none; }
 .note-go:hover { text-decoration: underline; }
-.note-go:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; border-radius: 2px; }
-/* Direct download (Pairy for Mac): one solid button, then the requirements in small type.
-   On the cream sheet it is dark green; on the night note it is gold. */
-.dl-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 20px; border-radius: 999px; background: var(--accent); color: #fdfcf8; font-weight: 600; text-decoration: none; white-space: nowrap; transition: filter 0.2s var(--ease); }
-.dl-btn:hover { filter: brightness(1.12); }
-.dl-btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
-.poster-has-dl .dl-btn { align-self: flex-start; margin-top: 6px; }
-.poster-req { color: var(--muted); font-size: 13px; }
-.poster-has-dl .poster-go { align-self: flex-start; text-decoration: none; }
-.poster-has-dl .poster-go:hover { text-decoration: underline; }
-.poster-has-dl .poster-go:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
-.note-dl { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin: 14px 0 0; }
-.note .dl-btn { background: var(--gold); color: var(--night); }
-.note .dl-btn:focus-visible { outline-color: var(--gold); }
-.note-req { color: var(--muted); font-size: 13px; }
-.note-install { margin: 8px 0 0; color: var(--ink-soft); font-size: 14px; text-wrap: pretty; }
-/* A note with nothing past the poster's own line stays hidden until the pinned view needs it. */
-.note-thin { display: none; }
 
 @media (max-width: 700px) {
   .walk-head h2 { font-size: clamp(2rem, 9vw, 2.6rem); }
   .walk-note { font-size: 16px; }
   .walk-stage { width: calc(100% - 40px); margin-top: var(--space-6); }
   .walk-end { width: calc(100% - 40px); }
-  .poster { padding: 18px 18px 16px; }
+  .poster { gap: 12px; padding: 18px 16px 16px; }
+  .poster-icon { width: 56px; height: 56px; border-radius: 13px; }
 }
 
-/* Live (motion allowed, screen tall enough): the stage pins and the products hang in one
-   row on a wall that slides left as you scroll. Each one gets a dwell (the wall rests there,
-   which works as a soft snap) and a short eased move to the next. The lit card settles to full
-   size and its note slides out beside it; the others wait smaller and dimmer. The script
-   writes transforms only: the wall's translateX and the progress fill's scaleX. */
+/* Live. The stage pins for the length of the scroller. Each app gets a dwell (its card rests
+   in front) and an eased change to the next: the card falls back and fades while the next
+   one rises from depth. The script writes each frame's transforms and opacities, Mimi's
+   walk-cycle frame and the bubble's fade. */
 @media (prefers-reduced-motion: no-preference) and (min-height: 560px) {
-  .js .walk {
-    --wall-x: max(48px, calc(50vw - 620px));
-    --stop-w: min(560px, calc(100vw - var(--wall-x) - 120px));
-    --top: max(112px, calc(50svh - 240px));
-  }
+  .js .walk { --wall-x: 20px; --mimi-h: 150px; }
   .js .walk-scroller { height: calc(100vh + 7 * 64vh); height: calc(100svh + 7 * 64svh); }
   .js .walk-stage { position: sticky; top: 0; display: block; width: 100%; height: 100vh; height: 100svh; margin: 0; overflow: clip; }
-  /* The wall starts at the page margin; a card moving off fades out at that edge. */
-  .js .walk-wall { position: absolute; top: 0; right: 0; bottom: 0; left: calc(var(--wall-x) - 32px); overflow: clip; -webkit-mask-image: linear-gradient(90deg, transparent, #000 32px); mask-image: linear-gradient(90deg, transparent, #000 32px); }
-  .js .walk-track { position: absolute; top: var(--top); left: 32px; display: flex; gap: 40px; align-items: flex-start; will-change: transform; }
-  .js .walk .stop { flex: none; width: var(--stop-w); opacity: 0.45; transform: scale(0.94); transform-origin: 0 0; transition: opacity 0.5s var(--ease), transform 0.5s var(--ease); }
-  .js .walk .stop.is-on { opacity: 1; transform: none; }
-  .js .walk .stop.is-past { opacity: 0; }
-  .js .walk .stop .poster { box-sizing: border-box; min-height: 200px; }
-  .js .walk .stop.is-on .poster::after, .js .walk .stop.is-on .poster::before { opacity: 1; }
-  .js .walk .note { margin-top: 16px; opacity: 0; visibility: hidden; transform: translateY(12px); transition: opacity 0.4s var(--ease), transform 0.5s var(--ease), visibility 0s linear 0.4s; }
-  .js .walk .stop.is-on .note { opacity: 1; visibility: visible; transform: none; transition-delay: 0.08s; }
+  .js .walk-track { position: absolute; display: block; perspective: 1100px; perspective-origin: 50% 45%; }
+  .js .walk .stop { position: absolute; top: 0; left: 0; width: 100%; opacity: 0; pointer-events: none; will-change: transform, opacity; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6); }
+  .js .walk .stop.is-on { pointer-events: auto; }
 
-  .walk-prog { position: absolute; right: var(--wall-x); bottom: 28px; left: var(--wall-x); display: flex; align-items: center; gap: 16px; color: var(--muted); font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
+  .walk-mimi { position: absolute; left: calc(var(--wall-x) - 4px); bottom: 52px; height: var(--mimi-h); aspect-ratio: 162 / 420; background: url("/assets/mimi-walk-front.webp") 0 0 / 1200% 100% no-repeat; }
+  .walk-mimi::after { position: absolute; left: 12%; right: 12%; bottom: -6px; height: 12px; border-radius: 50%; background: radial-gradient(closest-side, rgba(0, 0, 0, 0.55), transparent); content: ""; }
+  .walk-say { position: absolute; margin: 0; padding: 12px 16px; border-radius: 16px; background: #fdfcf8; color: #1b1838; font-size: 15px; font-weight: 600; line-height: 1.4; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); text-wrap: pretty; word-break: keep-all; }
+  .walk-say::before { display: block; margin-bottom: 4px; color: #7a5a12; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; content: "MIMI"; }
+  .walk-say::after { position: absolute; width: 16px; height: 16px; background: #fdfcf8; content: ""; transform: rotate(45deg); }
+
+  .walk-prog { position: absolute; right: var(--wall-x); bottom: 18px; left: var(--wall-x); display: flex; align-items: center; gap: 16px; color: var(--muted); font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
   .walk-prog-at { color: var(--gold); }
   .walk-prog-bar { position: relative; flex: 1; height: 2px; background: rgba(233, 196, 106, 0.22); }
   .walk-prog-fill { position: absolute; inset: 0; background: var(--gold); transform: scaleX(0); transform-origin: 0 50%; will-change: transform; }
@@ -1790,38 +1771,70 @@ html { touch-action: manipulation; }
   .walk-prog-dot.is-lit { background: var(--gold); }
 }
 
-/* Wide screens: the note sits beside its card as a detail panel and slides out from under it. */
-@media (prefers-reduced-motion: no-preference) and (min-height: 560px) and (min-width: 901px) {
-  .js .walk { --stop-w: min(980px, calc(100vw - 2 * var(--wall-x) - 120px)); --top: max(112px, calc(50svh - 160px)); }
-  .js .walk .stop { display: grid; grid-template-columns: 5fr 6fr; gap: 24px; align-items: stretch; }
-  /* No details yet: just the card, and the next one follows right after it. */
-  .js .walk .stop:has(.note-thin) { width: calc((var(--stop-w) - 24px) * 5 / 11); grid-template-columns: 1fr; }
-  .js .walk .stop .poster { min-height: 240px; }
-  .js .walk .note { align-self: start; margin-top: 0; transform: translateX(-24px); }
+/* Phones and narrow tablets: the card across the top, Mimi small at the bottom left with
+   her bubble beside her. The card keeps its points; the longer copy is in the static view. */
+@media (prefers-reduced-motion: no-preference) and (min-height: 560px) and (max-width: 900px) {
+  .js .walk-track { top: 76px; right: var(--wall-x); left: var(--wall-x); }
+  .js .walk .poster { grid-template-areas: "icon head" "desc desc" "shot shot" "acts acts"; }
+  .js .walk .note-what, .js .walk .note-for { display: none; }
+  .js .walk .note-pts { margin-top: 0; }
+  .js .walk .note { padding: 12px 16px 10px; }
+  .walk-say { right: var(--wall-x); bottom: calc(52px + var(--mimi-h) * 0.42); left: calc(var(--wall-x) + var(--mimi-h) * 0.386 + 12px); }
+  .walk-say::after { left: -6px; bottom: 18px; }
+}
+@media (prefers-reduced-motion: no-preference) and (min-height: 560px) and (max-height: 760px) and (max-width: 900px) {
+  .js .walk { --mimi-h: 110px; }
+  .walk-say { bottom: calc(52px + var(--mimi-h) * 0.12); }
+  .js .walk .note { display: none; }
+  .js .walk .poster-shot { max-height: 150px; }
 }
 
-/* Phones: one card at a time across the width, its note underneath. */
 @media (prefers-reduced-motion: no-preference) and (min-height: 560px) and (max-width: 700px) {
-  .js .walk { --wall-x: 20px; --stop-w: calc(100vw - 72px); --top: max(96px, calc(42svh - 200px)); }
-  .js .walk-track { gap: 16px; }
-  .js .walk .stop .poster { min-height: 0; }
-  .js .walk .note { margin-top: 12px; }
-  .walk-prog { right: 20px; bottom: 18px; left: 20px; }
+  .js .walk .poster-shot { max-height: 180px; }
 }
-/* Short phones: the note already says what the poster's line says, so the poster keeps
-   just its tag and name. */
-@media (prefers-reduced-motion: no-preference) and (min-height: 560px) and (max-height: 760px) and (max-width: 700px) {
-  .js .walk .stop .poster-body { display: none; }
-  .js .walk .note-thin { display: block; }
+@media (prefers-reduced-motion: no-preference) and (min-height: 900px) and (min-width: 701px) and (max-width: 900px) {
+  .js .walk { --wall-x: 32px; --mimi-h: 190px; }
+  .js .walk-track { top: 100px; }
+  .js .walk .poster-shot { max-height: 380px; }
 }
-/* Phones: the Pairy poster already carries the download button, requirements and App Store
-   link, so its note keeps only the install line. Short phones hide the poster body, so the
-   note takes the button back and drops the feature list to fit. */
-@media (prefers-reduced-motion: no-preference) and (min-height: 761px) and (max-width: 700px) {
-  .js .walk .note-dl, .js .walk .note:has(.note-dl) .note-go { display: none; }
+
+/* Wide screens: Mimi full height on the left with her bubble above her; one tall card to her
+   right, icon and name with the links beside them, the screen below, the details in two
+   columns underneath. */
+@media (prefers-reduced-motion: no-preference) and (min-height: 560px) and (min-width: 901px) {
+  .js .walk {
+    --wall-x: max(48px, calc(50vw - 620px));
+    --mimi-h: min(540px, calc(100svh - 300px));
+    --card-w: min(780px, calc(100vw - 2 * var(--wall-x) - 360px), max(560px, calc((100svh - 540px) * 1.74 + 56px)));
+  }
+  .js .walk-track { top: max(96px, calc(50svh - 380px)); left: calc(var(--wall-x) + 360px); width: var(--card-w); }
+  .js .walk .poster { grid-template-columns: 84px minmax(0, 1fr) auto; grid-template-areas: "icon head acts" "icon desc acts" "shot shot shot"; row-gap: 6px; padding: 26px 28px 22px; }
+  .js .walk .poster-icon { align-self: start; }
+  .js .walk .poster-head { align-self: end; }
+  .js .walk .poster-desc { align-self: start; font-size: 15px; }
+  .js .walk .poster-shot { margin-top: 12px; }
+  .js .walk .poster:not(:has(.poster-icon)) { grid-template-columns: 0 minmax(0, 1fr) auto; }
+  .js .walk .poster-acts { flex-direction: column; align-items: stretch; }
+  .js .walk .act-req { text-align: center; }
+  .js .walk .poster-shot { max-height: calc(100svh - 480px); }
+  .js .walk .note { display: grid; grid-template-columns: 1.05fr 1fr; column-gap: 24px; padding: 18px 28px 20px; }
+  .js .walk .note-what, .js .walk .note-for { grid-column: 1; }
+  .js .walk .note-pts { grid-column: 2; grid-row: 1 / span 2; align-content: start; margin: 0; }
+  .js .walk .note-go { grid-column: 2; justify-self: start; margin-top: 2px; min-height: 32px; }
+  .walk-mimi { left: calc(var(--wall-x) + 20px); bottom: 56px; }
+  .walk-say { left: calc(var(--wall-x) - 36px); bottom: calc(56px + var(--mimi-h) + 18px); width: 330px; padding: 14px 18px; font-size: 17px; }
+  .walk-say::after { left: 44px; bottom: -7px; }
+  .walk-prog { right: var(--wall-x); left: var(--wall-x); bottom: 28px; }
 }
-@media (prefers-reduced-motion: no-preference) and (min-height: 560px) and (max-height: 760px) and (max-width: 700px) {
-  .js .walk .note:has(.note-dl) ul { display: none; }
+/* Short laptop screens: the card keeps a usable width, so its foot shrinks to the points in
+   one row; the full copy stays in the static view and on each app's own page. */
+@media (prefers-reduced-motion: no-preference) and (min-height: 560px) and (max-height: 820px) and (min-width: 901px) {
+  .js .walk-track { top: 88px; }
+  .js .walk .note { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 22px; padding: 10px 28px 10px; }
+  .js .walk .note-what, .js .walk .note-for { display: none; }
+  .js .walk .note-pts { display: contents; }
+  .js .walk .note-go { min-height: 32px; margin: 0; }
+  .js .walk .poster-shot { max-height: calc(100svh - 420px); }
 }
 
 /* r7: night sky. The page is the X header's painted night: deep navy and violet, cream
@@ -1912,9 +1925,8 @@ html:lang(ko) .hero-sub { letter-spacing: 0.24em; }
 .card-badge { color: #121a44; }
 .footer-word { opacity: 0.1; }
 
-/* Walk: a violet wall with faint gold seams; cream posters keep their dark ink. */
+/* Walk: cream posters keep their dark ink. */
 .poster { --ink-soft: #3b3654; --muted: #5b5672; --accent: #7a5a12; color: #1b1838; }
-.poster:focus-visible { outline-color: var(--gold); }
 
 @media (max-width: 700px) {
   .dock .brand-word { display: inline; font-size: 12px; letter-spacing: 0.13em; }

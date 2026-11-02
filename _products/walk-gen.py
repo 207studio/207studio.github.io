@@ -20,44 +20,48 @@ def link_attrs(href):
     return f' href="{escape(href)}" target="_blank" rel="noopener"' if href.startswith("http") else f' href="{escape(href)}"'
 
 
+def href_for(target, lang):
+    return target.get("href_" + lang, target["href"])
+
+
 def stop(app, i, lang):
+    """One card: a cream sheet (icon, tag, name, actions, line, screenshot) over a night band
+    (what it is, who it is for, points). The sheet is a grid, so CSS alone moves the actions
+    below the screenshot on phones."""
     n = f"{i + 1:02d}"
-    name = escape(app["name"][lang])
-    note_id = f"walk-note-{i + 1}"
+    poster = []
+    if app.get("icon"):
+        poster.append(f'<img class="poster-icon" src="{app["icon"]}" width="84" height="84" alt="" loading="lazy" decoding="async">')
+    poster.append(f'<p class="poster-head"><span class="poster-tag"><span class="poster-n">{n}</span>{escape(app["tag"][lang])}</span>'
+                  f'<span class="poster-name">{escape(app["name"][lang])}</span></p>')
+    acts = []
     link = app.get("link")
-    href = link.get("href_" + lang, link["href"]) if link else None
-    head = (f'<span class="poster-head"><span class="poster-tag"><span class="poster-n">{n}</span>{escape(app["tag"][lang])}</span>'
-            f'<span class="poster-name">{name}</span></span>')
-    body = f'<span class="poster-body"><span class="poster-desc">{escape(app["line"][lang])}</span>'
+    if link:
+        acts.append(f'<a class="act act-main"{link_attrs(href_for(link, lang))}>{escape(link[lang])} <span aria-hidden="true">↗</span></a>')
     dl = DOWNLOADS[app["download"]] if app.get("download") else None
     if dl:
-        # Two links on one sheet, so the poster is a plain block rather than one big link.
-        go = f'<a class="poster-go"{link_attrs(href)}>{escape(link[lang])} <span aria-hidden="true">↗</span></a>' if link else ""
-        body += (f'<a class="dl-btn" href="{escape(dl["url"])}">{DL[lang]}</a>'
-                 f'<span class="poster-req">{escape(dl["requires"][lang])}</span>{go}</span>')
-        poster = f'<div class="poster poster-has-dl">{head}{body}</div>'
-    elif link:
-        body += f'<span class="poster-go">{escape(link[lang])} <span aria-hidden="true">↗</span></span></span>'
-        poster = f'<a class="poster"{link_attrs(href)}>{head}{body}</a>'
-    else:
-        body += "</span>"
-        poster = f'<div class="poster" tabindex="0" aria-describedby="{note_id}">{head}{body}</div>'
-    note = [f'<p class="note-h" aria-hidden="true"><span class="poster-n">{n}</span>{name}</p>',
-            f'<p class="note-what">{escape(app.get("what", app["line"])[lang])}</p>']
-    if app.get("for"):
-        note.append(f'<p class="note-for"><span class="note-k">{FOR[lang]}</span> {escape(app["for"][lang])}</p>')
-    if app.get("points"):
-        note.append('<ul class="note-pts">' + "".join(f"<li>{escape(p)}</li>" for p in app["points"][lang]) + "</ul>")
-    if dl:
-        note.append(f'<p class="note-dl"><a class="dl-btn" href="{escape(dl["url"])}">{DL[lang]}</a> <span class="note-req">{escape(dl["requires"][lang])}</span></p>')
-        note.append(f'<p class="note-install">{escape(dl["install"][lang])}</p>')
-    if link:
-        note.append(f'<a class="note-go"{link_attrs(href)}>{escape(link[lang])} <span aria-hidden="true">↗</span></a>')
+        acts.append(f'<a class="act" href="{escape(dl["url"])}">{DL[lang]}</a><span class="act-req">{escape(dl["requires"][lang])}</span>')
+    if acts:
+        poster.append(f'<p class="poster-acts">{"".join(acts)}</p>')
+    poster.append(f'<p class="poster-desc">{escape(app["line"][lang])}</p>')
+    shot = app.get("shot")
+    if shot:
+        poster.append(f'<img class="poster-shot" src="{shot["src"]}-1200.webp" srcset="{shot["src"]}-720.webp 720w, {shot["src"]}-1200.webp 1200w" '
+                      f'sizes="(max-width: 900px) calc(100vw - 72px), 724px" width="{shot["w"]}" height="{shot["h"]}" alt="{escape(shot["alt"][lang])}" loading="lazy" decoding="async">')
+    focus = "" if acts else ' tabindex="0"'
+    lines = [f'<div class="poster"{focus}>', *("  " + p for p in poster), "</div>"]
+    if app.get("what"):
+        note = [f'<p class="note-what">{escape(app["what"][lang])}</p>']
+        if app.get("for"):
+            note.append(f'<p class="note-for"><span class="note-k">{FOR[lang]}</span> {escape(app["for"][lang])}</p>')
+        if app.get("points"):
+            note.append('<ul class="note-pts">' + "".join(f"<li>{escape(p)}</li>" for p in app["points"][lang]) + "</ul>")
+        if app.get("page"):
+            note.append(f'<a class="note-go" href="{href_for(app["page"], lang)}">{escape(app["page"][lang])} <span aria-hidden="true">→</span></a>')
+        lines += ['<div class="note">', *("  " + p for p in note), "</div>"]
     on = " is-on" if i == 0 else ""
-    thin = "" if app.get("what") else " note-thin"
-    inner = "\n              ".join(note)
-    return (f'          <li class="stop{on}" data-stop>\n            {poster}\n'
-            f'            <div class="note{thin}" id="{note_id}">\n              {inner}\n            </div>\n          </li>\n')
+    inner = "".join(f"            {line}\n" for line in lines)
+    return f'          <li class="stop{on}" data-stop data-say="{escape(app["say"][lang])}">\n{inner}          </li>\n'
 
 
 def render(path, lang):
