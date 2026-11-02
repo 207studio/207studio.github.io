@@ -528,47 +528,6 @@ dd {
   line-height: 1;
 }
 
-/* Mimi: a rendered clay figure layered behind the draggable pieces */
-.mimi {
-  position: absolute;
-  right: 13%;
-  bottom: 0;
-  z-index: 1;
-  height: 100%;
-  aspect-ratio: 431 / 990;
-  pointer-events: none;
-  translate: var(--mimi-x, 0) var(--mimi-y, 0);
-  transition: translate 0.25s var(--ease);
-}
-
-.mimi img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.mimi::after {
-  position: absolute;
-  bottom: -1%;
-  left: 18%;
-  z-index: -1;
-  width: 70%;
-  height: 4.5%;
-  border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(45, 36, 26, 0.22), rgba(45, 36, 26, 0));
-  content: "";
-}
-
-@keyframes mimi-float {
-  0%, 100% { transform: translateY(-1.2%); }
-  50% { transform: translateY(-2.6%); }
-}
-
-@keyframes mimi-shadow {
-  0%, 100% { opacity: 1; transform: scaleX(1); }
-  50% { opacity: 0.75; transform: scaleX(0.92); }
-}
-
 /* Clay scene */
 .scene {
   position: absolute;
@@ -1410,12 +1369,6 @@ html:lang(ko) .eyebrow {
     min-height: 600px;
   }
 
-  .mimi {
-    top: 78px;
-    right: 4%;
-    bottom: auto;
-    height: 320px;
-  }
 
   .hero-stage::before {
     top: -4%;
@@ -1730,23 +1683,20 @@ html { touch-action: manipulation; }
   }
 }
 
-/* Walk with Mimi.
-   Static (no JS, or reduced motion): heading, Mimi standing, the seven posters in a grid,
-   each with its note underneath (what it is, who it is for, three points, a link).
-   Live (.js, motion allowed, tall enough): a pinned stage where the posters slide past Mimi
-   one at a time. See the block further down. */
+/* Walk.
+   Static (no JS, or reduced motion): heading, then the seven posters in a grid, each with
+   its note underneath (what it is, who it is for, three points, a link).
+   Live (.js, motion allowed, tall enough): a pinned stage where the posters slide by one at
+   a time. See the block further down. */
 .walk { position: relative; padding-block: clamp(64px, 9vw, 128px) 0; }
 .walk-head h2 { margin: 0; font-family: var(--font-display); font-size: clamp(2.25rem, 5vw, 4rem); font-weight: 700; line-height: 0.98; letter-spacing: -0.035em; text-wrap: balance; }
 .walk-note { max-width: 46ch; margin: var(--space-4) 0 0; color: var(--muted); font-size: 17px; line-height: 1.5; text-wrap: pretty; }
 
 .walk-scroller { position: relative; }
-.walk-stage { position: relative; width: min(1240px, calc(100% - 96px)); margin: var(--space-8) auto 0; display: grid; grid-template-columns: minmax(150px, 240px) 1fr; gap: var(--space-6); align-items: start; }
-.walk-track { grid-column: 2; grid-row: 1; margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-4); }
+.walk-stage { position: relative; width: min(1240px, calc(100% - 96px)); margin: var(--space-8) auto 0; }
+.walk-track { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-4); }
 .stop { display: flex; flex-direction: column; gap: var(--space-3); }
-.walker { grid-column: 1; grid-row: 1; position: sticky; top: 104px; }
-.walker-still { display: block; width: 100%; height: auto; }
-.walker-layer, .walker-say { display: none; }
-.walk-end { width: min(1240px, calc(100% - 96px)); margin: 0 auto; padding: var(--space-5) 0 0 calc(240px + var(--space-6)); }
+.walk-end { width: min(1240px, calc(100% - 96px)); margin: 0 auto; padding: var(--space-5) 0 0; }
 .walk-end-t { margin: 0; font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; }
 .walk-end-p { margin: var(--space-2) 0 var(--space-3); color: var(--muted); }
 
@@ -1788,49 +1738,36 @@ html { touch-action: manipulation; }
 @media (max-width: 700px) {
   .walk-head h2 { font-size: clamp(2rem, 9vw, 2.6rem); }
   .walk-note { font-size: 16px; }
-  .walk-stage { width: calc(100% - 40px); margin-top: var(--space-6); grid-template-columns: 1fr; }
-  .walk-track { grid-column: 1; grid-row: 2; }
-  .walker { position: static; grid-row: 1; width: 42%; max-width: 170px; }
-  .walk-end { width: calc(100% - 40px); padding-left: 0; }
+  .walk-stage { width: calc(100% - 40px); margin-top: var(--space-6); }
+  .walk-end { width: calc(100% - 40px); }
   .poster { padding: 18px 18px 16px; }
 }
 
-/* Live (motion allowed, screen tall enough): the stage pins and the posters hang in one row
-   on a wall that slides left as you scroll. Each poster gets a dwell (the wall rests there,
-   which works as a soft snap) and a short walk to the next. The script writes transforms
-   only: the wall's translateX, the progress fill's scaleX and Mimi's lean. */
+/* Live (motion allowed, screen tall enough): the stage pins and the products hang in one
+   row on a wall that slides left as you scroll. Each one gets a dwell (the wall rests there,
+   which works as a soft snap) and a short eased move to the next. The lit card settles to full
+   size and its note slides out beside it; the others wait smaller and dimmer. The script
+   writes transforms only: the wall's translateX and the progress fill's scaleX. */
 @media (prefers-reduced-motion: no-preference) and (min-height: 560px) {
   .js .walk {
-    --mimi-x: max(48px, calc(50vw - 620px));
-    --mimi-w: clamp(150px, 18vw, 220px);
-    --wall-x: calc(var(--mimi-x) + var(--mimi-w) + 56px);
-    --card-w: min(560px, calc(100vw - var(--wall-x) - 160px));
-    --poster-h: min(300px, 34svh);
-    --top: max(104px, calc(50svh - 300px));
+    --wall-x: max(48px, calc(50vw - 620px));
+    --stop-w: min(560px, calc(100vw - var(--wall-x) - 120px));
+    --top: max(112px, calc(50svh - 240px));
   }
   .js .walk-scroller { height: calc(100vh + 7 * 64vh); height: calc(100svh + 7 * 64svh); }
   .js .walk-stage { position: sticky; top: 0; display: block; width: 100%; height: 100vh; height: 100svh; margin: 0; overflow: clip; }
-  /* The wall ends just left of the lit poster, so a poster walking off fades out at that edge
-     instead of passing behind Mimi. */
+  /* The wall starts at the page margin; a card moving off fades out at that edge. */
   .js .walk-wall { position: absolute; top: 0; right: 0; bottom: 0; left: calc(var(--wall-x) - 32px); overflow: clip; -webkit-mask-image: linear-gradient(90deg, transparent, #000 32px); mask-image: linear-gradient(90deg, transparent, #000 32px); }
   .js .walk-track { position: absolute; top: var(--top); left: 32px; display: flex; gap: 40px; align-items: flex-start; will-change: transform; }
-  .js .walk .stop { flex: none; width: var(--card-w); opacity: 0.5; transition: opacity 0.45s var(--ease); }
-  .js .walk .stop.is-on { opacity: 1; }
+  .js .walk .stop { flex: none; width: var(--stop-w); opacity: 0.45; transform: scale(0.94); transform-origin: 0 0; transition: opacity 0.5s var(--ease), transform 0.5s var(--ease); }
+  .js .walk .stop.is-on { opacity: 1; transform: none; }
   .js .walk .stop.is-past { opacity: 0; }
-  .js .walk .stop .poster { height: var(--poster-h); box-sizing: border-box; overflow: hidden; }
+  .js .walk .stop .poster { box-sizing: border-box; min-height: 200px; }
   .js .walk .stop.is-on .poster::after, .js .walk .stop.is-on .poster::before { opacity: 1; }
-  .js .walk .note { margin-top: 18px; opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity 0.4s var(--ease), transform 0.4s var(--ease), visibility 0s linear 0.4s; }
-  .js .walk .stop.is-on .note { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+  .js .walk .note { margin-top: 16px; opacity: 0; visibility: hidden; transform: translateY(12px); transition: opacity 0.4s var(--ease), transform 0.5s var(--ease), visibility 0s linear 0.4s; }
+  .js .walk .stop.is-on .note { opacity: 1; visibility: visible; transform: none; transition-delay: 0.08s; }
 
-  /* Mimi stands at the left edge of the wall. Her feet follow the scroll (the script moves a
-     filmstrip of the 12 walk frames) and she leans the way the wall carries her. */
-  .js .walker { position: absolute; top: var(--top); left: var(--mimi-x); z-index: 2; width: var(--mimi-w); }
-  .js .walker-still { display: none; }
-  .js .walker-layer { position: relative; display: block; width: auto; height: min(calc(var(--mimi-w) * 420 / 162), calc(100svh - var(--top) - 80px)); aspect-ratio: 162 / 420; margin-inline: auto; overflow: hidden; transform-origin: 50% 100%; transition: transform 0.3s var(--ease); }
-  .js .walker-film { position: absolute; top: 0; left: 0; width: 1200%; height: 100%; background: 0 0 / 100% 100% no-repeat; transform: translateX(-83.3333%); will-change: transform; }
-  .js .walk.is-near .walker-film { background-image: url("/assets/mimi-walk-front.webp"); }
-
-  .walk-prog { position: absolute; right: var(--mimi-x); bottom: 28px; left: var(--wall-x); display: flex; align-items: center; gap: 16px; color: var(--muted); font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
+  .walk-prog { position: absolute; right: var(--wall-x); bottom: 28px; left: var(--wall-x); display: flex; align-items: center; gap: 16px; color: var(--muted); font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
   .walk-prog-at { color: var(--gold); }
   .walk-prog-bar { position: relative; flex: 1; height: 2px; background: rgba(233, 196, 106, 0.22); }
   .walk-prog-fill { position: absolute; inset: 0; background: var(--gold); transform: scaleX(0); transform-origin: 0 50%; will-change: transform; }
@@ -1838,15 +1775,22 @@ html { touch-action: manipulation; }
   .walk-prog-dot.is-lit { background: var(--gold); }
 }
 
-/* Phones: one poster at a time across the width, Mimi as a sticky chip naming the stop. */
+/* Wide screens: the note sits beside its card as a detail panel and slides out from under it. */
+@media (prefers-reduced-motion: no-preference) and (min-height: 560px) and (min-width: 901px) {
+  .js .walk { --stop-w: min(980px, calc(100vw - 2 * var(--wall-x) - 120px)); --top: max(112px, calc(50svh - 160px)); }
+  .js .walk .stop { display: grid; grid-template-columns: 5fr 6fr; gap: 24px; align-items: stretch; }
+  /* No details yet: just the card, and the next one follows right after it. */
+  .js .walk .stop:has(.note-thin) { width: calc((var(--stop-w) - 24px) * 5 / 11); grid-template-columns: 1fr; }
+  .js .walk .stop .poster { min-height: 240px; }
+  .js .walk .note { align-self: start; margin-top: 0; transform: translateX(-24px); }
+}
+
+/* Phones: one card at a time across the width, its note underneath. */
 @media (prefers-reduced-motion: no-preference) and (min-height: 560px) and (max-width: 700px) {
-  .js .walk { --wall-x: 20px; --card-w: calc(100vw - 72px); --poster-h: auto; --top: 142px; }
+  .js .walk { --wall-x: 20px; --stop-w: calc(100vw - 72px); --top: max(96px, calc(42svh - 200px)); }
   .js .walk-track { gap: 16px; }
+  .js .walk .stop .poster { min-height: 0; }
   .js .walk .note { margin-top: 12px; }
-  .js .walker { top: 76px; right: 20px; left: 20px; display: flex; align-items: center; gap: 10px; width: auto; padding: 4px 16px 4px 4px; box-shadow: 0 10px 24px rgba(4, 6, 20, 0.6); border: 1px solid rgba(233, 196, 106, 0.3); border-radius: 999px; background: var(--night); }
-  .js .walker-still { display: block; order: -1; width: 44px; height: 44px; border-radius: 50%; background: var(--paper-light); object-fit: cover; object-position: 50% 4%; transition: transform 0.3s var(--ease); }
-  .js .walker-layer { display: none; }
-  .js .walker-say { display: flex; align-items: baseline; gap: 8px; margin: 0; color: var(--ink); font-size: 15px; font-weight: 600; }
   .walk-prog { right: 20px; bottom: 18px; left: 20px; }
 }
 /* Short phones: the note already says what the poster's line says, so the poster keeps
@@ -1909,7 +1853,6 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 2px s
 .hero::after { position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(10, 14, 40, 0.84) 0%, rgba(10, 14, 40, 0.62) 34%, rgba(10, 14, 40, 0) 60%), linear-gradient(0deg, var(--night) 0%, rgba(13, 19, 51, 0) 16%); content: ""; pointer-events: none; }
 .hero-stage { cursor: auto; }
 .hero-stage::before, .hero-stage::after { display: none; }
-.mimi { visibility: hidden; }
 .wordmark { display: flex; flex-wrap: nowrap; gap: 0 0.5em; margin-top: clamp(24px, 6vh, 72px); padding-top: 0; font-family: "DM Sans", sans-serif; font-weight: 700; letter-spacing: 0.14em; line-height: 1; color: var(--ink); text-shadow: 0 2px 24px rgba(8, 10, 32, 0.45); white-space: nowrap; }
 .wm-207, .wm-studio, html:lang(ko) .wm-207, html:lang(ko) .wm-studio { display: inline; margin: 0; padding: 0; font-family: "DM Sans", sans-serif; font-size: clamp(56px, 7.2vw, 112px); letter-spacing: inherit; }
 .hero-sub { margin-top: clamp(14px, 1.6vw, 22px); padding-left: 0.2em; color: #efd9a0; font-family: "DM Sans", sans-serif; font-size: clamp(13px, 1.25vw, 18px); font-weight: 500; letter-spacing: 0.34em; text-transform: uppercase; }

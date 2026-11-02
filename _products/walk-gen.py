@@ -1,7 +1,7 @@
 """Render the home page walk (index.html, ko/index.html) from _products/apps.json.
 
 Usage: python3 _products/walk-gen.py
-Rewrites the <ol data-walk-track> list and the first name in the walker chip. Run it after
+Rewrites the <ol data-walk-track> list. Run it after
 any edit to apps.json, e.g. renaming an app.
 """
 import json
@@ -51,8 +51,6 @@ def render(path, lang):
     text = path.read_text(encoding="utf-8")
     items = "".join(stop(a, i, lang) for i, a in enumerate(APPS))
     text, k = re.subn(r'(<ol class="walk-track" data-walk-track>\n).*?(\s*</ol>)', lambda m: m.group(1) + items.rstrip("\n") + m.group(2), text, flags=re.S)
-    assert k == 1, path
-    text, k = re.subn(r"(<span data-walk-name>)[^<]*(</span>)", lambda m: m.group(1) + escape(APPS[0]["name"][lang]) + m.group(2), text)
     assert k == 1, path
     path.write_text(text, encoding="utf-8")
     print("wrote", path.relative_to(ROOT))

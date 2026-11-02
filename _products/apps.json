@@ -1,5 +1,5 @@
 {
-  "_readme": "The seven apps on the home page walk, in order. Run python3 _products/walk-gen.py after editing. Each app's name sits on one line (en + ko), so a rename is a one-line change. Facts come only from the repo, the site and the App Store. Anything marked TODO still needs facts from 유일 님.",
+  "_readme": "The seven apps on the home page walk, in order. Run python3 _products/walk-gen.py after editing. Each app's name sits on one line (en + ko), so a rename is a one-line change. Facts come only from the repo, the site and the App Store. Anything marked TODO still needs facts from the owners.",
   "apps": [
     {
       "id": "pairy",
@@ -29,13 +29,13 @@
     {
       "id": "checkyboard",
       "name": {"en": "CheckyBoard", "ko": "체키보드"},
-      "tag": {"en": "In development · Python", "ko": "개발 중 · Python"},
-      "line": {"en": "Exam authoring, grading and analysis in one workflow.", "ko": "시험 출제, 채점, 분석을 하나의 흐름으로."},
-      "what": {"en": "A Python-based application for exam authoring, grading and analysis, bringing related assessment tasks into one workflow.", "ko": "시험 출제, 채점, 분석을 하나의 흐름으로 묶는 Python 기반 프로그램입니다."},
-      "for": {"en": "people who write, grade and review exams.", "ko": "시험을 만들고 채점하고 분석하는 사람."},
+      "tag": {"en": "In development · Windows", "ko": "개발 중 · Windows"},
+      "line": {"en": "Check paper exams one question at a time.", "ko": "종이 시험을 문항별로 모아 보며 채점해요."},
+      "what": {"en": "A Windows app for checking paper exams one question at a time. You mark each answer right or wrong. The app handles the work around it.", "ko": "종이 시험을 문항별로 모아 보며 O/X로 체크하는 Windows 앱이에요. 판정은 사람이 하고, 그 앞뒤 일은 프로그램이 맡아요."},
+      "for": {"en": "teachers who grade paper exams.", "ko": "종이 시험을 채점하는 선생님."},
       "points": {
-        "en": ["Create and organize exam content", "Support the grading process", "Analyze assessment results"],
-        "ko": ["시험 문항 만들기와 정리", "채점 과정 지원", "평가 결과 분석"]
+        "en": ["Make answer sheets and split scans into a box per student and question", "Mark one question across the whole class, then move on", "Scores, item analysis and report cards"],
+        "ko": ["답안지를 만들고, 스캔본을 학생별·문항별 칸으로 나눠요", "한 문항을 반 전체에서 이어서 채점해요", "점수, 문항 분석, 성적 통지표"]
       }
     },
     {
@@ -49,21 +49,22 @@
     {
       "id": "stonewars",
       "name": {"en": "StoneWars", "ko": "스톤워즈"},
-      "tag": {"en": "In development · iPhone, iPad", "ko": "개발 중 · iPhone, iPad"},
-      "line": {"en": "Five-in-a-row where every stone is a small character.", "ko": "돌 하나하나가 캐릭터인 오목 게임."},
-      "what": {"en": "A five-in-a-row board game for iPhone and iPad, where every stone is a small character with its own look.", "ko": "아이폰과 아이패드에서 즐기는 오목 게임입니다. 돌 하나하나가 저마다 모습을 가진 작은 캐릭터입니다."},
+      "tag": {"en": "Coming soon · iPhone, iPad, Mac", "ko": "출시 준비 중 · iPhone, iPad, Mac"},
+      "line": {"en": "Five in a row, where every stone has a character.", "ko": "돌마다 캐릭터가 있는 오목 게임."},
+      "what": {"en": "A five-in-a-row game on a 15×15 board in 3D. Win with exactly five in a row or ten kills.", "ko": "15×15 입체 보드에서 두는 오목 게임이에요. 정확히 다섯 줄을 만들거나 열 번 처치하면 이겨요."},
       "points": {
-        "en": ["Classic five-in-a-row play", "Stone characters with their own style", "Built natively for iPhone and iPad"],
-        "ko": ["익숙한 오목 규칙", "저마다 개성 있는 돌 캐릭터", "아이폰·아이패드 전용으로 제작"]
+        "en": ["Eight stone classes, each with its own skill", "Seven worlds that change the board", "Two players on one device or against the built-in AI, no account"],
+        "ko": ["스킬이 다른 여덟 가지 병과", "보드가 달라지는 일곱 가지 세계", "한 기기에서 둘이, 또는 내장 AI와 대전. 계정 없이"]
       },
-      "todo": "TODO: who it is for, link or release status."
+      "todo": "TODO: who it is for.",
+      "link": {"href": "/stonewars/", "en": "About StoneWars", "ko": "스톤워즈 소개"}
     },
     {
       "id": "dekiduck",
       "name": {"en": "Deki Duck", "ko": "데키 덕"},
       "tag": {"en": "Coming soon", "ko": "준비 중"},
       "line": {"en": "More soon.", "ko": "곧 소개할게요."},
-      "todo": "TODO: what it is (one line), who it is for, 3 key points, link or status."
+      "todo": "TODO: what it is (one line), who it is for, 3 key points, link or status. Unconfirmed lead: the decky-duck repo name."
     },
     {
       "id": "ttoryeot",
