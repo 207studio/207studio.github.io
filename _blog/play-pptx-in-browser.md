@@ -78,8 +78,6 @@ Free options exist and they are real. [`@web-ppt/viewer-core`](https://www.npmjs
 
 Pick a free library when you have someone who can maintain it. A viewer is a moving target: PowerPoint adds effects, and every fix lands in your fork. Pick a one-time source licence when you would rather own the engine than the maintenance. The $999 figure is Aspose's own starting price, so check their current tier list before you put it in a budget.
 
-[PPTX Player SDK](https://207studio.dev/products/pptx-player-sdk/) is our client-side engine. It renders a deck to HTML and SVG and replays entrance, exit and emphasis effects, morph transitions and embedded media, offline, in a normal browser or a WebView. Full source is included, and the licence is one-time: $14 for one developer shipping it inside their own apps, $129 for a company where more than one person uses it, with priority email support. Neither tier lets you redistribute the source itself.
-
 ## FAQ
 
 **Can you play a PowerPoint file in a browser with its animations?**
@@ -96,10 +94,3 @@ A deck with a stray `&` in the text is repaired and plays normally. If the XML i
 
 **Are the free libraries enough?**
 They can be, if you are ready to maintain a fork. Check the animation and morph coverage in each README first, and test them with the five item deck above before you commit.
-
-**Which licence tier do I need?**
-Developer at $14 is one developer, and you can ship the player inside your own paid or free apps as bundled code. Commercial at $129 is for a company or organisation where more than one person uses it, and adds priority email support. Both include the full source. Neither lets you share the source itself.
-
----
-
-If you want to skip the fork, [start with the demo](https://207studio.dev/products/pptx-player-sdk/) and run the five minute test on the deck you already have. The other [developer kits and classroom tools](https://207studio.dev/products/) we sell work the same way: one-time purchase, source included, no subscription.

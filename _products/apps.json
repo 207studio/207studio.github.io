@@ -1,0 +1,76 @@
+{
+  "_readme": "The seven apps on the home page walk, in order. Run python3 _products/walk-gen.py after editing. Each app's name sits on one line (en + ko), so a rename is a one-line change. Facts come only from the repo, the site and the App Store. Anything marked TODO still needs facts from 유일 님.",
+  "apps": [
+    {
+      "id": "pairy",
+      "name": {"en": "Pairy", "ko": "Pairy"},
+      "tag": {"en": "On the App Store", "ko": "App Store"},
+      "line": {"en": "A live Mac screen on your iPad, with touch, keyboard and clipboard going back.", "ko": "Mac 화면을 iPad에 띄우고, 터치와 키보드, 클립보드를 다시 Mac으로 보냅니다."},
+      "what": {"en": "A remote desktop app for your tablet. See your computer screen and control it with touch, trackpad and keyboard.", "ko": "태블릿용 원격 데스크톱 앱이에요. 컴퓨터 화면을 보면서 터치, 트랙패드, 키보드로 조작해요."},
+      "for": {"en": "iPad, iPhone and Vision Pro owners with an Apple silicon Mac.", "ko": "Apple 실리콘 Mac과 iPad, iPhone, Vision Pro를 함께 쓰는 사람."},
+      "points": {
+        "en": ["Full HD streaming", "Touch, trackpad and keyboard input", "Encrypted connections between your devices"],
+        "ko": ["Full HD 스트리밍", "터치, 트랙패드, 키보드 입력", "기기 사이 암호화 연결"]
+      },
+      "link": {"href": "https://apps.apple.com/app/id6815584225", "en": "View on the App Store", "ko": "App Store에서 보기"}
+    },
+    {
+      "id": "chalkieboard",
+      "name": {"en": "Chalkieboard", "ko": "왵키보드"},
+      "tag": {"en": "In development · iPad", "ko": "개발 중 · iPad"},
+      "line": {"en": "An iPad app for classroom presentation and annotation.", "ko": "아이패드 수업·판서 앱."},
+      "what": {"en": "An iPad app for classroom presentation and annotation, designed around the materials teachers already use.", "ko": "선생님이 이미 쓰는 자료를 중심으로 설계한 아이패드 수업·판서 앱입니다."},
+      "for": {"en": "teachers who present lessons on an iPad.", "ko": "아이패드로 수업하는 선생님."},
+      "points": {
+        "en": ["Work with PPTX, PDF and HTML teaching materials", "Annotate while presenting a lesson", "Support teaching in English and Korean"],
+        "ko": ["PPTX, PDF, HTML 수업 자료 사용", "수업하면서 바로 판서", "영어·한국어 수업 지원"]
+      }
+    },
+    {
+      "id": "checkyboard",
+      "name": {"en": "CheckyBoard", "ko": "체키보드"},
+      "tag": {"en": "In development · Python", "ko": "개발 중 · Python"},
+      "line": {"en": "Exam authoring, grading and analysis in one workflow.", "ko": "시험 출제, 채점, 분석을 하나의 흐름으로."},
+      "what": {"en": "A Python-based application for exam authoring, grading and analysis, bringing related assessment tasks into one workflow.", "ko": "시험 출제, 채점, 분석을 하나의 흐름으로 묶는 Python 기반 프로그램입니다."},
+      "for": {"en": "people who write, grade and review exams.", "ko": "시험을 만들고 채점하고 분석하는 사람."},
+      "points": {
+        "en": ["Create and organize exam content", "Support the grading process", "Analyze assessment results"],
+        "ko": ["시험 문항 만들기와 정리", "채점 과정 지원", "평가 결과 분석"]
+      }
+    },
+    {
+      "id": "kiwi",
+      "name": {"en": "Cool Kiwi", "ko": "쿨 키위"},
+      "_name_note": "Working name, not final. Rename here (one line), then run walk-gen.py.",
+      "tag": {"en": "Messenger · working name", "ko": "메신저 · 가칭"},
+      "line": {"en": "A messenger app. More soon.", "ko": "메신저 앱이에요. 곧 소개할게요."},
+      "todo": "TODO: what it is (one line), who it is for, 3 key points, link or status."
+    },
+    {
+      "id": "stonewars",
+      "name": {"en": "StoneWars", "ko": "스톤워즈"},
+      "tag": {"en": "In development · iPhone, iPad", "ko": "개발 중 · iPhone, iPad"},
+      "line": {"en": "Five-in-a-row where every stone is a small character.", "ko": "돌 하나하나가 캐릭터인 오목 게임."},
+      "what": {"en": "A five-in-a-row board game for iPhone and iPad, where every stone is a small character with its own look.", "ko": "아이폰과 아이패드에서 즐기는 오목 게임입니다. 돌 하나하나가 저마다 모습을 가진 작은 캐릭터입니다."},
+      "points": {
+        "en": ["Classic five-in-a-row play", "Stone characters with their own style", "Built natively for iPhone and iPad"],
+        "ko": ["익숙한 오목 규칙", "저마다 개성 있는 돌 캐릭터", "아이폰·아이패드 전용으로 제작"]
+      },
+      "todo": "TODO: who it is for, link or release status."
+    },
+    {
+      "id": "dekiduck",
+      "name": {"en": "Deki Duck", "ko": "데키 덕"},
+      "tag": {"en": "Coming soon", "ko": "준비 중"},
+      "line": {"en": "More soon.", "ko": "곧 소개할게요."},
+      "todo": "TODO: what it is (one line), who it is for, 3 key points, link or status."
+    },
+    {
+      "id": "ttoryeot",
+      "name": {"en": "또렷", "ko": "또렷"},
+      "tag": {"en": "HWP viewer", "ko": "HWP 뷰어"},
+      "line": {"en": "An HWP viewer. View only.", "ko": "HWP 문서 뷰어. 보기 전용이에요."},
+      "todo": "TODO: English name, who it is for, platform, 3 key points, link or status."
+    }
+  ]
+}

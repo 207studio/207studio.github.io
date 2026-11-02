@@ -131,15 +131,15 @@
 })();
 
 /* Walk with Mimi. The grid stays put; scroll lights one poster at a time.
-   Steps come from five invisible sentinels and one IntersectionObserver watching the line
+   Steps come from one invisible sentinel per poster and one IntersectionObserver watching the line
    across the middle of the viewport. Pinned (wide and tall, set in CSS): the sentinels split
-   the scroller's extra height into five. Otherwise they split the poster list. Reduced
+   the scroller's extra height evenly. Otherwise they split the poster list. Reduced
    motion keeps the static grid with every note showing. */
 (function () {
   var section = document.querySelector("[data-walk]");
   if (!section || !("IntersectionObserver" in window)) return;
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
-  var pinned = window.matchMedia("(prefers-reduced-motion: no-preference) and (min-width: 1180px) and (min-height: 700px)");
+  var pinned = window.matchMedia("(prefers-reduced-motion: no-preference) and (min-width: 1180px) and (min-height: 820px)");
   var scroller = section.querySelector("[data-walk-scroller]");
   var stage = section.querySelector("[data-walk-stage]");
   var track = section.querySelector("[data-walk-track]");
@@ -196,7 +196,7 @@
   }
 
   // Pinned: the stage sticks while the middle line runs from half a screen into the
-  // scroller to half a screen before its end; that run is split in five.
+  // scroller to half a screen before its end; that run is split evenly.
   function place() {
     var n = stops.length;
     if (pinned.matches) {

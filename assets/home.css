@@ -1732,10 +1732,10 @@ html { touch-action: manipulation; }
 }
 
 /* Walk with Mimi.
-   Static (no JS, or reduced motion): heading, Mimi standing, the five posters in a grid,
+   Static (no JS, or reduced motion): heading, Mimi standing, the seven posters in a grid,
    each with its note underneath (what it is, who it is for, three points, a link).
-   Live (.js, motion allowed): the same grid. On wide, tall screens the stage pins for five
-   steps; the lit poster lifts, the rest dim, and the note fills the free cell after poster 05.
+   Live (.js, motion allowed): the same grid. On wide, tall screens the stage pins for seven
+   steps; the lit poster lifts, the rest dim, and the note fills the free cells after poster 07.
    Narrower screens keep every note under its poster and light one step at a time; phones
    get a small sticky Mimi. Steps come from IntersectionObserver; only transform, opacity
    and filter change. */
@@ -1814,15 +1814,18 @@ html { touch-action: manipulation; }
   .js .walker-layer { background: url("/assets/mimi-walk-front.webp") 90.9091% 0 / 1200% 100% no-repeat; }
 }
 
-/* Pinned: wide and tall enough for the 3 + 2 grid and a note in the free cell. */
-@media (prefers-reduced-motion: no-preference) and (min-width: 1180px) and (min-height: 700px) {
-  .js .walk-scroller { height: calc(100vh + 5 * 64vh); height: calc(100svh + 5 * 64svh); }
-  .js .walk-stage { position: sticky; top: 0; height: 100vh; height: 100svh; margin-top: 0; padding-top: 112px; box-sizing: border-box; align-content: start; }
-  .js .walker { position: relative; top: auto; }
-  .js .walk-track { position: relative; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: 1fr; }
-  .js .walk .stop { display: block; }
-  .js .walk .stop .poster { height: 100%; }
-  .js .walk .note { position: absolute; top: calc(50% + var(--space-4) / 2); left: calc((100% - 2 * var(--space-4)) * 2 / 3 + 2 * var(--space-4)); width: calc((100% - 2 * var(--space-4)) / 3); box-sizing: border-box; padding: 18px 20px; opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity 0.4s var(--ease), transform 0.4s var(--ease), visibility 0s linear 0.4s; }
+/* Pinned: wide and tall enough for the 3 + 3 + 1 grid, with the note in the two free
+   cells after poster 07: what it is on the left, the points on the right. */
+@media (prefers-reduced-motion: no-preference) and (min-width: 1180px) and (min-height: 820px) {
+  .js .walk-scroller { height: calc(100vh + 7 * 56vh); height: calc(100svh + 7 * 56svh); }
+  .js .walk-stage { position: sticky; top: 0; height: 100vh; height: 100svh; margin-top: 0; padding: 104px 0 32px; box-sizing: border-box; grid-template-rows: minmax(0, 1fr); align-items: stretch; }
+  .js .walker { position: relative; top: auto; align-self: start; }
+  .js .walk-track { position: relative; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(3, minmax(0, 1fr)); }
+  .js .walk .stop { display: block; min-height: 0; }
+  .js .walk .stop .poster { height: 100%; box-sizing: border-box; }
+  .js .walk .note { position: absolute; top: calc((100% - 2 * var(--space-4)) * 2 / 3 + 2 * var(--space-4)); left: calc((100% - 2 * var(--space-4)) / 3 + var(--space-4)); width: calc((100% - 2 * var(--space-4)) * 2 / 3 + var(--space-4)); height: calc((100% - 2 * var(--space-4)) / 3); box-sizing: border-box; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-auto-rows: min-content; column-gap: 28px; align-content: start; padding: 18px 22px; overflow: hidden; opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity 0.4s var(--ease), transform 0.4s var(--ease), visibility 0s linear 0.4s; }
+  .js .walk .note > * { grid-column: 1; }
+  .js .walk .note .note-pts { grid-column: 2; grid-row: 1 / span 4; align-content: start; margin-top: 4px; }
   .js .walk .stop.is-on .note { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
   .js .walk .note-h { display: block; }
 }
