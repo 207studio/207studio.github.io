@@ -10,6 +10,8 @@
  },
  "products": [
   {
+   "ko_name": "PPTX Player SDK",
+   "ko_summary": "브라우저에서 PowerPoint를 애니메이션까지 재생하는 클라이언트 사이드 엔진.",
    "slug": "pptx-player-sdk",
    "name": "PPTX Player SDK – Play PowerPoint in the Browser",
    "audience": "developers",
@@ -115,6 +117,9 @@
    "badge": null
   },
   {
+   "ko_name": "PairyCore SDK",
+   "ko_summary": "Mac 화면을 iPad로 스트리밍하는 Swift 패키지.",
+   "lastmod": "2026-10-30",
    "slug": "pairy-core-sdk",
    "name": "PairyCore SDK: Mac-to-iPad Screen Streaming",
    "audience": "developers",
@@ -203,6 +208,8 @@
    "badge": null
   },
   {
+   "ko_name": "Scan-to-Grade",
+   "ko_summary": "QR Cropper와 OMR Auto-Grader를 묶은 Python 패키지.",
    "slug": "scan-to-grade-bundle",
    "name": "Scan-to-Grade: Scanned Exams to Excel (Python)",
    "audience": "developers",
@@ -316,6 +323,8 @@
    "badge": "Save $19"
   },
   {
+   "ko_name": "OMR Auto-Grader",
+   "ko_summary": "스캔한 답안지의 버블, O/X, 동그라미 답안을 읽는 Python OMR.",
    "slug": "omr-auto-grader",
    "name": "OMR Auto-Grader – Bubbles, O/X, Circled Answers",
    "audience": "developers",
@@ -430,6 +439,8 @@
    "badge": null
   },
   {
+   "ko_name": "QR Answer-Sheet Cropper",
+   "ko_summary": "답안지 QR로 페이지를 찾고 답안 칸마다 잘라내는 Python 도구.",
    "slug": "qr-cropper",
    "name": "QR Answer-Sheet Cropper – Crop Every Answer Box",
    "audience": "developers",
@@ -535,6 +546,8 @@
    "badge": null
   },
   {
+   "ko_name": "Context-Gated Voice Commands",
+   "ko_summary": "상황에 맞는 음성 명령만 통과시키는 Rust 라이브러리와 CLI.",
    "slug": "voice-command-engine",
    "name": "Context-Gated Voice Commands – Offline",
    "audience": "developers",
@@ -635,6 +648,8 @@
    "badge": null
   },
   {
+   "ko_name": "ShapeFit",
+   "ko_summary": "손으로 그린 획을 깔끔한 도형으로 바꾸는 Swift와 Rust 도구.",
    "slug": "shapefit",
    "name": "ShapeFit – Hold-to-Shape for Swift & Rust",
    "audience": "developers",
@@ -730,6 +745,8 @@
    "badge": null
   },
   {
+   "ko_name": "Exam + OMR Sheet Builder",
+   "ko_summary": "시험지, OMR 답안지, 정답지, 해설지, 표지를 한 번에 만드는 도구.",
    "slug": "exam-sheet-builder",
    "name": "Exam + OMR Sheet Builder – Paper, Sheet & Key",
    "audience": "teachers",
@@ -826,6 +843,8 @@
    "badge": null
   },
   {
+   "ko_name": "Offline Classroom Tools",
+   "ko_summary": "자리 배치, 아침 게시판, PACER 기록, Wi-Fi QR 카드가 든 HTML 파일 네 개.",
    "slug": "classroom-html-tools",
    "name": "Offline Classroom Tools – Seating, PACER Timer",
    "audience": "teachers",
@@ -922,11 +941,15 @@
    "badge": null
   },
   {
+   "ko_name": "Send Approval Gate MCP",
+   "ko_summary": "AI 에이전트가 한 번만 보내고 확인하게 만드는 MCP 서버.",
+   "llms_detail": "Node.js 22+ MCP server (stdio) with six tools: status, account, contacts, plan-send, send and verify-send. The approval binds plan ID, account, recipient, message SHA-256, backend and environment hash. Duplicate sends are blocked, an uncertain result becomes result_unknown and is never retried, and every step goes to a local ledger with crash recovery. 47 tests, no npm dependencies.",
    "slug": "send-approval-gate-mcp",
    "name": "Send Approval Gate MCP: Plan, Approve, Send, Verify",
    "audience": "developers",
    "title": "Send Approval Gate MCP: Plan, Approve, Send, Verify",
    "description": "MCP server that makes an AI agent plan, get an exact hash-bound approval, send once and verify. Node.js 22+, no dependencies. One-time purchase, source included.",
+   "meta_description": "MCP server that makes an AI agent plan, get an exact hash-bound approval, send once and verify. Node.js 22+, no dependencies. One-time purchase, source.",
    "summary": "An MCP server that makes an AI agent plan, present an exact hash-bound approval, send once and verify, and records every step.",
    "what": "Send Approval Gate MCP is a Node.js 22+ MCP server (stdio) with six tools: status, account, contacts, plan-send, send and verify-send. The approval binds plan ID, account, recipient, message SHA-256, backend and environment hash, so any change needs a new approval. Duplicate sends are blocked, an uncertain result becomes result_unknown and is never retried, and every step goes to a local ledger with crash recovery. You attach your own channel through a small backend plugin contract; a mock backend and example plugin are included. 47 tests, no npm dependencies. It keeps a cooperative agent's sends exact, single and auditable; it is not a security boundary against an agent you do not trust.",
    "quickstart": [

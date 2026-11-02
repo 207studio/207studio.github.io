@@ -53,9 +53,35 @@ struct Product {
     category: String,
     related: Vec<String>,
     tier_note: Option<String>,
+    // <meta> description when the page's head says something shorter than the JSON-LD description.
+    meta_description: Option<String>,
+    // Sitemap lastmod when this page changed after last_updated.
+    lastmod: Option<String>,
+    // Short name and summary for the 한국어 list in llms.txt.
+    ko_name: Option<String>,
+    ko_summary: Option<String>,
+    // llms-full.txt paragraph when it differs from description.
+    llms_detail: Option<String>,
     upsell: Option<Upsell>,
     includes: Option<Includes>,
     badge: Option<String>,
+}
+
+// _blog/posts.json, shared with blog-gen.mjs.
+#[derive(Deserialize)]
+struct Post {
+    slug: String,
+    title: String,
+    description: String,
+    date: String,
+    lastmod: Option<String>,
+}
+
+// Hand-written text of llms.txt and llms-full.txt, with {{...}} slots the generator fills.
+struct Sources {
+    posts: Vec<Post>,
+    llms: String,
+    llms_full: String,
 }
 
 #[derive(Deserialize)]
@@ -108,7 +134,12 @@ fn main() {
         Err(err) => die(&format!("invalid site data in {data_path}: {err}")),
     };
 
-    if let Err(err) = generate(&data, &site_root) {
+    let sources = match load_sources(Path::new(data_path)) {
+        Ok(sources) => sources,
+        Err(err) => die(&err),
+    };
+
+    if let Err(err) = generate(&data, &sources, &site_root) {
         die(&err);
     }
 }
@@ -118,16 +149,33 @@ fn die(message: &str) -> ! {
     process::exit(1);
 }
 
-fn generate(data: &SiteData, root: &Path) -> Result<(), String> {
+// Paths are relative to site-data.json: templates/ next to it, _blog/ one level up.
+fn load_sources(data_path: &Path) -> Result<Sources, String> {
+    let dir = data_path.parent().unwrap_or(Path::new("."));
+    let read = |path: PathBuf| {
+        fs::read_to_string(&path).map_err(|err| format!("cannot read {}: {err}", path.display()))
+    };
+    let posts_path = dir.join("../_blog/posts.json");
+    let posts = serde_json::from_str(&read(posts_path.clone())?)
+        .map_err(|err| format!("invalid {}: {err}", posts_path.display()))?;
+    Ok(Sources {
+        posts,
+        llms: read(dir.join("templates/llms.txt"))?,
+        llms_full: read(dir.join("templates/llms-full.txt"))?,
+    })
+}
+
+fn generate(data: &SiteData, sources: &Sources, root: &Path) -> Result<(), String> {
     write_file(root, "products/index.html", &render_listing(data)?)?;
     for product in &data.products {
         let path = format!("products/{}/index.html", product.slug);
         write_file(root, &path, &render_product(data, product)?)?;
     }
     write_file(root, "products/products.css", CSS)?;
-    write_file(root, "sitemap.xml", &render_sitemap(data))?;
+    write_file(root, "sitemap.xml", &render_sitemap(data, &sources.posts))?;
     write_file(root, "robots.txt", &render_robots(data))?;
-    write_file(root, "llms.txt", &render_llms(data))?;
+    write_file(root, "llms.txt", &render_llms(data, sources)?)?;
+    write_file(root, "llms-full.txt", &render_llms_full(data, sources)?)?;
     Ok(())
 }
 
@@ -605,7 +653,7 @@ fn render_product(data: &SiteData, product: &Product) -> Result<String, String> 
     let mut out = head(
         data,
         &product.title,
-        &product.description,
+        product.meta_description.as_deref().unwrap_or(&product.description),
         &canonical,
         &product.image_jpg,
     );
@@ -736,59 +784,142 @@ fn render_product(data: &SiteData, product: &Product) -> Result<String, String> 
     Ok(out)
 }
 
-fn render_sitemap(data: &SiteData) -> String {
-    let mut locations = vec![
-        format!("{}/", data.base_url),
-        canonical_products(&data.base_url),
-        format!("{}/legal/terms/", data.base_url),
-        format!("{}/legal/privacy/", data.base_url),
-        format!("{}/legal/refunds/", data.base_url),
+fn render_sitemap(data: &SiteData, posts: &[Post]) -> String {
+    let base = &data.base_url;
+    let updated = data.last_updated.as_str();
+    let product_lastmod = |product: &Product| product.lastmod.as_deref().unwrap_or(updated).to_string();
+    let mut entries: Vec<(String, String)> = vec![
+        (format!("{base}/"), updated.to_string()),
+        (canonical_products(base), updated.to_string()),
     ];
     for product in &data.products {
-        locations.push(canonical_product(&data.base_url, &product.slug));
+        entries.push((canonical_product(base, &product.slug), product_lastmod(product)));
+    }
+    entries.push((format!("{base}/blog/"), updated.to_string()));
+    for post in posts {
+        let lastmod = post.lastmod.as_deref().unwrap_or(&post.date);
+        entries.push((format!("{base}/blog/{}/", post.slug), lastmod.to_string()));
+    }
+    for page in ["legal/terms/", "legal/privacy/", "legal/refunds/", "about/", "ko/", "ko/products/"] {
+        entries.push((format!("{base}/{page}"), updated.to_string()));
+    }
+    for product in &data.products {
+        entries.push((format!("{base}/ko/products/{}/", product.slug), product_lastmod(product)));
+    }
+    for page in ["ko/about/", "ko/blog/"] {
+        entries.push((format!("{base}/{page}"), updated.to_string()));
     }
 
     let mut out = String::from(
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n",
     );
-    let lastmod = esc(&data.last_updated);
-    for location in locations {
+    for (location, lastmod) in entries {
         out.push_str(&format!(
-            "<url><loc>{}</loc><lastmod>{lastmod}</lastmod></url>\n",
-            esc(&location)
+            "<url><loc>{}</loc><lastmod>{}</lastmod></url>\n",
+            esc(&location),
+            esc(&lastmod)
         ));
     }
     out.push_str("</urlset>\n");
     out
 }
 
-fn render_llms(data: &SiteData) -> String {
-    let mut out = String::from(
-        "# 207 Studio\n\n> Developer kits and classroom tools from 207 Studio (207studio.dev), South Korea. One-time purchase, full source.\n\n## Products\n\n",
-    );
+fn prices(product: &Product) -> String {
+    product
+        .tiers
+        .iter()
+        .map(|tier| format!("{} ${}", tier.name, tier.price_usd))
+        .collect::<Vec<_>>()
+        .join(" / ")
+}
+
+fn fill(template: &str, name: &str, slot: &str, value: &str) -> Result<String, String> {
+    if !template.contains(slot) {
+        return Err(format!("templates/{name} has no {slot}"));
+    }
+    Ok(template.replacen(slot, value, 1))
+}
+
+fn render_llms(data: &SiteData, sources: &Sources) -> Result<String, String> {
+    let mut products = String::new();
+    let mut korean = String::new();
     for product in &data.products {
-        let prices = product
-            .tiers
-            .iter()
-            .map(|tier| format!("{} ${}", tier.name, tier.price_usd))
-            .collect::<Vec<_>>()
-            .join(" / ");
-        out.push_str(&format!(
+        // Same line shape as check_llms.py, which CI runs against llms.txt.
+        products.push_str(&format!(
             "- [{}]({}): {} Prices: {}.\n",
             product.name,
             canonical_product(&data.base_url, &product.slug),
             product.summary,
-            prices
+            prices(product)
+        ));
+        let (Some(ko_name), Some(ko_summary)) = (&product.ko_name, &product.ko_summary) else {
+            return Err(format!("{}: ko_name and ko_summary are needed for llms.txt", product.slug));
+        };
+        korean.push_str(&format!(
+            "- [{ko_name}]({}/ko/products/{}/): {ko_summary} {}.\n",
+            data.base_url,
+            product.slug,
+            prices(product)
         ));
     }
-    out
+    let mut writing = String::new();
+    for post in &sources.posts {
+        writing.push_str(&format!(
+            "- [{}]({}/blog/{}/): {}\n",
+            post.title, data.base_url, post.slug, post.description
+        ));
+    }
+    let out = fill(&sources.llms, "llms.txt", "{{products}}", &products)?;
+    let out = fill(&out, "llms.txt", "{{writing}}", &writing)?;
+    fill(&out, "llms.txt", "{{ko_products}}\n", &korean)
 }
 
+fn render_llms_full(data: &SiteData, sources: &Sources) -> Result<String, String> {
+    let mut blocks = String::new();
+    for product in &data.products {
+        blocks.push_str(&format!(
+            "## {}\n\nURL: {}\n\n{}\n\n{}\n\nTiers (USD, one-time):\n",
+            product.title,
+            canonical_product(&data.base_url, &product.slug),
+            product.summary,
+            product.llms_detail.as_deref().unwrap_or(&product.description)
+        ));
+        for tier in &product.tiers {
+            blocks.push_str(&format!("- {}: ${} - buy: {}\n", tier.name, tier.price_usd, tier.url));
+        }
+        blocks.push('\n');
+        if let Some(note) = &product.tier_note {
+            blocks.push_str(&format!("{note}\n\n"));
+        }
+        if product.includes.is_some() {
+            // The committed llms-full.txt lists the field names, not the items. Kept byte-identical
+            // on purpose; fix here and in llms-full.txt together.
+            blocks.push_str("Includes:\n- text\n- links\n\n");
+        }
+    }
+    fill(&sources.llms_full, "llms-full.txt", "{{products}}", &blocks)
+}
+
+const AI_CRAWLERS: [&str; 10] = [
+    "GPTBot",
+    "OAI-SearchBot",
+    "ChatGPT-User",
+    "ClaudeBot",
+    "Claude-User",
+    "PerplexityBot",
+    "Perplexity-User",
+    "Google-Extended",
+    "Applebot-Extended",
+    "xAI-Bot",
+];
+
 fn render_robots(data: &SiteData) -> String {
-    format!(
-        "User-agent: *\nAllow: /\n\nSitemap: {}/sitemap.xml\n",
-        data.base_url
-    )
+    let mut out = String::from("User-agent: *\nAllow: /\n\nUser-agent: Bingbot\nAllow: /\n\n# AI search and assistant crawlers are welcome.\n");
+    for bot in AI_CRAWLERS {
+        out.push_str(&format!("User-agent: {bot}\nAllow: /\n"));
+    }
+    out.push_str(&format!("\nSitemap: {}/sitemap.xml\n", data.base_url));
+    out
 }
 
 const CSS: &str = ":root{--bg:#fafbf8;--ink:#102b32;--muted:#52646a;--line:#d6dedb;--lime:#d5f66b}

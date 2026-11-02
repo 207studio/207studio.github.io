@@ -1,7 +1,7 @@
 // Blog generator for 207studio.dev
 // Usage (from the repo root): node _products/blog-gen.mjs
 // Reads: _products/site-data.json, _blog/posts.json, _blog/<slug>.md
-// Writes: blog/index.html, blog/<slug>/index.html, blog/blog.css, sitemap.xml, llms.txt
+// Writes: blog/index.html, blog/<slug>/index.html, blog/blog.css
 // Markdown subset: #, ##, ###, paragraphs, - lists, | tables |, ``` code, > quote, --- hr,
 // **bold**, `code`, [text](url). No raw HTML passthrough.
 
@@ -354,38 +354,7 @@ ${footer(`${BASE}/ko/blog/`)}
 written.push(write('blog/index.html', listPage));
 written.push(write('blog/blog.css', CSS));
 
-// sitemap: home + products + blog, same shape as the Rust generator
-const locations = [`${BASE}/`, `${BASE}/products/`];
-for (const product of data.products) locations.push(`${BASE}/products/${product.slug}/`);
-const sitemap = [`<?xml version="1.0" encoding="UTF-8"?>`, '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'];
-for (const location of locations) {
-  sitemap.push(`<url><loc>${esc(location)}</loc><lastmod>${esc(data.last_updated)}</lastmod></url>`);
-}
-sitemap.push(`<url><loc>${esc(`${BASE}/blog/`)}</loc><lastmod>${esc(data.last_updated)}</lastmod></url>`);
-for (const post of posts) {
-  sitemap.push(`<url><loc>${esc(`${BASE}/blog/${post.slug}/`)}</loc><lastmod>${esc(post.date)}</lastmod></url>`);
-}
-sitemap.push('</urlset>', '');
-written.push(write('sitemap.xml', sitemap.join('\n')));
-
-// llms.txt: products plus a Writing section
-const llms = [
-  '# 207 Studio',
-  '',
-  '> Developer kits and classroom tools from 207 Studio (207studio.dev), South Korea. One-time purchase, full source.',
-  '',
-  '## Products',
-  '',
-];
-for (const product of data.products) {
-  llms.push(`- [${product.name}](${BASE}/products/${product.slug}/): ${product.summary}`);
-}
-llms.push('', '## Writing', '');
-for (const post of posts) {
-  llms.push(`- [${post.title}](${BASE}/blog/${post.slug}/): ${post.description}`);
-}
-llms.push('');
-written.push(write('llms.txt', llms.join('\n')));
+// sitemap.xml, llms.txt and llms-full.txt come from the Rust generator (_products/gen), which reads _blog/posts.json too.
 
 console.log(`posts: ${posts.length}`);
 for (const r of rendered) console.log(`  ${r.post.slug}: h1="${r.h1}" faq=${r.faq.length}`);
