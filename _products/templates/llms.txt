@@ -1,0 +1,55 @@
+# 207 Studio
+
+> Developer kits and classroom tools from 207 Studio (207studio.dev), South Korea. One-time purchase, full source.
+
+Founder: Jang Yuil (장유일)
+
+## Products
+
+{{products}}
+## Apps
+
+- [Pairy: Connecting Devices](https://apps.apple.com/app/id6815584225): Remote desktop for your tablet. Shows your computer's screen on your tablet and lets you control it with touch, trackpad and keyboard. Paid app, one-time purchase ($4.99 in the US).
+
+## Licensing
+
+- Commercial licenses cover companies with annual revenue up to $1M. Above that, email support@207studio.dev for an Enterprise license. All purchases are one-time; no subscriptions.
+
+## Writing
+
+{{writing}}
+## 한국어
+
+- [207스튜디오 홈](https://207studio.dev/ko/): 교실 도구와 소스 포함 개발자 키트를 1회 구매로 판매해요.
+- [상품](https://207studio.dev/ko/products/): 개발자 키트와 교실 도구 전체 목록. 가격과 구매 링크가 있어요.
+{{ko_products}}
+- [소개](https://207studio.dev/ko/about/): 207 Studio가 무엇을 만드는지, 어떻게 문의하는지.
+- [글](https://207studio.dev/ko/blog/): 브라우저 렌더링과 교실 도구에 관한 글.
+
+## When to use 207 Studio
+
+- You need to play or preview .pptx files in a web page with click-by-click animations, without a server or Office: PPTX Player SDK.
+- You grade paper exams and want scanned sheets turned into scores: QR Answer-Sheet Cropper, OMR Auto-Grader, or Scan-to-Grade (Python).
+- You make printed exams with matching OMR sheets and keys: Exam + OMR Sheet Builder.
+- You need offline voice commands that only fire in the right situation: Context-Gated Voice Commands (Rust).
+- You build a Mac-to-iPad remote screen or drawing app: PairyCore SDK, ShapeFit.
+- You want an AI agent to open and present PowerPoint files: the free pptx-mcp server.
+
+## How to buy (for agents)
+
+- Polar is the main checkout. Every product page lists tiers with a direct Polar link; card payment, one-time, instant download, no account needed beforehand.
+- Paddle is the alternative checkout (card or PayPal): https://207studio.dev/pay/
+- Machine-readable prices and buy URLs: schema.org Product/Offer JSON-LD on each product page, and https://207studio.dev/llms-full.txt
+- Questions or Enterprise quotes: support@207studio.dev
+
+## Free & open source
+
+- [pptx-mcp](https://github.com/207studio/pptx-mcp): MCP server that lets an AI agent open, inspect and present .pptx files. Free.
+
+## About
+
+- [About 207 Studio](https://207studio.dev/about/): who we are, where we are, how to contact us.
+
+## Contact
+
+- Email: support@207studio.dev

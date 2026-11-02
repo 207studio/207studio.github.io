@@ -1,0 +1,17 @@
+# 207 Studio: full product reference
+
+> https://207studio.dev · support@207studio.dev · South Korea. One-time purchase, full source. Commercial tiers cover companies with annual revenue up to $1M; above that, email support@207studio.dev for an Enterprise license.
+
+Founder: Jang Yuil (장유일)
+
+{{products}}## Pairy: Connecting Devices (iOS/iPadOS app)
+
+https://apps.apple.com/app/id6815584225 - remote desktop for your tablet. Paid app, one-time purchase ($4.99 in the US).
+
+## pptx-mcp (free)
+
+https://github.com/207studio/pptx-mcp - MCP server for opening and presenting .pptx files from an AI agent.
+
+## Contact
+
+support@207studio.dev

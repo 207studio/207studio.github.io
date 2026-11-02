@@ -5,6 +5,7 @@
     "meta_title": "Play a PPTX in the browser without PowerPoint | 207 Studio",
     "description": "Render a .pptx in the browser without a server or Office. What breaks the animations, three ways to do it, and how to test any viewer in five minutes.",
     "date": "2026-10-20",
+    "lastmod": "2026-10-24",
     "tags": [
       "webdev",
       "javascript",
