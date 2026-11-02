@@ -81,7 +81,9 @@ struct Tier {
     paddle_price_id: Option<String>,
 }
 
-const FAVICON: &str = "<link rel=\"icon\" type=\"image/svg+xml\" href=\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%23102b32'/%3E%3Cpath d='M10 12h20v4L20 29h-6l10-13H10z' fill='%23d5f66b'/%3E%3C/svg%3E\">";
+const FAVICON: &str = "<link rel=\"icon\" href=\"/favicon.ico\" sizes=\"any\">\n<link rel=\"icon\" type=\"image/svg+xml\" href=\"/assets/logo.svg\">\n<link rel=\"apple-touch-icon\" href=\"/apple-touch-icon.png\">";
+// Footer columns shared with every inner page (assets/pages.css styles them).
+const FOOT_GRID: &str = r##"<div class="foot-grid"><div class="foot-brand"><a class="brand" href="/">207 Studio</a><p>Software for making and teaching.</p></div><nav class="foot-col" aria-label="Work"><h2>Work</h2><a href="/products/">Products</a><a href="/blog/">Writing</a><a href="https://apps.apple.com/app/id6815584225" target="_blank" rel="noopener">Pairy</a></nav><nav class="foot-col" aria-label="Studio"><h2>Studio</h2><a href="/about/">About</a><a href="mailto:support@207studio.dev">Support</a><a href="/llms.txt">llms.txt</a></nav><nav class="foot-col" aria-label="Legal"><h2>Legal</h2><a href="/legal/privacy/">Privacy Policy</a><a href="/legal/terms/">Terms of Use</a><a href="/legal/refunds/">Refund Policy</a></nav></div><img class="foot-word" src="/assets/footer-207.svg" alt="" aria-hidden="true" width="1513" height="700" loading="lazy" decoding="async">"##;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -173,6 +175,7 @@ fn head(
     image_jpg: &str,
 ) -> String {
     let image = esc(&absolute(&data.base_url, image_jpg));
+    let ko = esc(&ko_url(&data.base_url, canonical));
     let canonical = esc(canonical);
     let title = esc(title);
     let description = esc(description);
@@ -188,6 +191,9 @@ fn head(
 <title>{title}</title>\n\
 <meta name=\"description\" content=\"{description}\">\n\
 <link rel=\"canonical\" href=\"{canonical}\">\n\
+<link rel=\"alternate\" hreflang=\"en\" href=\"{canonical}\">\n\
+<link rel=\"alternate\" hreflang=\"ko\" href=\"{ko}\">\n\
+<link rel=\"alternate\" hreflang=\"x-default\" href=\"{canonical}\">\n\
 <meta property=\"og:title\" content=\"{title}\">\n\
 <meta property=\"og:description\" content=\"{description}\">\n\
 <meta property=\"og:type\" content=\"website\">\n\
@@ -195,6 +201,10 @@ fn head(
 <meta property=\"og:image\" content=\"{image}\">\n\
 <meta property=\"og:site_name\" content=\"207 Studio\">\n\
 <meta name=\"twitter:card\" content=\"summary_large_image\">\n\
+<meta name=\"twitter:title\" content=\"{title}\">\n\
+<meta name=\"twitter:description\" content=\"{description}\">\n\
+<meta name=\"twitter:image\" content=\"{image}\">\n\
+<link rel=\"stylesheet\" href=\"/assets/pages.css\">\n\
 </head>\n"
     )
 }
@@ -210,11 +220,16 @@ fn header(products_current: bool) -> String {
     )
 }
 
-fn footer(data: &SiteData) -> String {
-    let email = esc(&data.support_email);
-    let updated = esc(&data.last_updated);
+// The Korean twin of an English page: /products/x/ -> /ko/products/x/.
+fn ko_url(base_url: &str, canonical: &str) -> String {
+    canonical.replacen(&format!("{base_url}/"), &format!("{base_url}/ko/"), 1)
+}
+
+fn footer(data: &SiteData, canonical: &str) -> String {
+    let ko = esc(&ko_url(&data.base_url, canonical));
+    let grid = FOOT_GRID.replace("support@207studio.dev", &esc(&data.support_email));
     format!(
-        "<footer class=\"site-footer wrap\"><p>207 Studio (207studio.dev), South Korea. Support: <a href=\"mailto:{email}\">{email}</a></p><p>Last updated {updated}. © 2026 207 Studio</p></footer>\n"
+        "<footer class=\"site-footer wrap\">{grid}<div class=\"foot-bottom\"><span>© 2026 207 Studio · South Korea</span><a href=\"{ko}\" lang=\"ko\" hreflang=\"ko\">한국어</a></div></footer>\n"
     )
 }
 
@@ -244,11 +259,7 @@ fn offers(data: &SiteData, product: &Product) -> Vec<Value> {
                 "priceCurrency": "USD",
                 "availability": "https://schema.org/InStock",
                 "url": tier.url,
-                "seller": {
-                    "@type": "Organization",
-                    "name": data.organization.name,
-                    "url": data.organization.url,
-                },
+                "seller": { "@id": format!("{}/#org", data.organization.url) },
                 "shippingDetails": shipping_details(),
                 "hasMerchantReturnPolicy": return_policy(),
             })
@@ -564,6 +575,7 @@ fn render_listing(data: &SiteData) -> Result<String, String> {
                 "name": org.name,
                 "url": org.url,
                 "email": org.email,
+                "logo": format!("{}/assets/logo.png", org.url),
                 "address": { "@type": "PostalAddress", "addressCountry": org.country },
                 "sameAs": org.same_as,
             },
@@ -582,7 +594,7 @@ fn render_listing(data: &SiteData) -> Result<String, String> {
     })));
 
     out.push_str("</main>\n");
-    out.push_str(&footer(data));
+    out.push_str(&footer(data, &canonical));
     out.push_str("</body>\n</html>\n");
     Ok(out)
 }
@@ -719,7 +731,7 @@ fn render_product(data: &SiteData, product: &Product) -> Result<String, String> 
     })));
 
     out.push_str("</main>\n");
-    out.push_str(&footer(data));
+    out.push_str(&footer(data, &canonical));
     out.push_str("</body>\n</html>\n");
     Ok(out)
 }

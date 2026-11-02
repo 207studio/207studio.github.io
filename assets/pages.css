@@ -1,5 +1,5 @@
 /* 207 Studio inner pages: the homepage's night-sky oil look.
-   Loaded last on about, blog, products, legal and 404, over products.css, blog.css or the inline sheet.
+   Loaded last on about, blog, products, legal, pay, pairy and 404, over products.css, blog.css or the inline sheet.
    Those sheets share token names (--bg, --ink, --muted, --line, --lime), so redefining them flips the theme. */
 @font-face { font-family: "DM Sans"; src: url("/assets/fonts/dm-sans-500-latin.woff2") format("woff2"); font-weight: 500; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 @font-face { font-family: "DM Sans"; src: url("/assets/fonts/dm-sans-700-latin.woff2") format("woff2"); font-weight: 700; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
@@ -14,7 +14,7 @@
   --star: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23e9c46a' d='M12 1c.4 5.6 2.6 8 11 11-8.4 3-10.6 5.4-11 11-.4-5.6-2.6-8-11-11 8.4-3 10.6-5.4 11-11z'/%3E%3C/svg%3E");
   color-scheme: dark;
 }
-html {
+html, :root {
   background:
     radial-gradient(1.5px 1.5px at 12% 18%, rgba(233, 196, 106, 0.7), transparent 60%),
     radial-gradient(1px 1px at 68% 42%, rgba(244, 236, 216, 0.55), transparent 60%),
@@ -122,7 +122,10 @@ pre { white-space: pre-wrap; overflow-wrap: anywhere; }
 .foot-col a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); font-size: 14px; text-decoration: none; }
 .foot-col a:hover { color: var(--gold); text-decoration: underline; text-underline-offset: 4px; }
 .foot-word { display: block; width: min(100%, 560px); height: auto; margin: 16px 0 8px; opacity: 0.1; }
-.site-footer > p { font-size: 13px; }
+.foot-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 24px; padding-top: 8px; border-top: 1px solid var(--line); font-size: 13px; }
+.foot-bottom span { padding-block: 12px; }
+.foot-bottom a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); text-decoration: none; }
+.foot-bottom a:hover { color: var(--gold); }
 .page-foot-hand { width: min(1240px, calc(100% - 48px)); margin-inline: auto; }
 @media (max-width: 760px) {
   .foot-grid { grid-template-columns: 1fr 1fr; }
