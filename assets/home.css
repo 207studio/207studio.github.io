@@ -1786,6 +1786,8 @@ html { touch-action: manipulation; }
 .note-go { display: inline-block; margin-top: 12px; color: var(--gold); font-weight: 600; text-decoration: none; }
 .note-go:hover { text-decoration: underline; }
 .note-go:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; border-radius: 2px; }
+/* A note with nothing past the poster's own line stays hidden until the pinned view needs it. */
+.note-thin { display: none; }
 
 @media (max-width: 700px) {
   .walk-head h2 { font-size: clamp(2rem, 9vw, 2.6rem); }

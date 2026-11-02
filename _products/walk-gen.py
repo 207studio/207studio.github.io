@@ -41,9 +41,10 @@ def stop(app, i, lang):
     if link:
         note.append(f'<a class="note-go"{link_attrs(link["href"])}>{escape(link[lang])} <span aria-hidden="true">↗</span></a>')
     on = " is-on" if i == 0 else ""
+    thin = "" if app.get("what") else " note-thin"
     inner = "\n              ".join(note)
     return (f'          <li class="stop{on}" data-stop>\n            {poster}\n'
-            f'            <div class="note" id="{note_id}">\n              {inner}\n            </div>\n          </li>\n')
+            f'            <div class="note{thin}" id="{note_id}">\n              {inner}\n            </div>\n          </li>\n')
 
 
 def render(path, lang):
