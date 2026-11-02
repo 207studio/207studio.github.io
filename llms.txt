@@ -7,6 +7,7 @@ Founder: Jang Yuil (장유일)
 ## Apps
 
 - [Pairy: Connecting Devices](https://apps.apple.com/app/id6815584225): Remote desktop for your tablet. Shows your computer's screen on your tablet and lets you control it with touch, trackpad and keyboard. Paid app, one-time purchase ($4.99 in the US).
+- [Pairy for Mac 1.4.2 (build 142)](https://github.com/207studio/207studio.github.io/releases/download/pairy-mac-1.4.2-142/Pairy-mac-1.4.2-142-notarized.zip): direct download. Apple Silicon only, macOS 15 or later. Notarized with Developer ID. Double-click the zip to unzip it, then move PairyMac.app into Applications.
 
 ## In development
 

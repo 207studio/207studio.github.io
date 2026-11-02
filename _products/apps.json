@@ -1,5 +1,5 @@
 {
-  "_readme": "The seven apps on the home page walk, in order. Run python3 _products/walk-gen.py after editing. Each app's name sits on one line (en + ko), so a rename is a one-line change. A link may add href_ko for the Korean page. Facts come only from the repo, the site and the App Store. Anything marked TODO still needs facts from the owners.",
+  "_readme": "The seven apps on the home page walk, in order. Run python3 _products/walk-gen.py after editing. Each app's name sits on one line (en + ko), so a rename is a one-line change. A link may add href_ko for the Korean page. The download key names an entry in site-data.json downloads (URL, SHA-256, requirements). Facts come only from the repo, the site and the App Store. Anything marked TODO still needs facts from the owners.",
   "apps": [
     {
       "id": "pairy",
@@ -12,6 +12,7 @@
         "en": ["Full HD streaming", "Touch, trackpad and keyboard input", "Encrypted connections between your devices"],
         "ko": ["Full HD 스트리밍", "터치, 트랙패드, 키보드 입력", "기기 사이 암호화 연결"]
       },
+      "download": "pairy-mac",
       "link": {"href": "https://apps.apple.com/app/id6815584225", "en": "View on the App Store", "ko": "App Store에서 보기"}
     },
     {

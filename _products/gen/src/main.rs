@@ -14,6 +14,27 @@ struct SiteData {
     listing: Listing,
     organization: Organization,
     products: Vec<Product>,
+    #[serde(default)]
+    downloads: Vec<Download>,
+}
+
+/// A file served from a GitHub Release asset (the Pairy Mac app). Listed in llms.txt and llms-full.txt.
+#[derive(Deserialize)]
+struct Download {
+    name: String,
+    version: String,
+    build: String,
+    platform: String,
+    install: Localized,
+    file: String,
+    url: String,
+    sha256: String,
+    size: u64,
+}
+
+#[derive(Deserialize)]
+struct Localized {
+    en: String,
 }
 
 #[derive(Deserialize)]
@@ -880,7 +901,15 @@ fn render_llms(data: &SiteData, sources: &Sources) -> Result<String, String> {
     if !products.is_empty() {
         products = format!("## Products\n\n{products}\n");
     }
+    let mut downloads = String::new();
+    for d in &data.downloads {
+        downloads.push_str(&format!(
+            "- [{} {} (build {})]({}): direct download. {} {}\n",
+            d.name, d.version, d.build, d.url, d.platform, d.install.en
+        ));
+    }
     let out = fill(&sources.llms, "llms.txt", "{{products}}\n", &products)?;
+    let out = fill(&out, "llms.txt", "{{downloads}}", &downloads)?;
     let out = fill(&out, "llms.txt", "{{writing}}", &writing)?;
     fill(&out, "llms.txt", "{{ko_products}}\n", &korean)
 }
@@ -908,7 +937,15 @@ fn render_llms_full(data: &SiteData, sources: &Sources) -> Result<String, String
             blocks.push_str("Includes:\n- text\n- links\n\n");
         }
     }
-    fill(&sources.llms_full, "llms-full.txt", "{{products}}", &blocks)
+    let mut downloads = String::new();
+    for d in &data.downloads {
+        downloads.push_str(&format!(
+            "## {} {} (build {})\n\nDownload: {}\n\n{}\n\nFile: {} ({} bytes)\nSHA-256: {}\n\n{}\n\n",
+            d.name, d.version, d.build, d.url, d.platform, d.file, d.size, d.sha256, d.install.en
+        ));
+    }
+    let out = fill(&sources.llms_full, "llms-full.txt", "{{products}}", &blocks)?;
+    fill(&out, "llms-full.txt", "{{downloads}}", &downloads)
 }
 
 const AI_CRAWLERS: [&str; 10] = [

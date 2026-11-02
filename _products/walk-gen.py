@@ -11,7 +11,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 APPS = json.loads((ROOT / "_products/apps.json").read_text(encoding="utf-8"))["apps"]
+DOWNLOADS = {d["id"]: d for d in json.loads((ROOT / "_products/site-data.json").read_text(encoding="utf-8")).get("downloads", [])}
 FOR = {"en": "For", "ko": "대상"}
+DL = {"en": "Download for Mac", "ko": "Mac용 다운로드"}
 
 
 def link_attrs(href):
@@ -27,7 +29,14 @@ def stop(app, i, lang):
     head = (f'<span class="poster-head"><span class="poster-tag"><span class="poster-n">{n}</span>{escape(app["tag"][lang])}</span>'
             f'<span class="poster-name">{name}</span></span>')
     body = f'<span class="poster-body"><span class="poster-desc">{escape(app["line"][lang])}</span>'
-    if link:
+    dl = DOWNLOADS[app["download"]] if app.get("download") else None
+    if dl:
+        # Two links on one sheet, so the poster is a plain block rather than one big link.
+        go = f'<a class="poster-go"{link_attrs(href)}>{escape(link[lang])} <span aria-hidden="true">↗</span></a>' if link else ""
+        body += (f'<a class="dl-btn" href="{escape(dl["url"])}">{DL[lang]}</a>'
+                 f'<span class="poster-req">{escape(dl["requires"][lang])}</span>{go}</span>')
+        poster = f'<div class="poster poster-has-dl">{head}{body}</div>'
+    elif link:
         body += f'<span class="poster-go">{escape(link[lang])} <span aria-hidden="true">↗</span></span></span>'
         poster = f'<a class="poster"{link_attrs(href)}>{head}{body}</a>'
     else:
@@ -39,6 +48,9 @@ def stop(app, i, lang):
         note.append(f'<p class="note-for"><span class="note-k">{FOR[lang]}</span> {escape(app["for"][lang])}</p>')
     if app.get("points"):
         note.append('<ul class="note-pts">' + "".join(f"<li>{escape(p)}</li>" for p in app["points"][lang]) + "</ul>")
+    if dl:
+        note.append(f'<p class="note-dl"><a class="dl-btn" href="{escape(dl["url"])}">{DL[lang]}</a> <span class="note-req">{escape(dl["requires"][lang])}</span></p>')
+        note.append(f'<p class="note-install">{escape(dl["install"][lang])}</p>')
     if link:
         note.append(f'<a class="note-go"{link_attrs(href)}>{escape(link[lang])} <span aria-hidden="true">↗</span></a>')
     on = " is-on" if i == 0 else ""
