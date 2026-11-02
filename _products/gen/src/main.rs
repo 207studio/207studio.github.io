@@ -14,6 +14,27 @@ struct SiteData {
     listing: Listing,
     organization: Organization,
     products: Vec<Product>,
+    #[serde(default)]
+    downloads: Vec<Download>,
+}
+
+/// A file served from a GitHub Release asset (the Pairy Mac app). Listed in llms.txt and llms-full.txt.
+#[derive(Deserialize)]
+struct Download {
+    name: String,
+    version: String,
+    build: String,
+    platform: String,
+    install: Localized,
+    file: String,
+    url: String,
+    sha256: String,
+    size: u64,
+}
+
+#[derive(Deserialize)]
+struct Localized {
+    en: String,
 }
 
 #[derive(Deserialize)]
@@ -166,12 +187,15 @@ fn load_sources(data_path: &Path) -> Result<Sources, String> {
 }
 
 fn generate(data: &SiteData, sources: &Sources, root: &Path) -> Result<(), String> {
-    write_file(root, "products/index.html", &render_listing(data)?)?;
-    for product in &data.products {
-        let path = format!("products/{}/index.html", product.slug);
-        write_file(root, &path, &render_product(data, product)?)?;
+    // With no products the /products/ pages are hand-written redirect stubs, so leave them alone.
+    if !data.products.is_empty() {
+        write_file(root, "products/index.html", &render_listing(data)?)?;
+        for product in &data.products {
+            let path = format!("products/{}/index.html", product.slug);
+            write_file(root, &path, &render_product(data, product)?)?;
+        }
+        write_file(root, "products/products.css", CSS)?;
     }
-    write_file(root, "products/products.css", CSS)?;
     write_file(root, "sitemap.xml", &render_sitemap(data, &sources.posts))?;
     write_file(root, "robots.txt", &render_robots(data))?;
     write_file(root, "llms.txt", &render_llms(data, sources)?)?;
@@ -788,10 +812,11 @@ fn render_sitemap(data: &SiteData, posts: &[Post]) -> String {
     let base = &data.base_url;
     let updated = data.last_updated.as_str();
     let product_lastmod = |product: &Product| product.lastmod.as_deref().unwrap_or(updated).to_string();
-    let mut entries: Vec<(String, String)> = vec![
-        (format!("{base}/"), updated.to_string()),
-        (canonical_products(base), updated.to_string()),
-    ];
+    let listed = !data.products.is_empty();
+    let mut entries: Vec<(String, String)> = vec![(format!("{base}/"), updated.to_string())];
+    if listed {
+        entries.push((canonical_products(base), updated.to_string()));
+    }
     for product in &data.products {
         entries.push((canonical_product(base, &product.slug), product_lastmod(product)));
     }
@@ -800,13 +825,16 @@ fn render_sitemap(data: &SiteData, posts: &[Post]) -> String {
         let lastmod = post.lastmod.as_deref().unwrap_or(&post.date);
         entries.push((format!("{base}/blog/{}/", post.slug), lastmod.to_string()));
     }
-    for page in ["legal/terms/", "legal/privacy/", "legal/refunds/", "about/", "ko/", "ko/products/"] {
+    for page in ["legal/terms/", "legal/privacy/", "legal/refunds/", "about/", "pairy/", "ko/"] {
         entries.push((format!("{base}/{page}"), updated.to_string()));
+    }
+    if listed {
+        entries.push((format!("{base}/ko/products/"), updated.to_string()));
     }
     for product in &data.products {
         entries.push((format!("{base}/ko/products/{}/", product.slug), product_lastmod(product)));
     }
-    for page in ["ko/about/", "ko/blog/"] {
+    for page in ["ko/about/", "ko/blog/", "ko/pairy/"] {
         entries.push((format!("{base}/{page}"), updated.to_string()));
     }
 
@@ -869,7 +897,19 @@ fn render_llms(data: &SiteData, sources: &Sources) -> Result<String, String> {
             post.title, data.base_url, post.slug, post.description
         ));
     }
-    let out = fill(&sources.llms, "llms.txt", "{{products}}", &products)?;
+    // The Products heading only appears when there is something to list.
+    if !products.is_empty() {
+        products = format!("## Products\n\n{products}\n");
+    }
+    let mut downloads = String::new();
+    for d in &data.downloads {
+        downloads.push_str(&format!(
+            "- [{} {} (build {})]({}): direct download. {} {}\n",
+            d.name, d.version, d.build, d.url, d.platform, d.install.en
+        ));
+    }
+    let out = fill(&sources.llms, "llms.txt", "{{products}}\n", &products)?;
+    let out = fill(&out, "llms.txt", "{{downloads}}", &downloads)?;
     let out = fill(&out, "llms.txt", "{{writing}}", &writing)?;
     fill(&out, "llms.txt", "{{ko_products}}\n", &korean)
 }
@@ -897,7 +937,15 @@ fn render_llms_full(data: &SiteData, sources: &Sources) -> Result<String, String
             blocks.push_str("Includes:\n- text\n- links\n\n");
         }
     }
-    fill(&sources.llms_full, "llms-full.txt", "{{products}}", &blocks)
+    let mut downloads = String::new();
+    for d in &data.downloads {
+        downloads.push_str(&format!(
+            "## {} {} (build {})\n\nDownload: {}\n\n{}\n\nFile: {} ({} bytes)\nSHA-256: {}\n\n{}\n\n",
+            d.name, d.version, d.build, d.url, d.platform, d.file, d.size, d.sha256, d.install.en
+        ));
+    }
+    let out = fill(&sources.llms_full, "llms-full.txt", "{{products}}", &blocks)?;
+    fill(&out, "llms-full.txt", "{{downloads}}", &downloads)
 }
 
 const AI_CRAWLERS: [&str; 10] = [

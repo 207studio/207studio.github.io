@@ -1,29 +1,20 @@
 # 207 Studio
 
-> Developer kits and classroom tools from 207 Studio (207studio.dev), South Korea. One-time purchase, full source.
+> Apps from 207 Studio (207studio.dev), an independent software studio in South Korea.
 
 Founder: Jang Yuil (장유일)
 
-## Products
-
-- [PPTX Player SDK – Play PowerPoint in the Browser](https://207studio.dev/products/pptx-player-sdk/): Play PowerPoint in the browser with every animation: a client-side PPTX to HTML/SVG engine that works offline. Prices: Developer $14 / Commercial $129.
-- [PairyCore SDK: Mac-to-iPad Screen Streaming](https://207studio.dev/products/pairy-core-sdk/): Put a live Mac screen on an iPad and send touch, keyboard, clipboard and dictation back: the streaming engine from a working Mac + iPad remote app, as a Swift package. Prices: Commercial $129.
-- [Scan-to-Grade: Scanned Exams to Excel (Python)](https://207studio.dev/products/scan-to-grade-bundle/): QR Cropper and OMR Auto-Grader together: a scanned batch in, an Excel gradebook out. Prices: Personal $79 / Commercial $299.
-- [OMR Auto-Grader – Bubbles, O/X, Circled Answers](https://207studio.dev/products/omr-auto-grader/): Reads bubbles, circled words, O/X boxes and ordering marks on scanned sheets, and fills in only the grades it is sure of. Prices: Personal $59 / Commercial $249.
-- [QR Answer-Sheet Cropper – Crop Every Answer Box](https://207studio.dev/products/qr-cropper/): Print a QR on each sheet, scan a mixed batch, and get every answer cell back as a clean, aligned image. Prices: Personal $39 / Commercial $149.
-- [Context-Gated Voice Commands – Offline](https://207studio.dev/products/voice-command-engine/): A Rust library and CLI that infers the current situation from audio features and lets through only the voice commands that fit it. Prices: Personal/Research $29 / Commercial $99.
-- [ShapeFit – Hold-to-Shape for Swift & Rust](https://207studio.dev/products/shapefit/): Turn a hand-drawn stroke into a clean line, circle, rectangle or polygon when the user pauses, for your own drawing app. Prices: Personal $9 / Commercial $29.
-- [Exam + OMR Sheet Builder – Paper, Sheet & Key](https://207studio.dev/products/exam-sheet-builder/): Write an exam once and print a matching exam paper, OMR answer sheet, answer key, explanation sheet and cover page. Prices: Personal $12 / Commercial $35.
-- [Offline Classroom Tools – Seating, PACER Timer](https://207studio.dev/products/classroom-html-tools/): Four single-file classroom tools: a seating chart with attendance, a morning board, a fitness test recorder and Wi-Fi QR cards. Prices: Teacher $9 / School $19.
-- [Send Approval Gate MCP: Plan, Approve, Send, Verify](https://207studio.dev/products/send-approval-gate-mcp/): An MCP server that makes an AI agent plan, present an exact hash-bound approval, send once and verify, and records every step. Prices: Developer $29 / Commercial $99.
-
 ## Apps
 
-- [Pairy: Connecting Devices](https://apps.apple.com/app/id6815584225): Remote desktop for your tablet. Shows your computer's screen on your tablet and lets you control it with touch, trackpad and keyboard. Paid app, one-time purchase ($4.99 in the US).
+- [Pairy: Connecting Devices](https://apps.apple.com/app/id6815584225): Remote desktop for your tablet. Shows your computer's screen on your tablet and lets you control it with touch, trackpad and keyboard. Paid app, one-time purchase ($4.99 in the US). How it works and the Mac companion: https://207studio.dev/pairy/
+- [Pairy for Mac 1.4.2 (build 142)](https://github.com/207studio/207studio.github.io/releases/download/pairy-mac-1.4.2-142/Pairy-mac-1.4.2-142-notarized.zip): direct download. Apple Silicon only, macOS 15 or later. Notarized with Developer ID. Double-click the zip to unzip it, then move PairyMac.app into Applications.
 
-## Licensing
+## In development
 
-- Commercial licenses cover companies with annual revenue up to $1M. Above that, email support@207studio.dev for an Enterprise license. All purchases are one-time; no subscriptions.
+- [Chalkieboard](https://chalkieboard.207studio.dev/) (초키보드): an iPad lesson board app for elementary school teachers. Board writing with subject tools, PPTX and HWP lesson files opened in the app, and AirPlay to the classroom display. No personal data is collected during class. In beta on TestFlight.
+- CheckyBoard: a Windows app for checking paper exams one question at a time. The teacher marks each answer, and the app makes answer sheets, splits scans into per-question boxes, and produces scores, item analysis and report cards.
+- [StoneWars](https://207studio.dev/stonewars/): five in a row on a 15×15 board in 3D for iPhone, iPad and Mac, with eight stone classes and seven worlds. Preparing for App Store release.
+- Ttoryeot (또렷): an HWP/HWPX document engine written in Rust. Opens Korean 한글 documents and renders them to PDF or images without 한글 installed. View only. One engine for Mac, iOS, Windows and the web. Not released yet.
 
 ## Writing
 
@@ -31,40 +22,9 @@ Founder: Jang Yuil (장유일)
 
 ## 한국어
 
-- [207스튜디오 홈](https://207studio.dev/ko/): 교실 도구와 소스 포함 개발자 키트를 1회 구매로 판매해요.
-- [상품](https://207studio.dev/ko/products/): 개발자 키트와 교실 도구 전체 목록. 가격과 구매 링크가 있어요.
-- [PPTX Player SDK](https://207studio.dev/ko/products/pptx-player-sdk/): 브라우저에서 PowerPoint를 애니메이션까지 재생하는 클라이언트 사이드 엔진. Developer $14 / Commercial $129.
-- [PairyCore SDK](https://207studio.dev/ko/products/pairy-core-sdk/): Mac 화면을 iPad로 스트리밍하는 Swift 패키지. Commercial $129.
-- [Scan-to-Grade](https://207studio.dev/ko/products/scan-to-grade-bundle/): QR Cropper와 OMR Auto-Grader를 묶은 Python 패키지. Personal $79 / Commercial $299.
-- [OMR Auto-Grader](https://207studio.dev/ko/products/omr-auto-grader/): 스캔한 답안지의 버블, O/X, 동그라미 답안을 읽는 Python OMR. Personal $59 / Commercial $249.
-- [QR Answer-Sheet Cropper](https://207studio.dev/ko/products/qr-cropper/): 답안지 QR로 페이지를 찾고 답안 칸마다 잘라내는 Python 도구. Personal $39 / Commercial $149.
-- [Context-Gated Voice Commands](https://207studio.dev/ko/products/voice-command-engine/): 상황에 맞는 음성 명령만 통과시키는 Rust 라이브러리와 CLI. Personal/Research $29 / Commercial $99.
-- [ShapeFit](https://207studio.dev/ko/products/shapefit/): 손으로 그린 획을 깔끔한 도형으로 바꾸는 Swift와 Rust 도구. Personal $9 / Commercial $29.
-- [Exam + OMR Sheet Builder](https://207studio.dev/ko/products/exam-sheet-builder/): 시험지, OMR 답안지, 정답지, 해설지, 표지를 한 번에 만드는 도구. Personal $12 / Commercial $35.
-- [Offline Classroom Tools](https://207studio.dev/ko/products/classroom-html-tools/): 자리 배치, 아침 게시판, PACER 기록, Wi-Fi QR 카드가 든 HTML 파일 네 개. Teacher $9 / School $19.
-- [Send Approval Gate MCP](https://207studio.dev/ko/products/send-approval-gate-mcp/): AI 에이전트가 한 번만 보내고 확인하게 만드는 MCP 서버. Developer $29 / Commercial $99.
+- [207스튜디오 홈](https://207studio.dev/ko/): 대한민국의 독립 소프트웨어 스튜디오. 앱과 도구를 만들어요.
 - [소개](https://207studio.dev/ko/about/): 207 Studio가 무엇을 만드는지, 어떻게 문의하는지.
 - [글](https://207studio.dev/ko/blog/): 브라우저 렌더링과 교실 도구에 관한 글.
-
-## When to use 207 Studio
-
-- You need to play or preview .pptx files in a web page with click-by-click animations, without a server or Office: PPTX Player SDK.
-- You grade paper exams and want scanned sheets turned into scores: QR Answer-Sheet Cropper, OMR Auto-Grader, or Scan-to-Grade (Python).
-- You make printed exams with matching OMR sheets and keys: Exam + OMR Sheet Builder.
-- You need offline voice commands that only fire in the right situation: Context-Gated Voice Commands (Rust).
-- You build a Mac-to-iPad remote screen or drawing app: PairyCore SDK, ShapeFit.
-- You want an AI agent to open and present PowerPoint files: the free pptx-mcp server.
-
-## How to buy (for agents)
-
-- Polar is the main checkout. Every product page lists tiers with a direct Polar link; card payment, one-time, instant download, no account needed beforehand.
-- Paddle is the alternative checkout (card or PayPal): https://207studio.dev/pay/
-- Machine-readable prices and buy URLs: schema.org Product/Offer JSON-LD on each product page, and https://207studio.dev/llms-full.txt
-- Questions or Enterprise quotes: support@207studio.dev
-
-## Free & open source
-
-- [pptx-mcp](https://github.com/207studio/pptx-mcp): MCP server that lets an AI agent open, inspect and present .pptx files. Free.
 
 ## About
 
