@@ -166,7 +166,7 @@
   var fills = [].slice.call(section.querySelectorAll("[data-rail-fill]"));
   var railItems = fills.map(function (f) { return f.parentNode; });
   var rail = railItems.length ? railItems[0].parentNode : null;
-  var heroImg = document.querySelector("[data-mimi] img");
+  var heroImg = document.querySelector("[data-mimi]");
   var n = stops.length;
 
   var INTRO = 0.25, ARRIVE = 0.40, LEFT = 0.92;
