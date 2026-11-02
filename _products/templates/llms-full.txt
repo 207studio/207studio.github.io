@@ -2,8 +2,6 @@
 
 > https://207studio.dev · support@207studio.dev · South Korea.
 
-Founder: Jang Yuil (장유일)
-
 {{products}}## Pairy: Connecting Devices (iOS/iPadOS app)
 
 https://apps.apple.com/app/id6815584225 - remote desktop for your tablet. Paid app, one-time purchase ($4.99 in the US).

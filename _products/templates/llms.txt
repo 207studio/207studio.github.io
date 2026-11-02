@@ -2,8 +2,6 @@
 
 > Apps from 207 Studio (207studio.dev), an independent software studio in South Korea.
 
-Founder: Jang Yuil (장유일)
-
 {{products}}
 ## Apps
 
