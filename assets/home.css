@@ -1885,7 +1885,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 2px s
 .brand { gap: 9px; }
 .brand-star { width: 18px; height: 18px; flex: none; fill: var(--gold); }
 .brand-word { font-family: "DM Sans", sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.18em; line-height: 1; text-transform: uppercase; color: var(--ink); }
-.dock { background: rgba(13, 19, 51, 0.86); border-color: rgba(244, 236, 216, 0.14); }
+.dock { background: var(--night); border-color: rgba(244, 236, 216, 0.16); }
 .footer-brand .brand-star { width: 22px; height: 22px; }
 .footer-brand .brand-word { font-size: 17px; }
 
@@ -1901,7 +1901,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 2px s
 .hero-stage { cursor: auto; }
 .hero-stage::before, .hero-stage::after { display: none; }
 .mimi { visibility: hidden; }
-.wordmark { display: flex; flex-wrap: nowrap; gap: 0 0.32em; margin-top: clamp(24px, 6vh, 72px); padding-top: 0; font-family: "DM Sans", sans-serif; font-weight: 700; letter-spacing: 0.07em; line-height: 1; color: var(--ink); text-shadow: 0 2px 24px rgba(8, 10, 32, 0.45); white-space: nowrap; }
+.wordmark { display: flex; flex-wrap: nowrap; gap: 0 0.5em; margin-top: clamp(24px, 6vh, 72px); padding-top: 0; font-family: "DM Sans", sans-serif; font-weight: 700; letter-spacing: 0.14em; line-height: 1; color: var(--ink); text-shadow: 0 2px 24px rgba(8, 10, 32, 0.45); white-space: nowrap; }
 .wm-207, .wm-studio, html:lang(ko) .wm-207, html:lang(ko) .wm-studio { display: inline; margin: 0; padding: 0; font-family: "DM Sans", sans-serif; font-size: clamp(56px, 7.2vw, 112px); letter-spacing: inherit; }
 .hero-sub { margin-top: clamp(14px, 1.6vw, 22px); padding-left: 0.2em; color: #efd9a0; font-family: "DM Sans", sans-serif; font-size: clamp(13px, 1.25vw, 18px); font-weight: 500; letter-spacing: 0.34em; text-transform: uppercase; }
 html:lang(ko) .hero-sub { letter-spacing: 0.24em; }
@@ -1920,7 +1920,10 @@ html:lang(ko) .hero-sub { letter-spacing: 0.24em; }
 .sec-paint img { width: 100%; height: 100%; object-fit: cover; object-position: 85% 50%; }
 .studio::before, .contact::before { position: absolute; inset: 0; z-index: -1; content: ""; pointer-events: none; }
 .studio::before { background: linear-gradient(180deg, var(--night) 0%, rgba(20, 18, 58, 0.88) 14%, rgba(20, 18, 58, 0.86) 86%, var(--night) 100%); }
-.contact { padding-block: var(--space-9); }
+.contact { padding-block: var(--space-9); scroll-margin-top: 104px; }
+.contact h2, .contact .email { scroll-margin-top: 112px; }
+.footer-col { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
+.footer-col a { justify-content: flex-start; min-width: 0; }
 .contact::before { background: linear-gradient(180deg, var(--night) 0%, rgba(12, 16, 46, 0.84) 18%, rgba(12, 16, 46, 0.8) 82%, var(--night) 100%); }
 .paint-roof img { object-position: 80% 60%; }
 .studio-stamp { border-color: rgba(233, 196, 106, 0.5); }
@@ -1936,10 +1939,17 @@ html:lang(ko) .hero-sub { letter-spacing: 0.24em; }
 /* Walk: a violet wall with faint gold seams; cream posters keep their dark ink. */
 .poster { --ink-soft: #3b3654; --muted: #5b5672; --accent: #7a5a12; color: #1b1838; }
 .poster:focus-visible { outline-color: var(--gold); }
-.walk.is-live .walk-stage::before { background: radial-gradient(closest-side, rgba(74, 62, 150, 0.45) 0%, rgba(54, 46, 120, 0.2) 55%, rgba(54, 46, 120, 0) 100%); }
-.walk.is-live .wall-face { background: linear-gradient(180deg, rgba(38, 33, 96, 0.35), rgba(40, 34, 98, 0.82) 70%, rgba(30, 26, 76, 0.95)); }
-.walk.is-live .wall-ledge { background: rgba(233, 196, 106, 0.28); }
-.walk.is-live .wall-seams { background: linear-gradient(90deg, rgba(233, 196, 106, 0.14) 0 1px, transparent 1px) 0 0 / 200px 100% repeat-x; }
+.walk-paint { display: none; }
+.walk.is-live .walk-paint { position: absolute; inset: 0; z-index: -1; display: block; pointer-events: none; }
+.walk.is-live .walk-paint img { width: 100%; height: 100%; object-fit: cover; object-position: 30% 40%; }
+.walk.is-live .walk-stage { background: var(--night); }
+.walk.is-live .walk-stage::before { background: radial-gradient(closest-side, rgba(233, 196, 106, 0.16) 0%, rgba(233, 196, 106, 0.06) 55%, rgba(233, 196, 106, 0) 100%); }
+.walk.is-live .wall-face { background: linear-gradient(180deg, rgba(20, 26, 69, 0.08), rgba(20, 26, 69, 0.34) 70%, rgba(13, 19, 51, 0.6)); }
+.walk.is-live .wall-ledge { background: rgba(233, 196, 106, 0.4); }
+.walk.is-live .wall-seams { background: linear-gradient(90deg, rgba(233, 196, 106, 0.2) 0 1px, transparent 1px) 0 0 / 200px 100% repeat-x; }
+.walk.is-live .poster { background: radial-gradient(120% 90% at 20% 10%, rgba(255, 252, 240, 0.9), rgba(255, 252, 240, 0) 60%), linear-gradient(175deg, #f6eed8, #ece2c6); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 18px 40px rgba(4, 6, 20, 0.55); }
+.walk.is-live .poster::after { background: linear-gradient(175deg, #fbf5e2, #f3e9cf); }
+.walk.is-live .poster::before { background: rgba(233, 196, 106, 0.5); }
 .walk.is-live .walker-floor { background: radial-gradient(closest-side, rgba(4, 6, 20, 0.6), rgba(4, 6, 20, 0.25) 60%, rgba(4, 6, 20, 0)); }
 .walk.is-live .rail-fill { background: var(--gold); }
 
