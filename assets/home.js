@@ -130,110 +130,118 @@
   }
 })();
 
-/* Walk with Mimi. The grid stays put; scroll lights one poster at a time.
-   Steps come from one invisible sentinel per poster and one IntersectionObserver watching the line
-   across the middle of the viewport. Pinned (wide and tall, set in CSS): the sentinels split
-   the scroller's extra height evenly. Otherwise they split the poster list. Reduced
-   motion keeps the static grid with every note showing. */
+/* Walk with Mimi. One scroll handler drives the pinned wall (see the CSS): per poster a
+   dwell where the wall rests, then an eased walk to the next. Lengths are measured on resize;
+   each frame reads scrollY and writes three transforms plus, on a step change, a few
+   classes. Reduced motion or a short screen keeps the static grid with every note showing. */
 (function () {
   var section = document.querySelector("[data-walk]");
-  if (!section || !("IntersectionObserver" in window)) return;
-  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
-  var pinned = window.matchMedia("(prefers-reduced-motion: no-preference) and (min-width: 1180px) and (min-height: 820px)");
+  if (!section) return;
+  var live = window.matchMedia("(prefers-reduced-motion: no-preference) and (min-height: 560px)");
+  var phone = window.matchMedia("(max-width: 700px)");
   var scroller = section.querySelector("[data-walk-scroller]");
   var stage = section.querySelector("[data-walk-stage]");
   var track = section.querySelector("[data-walk-track]");
   var stops = [].slice.call(section.querySelectorAll("[data-stop]"));
   var strip = section.querySelector("[data-walk-strip]");
+  var still = section.querySelector(".walker-still");
   var sayN = section.querySelector("[data-walk-n]");
   var sayName = section.querySelector("[data-walk-name]");
   var names = stops.map(function (s) { return s.querySelector(".poster-name").textContent; });
-  var FRAMES = 12, STAND = 10, LEAN = 14;
-  var active = 0, io = null, sentinels = [], timer = 0;
+  var N = stops.length, FRAMES = 12, STAND = 10, DWELL = 0.55;
+  var top = 0, run = 1, step = 0, active = -1, lastPos = 0, ticking = false, on = false;
 
-  function frame(f) { if (strip) strip.style.backgroundPositionX = (f * 100 / (FRAMES - 1)).toFixed(4) + "%"; }
-  function walk() {
-    var n = 0;
-    clearInterval(timer);
-    timer = setInterval(function () {
-      n += 1;
-      frame(n >= FRAMES ? STAND : (STAND + n) % FRAMES);
-      if (n >= FRAMES) clearInterval(timer);
-    }, 45);
+  // The wall clips the track at its left edge (CSS); it only exists for the live view.
+  var wall = document.createElement("div");
+  wall.className = "walk-wall";
+
+  var film = document.createElement("span");
+  film.className = "walker-film";
+  strip.appendChild(film);
+
+  var prog = document.createElement("div");
+  prog.className = "walk-prog";
+  prog.setAttribute("aria-hidden", "true");
+  var dots = "";
+  for (var d = 0; d < N; d++) dots += '<i class="walk-prog-dot" style="left:' + (d * 100 / (N - 1)).toFixed(3) + '%"></i>';
+  prog.innerHTML = '<span class="walk-prog-at">01</span><span class="walk-prog-bar"><span class="walk-prog-fill"></span>' + dots + "</span><span>0" + N + "</span>";
+  var at = prog.firstChild, fill = prog.querySelector(".walk-prog-fill"), dotEls = prog.querySelectorAll(".walk-prog-dot");
+
+  // The walk sheet is the only Mimi image the live view needs; fetch it a screen ahead.
+  if ("IntersectionObserver" in window) {
+    var near = new IntersectionObserver(function (es) {
+      if (es[0].isIntersecting) { section.classList.add("is-near"); near.disconnect(); }
+    }, { rootMargin: "100% 0px" });
+    near.observe(section);
+  } else section.classList.add("is-near");
+
+  function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(2 - 2 * t, 3) / 2; }
+
+  function measure() {
+    top = scroller.getBoundingClientRect().top + window.pageYOffset;
+    run = Math.max(1, scroller.offsetHeight - stage.offsetHeight);
+    step = N > 1 ? stops[1].offsetLeft - stops[0].offsetLeft : 0;
   }
 
-  function set(i) {
-    if (i === active) return;
-    stops[active].classList.remove("is-on");
-    stops[i].classList.add("is-on");
+  function light(i) {
+    for (var k = 0; k < N; k++) {
+      stops[k].classList.toggle("is-on", k === i);
+      stops[k].classList.toggle("is-past", k < i);
+      dotEls[k].classList.toggle("is-lit", k <= i);
+    }
+    at.textContent = sayN.textContent = "0" + (i + 1);
+    sayName.textContent = names[i];
     active = i;
-    if (sayN) sayN.textContent = "0" + (i + 1);
-    if (sayName) sayName.textContent = names[i];
-    var cols = pinned.matches ? 3 : 1;
-    section.style.setProperty("--lean", (i % cols) * LEAN + "px");
-    if (!reduce.matches) walk();
   }
 
-  function build() {
-    if (io) io.disconnect();
-    sentinels.forEach(function (s) { s.remove(); });
-    sentinels = [];
-    if (reduce.matches) return;
-    var host = pinned.matches ? scroller : stage;
-    for (var i = 0; i < stops.length; i++) {
-      var s = document.createElement("span");
-      s.setAttribute("aria-hidden", "true");
-      s.style.cssText = "position:absolute;left:0;width:1px;pointer-events:none;visibility:hidden";
-      s.dataset.i = i;
-      host.appendChild(s);
-      sentinels.push(s);
+  function tick() {
+    ticking = false;
+    var t = Math.min(Math.max((window.pageYOffset - top) / run, 0), 1) * N;
+    var i = Math.min(N - 1, Math.floor(t));
+    var move = i < N - 1 ? ease(Math.min(Math.max((t - i - DWELL) / (1 - DWELL), 0), 1)) : 0;
+    var pos = i + move, here = Math.round(pos), dir = pos - lastPos;
+    track.style.transform = "translate3d(" + (-pos * step).toFixed(1) + "px,0,0)";
+    fill.style.transform = "scaleX(" + (pos / (N - 1)).toFixed(4) + ")";
+    if (here !== active) light(here);
+    // Walking: feet follow the distance covered, two strides per poster, and she leans
+    // the way she is going. Resting: the standing frame, upright.
+    var walking = move > 0 && move < 1 && dir !== 0;
+    var f = walking ? Math.floor(pos * FRAMES * 2) % FRAMES : STAND;
+    film.style.transform = "translateX(" + (-f * 100 / FRAMES).toFixed(4) + "%)";
+    var lean = walking ? (dir > 0 ? "translateX(6px) rotate(2.5deg)" : "translateX(-6px) rotate(-2.5deg)") : "none";
+    (phone.matches ? still : strip).style.transform = lean;
+    lastPos = pos;
+  }
+
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(tick); } }
+
+  function mode() {
+    on = live.matches;
+    window.removeEventListener("scroll", onScroll);
+    track.style.transform = still.style.transform = strip.style.transform = "";
+    if (!on) {
+      if (wall.parentNode) { stage.insertBefore(track, wall); wall.remove(); prog.remove(); }
+      stops.forEach(function (s) { s.classList.remove("is-past"); });
+      return;
     }
-    place();
-    io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { if (e.isIntersecting) set(+e.target.dataset.i); });
-    }, { rootMargin: "-50% 0px -50% 0px" });
-    sentinels.forEach(function (s) { io.observe(s); });
+    if (!wall.parentNode) { stage.insertBefore(wall, track); wall.appendChild(track); stage.appendChild(prog); }
+    measure();
+    active = -1;
+    tick();
+    window.addEventListener("scroll", onScroll, { passive: true });
   }
 
-  // Pinned: the stage sticks while the middle line runs from half a screen into the
-  // scroller to half a screen before its end; that run is split evenly.
-  function place() {
-    var n = stops.length;
-    if (pinned.matches) {
-      var half = stage.offsetHeight / 2, seg = (scroller.offsetHeight - stage.offsetHeight) / n;
-      sentinels.forEach(function (s, i) { s.style.top = half + i * seg + "px"; s.style.height = seg + "px"; });
-    } else {
-      // Not pinned: each row of posters owns the scroll from its top to the next row's top,
-      // shared equally by the posters in it, so steps follow the cards in reading order.
-      var rows = [], end = track.offsetTop + track.offsetHeight;
-      stops.forEach(function (st, i) {
-        var last = rows[rows.length - 1];
-        if (last && Math.abs(last.top - st.offsetTop) < 4) last.ids.push(i);
-        else rows.push({ top: st.offsetTop, ids: [i] });
-      });
-      rows.forEach(function (r, k) {
-        var h = ((rows[k + 1] ? rows[k + 1].top : end) - r.top) / r.ids.length;
-        r.ids.forEach(function (i, j) { sentinels[i].style.top = r.top + j * h + "px"; sentinels[i].style.height = h + "px"; });
-      });
-    }
-  }
-
-  // Keyboard: focus lights its step; pinned, the page scrolls to that step so the two agree.
+  // Keyboard: Tab to a poster scrolls the page to that poster's dwell, so wall and focus agree.
   track.addEventListener("focusin", function (e) {
     var stop = e.target.closest("[data-stop]");
-    if (!stop) return;
+    if (!on || !stop) return;
     var i = stops.indexOf(stop);
-    if (pinned.matches && i !== active) {
-      var seg = (scroller.offsetHeight - stage.offsetHeight) / stops.length;
-      var top = scroller.getBoundingClientRect().top + window.pageYOffset;
-      window.scrollTo(0, Math.round(top + i * seg + seg / 2));
-    }
-    set(i);
+    window.scrollTo(0, Math.round(top + run * (i + DWELL / 2) / N));
   });
 
-  build();
-  var onMode = function () { build(); };
-  if (pinned.addEventListener) { pinned.addEventListener("change", onMode); reduce.addEventListener("change", onMode); }
+  mode();
+  live.addEventListener("change", mode);
+  phone.addEventListener("change", mode);
   var rt = 0;
-  window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(place, 150); });
+  window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(function () { if (on) { measure(); tick(); } }, 150); });
 })();
