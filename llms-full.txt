@@ -7,6 +7,7 @@ Founder: Jang Yuil (장유일)
 ## Pairy: Connecting Devices (iOS/iPadOS app)
 
 https://apps.apple.com/app/id6815584225 - remote desktop for your tablet. Paid app, one-time purchase ($4.99 in the US).
+Page: https://207studio.dev/pairy/ (how it works, screenshots, the Mac companion download)
 
 ## Pairy for Mac 1.4.2 (build 142)
 

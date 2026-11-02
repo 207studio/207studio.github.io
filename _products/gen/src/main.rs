@@ -825,7 +825,7 @@ fn render_sitemap(data: &SiteData, posts: &[Post]) -> String {
         let lastmod = post.lastmod.as_deref().unwrap_or(&post.date);
         entries.push((format!("{base}/blog/{}/", post.slug), lastmod.to_string()));
     }
-    for page in ["legal/terms/", "legal/privacy/", "legal/refunds/", "about/", "ko/"] {
+    for page in ["legal/terms/", "legal/privacy/", "legal/refunds/", "about/", "pairy/", "ko/"] {
         entries.push((format!("{base}/{page}"), updated.to_string()));
     }
     if listed {
@@ -834,7 +834,7 @@ fn render_sitemap(data: &SiteData, posts: &[Post]) -> String {
     for product in &data.products {
         entries.push((format!("{base}/ko/products/{}/", product.slug), product_lastmod(product)));
     }
-    for page in ["ko/about/", "ko/blog/"] {
+    for page in ["ko/about/", "ko/blog/", "ko/pairy/"] {
         entries.push((format!("{base}/{page}"), updated.to_string()));
     }
 
