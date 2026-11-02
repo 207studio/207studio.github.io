@@ -166,12 +166,15 @@ fn load_sources(data_path: &Path) -> Result<Sources, String> {
 }
 
 fn generate(data: &SiteData, sources: &Sources, root: &Path) -> Result<(), String> {
-    write_file(root, "products/index.html", &render_listing(data)?)?;
-    for product in &data.products {
-        let path = format!("products/{}/index.html", product.slug);
-        write_file(root, &path, &render_product(data, product)?)?;
+    // With no products the /products/ pages are hand-written redirect stubs, so leave them alone.
+    if !data.products.is_empty() {
+        write_file(root, "products/index.html", &render_listing(data)?)?;
+        for product in &data.products {
+            let path = format!("products/{}/index.html", product.slug);
+            write_file(root, &path, &render_product(data, product)?)?;
+        }
+        write_file(root, "products/products.css", CSS)?;
     }
-    write_file(root, "products/products.css", CSS)?;
     write_file(root, "sitemap.xml", &render_sitemap(data, &sources.posts))?;
     write_file(root, "robots.txt", &render_robots(data))?;
     write_file(root, "llms.txt", &render_llms(data, sources)?)?;
@@ -788,10 +791,11 @@ fn render_sitemap(data: &SiteData, posts: &[Post]) -> String {
     let base = &data.base_url;
     let updated = data.last_updated.as_str();
     let product_lastmod = |product: &Product| product.lastmod.as_deref().unwrap_or(updated).to_string();
-    let mut entries: Vec<(String, String)> = vec![
-        (format!("{base}/"), updated.to_string()),
-        (canonical_products(base), updated.to_string()),
-    ];
+    let listed = !data.products.is_empty();
+    let mut entries: Vec<(String, String)> = vec![(format!("{base}/"), updated.to_string())];
+    if listed {
+        entries.push((canonical_products(base), updated.to_string()));
+    }
     for product in &data.products {
         entries.push((canonical_product(base, &product.slug), product_lastmod(product)));
     }
@@ -800,8 +804,11 @@ fn render_sitemap(data: &SiteData, posts: &[Post]) -> String {
         let lastmod = post.lastmod.as_deref().unwrap_or(&post.date);
         entries.push((format!("{base}/blog/{}/", post.slug), lastmod.to_string()));
     }
-    for page in ["legal/terms/", "legal/privacy/", "legal/refunds/", "about/", "ko/", "ko/products/"] {
+    for page in ["legal/terms/", "legal/privacy/", "legal/refunds/", "about/", "ko/"] {
         entries.push((format!("{base}/{page}"), updated.to_string()));
+    }
+    if listed {
+        entries.push((format!("{base}/ko/products/"), updated.to_string()));
     }
     for product in &data.products {
         entries.push((format!("{base}/ko/products/{}/", product.slug), product_lastmod(product)));
@@ -869,7 +876,11 @@ fn render_llms(data: &SiteData, sources: &Sources) -> Result<String, String> {
             post.title, data.base_url, post.slug, post.description
         ));
     }
-    let out = fill(&sources.llms, "llms.txt", "{{products}}", &products)?;
+    // The Products heading only appears when there is something to list.
+    if !products.is_empty() {
+        products = format!("## Products\n\n{products}\n");
+    }
+    let out = fill(&sources.llms, "llms.txt", "{{products}}\n", &products)?;
     let out = fill(&out, "llms.txt", "{{writing}}", &writing)?;
     fill(&out, "llms.txt", "{{ko_products}}\n", &korean)
 }
