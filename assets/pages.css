@@ -1,0 +1,133 @@
+/* 207 Studio inner pages: the homepage's night-sky oil look.
+   Loaded last on about, blog, products, legal, pay, pairy and 404, over products.css, blog.css or the inline sheet.
+   Those sheets share token names (--bg, --ink, --muted, --line, --lime), so redefining them flips the theme. */
+@font-face { font-family: "DM Sans"; src: url("/assets/fonts/dm-sans-500-latin.woff2") format("woff2"); font-weight: 500; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "DM Sans"; src: url("/assets/fonts/dm-sans-700-latin.woff2") format("woff2"); font-weight: 700; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Instrument Sans"; src: url("/assets/fonts/instrument-sans-latin.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+:root {
+  --night: #0d1333; --night-2: #141a45; --gold: #e9c46a; --cream: #f4ecd8;
+  --bg: var(--night); --ink: var(--cream); --muted: #b9b4cc; --line: rgba(244, 236, 216, 0.16); --lime: var(--gold);
+  --link: #f3d68f;
+  --display: "DM Sans", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+  --body: "Instrument Sans", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+  --star: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23e9c46a' d='M12 1c.4 5.6 2.6 8 11 11-8.4 3-10.6 5.4-11 11-.4-5.6-2.6-8-11-11 8.4-3 10.6-5.4 11-11z'/%3E%3C/svg%3E");
+  color-scheme: dark;
+}
+html, :root {
+  background:
+    radial-gradient(1.5px 1.5px at 12% 18%, rgba(233, 196, 106, 0.7), transparent 60%),
+    radial-gradient(1px 1px at 68% 42%, rgba(244, 236, 216, 0.55), transparent 60%),
+    radial-gradient(1.5px 1.5px at 38% 76%, rgba(233, 196, 106, 0.55), transparent 60%),
+    radial-gradient(1px 1px at 88% 88%, rgba(244, 236, 216, 0.45), transparent 60%),
+    var(--night);
+  background-size: 520px 680px, 520px 680px, 520px 680px, 520px 680px, auto;
+}
+body { position: relative; overflow-x: clip; background: transparent; color: var(--ink); font-family: var(--body); }
+::selection { background: rgba(233, 196, 106, 0.4); color: #fff; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+/* Painted header band: the homepage hero sky behind the top of every page, fading into the night. */
+body::before {
+  position: absolute; top: 0; left: 0; right: 0; z-index: -1; height: clamp(360px, 40vw, 540px); content: ""; pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(13, 19, 51, 0.5) 0%, rgba(13, 19, 51, 0.62) 55%, var(--night) 100%),
+    url("/assets/night/sky-1280.webp") center 28% / cover no-repeat;
+  background:
+    linear-gradient(180deg, rgba(13, 19, 51, 0.5) 0%, rgba(13, 19, 51, 0.62) 55%, var(--night) 100%),
+    image-set(url("/assets/night/sky-1280.avif") type("image/avif"), url("/assets/night/sky-1280.webp") type("image/webp")) center 28% / cover no-repeat;
+}
+@media (max-width: 700px) {
+  body::before {
+    height: 400px;
+    background:
+      linear-gradient(180deg, rgba(13, 19, 51, 0.55) 0%, rgba(13, 19, 51, 0.68) 55%, var(--night) 100%),
+      url("/assets/night/sky-m-480.webp") center 20% / cover no-repeat;
+    background:
+      linear-gradient(180deg, rgba(13, 19, 51, 0.55) 0%, rgba(13, 19, 51, 0.68) 55%, var(--night) 100%),
+      image-set(url("/assets/night/sky-m-480.avif") type("image/avif"), url("/assets/night/sky-m-480.webp") type("image/webp")) center 20% / cover no-repeat;
+  }
+}
+
+/* Type */
+h1, h2, h3 { font-family: var(--display); font-weight: 700; color: var(--ink); }
+h1 { letter-spacing: -0.01em; text-shadow: 0 2px 24px rgba(8, 10, 32, 0.45); }
+a { color: var(--link); }
+.muted, .eyebrow, .note, .summary, .lede, .intro, .crumbs, .post-meta, .includes, .also, .tier-note-small { color: var(--muted); }
+.eyebrow { display: inline-flex; align-items: center; gap: 8px; }
+.eyebrow::before { width: 12px; height: 12px; background: var(--star) center / contain no-repeat; content: ""; }
+
+/* Solid nav: the homepage dock, kept in flow so nothing slides under it. */
+.site-header, .top {
+  position: sticky; top: 10px; z-index: 20; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 18px;
+  margin-top: 16px; padding: 10px 22px; border: 1px solid rgba(244, 236, 216, 0.16); border-radius: 999px;
+  background: var(--night); box-shadow: 0 10px 30px rgba(4, 6, 20, 0.35); font-family: var(--display); font-size: 14px;
+}
+.top { margin-bottom: 40px; }
+.site-header nav { display: flex; flex-wrap: wrap; gap: 4px 18px; }
+.site-header nav a, .top a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); font-weight: 500; text-decoration: none; }
+.site-header nav a:hover, .top a:hover { color: var(--gold); }
+.site-header nav a[aria-current] { color: var(--gold); }
+.brand { display: inline-flex; align-items: center; gap: 9px; color: var(--ink) !important; font-family: var(--display); font-size: 14px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; }
+.brand::before { flex: none; width: 18px; height: 18px; background: var(--star) center / contain no-repeat; content: ""; }
+.brand-mark { padding: 0; border: 0; font-size: inherit; font-weight: inherit; letter-spacing: inherit; line-height: inherit; }
+.brand > span + span { margin-left: -2px; }
+@media (max-width: 520px) {
+  .site-header, .top { padding: 6px 16px; border-radius: 24px; font-size: 13px; }
+  .site-header nav { gap: 0 14px; }
+  .brand { font-size: 12px; letter-spacing: 0.13em; }
+}
+
+/* Cream poster cards with their own dark ink, as on the homepage walk. */
+.card, .related-card, .tier-note, .upsell, .post-list li {
+  --ink: #1b1838; --muted: #5b5672; --line: rgba(27, 24, 56, 0.16); --link: #7a5a12;
+  position: relative; border: 0; border-radius: 3px; color: var(--ink);
+  background: radial-gradient(120% 90% at 20% 10%, rgba(255, 252, 240, 0.9), rgba(255, 252, 240, 0) 60%), linear-gradient(175deg, #f6eed8, #ece2c6);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 18px 40px rgba(4, 6, 20, 0.5);
+}
+.card { padding: 18px 18px 14px; }
+.card h3, .card h3 a, .related-card, .tier-note h2, .post-list h2, .post-list h2 a { color: var(--ink); }
+.related-card { padding: 14px; }
+.tier-note, .upsell { padding: 16px 20px; }
+.post-list { display: grid; gap: 18px; }
+.post-list li { padding: 18px 22px; border: 0; }
+.card::before, .post-list li::before { position: absolute; top: -7px; left: 50%; width: 64px; height: 14px; margin-left: -32px; background: rgba(233, 196, 106, 0.5); content: ""; transform: rotate(-1.5deg); }
+.card-media img, .hero-media img, .related-card img, .post-figure img { border-color: rgba(27, 24, 56, 0.16); }
+.hero-media img, .post-figure img { border-color: var(--line); box-shadow: 0 18px 40px rgba(4, 6, 20, 0.5); }
+
+/* Buttons: gold primary, cream-lined secondary, as on the homepage. */
+.buy { border-color: var(--ink); color: var(--ink); border-radius: 999px; }
+.buy.primary { border-color: var(--gold); background: var(--gold); color: #1b1838; }
+.badge { background: var(--gold); color: #1b1838; }
+
+/* Tables, code, details */
+th, td { border-color: var(--line); }
+tr.ours { background: rgba(233, 196, 106, 0.14); }
+.prose th { background: rgba(244, 236, 216, 0.08); }
+.prose code { background: rgba(244, 236, 216, 0.1); color: var(--ink); }
+pre, .prose pre { border: 1px solid var(--line); background: #0a0f29; color: var(--cream); }
+.prose blockquote { border-left-color: var(--gold); }
+details { border-color: var(--line); }
+
+/* 404: long URLs wrap instead of pushing the page sideways. */
+pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+
+/* Stacked footer, shared by every inner page. */
+.site-footer { margin-top: 72px; padding: 0 0 40px; border-top: 1px solid var(--line); color: var(--muted); }
+.page-foot { max-width: 1240px; margin-inline: auto; }
+.foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 24px; padding: 40px 0 8px; }
+.foot-brand p { max-width: 26ch; margin: 10px 0 0; font-size: 14px; }
+.foot-col { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
+.foot-col h2 { margin: 0 0 6px; color: var(--muted); font-family: var(--body); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+.foot-col a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); font-size: 14px; text-decoration: none; }
+.foot-col a:hover { color: var(--gold); text-decoration: underline; text-underline-offset: 4px; }
+.foot-word { display: block; width: min(100%, 560px); height: auto; margin: 16px 0 8px; opacity: 0.1; }
+.foot-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 24px; padding-top: 8px; border-top: 1px solid var(--line); font-size: 13px; }
+.foot-bottom span { padding-block: 12px; }
+.foot-bottom a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); text-decoration: none; }
+.foot-bottom a:hover { color: var(--gold); }
+.page-foot-hand { width: min(1240px, calc(100% - 48px)); margin-inline: auto; }
+@media (max-width: 760px) {
+  .foot-grid { grid-template-columns: 1fr 1fr; }
+  .foot-brand { grid-column: 1 / -1; }
+}

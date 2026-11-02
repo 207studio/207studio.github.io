@@ -1,0 +1,7 @@
+name = "207studio-edge"
+main = "worker.js"
+compatibility_date = "2026-10-01"
+workers_dev = false
+routes = [
+  { pattern = "207studio.dev/*", zone_name = "207studio.dev" },
+]

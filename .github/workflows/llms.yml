@@ -1,0 +1,14 @@
+name: llms
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: llms.txt matches site-data.json
+        run: python3 _products/gen/check_llms.py
