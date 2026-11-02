@@ -3,6 +3,24 @@
    Build: npx esbuild assets/home.css --minify --outfile=assets/home.min.css */
 
 @font-face {
+  font-family: "DM Sans";
+  src: url("/assets/fonts/dm-sans-500-latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/assets/fonts/dm-sans-700-latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
   font-family: "Gabarito";
   src: url("/assets/fonts/gabarito-latin.woff2") format("woff2");
   font-style: normal;
@@ -1827,4 +1845,113 @@ html { touch-action: manipulation; }
   .walk.is-live.is-list .walk-rail li { flex: none; height: auto; padding: 0 0 9px; }
   .walk.is-live.is-list .walk-rail li::before, .walk.is-live.is-list .rail-fill { top: auto; bottom: 0; }
   .walk.is-live.is-list .rail-name { display: block; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+}
+
+/* r7: night sky. The page is the X header's painted night: deep navy and violet, cream
+   type, gold stars. Posters stay cream paper with dark ink, pasted on a violet wall. */
+:root {
+  --night: #0d1333;
+  --night-2: #141a45;
+  --violet: #1b1747;
+  --gold: #e9c46a;
+  --paper: var(--night);
+  --paper-light: #182052;
+  --paper-deep: #19204d;
+  --paper-shadow: #0a0f29;
+  --ink: #f4ecd8;
+  --ink-soft: #e4dccb;
+  --muted: #b9b4cc;
+  --line: rgba(244, 236, 216, 0.16);
+  --line-strong: rgba(244, 236, 216, 0.34);
+  --accent: var(--gold);
+  --accent-ink: #f3d68f;
+  --font-display: "DM Sans", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+  --star: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23e9c46a' d='M12 1c.4 5.6 2.6 8 11 11-8.4 3-10.6 5.4-11 11-.4-5.6-2.6-8-11-11 8.4-3 10.6-5.4 11-11z'/%3E%3C/svg%3E");
+  color-scheme: dark;
+}
+body {
+  background:
+    radial-gradient(1.5px 1.5px at 12% 18%, rgba(233, 196, 106, 0.7), transparent 60%),
+    radial-gradient(1px 1px at 68% 42%, rgba(244, 236, 216, 0.55), transparent 60%),
+    radial-gradient(1.5px 1.5px at 38% 76%, rgba(233, 196, 106, 0.55), transparent 60%),
+    radial-gradient(1px 1px at 88% 88%, rgba(244, 236, 216, 0.45), transparent 60%),
+    var(--night);
+  background-size: 520px 680px, 520px 680px, 520px 680px, 520px 680px, auto;
+}
+::selection { background: rgba(233, 196, 106, 0.4); color: #fff; }
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+/* Logo: a gold star and a cream DM Sans wordmark, as in the X header. */
+.brand { gap: 9px; }
+.brand-star { width: 18px; height: 18px; flex: none; fill: var(--gold); }
+.brand-word { font-family: "DM Sans", sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.18em; line-height: 1; text-transform: uppercase; color: var(--ink); }
+.dock { background: rgba(13, 19, 51, 0.86); border-color: rgba(244, 236, 216, 0.14); }
+.footer-brand .brand-star { width: 22px; height: 22px; }
+.footer-brand .brand-word { font-size: 17px; }
+
+/* Gold stars instead of dots. */
+.kicker-dot { width: 11px; height: 11px; border-radius: 0; background: var(--star) center / contain no-repeat; }
+.eyebrow::before { display: inline-block; width: 0.95em; height: 0.95em; margin-right: 0.55em; vertical-align: -0.1em; background: var(--star) center / contain no-repeat; content: ""; }
+
+/* Hero: the painting, full bleed, with the wordmark over its dark sky. */
+.hero { position: relative; isolation: isolate; overflow: hidden; overflow: clip; }
+.hero-paint { position: absolute; inset: 0; z-index: -2; }
+.hero-paint img { width: 100%; height: 100%; object-fit: cover; object-position: 72% 100%; }
+.hero::after { position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(10, 14, 40, 0.84) 0%, rgba(10, 14, 40, 0.62) 34%, rgba(10, 14, 40, 0) 60%), linear-gradient(0deg, var(--night) 0%, rgba(13, 19, 51, 0) 16%); content: ""; pointer-events: none; }
+.hero-stage { cursor: auto; }
+.hero-stage::before, .hero-stage::after { display: none; }
+.mimi { visibility: hidden; }
+.wordmark { display: flex; flex-wrap: nowrap; gap: 0 0.32em; margin-top: clamp(24px, 6vh, 72px); padding-top: 0; font-family: "DM Sans", sans-serif; font-weight: 700; letter-spacing: 0.07em; line-height: 1; color: var(--ink); text-shadow: 0 2px 24px rgba(8, 10, 32, 0.45); white-space: nowrap; }
+.wm-207, .wm-studio, html:lang(ko) .wm-207, html:lang(ko) .wm-studio { display: inline; margin: 0; padding: 0; font-family: "DM Sans", sans-serif; font-size: clamp(56px, 7.2vw, 112px); letter-spacing: inherit; }
+.hero-sub { margin-top: clamp(14px, 1.6vw, 22px); padding-left: 0.2em; color: #efd9a0; font-family: "DM Sans", sans-serif; font-size: clamp(13px, 1.25vw, 18px); font-weight: 500; letter-spacing: 0.34em; text-transform: uppercase; }
+html:lang(ko) .hero-sub { letter-spacing: 0.24em; }
+.intro { color: var(--ink-soft); }
+.hero-note { color: #cfc8dc; }
+.latest { background: rgba(16, 22, 60, 0.82); }
+.latest:hover { background: rgba(24, 32, 82, 0.92); }
+.btn-primary, .btn-primary:hover { color: #121a44; }
+.btn-ghost { background: rgba(13, 19, 51, 0.55); }
+.btn-ghost:hover { background: rgba(244, 236, 216, 0.1); }
+
+/* Sections over painted texture (lazy images under a scrim that keeps AA). */
+.studio, .contact { position: relative; isolation: isolate; }
+.studio { background: var(--violet); color: var(--ink); }
+.sec-paint { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
+.sec-paint img { width: 100%; height: 100%; object-fit: cover; object-position: 85% 50%; }
+.studio::before, .contact::before { position: absolute; inset: 0; z-index: -1; content: ""; pointer-events: none; }
+.studio::before { background: linear-gradient(180deg, var(--night) 0%, rgba(20, 18, 58, 0.88) 14%, rgba(20, 18, 58, 0.86) 86%, var(--night) 100%); }
+.contact { padding-block: var(--space-9); }
+.contact::before { background: linear-gradient(180deg, var(--night) 0%, rgba(12, 16, 46, 0.84) 18%, rgba(12, 16, 46, 0.8) 82%, var(--night) 100%); }
+.paint-roof img { object-position: 80% 60%; }
+.studio-stamp { border-color: rgba(233, 196, 106, 0.5); }
+.stamp-207 { color: var(--gold); }
+.quote p, .studio-lead, .facts dd, .studio .eyebrow { color: var(--ink); }
+.studio .eyebrow-index { color: var(--muted); }
+.studio .soft { color: #cdc4e2; }
+.also { background: var(--night-2); }
+.also-mark { background: var(--paper-light); color: var(--gold); box-shadow: 5px 6px 0 rgba(0, 0, 0, 0.35); }
+.card-badge { color: #121a44; }
+.footer-word { opacity: 0.1; }
+
+/* Walk: a violet wall with faint gold seams; cream posters keep their dark ink. */
+.poster { --ink-soft: #3b3654; --muted: #5b5672; --accent: #7a5a12; color: #1b1838; }
+.poster:focus-visible { outline-color: var(--gold); }
+.walk.is-live .walk-stage::before { background: radial-gradient(closest-side, rgba(74, 62, 150, 0.45) 0%, rgba(54, 46, 120, 0.2) 55%, rgba(54, 46, 120, 0) 100%); }
+.walk.is-live .wall-face { background: linear-gradient(180deg, rgba(38, 33, 96, 0.35), rgba(40, 34, 98, 0.82) 70%, rgba(30, 26, 76, 0.95)); }
+.walk.is-live .wall-ledge { background: rgba(233, 196, 106, 0.28); }
+.walk.is-live .wall-seams { background: linear-gradient(90deg, rgba(233, 196, 106, 0.14) 0 1px, transparent 1px) 0 0 / 200px 100% repeat-x; }
+.walk.is-live .walker-floor { background: radial-gradient(closest-side, rgba(4, 6, 20, 0.6), rgba(4, 6, 20, 0.25) 60%, rgba(4, 6, 20, 0)); }
+.walk.is-live .rail-fill { background: var(--gold); }
+
+@media (max-width: 700px) {
+  .dock .brand-word { display: inline; font-size: 12px; letter-spacing: 0.13em; }
+  .brand-star { width: 16px; height: 16px; }
+  .hero-paint { bottom: auto; height: 640px; }
+  .hero-paint img { object-position: 80% 100%; }
+  .hero::after { background: linear-gradient(180deg, rgba(10, 14, 40, 0.88) 0%, rgba(10, 14, 40, 0.6) 30%, rgba(10, 14, 40, 0) 46%, rgba(13, 19, 51, 0) 74%, var(--night) 640px); }
+  .wordmark { margin-top: 10px; }
+  .wm-207, .wm-studio, html:lang(ko) .wm-207, html:lang(ko) .wm-studio { font-size: clamp(36px, 10.6vw, 64px); }
+  .hero-sub { font-size: 12px; letter-spacing: 0.28em; }
+  .sec-paint img { object-position: 78% 50%; }
+  .contact { padding-block: var(--space-8); }
 }
