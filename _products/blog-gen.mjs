@@ -192,26 +192,39 @@ const CSS = `:root{--bg:#fafbf8;--ink:#102b32;--muted:#52646a;--line:#d6dedb;--l
 .post-list time{font-size:.88rem;color:var(--muted)}
 `;
 
-function head(title, description, canonical, ogImage, extraCss = '/blog/blog.css') {
-  const image = ogImage ? `<meta property="og:image" content="${esc(ogImage)}">\n<meta name="twitter:image" content="${esc(ogImage)}">\n` : '';
+// opts.ko: the Korean twin's URL (adds hreflang). opts.cardImage: og/twitter image for pages without a hero image.
+function head(title, description, canonical, ogImage, opts = {}) {
+  const extraCss = opts.extraCss || '/blog/blog.css';
+  const image = ogImage
+    ? `<meta property="og:image" content="${esc(ogImage)}">\n<meta name="twitter:image" content="${esc(ogImage)}">\n`
+    : opts.cardImage ? `<meta property="og:image" content="${esc(opts.cardImage)}">\n` : '';
+  const twImage = ogImage || opts.cardImage;
+  const alternates = opts.ko
+    ? `<link rel="alternate" hreflang="en" href="${esc(canonical)}">\n<link rel="alternate" hreflang="ko" href="${esc(opts.ko)}">\n<link rel="alternate" hreflang="x-default" href="${esc(canonical)}">\n`
+    : '';
   return `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#102b32">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%23102b32'/%3E%3Cpath d='M10 12h20v4L20 29h-6l10-13H10z' fill='%23d5f66b'/%3E%3C/svg%3E">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="stylesheet" href="/products/products.css">
 <link rel="stylesheet" href="${extraCss}">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
 <link rel="canonical" href="${esc(canonical)}">
-<meta property="og:title" content="${esc(title)}">
+${alternates}<meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:type" content="article">
 <meta property="og:url" content="${esc(canonical)}">
 ${image}<meta property="og:site_name" content="207 Studio">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${esc(title)}">
+<meta name="twitter:description" content="${esc(description)}">
+${twImage ? `<meta name="twitter:image" content="${esc(twImage)}">\n` : ''}<link rel="stylesheet" href="/assets/pages.css">
 </head>`;
 }
 
@@ -220,8 +233,11 @@ function header(current) {
   return `<header class="site-header wrap"><a class="brand" href="/"><span class="brand-mark">207</span><span>STUDIO</span></a><nav aria-label="Main navigation"><a href="/">Home</a><a href="/products/">Products</a><a href="/blog/"${blog}>Writing</a></nav></header>`;
 }
 
-function footer() {
-  return `<footer class="site-footer wrap"><p>207 Studio (207studio.dev), South Korea. Support: <a href="mailto:${esc(data.support_email)}">${esc(data.support_email)}</a></p><p>Last updated ${esc(data.last_updated)}. \u00a9 2026 207 Studio</p></footer>`;
+const FOOT_GRID = '<div class="foot-grid"><div class="foot-brand"><a class="brand" href="/">207 Studio</a><p>Software for making and teaching.</p></div><nav class="foot-col" aria-label="Work"><h2>Work</h2><a href="/products/">Products</a><a href="/blog/">Writing</a><a href="https://apps.apple.com/app/id6815584225" target="_blank" rel="noopener">Pairy</a></nav><nav class="foot-col" aria-label="Studio"><h2>Studio</h2><a href="/about/">About</a><a href="mailto:support@207studio.dev">Support</a><a href="/llms.txt">llms.txt</a></nav><nav class="foot-col" aria-label="Legal"><h2>Legal</h2><a href="/legal/privacy/">Privacy Policy</a><a href="/legal/terms/">Terms of Use</a><a href="/legal/refunds/">Refund Policy</a></nav></div><img class="foot-word" src="/assets/footer-207.svg" alt="" aria-hidden="true" width="1513" height="700" loading="lazy" decoding="async">';
+
+function footer(ko) {
+  const lang = ko ? `<a href="${esc(ko)}" lang="ko" hreflang="ko">\ud55c\uad6d\uc5b4</a>` : '';
+  return `<footer class="site-footer wrap">${FOOT_GRID}<div class="foot-bottom"><span>\u00a9 2026 207 Studio \u00b7 South Korea</span>${lang}</div></footer>`;
 }
 
 const scriptTag = (obj) =>
@@ -254,7 +270,7 @@ for (const post of posts) {
 
   const graph = [
     {
-      '@type': 'Article',
+      '@type': 'BlogPosting',
       '@id': `${canonical}#article`,
       headline: h1,
       description: post.description,
@@ -288,7 +304,7 @@ for (const post of posts) {
 
   const ogImage = post.image ? `${BASE}${post.image}` : '';
   const figure = post.image
-    ? `<figure class="post-figure"><img src="${esc(post.image)}" alt="${esc(post.image_alt || '')}" loading="eager">${post.image_caption ? `<figcaption>${inline(post.image_caption)}</figcaption>` : ''}</figure>`
+    ? `<figure class="post-figure"><img src="${esc(post.image)}"${post.image_width ? ` width="${post.image_width}" height="${post.image_height}"` : ''} alt="${esc(post.image_alt || '')}" loading="eager">${post.image_caption ? `<figcaption>${inline(post.image_caption)}</figcaption>` : ''}</figure>`
     : '';
 
   const page = `${head(post.meta_title || post.title, post.description, canonical, ogImage)}
@@ -320,7 +336,7 @@ const listItems = posts
   )
   .join('\n');
 
-const listPage = `${head('Writing \u2013 notes on browser rendering and classroom tools | 207 Studio', 'Practical notes from 207 Studio on rendering documents in the browser, offline classroom tools, and the code behind them.', `${BASE}/blog/`)}
+const listPage = `${head('Writing \u2013 notes on browser rendering and classroom tools | 207 Studio', 'Practical notes from 207 Studio on rendering documents in the browser, offline classroom tools, and the code behind them.', `${BASE}/blog/`, '', { ko: `${BASE}/ko/blog/`, cardImage: posts.find((p) => p.image) ? `${BASE}${posts.find((p) => p.image).image}` : '' })}
 <body>
 ${header('blog')}
 <main class="wrap product-page blog-index">
@@ -331,7 +347,7 @@ ${header('blog')}
 ${listItems}
 </ul>
 </main>
-${footer()}
+${footer(`${BASE}/ko/blog/`)}
 </body>
 </html>
 `;

@@ -5,16 +5,19 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Checkout · 207studio</title>
 <meta name="robots" content="noindex">
-<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/products/products.css">
 <style>
-main{max-width:720px;margin:3rem auto;padding:0 1.2rem;font-family:system-ui,sans-serif}
-.opt{display:flex;justify-content:space-between;align-items:center;padding:.7rem 0;border-bottom:1px solid #0001}
-.opt button{background:#102b32;color:#d5f66b;border:0;border-radius:6px;padding:.5rem 1rem;cursor:pointer}
-.note{color:#666;font-size:.9rem}
+main{max-width:720px;margin:3rem auto;padding:0 1.2rem}
+.opt{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:.7rem 0;border-bottom:1px solid var(--line)}
+.opt button{flex:none;min-height:44px;padding:.5rem 1.2rem;border:0;border-radius:999px;background:var(--gold);color:#1b1838;font:700 14px var(--display);cursor:pointer}
+.opt button:hover{background:#f3d68f}
+.note{font-size:.9rem}
 </style>
 <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+<link rel="stylesheet" href="/assets/pages.css">
 </head>
 <body>
+<header class="site-header wrap"><a class="brand" href="/"><span class="brand-mark">207</span><span>STUDIO</span></a><nav aria-label="Main navigation"><a href="/">Home</a><a href="/products/">Products</a><a href="/blog/">Writing</a></nav></header>
 <main>
 <h1>Checkout</h1>
 <p class="note">Polar is the main checkout. Paddle is the alternative, for card or PayPal, and is the merchant of record for those purchases. Paddle handles tax and receipts. One-time purchase, no subscription. Use the Polar buttons on each <a href="/products/">product page</a>.</p>
@@ -22,6 +25,7 @@ main{max-width:720px;margin:3rem auto;padding:0 1.2rem;font-family:system-ui,san
 <div id="list"></div>
 <p class="note">Commercial licenses are for companies with annual revenue up to $1M; larger companies, contact <a href="mailto:support@207studio.dev">support@207studio.dev</a> for an Enterprise license. See <a href="/legal/terms/">terms</a> and <a href="/legal/refunds/">refunds</a>.</p>
 </main>
+<footer class="site-footer wrap"><div class="foot-grid"><div class="foot-brand"><a class="brand" href="/">207 Studio</a><p>Software for making and teaching.</p></div><nav class="foot-col" aria-label="Work"><h2>Work</h2><a href="/products/">Products</a><a href="/blog/">Writing</a><a href="https://apps.apple.com/app/id6815584225" target="_blank" rel="noopener">Pairy</a></nav><nav class="foot-col" aria-label="Studio"><h2>Studio</h2><a href="/about/">About</a><a href="mailto:support@207studio.dev">Support</a><a href="/llms.txt">llms.txt</a></nav><nav class="foot-col" aria-label="Legal"><h2>Legal</h2><a href="/legal/privacy/">Privacy Policy</a><a href="/legal/terms/">Terms of Use</a><a href="/legal/refunds/">Refund Policy</a></nav></div><img class="foot-word" src="/assets/footer-207.svg" alt="" aria-hidden="true" width="1513" height="700" loading="lazy" decoding="async"><div class="foot-bottom"><span>© 2026 207 Studio · South Korea</span></div></footer>
 <script>
 const PADDLE_CLIENT_TOKEN = "live_921720ef6a39cb7ecbf5f3ee891";
 const OPTIONS = [

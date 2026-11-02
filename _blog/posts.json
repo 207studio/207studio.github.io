@@ -11,6 +11,8 @@
       "pptx"
     ],
     "image": "/assets/products/pptx-player-sdk-1200.jpg",
+    "image_width": 1200,
+    "image_height": 675,
     "image_alt": "PPTX Player SDK diagram: a slide stepped with click 1, click 2, then a morph transition",
     "image_caption": "A deck steps the way PowerPoint plays it: click 1, click 2, then a morph transition between slides."
   }
