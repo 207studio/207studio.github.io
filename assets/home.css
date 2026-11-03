@@ -1018,19 +1018,25 @@ dd {
 }
 
 .also-mark {
-  display: grid;
+  display: block;
   width: 88px;
   height: 88px;
-  place-items: center;
-  border-radius: 24px;
-  background: var(--paper-deep);
-  box-shadow: 5px 6px 0 rgba(29, 27, 23, 0.12);
-  color: var(--ink);
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(4, 6, 20, 0.5);
+}
+
+.also-sub {
+  margin: 0 0 var(--space-2);
+  color: var(--gold);
   font-family: var(--font-display);
-  font-size: 44px;
-  font-weight: 800;
-  line-height: 1;
-  transform: rotate(-4deg);
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.also-acts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .also-copy .eyebrow {
@@ -1277,7 +1283,7 @@ html:lang(ko) .eyebrow {
     grid-template-columns: auto minmax(0, 1fr);
   }
 
-  .also-inner > .btn {
+  .also-inner > .also-acts {
     grid-column: 2;
     justify-self: start;
   }
@@ -1552,11 +1558,10 @@ html:lang(ko) .eyebrow {
   .also-mark {
     width: 64px;
     height: 64px;
-    border-radius: 18px;
-    font-size: 32px;
+    border-radius: 15px;
   }
 
-  .also-inner > .btn {
+  .also-inner > .also-acts {
     grid-column: auto;
   }
 
@@ -1921,7 +1926,6 @@ html:lang(ko) .hero-sub { letter-spacing: 0.24em; }
 .studio .eyebrow-index { color: var(--muted); }
 .studio .soft { color: #cdc4e2; }
 .also { background: var(--night-2); }
-.also-mark { background: var(--paper-light); color: var(--gold); box-shadow: 5px 6px 0 rgba(0, 0, 0, 0.35); }
 .card-badge { color: #121a44; }
 .footer-word { opacity: 0.1; }
 
