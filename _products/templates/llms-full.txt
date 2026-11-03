@@ -4,7 +4,7 @@
 
 {{products}}## Pairy: Connecting Devices (iOS/iPadOS app)
 
-https://apps.apple.com/app/id6815584225 - remote desktop for your tablet. Paid app, one-time purchase ($4.99 in the US).
+https://apps.apple.com/app/id6815584225 - remote desktop for your tablet. Free on the App Store with no subscription (an optional in-app tip unlocks nothing); the Mac companion is a free notarized download.
 Page: https://207studio.dev/pairy/ (how it works, screenshots, the Mac companion download)
 
 {{downloads}}## In development
