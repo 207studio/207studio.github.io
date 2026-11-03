@@ -17,8 +17,8 @@
     }
   },
   "method": {
-    "en": "Each pair comes from one HWPX file. The school notice was saved and exported to PDF in Hancom Office HWP for Mac 12.30.0 on 2026-11-03 and rendered by 또렷 0.1.0 (commit b8e6786) the same day from that saved file; the two short test pages were exported by Hancom on 2026-11-01 and rendered by 또렷 0.1.0 (commit 751dfbe) on 2026-11-03. 또렷 used the same Hancom fonts. All PDFs were turned into 1240×1754 PNGs (150 dpi) with the same tool on 2026-11-03; nothing is cropped or retouched. The Hancom images come from Hancom's PDF export, not screenshots of the Hancom window. All documents are fictional and written by the 또렷 project.",
-    "ko": "예시마다 HWPX 파일 하나로 만들었어요. 가정통신문은 2026-11-03에 한컴오피스 HWP for Mac 12.30.0에서 저장하고 ‘PDF로 저장하기’로 내보냈고, 같은 날 그 저장 파일을 또렷 0.1.0(커밋 b8e6786)으로 그렸어요. 짧은 시험 문서 두 개는 한글이 2026-11-01에 내보냈고 또렷 0.1.0(커밋 751dfbe)이 2026-11-03에 그렸어요. 또렷은 같은 한글 글꼴을 썼어요. 모든 PDF는 2026-11-03에 같은 도구로 1240×1754 PNG(150dpi)로 바꿨고, 자르거나 손대지 않았어요. 한글 쪽 그림은 한글 창을 찍은 화면이 아니라 한글이 내보낸 PDF에서 나왔어요. 모든 문서는 또렷 프로젝트가 만든 가상의 문서예요."
+    "en": "Each pair comes from one HWPX file. The school notice was saved and exported to PDF in Hancom Office HWP for Mac 12.30.0 on 2026-11-03; the two short test pages were exported by Hancom on 2026-11-01. 또렷 0.1.0 (commit c534f93) rendered all three from those same saved files on 2026-11-04, using the same Hancom fonts. All PDFs were turned into 1240×1754 PNGs (150 dpi) with the same tool; nothing is cropped or retouched. The Hancom images come from Hancom's PDF export, not screenshots of the Hancom window. All documents are fictional and written by the 또렷 project.",
+    "ko": "예시마다 HWPX 파일 하나로 만들었어요. 가정통신문은 2026-11-03에 한컴오피스 HWP for Mac 12.30.0에서 저장하고 ‘PDF로 저장하기’로 내보냈고, 짧은 시험 문서 두 개는 한글이 2026-11-01에 내보냈어요. 또렷 0.1.0(커밋 c534f93)이 2026-11-04에 세 문서 모두 같은 저장 파일로 그렸고, 같은 한글 글꼴을 썼어요. 모든 PDF는 같은 도구로 1240×1754 PNG(150dpi)로 바꿨고, 자르거나 손대지 않았어요. 한글 쪽 그림은 한글 창을 찍은 화면이 아니라 한글이 내보낸 PDF에서 나왔어요. 모든 문서는 또렷 프로젝트가 만든 가상의 문서예요."
   },
   "samples": [
     {
@@ -30,9 +30,9 @@
       "file": "/assets/apps/ttoryeot/compare/notice-gajeong-tongsinmun.hwpx",
       "page": 1,
       "hancom": "/assets/apps/ttoryeot/compare/notice-p1-hancom-12.30.0.png",
-      "ttoryeot": "/assets/apps/ttoryeot/compare/notice-p1-ttoryeot-b8e6786.png",
+      "ttoryeot": "/assets/apps/ttoryeot/compare/notice-p1-ttoryeot-c534f93.png",
       "hancom_pdf": "/assets/apps/ttoryeot/compare/notice-hancom-12.30.0.pdf",
-      "ttoryeot_pdf": "/assets/apps/ttoryeot/compare/notice-ttoryeot-b8e6786.pdf",
+      "ttoryeot_pdf": "/assets/apps/ttoryeot/compare/notice-ttoryeot-c534f93.pdf",
       "focus": [
         0.4,
         0.33
@@ -49,17 +49,17 @@
       },
       "ttoryeot_meta": {
         "version": {
-          "en": "0.1.0 (b8e6786)",
-          "ko": "0.1.0 (b8e6786)"
+          "en": "0.1.0 (c534f93)",
+          "ko": "0.1.0 (c534f93)"
         },
         "made": {
-          "en": "rendered 2026-11-03",
-          "ko": "렌더링 2026-11-03"
+          "en": "rendered 2026-11-04",
+          "ko": "렌더링 2026-11-04"
         }
       },
       "note": {
-        "en": "A fictional letter to parents with a schedule table, a numbered list, a footnote and a tear-off reply form. One measured difference: the footnote mark “1)” at the end of item 나 sits 1.37 pt (about 0.5 mm) further right in Ttoryeot.",
-        "ko": "일정표, 번호 목록, 각주, 절취선 회신서가 있는 가상의 가정통신문이에요. 잰 차이가 하나 있어요. 나 항목 끝의 각주 번호 “1)”가 또렷에서 1.37pt(약 0.5mm) 더 오른쪽에 있어요."
+        "en": "A fictional letter to parents with a schedule table, a numbered list, a footnote and a tear-off reply form. Line breaks, table rules and positions match; the largest measured offset is 0.33 pt (about 0.1 mm), at the footnote mark “1)” in item 나.",
+        "ko": "일정표, 번호 목록, 각주, 절취선 회신서가 있는 가상의 가정통신문이에요. 줄바꿈, 표 선, 위치가 같고, 잰 차이 중 가장 큰 것은 나 항목의 각주 번호 “1)”에서 0.33pt(약 0.1mm)예요."
       }
     },
     {
@@ -71,9 +71,9 @@
       "file": "/assets/apps/ttoryeot/compare/e13-image.hwpx",
       "page": 1,
       "hancom": "/assets/apps/ttoryeot/compare/e13-image-p1-hancom-12.30.0.png",
-      "ttoryeot": "/assets/apps/ttoryeot/compare/e13-image-p1-ttoryeot-751dfbe.png",
+      "ttoryeot": "/assets/apps/ttoryeot/compare/e13-image-p1-ttoryeot-c534f93.png",
       "hancom_pdf": "/assets/apps/ttoryeot/compare/e13-image-hancom-12.30.0.pdf",
-      "ttoryeot_pdf": "/assets/apps/ttoryeot/compare/e13-image-ttoryeot-751dfbe.pdf",
+      "ttoryeot_pdf": "/assets/apps/ttoryeot/compare/e13-image-ttoryeot-c534f93.pdf",
       "focus": [
         0.4,
         0.17
@@ -90,12 +90,12 @@
       },
       "ttoryeot_meta": {
         "version": {
-          "en": "0.1.0 (751dfbe)",
-          "ko": "0.1.0 (751dfbe)"
+          "en": "0.1.0 (c534f93)",
+          "ko": "0.1.0 (c534f93)"
         },
         "made": {
-          "en": "rendered 2026-11-03",
-          "ko": "렌더링 2026-11-03"
+          "en": "rendered 2026-11-04",
+          "ko": "렌더링 2026-11-04"
         }
       }
     },
@@ -108,9 +108,9 @@
       "file": "/assets/apps/ttoryeot/compare/e05-table-basic.hwpx",
       "page": 1,
       "hancom": "/assets/apps/ttoryeot/compare/e05-table-basic-p1-hancom-12.30.0.png",
-      "ttoryeot": "/assets/apps/ttoryeot/compare/e05-table-basic-p1-ttoryeot-751dfbe.png",
+      "ttoryeot": "/assets/apps/ttoryeot/compare/e05-table-basic-p1-ttoryeot-c534f93.png",
       "hancom_pdf": "/assets/apps/ttoryeot/compare/e05-table-basic-hancom-12.30.0.pdf",
-      "ttoryeot_pdf": "/assets/apps/ttoryeot/compare/e05-table-basic-ttoryeot-751dfbe.pdf",
+      "ttoryeot_pdf": "/assets/apps/ttoryeot/compare/e05-table-basic-ttoryeot-c534f93.pdf",
       "focus": [
         0.25,
         0.29
@@ -127,12 +127,12 @@
       },
       "ttoryeot_meta": {
         "version": {
-          "en": "0.1.0 (751dfbe)",
-          "ko": "0.1.0 (751dfbe)"
+          "en": "0.1.0 (c534f93)",
+          "ko": "0.1.0 (c534f93)"
         },
         "made": {
-          "en": "rendered 2026-11-03",
-          "ko": "렌더링 2026-11-03"
+          "en": "rendered 2026-11-04",
+          "ko": "렌더링 2026-11-04"
         }
       }
     }
