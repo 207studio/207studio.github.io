@@ -130,7 +130,7 @@
   var scroller = section.querySelector("[data-walk-scroller]");
   var stage = section.querySelector("[data-walk-stage]");
   var stops = [].slice.call(section.querySelectorAll("[data-stop]"));
-  var N = stops.length, DWELL = 0.55, BACK = -420, DEPTH = -600, FRAMES = 12;
+  var N = stops.length, DWELL = 0.55, BACK = -420, DEPTH = -600, NEAR = 0.8;
   var top = 0, run = 1, active = -1, ticking = false, on = false;
 
   var mimi = document.createElement("div");
@@ -183,8 +183,9 @@
     var move = i < N - 1 ? ease(Math.min(Math.max((t - i - DWELL) / (1 - DWELL), 0), 1)) : 0;
     var pos = i + move, here = Math.round(pos);
     for (var k = 0; k < N; k++) place(k, i, move);
-    var frame = move > 0 && move < 1 ? Math.floor(move * 2 * FRAMES) % FRAMES : 0;
-    mimi.style.backgroundPositionX = (frame / (FRAMES - 1) * 100).toFixed(2) + "%";
+    // Mimi walks toward the viewer the whole way: the walk cycle runs in CSS, and she grows
+    // from NEAR to full size as the tour goes from the first app to the last.
+    section.style.setProperty("--mimi-s", (NEAR + (1 - NEAR) * pos / (N - 1)).toFixed(4));
     say.style.opacity = Math.min(1, Math.abs(move - 0.5) * 2).toFixed(3);
     fill.style.transform = "scaleX(" + (pos / (N - 1)).toFixed(4) + ")";
     if (here !== active) light(here);
@@ -207,6 +208,15 @@
     active = -1;
     tick();
     window.addEventListener("scroll", onScroll, { passive: true });
+  }
+
+  // The walk cycle only runs while the stage is on screen.
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (entries) {
+      mimi.classList.toggle("is-walking", entries[0].isIntersecting);
+    }).observe(stage);
+  } else {
+    mimi.classList.add("is-walking");
   }
 
   // Keyboard: Tab to a card scrolls the page to that card's dwell, so the stage and focus agree.
