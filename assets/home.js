@@ -303,7 +303,7 @@
       fx = Math.min(Math.max(fx + d[0], 0), 1); fy = Math.min(Math.max(fy + d[1], 0), 1);
       draw();
     });
-    [].forEach.call(pg.querySelectorAll("img"), function (img) { img.loading = "eager"; img.addEventListener("load", draw); });
+    [].forEach.call(pg.querySelectorAll("img"), function (img) { img.addEventListener("load", draw); });
   });
   tabs.forEach(function (b) {
     b.addEventListener("click", function () { show(pages.filter(function (p) { return p.getAttribute("data-n") === b.getAttribute("data-n"); })[0]); });

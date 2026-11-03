@@ -2,8 +2,8 @@
 
 Usage: python3 _products/compare-gen.py [compare.json]
 Rewrites the block between <!-- compare:start --> and <!-- compare:end --> in index.html
-and ko/index.html. With no pages the block is left empty, so nothing unverified is shown.
-Every page must name two existing image files of the same pixel size.
+and ko/index.html. With no samples the block is left empty, so nothing unverified is shown.
+Every sample must name existing files, and its two renders must be the same pixel size.
 """
 import json
 import struct
@@ -19,9 +19,10 @@ T = {
     "hint": {"en": "Tap or click a spot on either page to see the same spot up close on both.", "ko": "어느 쪽이든 한 곳을 누르면 양쪽의 같은 자리를 크게 보여 줘요."},
     "lens": {"en": "Up close", "ko": "크게 보기"},
     "full": {"en": "Full size", "ko": "원본 크기"},
-    "page": {"en": "Page", "ko": "쪽"},
-    "file": {"en": "Download the sample file", "ko": "예시 파일 받기"},
-    "rendered": {"en": "Rendered", "ko": "렌더링"},
+    "page": {"en": "page", "ko": "쪽"},
+    "file": {"en": "Sample file (.hwpx)", "ko": "예시 파일(.hwpx)"},
+    "pdf": {"en": "PDF", "ko": "PDF"},
+    "how": {"en": "How these were made", "ko": "만든 방법"},
 }
 
 
@@ -48,55 +49,55 @@ def site_file(src):
     return path
 
 
-def side(key, page, data, lang, size):
+def side(key, sample, data, lang, size):
     who = data[key]
-    label = f'<b>{escape(who["label"][lang])}</b> <span>{escape(who["version"])}</span>'
-    alt = f'{who["label"][lang]} {who["version"]}: {data["document"]["title"][lang]}, {T["page"][lang]} {page["n"]}'
+    label = (f'<b>{escape(who["label"][lang])}</b> <span>{escape(who["version"][lang])}</span>'
+             f'<span class="compare-made">{escape(who["made"][lang])}</span>')
+    alt = f'{who["label"][lang]} {who["version"][lang]}: {sample["title"][lang]}, {T["page"][lang]} {sample["page"]}'
     w, h = size
     return (f'<figure class="compare-side" data-side="{key}">'
             f'<figcaption>{label}</figcaption>'
-            f'<div class="compare-shot"><img src="{escape(page[key])}" width="{w}" height="{h}" alt="{escape(alt)}" loading="lazy" decoding="async"></div>'
-            f'<a class="compare-full" href="{escape(page[key])}" target="_blank" rel="noopener">{T["full"][lang]} <span aria-hidden="true">↗</span></a>'
+            f'<div class="compare-shot"><img src="{escape(sample[key])}" width="{w}" height="{h}" alt="{escape(alt)}" loading="lazy" decoding="async"></div>'
+            f'<p class="compare-links"><a href="{escape(sample[key])}" target="_blank" rel="noopener">{T["full"][lang]} <span aria-hidden="true">↗</span></a>'
+            f'<a href="{escape(sample[key + "_pdf"])}" target="_blank" rel="noopener">{T["pdf"][lang]} <span aria-hidden="true">↗</span></a></p>'
             f'</figure>')
 
 
 def render(data, lang):
-    pages = data.get("pages") or []
-    if not pages:
+    samples = data.get("samples") or []
+    if not samples:
         return ""
-    doc = data["document"]
     out = []
-    for page in pages:
-        a, b = image_size(site_file(page["hancom"])), image_size(site_file(page["ttoryeot"]))
+    for s in samples:
+        a, b = image_size(site_file(s["hancom"])), image_size(site_file(s["ttoryeot"]))
         if a != b:
-            raise SystemExit(f'page {page["n"]}: renders differ in size {a} vs {b}; export both at the same pixel size')
-        fx, fy = page.get("focus", [0.5, 0.25])
-        out.append(f'<div class="compare-page" data-compare-page data-focus="{fx} {fy}" data-n="{page["n"]}">'
-                   f'<div class="compare-pair" tabindex="0" aria-describedby="compare-hint">{side("hancom", page, data, lang, a)}{side("ttoryeot", page, data, lang, b)}</div>'
+            raise SystemExit(f'{s["id"]}: renders differ in size {a} vs {b}; export both at the same pixel size')
+        for k in ("file", "hancom_pdf", "ttoryeot_pdf"):
+            site_file(s[k])
+        fx, fy = s["focus"]
+        out.append(f'<div class="compare-page" data-compare-page data-focus="{fx} {fy}" data-n="{escape(s["id"])}">'
+                   f'<p class="compare-doc">{escape(s["title"][lang])} · {s["page"]} {T["page"][lang]} '
+                   f'<a class="text-link" href="{escape(s["file"])}" download>{T["file"][lang]} <span aria-hidden="true">↓</span></a></p>'
+                   f'<div class="compare-pair" tabindex="0" aria-describedby="compare-hint">{side("hancom", s, data, lang, a)}{side("ttoryeot", s, data, lang, b)}</div>'
                    f'</div>')
     lens = (f'<div class="compare-lens" data-compare-lens aria-hidden="true">'
             f'<p class="compare-lens-h">{T["lens"][lang]}</p>'
             f'<div class="compare-lens-pair"><div class="compare-lens-pane" data-pane="hancom"><span>{escape(data["hancom"]["label"][lang])}</span></div>'
             f'<div class="compare-lens-pane" data-pane="ttoryeot"><span>{escape(data["ttoryeot"]["label"][lang])}</span></div></div></div>')
     tabs = ""
-    if len(pages) > 1:
+    if len(samples) > 1:
         tabs = '<p class="compare-tabs" data-compare-tabs>' + "".join(
-            f'<button type="button" data-n="{p["n"]}">{T["page"][lang]} {p["n"]}</button>' for p in pages) + "</p>"
-    meta = [f'{escape(doc["title"][lang])}', f'{T["rendered"][lang]} {escape(data["rendered"])}']
-    if doc.get("note"):
-        meta.append(escape(doc["note"][lang]))
-    link = f' <a class="text-link" href="{escape(doc["file"])}" download>{T["file"][lang]} <span aria-hidden="true">↓</span></a>' if doc.get("file") else ""
-    if doc.get("file"):
-        site_file(doc["file"])
+            f'<button type="button" data-n="{escape(s["id"])}">{escape(s["title"][lang])}</button>' for s in samples) + "</p>"
     return (f'  <section class="compare" id="compare" aria-labelledby="compare-title" data-compare>\n'
             f'    <div class="wrap">\n'
             f'      <p class="eyebrow">{T["eyebrow"][lang]}</p>\n'
             f'      <h2 id="compare-title">{T["title"][lang]}</h2>\n'
-            f'      <p class="compare-meta">{" · ".join(meta)}{link}</p>\n'
+            f'      <p class="compare-meta">{escape(data["caption"][lang])}</p>\n'
             f'      <div class="compare-body">\n'
             f'        <div class="compare-pages">{tabs}{"".join(out)}</div>\n'
             f'        <div class="compare-aside"><p class="compare-hint" id="compare-hint">{T["hint"][lang]}</p>{lens}</div>\n'
             f'      </div>\n'
+            f'      <details class="compare-how"><summary>{T["how"][lang]}</summary><p>{escape(data["method"][lang])}</p></details>\n'
             f'    </div>\n'
             f'  </section>\n')
 

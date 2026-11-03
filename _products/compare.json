@@ -1,7 +1,45 @@
 {
-  "_readme": "Home page comparison: the same HWP document as rendered by Hancom 한글 and by Ttoryeot (또렷), side by side. Run python3 _products/compare-gen.py after editing. Only verified renders from the 또렷 PM go here: both images must be the same page of the same file, exported at the same pixel size, with no retouching. With no pages the section is not rendered at all. Paths are site paths under /assets/apps/ttoryeot/compare/.",
-  "document": null,
-  "hancom": null,
-  "ttoryeot": null,
-  "pages": []
+  "_readme": "Home page comparison: the same page of the same HWPX file as Hancom 한글 and Ttoryeot (또렷) render it, side by side. Run python3 _products/compare-gen.py after editing. Only verified renders from the 또렷 PM go here (source: OpenBot Shared/207/preview-compare/assets/README.md and SHA256SUMS, delivered 2026-11-03): both PNGs must be the same page, the same pixel size, unedited. With no samples the section is not rendered. Paths are site paths under /assets/apps/ttoryeot/compare/.",
+  "caption": {
+    "en": "The same page of the same document, as rendered by Hancom 한글 12.30.0 (Mac) and by 또렷, unedited.",
+    "ko": "같은 문서의 같은 쪽을 한글 12.30.0(Mac)과 또렷으로 그린 그대로입니다."
+  },
+  "hancom": {
+    "label": {"en": "Hancom 한글", "ko": "한글"},
+    "version": {"en": "12.30.0 (Mac)", "ko": "12.30.0 (Mac)"},
+    "made": {"en": "PDF export, 2026-11-01", "ko": "PDF로 저장, 2026-11-01"}
+  },
+  "ttoryeot": {
+    "label": {"en": "Ttoryeot", "ko": "또렷"},
+    "version": {"en": "0.1.0 (751dfbe)", "ko": "0.1.0 (751dfbe)"},
+    "made": {"en": "rendered 2026-11-03", "ko": "렌더링 2026-11-03"}
+  },
+  "method": {
+    "en": "Hancom Office HWP for Mac 12.30.0 exported its PDF on 2026-11-01 (File › Save as PDF); 또렷 0.1.0 (commit 751dfbe) rendered its PDF on 2026-11-03 with the same Hancom fonts. Both PDFs were turned into 1240×1754 PNGs (150 dpi) with the same tool on 2026-11-03; nothing is cropped or retouched. The Hancom image comes from Hancom's PDF export, not a screenshot of the Hancom window. These are short synthetic test pages written by the 또렷 project, not real-world forms.",
+    "ko": "한글(한컴오피스 HWP for Mac 12.30.0)은 2026-11-01에 ‘PDF로 저장하기’로 PDF를 만들었고, 또렷 0.1.0(커밋 751dfbe)은 2026-11-03에 같은 한글 글꼴로 PDF를 그렸어요. 두 PDF는 2026-11-03에 같은 도구로 1240×1754 PNG(150dpi)로 바꿨고, 자르거나 손대지 않았어요. 한글 쪽 그림은 한글 창을 찍은 화면이 아니라 한글이 내보낸 PDF에서 나왔어요. 또렷 프로젝트가 만든 짧은 시험용 문서이고, 실제 서식 문서는 아니에요."
+  },
+  "samples": [
+    {
+      "id": "e13",
+      "title": {"en": "Picture placement", "ko": "그림 배치"},
+      "file": "/assets/apps/ttoryeot/compare/e13-image.hwpx",
+      "page": 1,
+      "hancom": "/assets/apps/ttoryeot/compare/e13-image-p1-hancom-12.30.0.png",
+      "ttoryeot": "/assets/apps/ttoryeot/compare/e13-image-p1-ttoryeot-751dfbe.png",
+      "hancom_pdf": "/assets/apps/ttoryeot/compare/e13-image-hancom-12.30.0.pdf",
+      "ttoryeot_pdf": "/assets/apps/ttoryeot/compare/e13-image-ttoryeot-751dfbe.pdf",
+      "focus": [0.40, 0.17]
+    },
+    {
+      "id": "e05",
+      "title": {"en": "Basic 3×4 table", "ko": "3×4 기본 표"},
+      "file": "/assets/apps/ttoryeot/compare/e05-table-basic.hwpx",
+      "page": 1,
+      "hancom": "/assets/apps/ttoryeot/compare/e05-table-basic-p1-hancom-12.30.0.png",
+      "ttoryeot": "/assets/apps/ttoryeot/compare/e05-table-basic-p1-ttoryeot-751dfbe.png",
+      "hancom_pdf": "/assets/apps/ttoryeot/compare/e05-table-basic-hancom-12.30.0.pdf",
+      "ttoryeot_pdf": "/assets/apps/ttoryeot/compare/e05-table-basic-ttoryeot-751dfbe.pdf",
+      "focus": [0.25, 0.29]
+    }
+  ]
 }
