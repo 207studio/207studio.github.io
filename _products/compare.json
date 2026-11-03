@@ -1,0 +1,7 @@
+{
+  "_readme": "Home page comparison: the same HWP document as rendered by Hancom 한글 and by Ttoryeot (또렷), side by side. Run python3 _products/compare-gen.py after editing. Only verified renders from the 또렷 PM go here: both images must be the same page of the same file, exported at the same pixel size, with no retouching. With no pages the section is not rendered at all. Paths are site paths under /assets/apps/ttoryeot/compare/.",
+  "document": null,
+  "hancom": null,
+  "ttoryeot": null,
+  "pages": []
+}
