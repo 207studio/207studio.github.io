@@ -50,7 +50,7 @@ def site_file(src):
 
 
 def side(key, sample, data, lang, size):
-    who = data[key]
+    who = {**data[key], **sample[key + "_meta"]}
     label = (f'<b>{escape(who["label"][lang])}</b> <span>{escape(who["version"][lang])}</span>'
              f'<span class="compare-made">{escape(who["made"][lang])}</span>')
     alt = f'{who["label"][lang]} {who["version"][lang]}: {sample["title"][lang]}, {T["page"][lang]} {sample["page"]}'
@@ -78,6 +78,7 @@ def render(data, lang):
         out.append(f'<div class="compare-page" data-compare-page data-focus="{fx} {fy}" data-n="{escape(s["id"])}">'
                    f'<p class="compare-doc">{escape(s["title"][lang])} · {s["page"]} {T["page"][lang]} '
                    f'<a class="text-link" href="{escape(s["file"])}" download>{T["file"][lang]} <span aria-hidden="true">↓</span></a></p>'
+                   + (f'<p class="compare-note">{escape(s["note"][lang])}</p>' if s.get("note") else "") +
                    f'<div class="compare-pair" tabindex="0" aria-describedby="compare-hint">{side("hancom", s, data, lang, a)}{side("ttoryeot", s, data, lang, b)}</div>'
                    f'</div>')
     lens = (f'<div class="compare-lens" data-compare-lens aria-hidden="true">'
