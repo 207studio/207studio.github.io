@@ -1,6 +1,6 @@
 # 207 Studio: full reference
 
-> https://207studio.dev · support@207studio.dev · South Korea.
+> https://207studio.dev · support@207studio.dev · South Korea. Developer kits and classroom tools: one-time purchase, full source. Commercial tiers cover companies with annual revenue up to $1M; above that, email support@207studio.dev for an Enterprise license.
 
 {{products}}## Pairy: Connecting Devices (iOS/iPadOS app)
 
