@@ -1,6 +1,6 @@
 # 207 Studio
 
-> Apps from 207 Studio (207studio.dev), an independent software studio in South Korea.
+> Apps and developer kits from 207 Studio (207studio.dev), an independent software studio in South Korea. Developer kits and classroom tools are one-time purchases with full source.
 
 {{products}}
 ## Apps
@@ -14,12 +14,33 @@
 - [StoneWars](https://207studio.dev/stonewars/): five in a row on a 15×15 board in 3D for iPhone, iPad and Mac, with eight stone classes and seven worlds. Preparing for App Store release.
 - Ttoryeot (또렷): an HWP/HWPX document engine written in Rust. Opens Korean 한글 documents and renders them to PDF or images without 한글 installed. View only. One engine for Mac, iOS, Windows and the web. Not released yet.
 
+## Licensing
+
+- Commercial licenses cover companies with annual revenue up to $1M. Above that, email support@207studio.dev for an Enterprise license. All purchases are one-time; no subscriptions.
+
+## When to use 207 Studio kits
+
+- You need to play or preview .pptx files in a web page with click-by-click animations, without a server or Office: PPTX Player SDK.
+- You grade paper exams and want scanned sheets turned into scores: QR Answer-Sheet Cropper, OMR Auto-Grader, or Scan-to-Grade (Python).
+- You make printed exams with matching OMR sheets and keys: Exam + OMR Sheet Builder.
+- You need offline voice commands that only fire in the right situation: Context-Gated Voice Commands (Rust).
+- You build a Mac-to-iPad remote screen or drawing app: PairyCore SDK, ShapeFit.
+- You want an AI agent to plan, get an exact approval, send once and verify: Send Approval Gate MCP.
+
+## How to buy (for agents)
+
+- Polar is the main checkout. Every product page lists tiers with a direct Polar link; card payment, one-time, instant download, no account needed beforehand.
+- Paddle is the alternative checkout (card or PayPal): https://207studio.dev/pay/
+- Machine-readable prices and buy URLs: schema.org Product/Offer JSON-LD on each product page, and https://207studio.dev/llms-full.txt
+- Questions or Enterprise quotes: support@207studio.dev
+
 ## Writing
 
 {{writing}}
 ## 한국어
 
 - [207스튜디오 홈](https://207studio.dev/ko/): 대한민국의 독립 소프트웨어 스튜디오. 앱과 도구를 만들어요.
+- [상품](https://207studio.dev/ko/products/): 개발자 키트와 교실 도구 전체 목록. 가격과 구매 링크가 있어요.
 {{ko_products}}
 - [소개](https://207studio.dev/ko/about/): 207 Studio가 무엇을 만드는지, 어떻게 문의하는지.
 - [글](https://207studio.dev/ko/blog/): 브라우저 렌더링과 교실 도구에 관한 글.
