@@ -1844,6 +1844,54 @@ html { touch-action: manipulation; }
   .js .walk .poster-shot { max-height: calc(100svh - 420px); }
 }
 
+/* Compare: the same HWP page as Hancom 한글 and Ttoryeot draw it, side by side at every width.
+   Tapping a spot fills the two lens panes below with that spot from both pages, enlarged. */
+.compare { padding-block: clamp(64px, 8vw, 112px); }
+.compare h2 { max-width: 22ch; margin: 0; font-family: var(--font-display); font-size: clamp(28px, 4.2vw, 54px); font-weight: 700; line-height: 1.02; letter-spacing: -0.035em; text-wrap: balance; }
+.compare-meta { margin: var(--space-3) 0 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+.compare-meta .text-link { margin-left: 8px; white-space: nowrap; }
+.compare-tabs { display: flex; gap: 8px; margin: var(--space-5) 0 0; }
+.compare-tabs button { min-height: 40px; padding: 0 14px; border: 1px solid var(--line-strong); border-radius: 999px; background: none; color: var(--ink); font: inherit; font-size: 14px; cursor: pointer; }
+.compare-tabs button[aria-pressed="true"] { border-color: var(--gold); background: var(--gold); color: #1b1838; }
+.compare-pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(8px, 2vw, 28px); max-width: 1100px; margin-top: var(--space-5); }
+.compare-side { position: relative; display: flex; flex-direction: column; gap: 8px; margin: 0; }
+.compare-side figcaption { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; min-height: 3.6em; color: var(--muted); font-size: 13px; line-height: 1.3; }
+.compare-side figcaption b { color: var(--ink); font-family: var(--font-display); font-size: 17px; }
+.compare-side[data-side="ttoryeot"] figcaption b { color: var(--gold); }
+.compare-shot { position: relative; overflow: hidden; border-radius: 6px; background: #fff; box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45); cursor: crosshair; touch-action: manipulation; }
+.compare-side img { display: block; width: 100%; height: auto; }
+.compare-mark { position: absolute; border: 2px solid var(--gold); border-radius: 3px; pointer-events: none; }
+.compare-made { flex-basis: 100%; font-size: 12px; }
+.compare-links { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 0; font-size: 13px; }
+.compare-links a { display: inline-flex; align-items: center; min-height: 32px; color: var(--muted); text-decoration: none; }
+.compare-links a:hover { color: var(--gold); text-decoration: underline; }
+.compare-doc { margin: 0 0 var(--space-3); color: var(--ink); font-size: 15px; font-weight: 600; }
+.compare-doc .text-link { margin-left: 8px; font-weight: 500; }
+.compare-note { max-width: 72ch; margin: calc(-1 * var(--space-2)) 0 var(--space-3); color: var(--muted); font-size: 14px; line-height: 1.55; }
+.compare-how { max-width: 72ch; margin-top: var(--space-5); color: var(--muted); font-size: 14px; line-height: 1.6; }
+.compare-how summary { min-height: 44px; display: flex; align-items: center; color: var(--ink); font-weight: 600; cursor: pointer; }
+.compare-how p { margin: 0; }
+.compare-hint { margin: var(--space-4) 0 0; color: var(--muted); font-size: 14px; }
+.compare-lens { display: none; max-width: 1100px; margin-top: var(--space-3); }
+.js .compare-lens { display: block; }
+.compare-lens-h { margin: 0 0 8px; color: var(--ink); font-size: 13px; font-weight: 700; }
+.compare-lens-pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(8px, 2vw, 28px); }
+.compare-lens-pane { position: relative; height: clamp(150px, 26vw, 300px); border: 1px solid var(--line-strong); border-radius: 6px; background-color: #fff; background-repeat: no-repeat; }
+.compare-lens-pane span { position: absolute; top: 6px; left: 6px; padding: 2px 8px; border-radius: 999px; background: rgba(13, 19, 51, 0.82); color: var(--ink); font-size: 11px; font-weight: 700; }
+.compare-pair:focus-visible { outline: 2px solid var(--gold); outline-offset: 6px; border-radius: 6px; }
+@media (min-width: 1000px) {
+  .compare-body { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(28px, 4vw, 56px); align-items: start; margin-top: var(--space-5); }
+  .compare-pair { margin-top: 0; }
+  .compare-aside { position: sticky; top: 104px; }
+  .compare-hint { margin-top: 5.2em; }
+  .compare-lens-pane { height: min(56vh, 520px); }
+}
+@media (max-width: 700px) {
+  .compare-side figcaption b { font-size: 15px; }
+  .compare-side figcaption span, .compare-links { font-size: 11px; }
+  .compare-made { font-size: 10.5px; }
+}
+
 /* r7: night sky. The page is the X header's painted night: deep navy and violet, cream
    type, gold stars. Posters stay cream paper with dark ink, pasted on a violet wall. */
 :root {
