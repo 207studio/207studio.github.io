@@ -5,8 +5,8 @@ const NOT_FOUND_MD = `# 404: page not found
 
 This page does not exist on 207studio.dev.
 
-- Product list for AI agents: https://207studio.dev/llms.txt
-- Full reference with prices and buy links: https://207studio.dev/llms-full.txt
+- Site summary for AI agents: https://207studio.dev/llms.txt
+- Full reference for AI agents: https://207studio.dev/llms-full.txt
 - Contact: support@207studio.dev
 `;
 
