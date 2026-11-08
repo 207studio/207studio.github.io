@@ -73,10 +73,10 @@
     },
     {
       "id": "dekiduck",
-      "name": {"en": "Deki Duck", "ko": "데키 덕"},
+      "name": {"en": "Decky Duck", "ko": "데키덕"},
       "tag": {"en": "Coming soon", "ko": "준비 중"},
       "line": {"en": "More soon.", "ko": "곧 소개할게요."},
-      "say": {"en": "Deki Duck is coming soon.", "ko": "데키 덕은 준비 중이에요."},
+      "say": {"en": "Decky Duck is coming soon.", "ko": "데키덕은 준비 중이에요."},
       "todo": "TODO: what it is (one line), who it is for, 3 key points, link or status. Unconfirmed lead: the decky-duck repo name."
     },
     {
