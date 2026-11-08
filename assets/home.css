@@ -1039,6 +1039,11 @@ dd {
   gap: 10px;
 }
 
+/* Pairy's ad film under the Pairy block: the language's own cut, loaded only when played. */
+.also-film { max-width: 960px; margin: clamp(28px, 4vw, 48px) 0 0; }
+.also-film video { display: block; width: 100%; height: auto; border-radius: var(--radius-m); background: #000; box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45); }
+.also-film figcaption { margin-top: 8px; color: var(--muted); font-size: 13px; line-height: 1.5; }
+
 .also-copy .eyebrow {
   margin-bottom: var(--space-2);
 }
