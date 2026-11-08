@@ -49,3 +49,4 @@ img { max-width: 100%; height: auto; }
   .p-hero { padding-top: 40px; }
   .p-steps, .p-pts { grid-template-columns: 1fr; }
 }
+.p-film-fig{margin:0}.p-film-fig video{display:block;width:100%;height:auto;border-radius:14px;background:#000;box-shadow:0 16px 40px rgba(0,0,0,.45)}.p-film-fig figcaption{margin-top:8px;color:var(--muted,#9aa0b8);font-size:13px;line-height:1.5}
