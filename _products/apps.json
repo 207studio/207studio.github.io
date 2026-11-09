@@ -87,7 +87,7 @@
       "say": {"en": "Ttoryeot opens HWP files and edits HWPX without 한글 installed.", "ko": "또렷은 한글 없이 HWP 파일을 열고, HWPX는 바로 고쳐요."},
       "what": {"en": "Ttoryeot (또렷) is our HWP/HWPX document engine, written in Rust. It opens 한글 documents fast and renders them faithfully to PDF or images. In HWPX files it can also change short text and keep the formatting.", "ko": "또렷은 Rust로 만든 HWP/HWPX 문서 엔진이에요. 한글 문서를 빠르게 열고 원본 모양 그대로 PDF나 이미지로 그려요. HWPX는 서식을 그대로 두고 짧은 글을 바꿀 수 있어요."},
       "for": {"en": "anyone who needs to read or fix 한글 (HWP) files without 한글 installed.", "ko": "한글 프로그램 없이 HWP 파일을 읽거나 고쳐야 하는 사람."},
-      "link": {"href": "https://github.com/207studio-oss/ttoryeot-desktop/releases/download/v0.2.0/ttoryeot-desktop-0.2.0-macos-universal.dmg", "en": "Download for Mac", "ko": "Mac용 다운로드"},
+      "link": {"href": "https://github.com/207studio-oss/ttoryeot-desktop/releases/download/v0.2.1/ttoryeot-desktop-0.2.1-macos-universal.dmg", "en": "Download for Mac", "ko": "Mac용 다운로드"},
       "page": {"href": "#ttoryeot", "en": "Download and details", "ko": "다운로드와 자세한 내용"},
       "points": {
         "en": ["Layout checked page by page against 한글 12.30 on real documents", "Fast and light. Images in an 80-image file take 7 ms, down from 196 ms. Opening the same large document 20 times in a row in one program now peaks at about 125 MB, down from about 1 GB (one open: 165 MB → 118 MB)", "One engine for Mac, iOS, Windows and the web (WASM)"],

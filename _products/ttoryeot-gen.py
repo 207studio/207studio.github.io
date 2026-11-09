@@ -78,6 +78,8 @@ def shots(data, lang):
 def render(data, lang):
     o = data["open_source"]
     points = "".join(f"<li>{escape(p[lang])}</li>" for p in data["points"])
+    links = "".join(f'<a class="text-link" href="{escape(l["href"])}">{escape(l[lang])} <span aria-hidden="true">↗</span></a>'
+                    for l in o["links"])
     film, stills = video(data, lang), shots(data, lang)
     # With a video the screenshots go underneath it; without one the screenshot takes the right column.
     # With neither, the copy stands alone in one column.
@@ -91,7 +93,7 @@ def render(data, lang):
             f'      <div class="tt-body{layout}">\n'
             f'        <div class="tt-copy"><p class="tt-lead">{escape(data["lead"][lang])}</p><ul class="tt-points">{points}</ul>'
             f'{downloads(data, lang)}'
-            f'<p class="tt-oss">{escape(o[lang])} <a class="text-link" href="{escape(o["href"])}">{escape(o["link"][lang])} <span aria-hidden="true">↗</span></a></p></div>\n'
+            f'<p class="tt-oss">{escape(o[lang])} {links}</p></div>\n'
             + (f'        {side}\n' if side else '')
             + f'      </div>\n'
             + (f'      {below}\n' if below else '')

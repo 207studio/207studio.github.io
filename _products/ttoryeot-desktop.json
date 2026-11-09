@@ -28,16 +28,27 @@
     {
       "en": "Pick a paragraph, table, picture or area and leave a comment; numbered pins on the page open it again. The document file is not changed.",
       "ko": "문단·표·그림이나 영역을 골라 댓글을 남기고, 쪽 위 번호 핀으로 다시 열어요. 문서 파일은 건드리지 않아요."
+    },
+    {
+      "en": "With the MCP server (v0.3.0), an AI agent such as Claude Code or Codex can open a document in the app, read the comments you leave there, edit the HWPX in place and mark each comment resolved.",
+      "ko": "MCP 서버(v0.3.0)를 쓰면 Claude Code·Codex 같은 AI 에이전트가 문서를 앱에 띄우고, 사람이 남긴 주석을 읽어 HWPX를 그 자리에서 고친 뒤 해결 표시까지 해요."
     }
   ],
   "open_source": {
-    "en": "The engine, the command-line tool and the MCP server are open source (AGPL). The desktop app is not AGPL; its terms are in NOTICE.txt inside the app.",
-    "ko": "엔진, 명령줄 도구, MCP 서버는 오픈 소스(AGPL)예요. 데스크톱 앱은 AGPL이 아니고, 사용 약관은 앱 안의 NOTICE.txt에 있어요.",
-    "href": "https://github.com/207studio-oss/ttoryeot",
-    "link": {
-      "en": "Source on GitHub",
-      "ko": "GitHub에서 소스 보기"
-    }
+    "en": "The engine, the command-line tool and the MCP server are open source (AGPL-3.0). The desktop app is not AGPL; its terms are in NOTICE.txt inside the app.",
+    "ko": "엔진, 명령줄 도구, MCP 서버는 오픈 소스(AGPL-3.0)예요. 데스크톱 앱은 AGPL이 아니고, 사용 약관은 앱 안의 NOTICE.txt에 있어요.",
+    "links": [
+      {
+        "href": "https://github.com/207studio-oss/ttoryeot/releases/tag/v0.3.0",
+        "en": "Get the CLI and MCP v0.3.0",
+        "ko": "CLI·MCP v0.3.0 받기"
+      },
+      {
+        "href": "https://github.com/207studio-oss/ttoryeot/tree/main/skills/hangul-documents",
+        "en": "Agent skill for 한글 files",
+        "ko": "한글 파일 에이전트 스킬"
+      }
+    ]
   },
   "more": {
     "en": "Other systems",
@@ -58,7 +69,7 @@
         "en": "Download for Mac",
         "ko": "Mac용 다운로드"
       },
-      "href": "https://github.com/207studio-oss/ttoryeot-desktop/releases/download/v0.2.0/ttoryeot-desktop-0.2.0-macos-universal.dmg"
+      "href": "https://github.com/207studio-oss/ttoryeot-desktop/releases/download/v0.2.1/ttoryeot-desktop-0.2.1-macos-universal.dmg"
     },
     {
       "os": "windows",
@@ -78,7 +89,7 @@
         "en": "The installer is not code-signed yet, so Windows may show “Windows protected your PC”. Choose More info, then Run anyway.",
         "ko": "아직 코드 서명을 하지 않아 Windows가 ‘Windows의 PC 보호’를 띄울 수 있어요. ‘추가 정보’를 누른 뒤 ‘실행’을 누르세요."
       },
-      "href": "https://github.com/207studio-oss/ttoryeot-desktop/releases/download/v0.2.0/ttoryeot-desktop-0.2.0-windows-x64-setup.exe"
+      "href": "https://github.com/207studio-oss/ttoryeot-desktop/releases/download/v0.2.1/ttoryeot-desktop-0.2.1-windows-x64-setup.exe"
     },
     {
       "os": "windows-zip",
@@ -94,7 +105,7 @@
         "en": "Download for Windows (zip)",
         "ko": "Windows용 다운로드(zip)"
       },
-      "href": "https://github.com/207studio-oss/ttoryeot-desktop/releases/download/v0.2.0/ttoryeot-desktop-0.2.0-windows-x64.zip"
+      "href": "https://github.com/207studio-oss/ttoryeot-desktop/releases/download/v0.2.1/ttoryeot-desktop-0.2.1-windows-x64.zip"
     },
     {
       "os": "linux",
@@ -103,14 +114,14 @@
         "ko": "Linux · 명령줄 도구"
       },
       "detail": {
-        "en": "No desktop app for Linux yet. The CLI and MCP server install from the release page.",
-        "ko": "Linux 데스크톱 앱은 아직 없어요. CLI·MCP 서버는 릴리스 페이지에서 받아요."
+        "en": "No desktop app for Linux yet. The v0.3.0 CLI and MCP server are on the release page.",
+        "ko": "Linux 데스크톱 앱은 아직 없어요. v0.3.0 CLI·MCP 서버는 릴리스 페이지에서 받아요."
       },
       "button": {
         "en": "Command-line tool for Linux",
         "ko": "Linux용 명령줄 도구"
       },
-      "href": "https://github.com/207studio-oss/ttoryeot/releases/latest"
+      "href": "https://github.com/207studio-oss/ttoryeot/releases/tag/v0.3.0"
     }
   ],
   "video": null,
