@@ -1891,6 +1891,8 @@ html { touch-action: manipulation; }
 @media (max-width: 900px) {
   .tt-body, .tt-body.tt-solo { grid-template-columns: minmax(0, 1fr); }
   .tt-shots { grid-template-columns: minmax(0, 1fr); }
+  /* The source link gets its own line on a phone instead of a tall inline-flex box mid-paragraph. */
+  .tt-oss .text-link { display: flex; width: max-content; margin-top: 6px; }
 }
 
 /* Compare: the same HWP page as Hancom 한글 and Ttoryeot draw it, side by side at every width.
