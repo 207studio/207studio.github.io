@@ -7,7 +7,7 @@
 https://apps.apple.com/app/id6815584225 - remote desktop for your tablet. Free on the App Store with no subscription (an optional in-app tip unlocks nothing); the Mac companion is a free notarized download.
 Page: https://207studio.dev/pairy/ (how it works, screenshots, the Mac companion download)
 
-{{downloads}}- [Ttoryeot](https://207studio.dev/#ttoryeot): free desktop app for macOS 12 or later (Apple silicon and Intel), notarized with Developer ID, at https://github.com/207studio-oss/ttoryeot-desktop/releases/tag/v0.2.0. Opens HWP and HWPX files as tabs and edits HWPX text in place, as you see it, keeping character and paragraph formatting; saves under a new name, never over the original. Windows 10/11 installers (x64, not code-signed yet); Linux has the command-line tool only.
+{{downloads}}- [Ttoryeot](https://207studio.dev/#ttoryeot): free desktop app for macOS 12 or later (Apple silicon and Intel), notarized with Developer ID, at https://github.com/207studio-oss/ttoryeot-desktop/releases/tag/v0.2.1. Opens HWP and HWPX files as tabs and edits HWPX text in place, as you see it, keeping character and paragraph formatting; saves under a new name, never over the original. Windows 10/11 installers (x64, not code-signed yet); Linux has the command-line tool only. The engine, CLI and MCP server v0.3.0 (AGPL-3.0, https://github.com/207studio-oss/ttoryeot/releases/tag/v0.3.0) let an AI agent open a document in the app, read the comments a person leaves, edit the HWPX in place and mark them resolved; agent skill: https://github.com/207studio-oss/ttoryeot/tree/main/skills/hangul-documents
 
 ## In development
 
