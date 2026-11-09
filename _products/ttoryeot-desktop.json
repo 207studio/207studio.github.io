@@ -1,0 +1,124 @@
+{
+  "_readme": "The 또렷 desktop section on the home page (download menu and screenshots). Run python3 _products/ttoryeot-gen.py after editing. Download links live only here. Media paths are site paths under /assets/apps/ttoryeot/desktop/; while any is null the generator refuses to write unless given --preview, so placeholders cannot go live. Set video to null to leave the demo video out.",
+  "eyebrow": {
+    "en": "Ttoryeot for Mac and Windows",
+    "ko": "또렷 데스크톱"
+  },
+  "title": {
+    "en": "Open 한글 files without 한글.",
+    "ko": "한글이 없어도 한글 파일을 열어요."
+  },
+  "lead": {
+    "en": "Free. HWP and HWPX files open as tabs, and short text in an HWPX file can be changed right on the page.",
+    "ko": "무료예요. HWP·HWPX 파일을 탭으로 열고, HWPX는 문서 화면에서 짧은 글을 바로 고쳐요."
+  },
+  "points": [
+    {
+      "en": "Open several HWP and HWPX files side by side as tabs.",
+      "ko": "HWP·HWPX 파일 여러 개를 탭으로 나란히 열어요."
+    },
+    {
+      "en": "Annotation mode (⌘⇧A) names each element as you hover, shows its path such as 표 > 2행 3열 > 문단 when you click, and lists every element inside an area you drag.",
+      "ko": "주석 모드(⌘⇧A)에서는 마우스를 올린 요소의 이름이 보이고, 누르면 ‘표 > 2행 3열 > 문단’ 같은 경로가, 드래그한 영역 안의 요소는 목록으로 보여요."
+    },
+    {
+      "en": "Double-click a paragraph in an HWPX file to change its text right on the page, then save it as HWPX with the formatting kept.",
+      "ko": "HWPX 문단을 두 번 누르면 그 자리에서 글을 고치고, 서식은 그대로 둔 채 HWPX로 저장할 수 있어요."
+    }
+  ],
+  "open_source": {
+    "en": "The engine, the command-line tool and the MCP server are open source (AGPL). The desktop app is not AGPL; its terms are in NOTICE.txt inside the app.",
+    "ko": "엔진, 명령줄 도구, MCP 서버는 오픈 소스(AGPL)예요. 데스크톱 앱은 AGPL이 아니고, 사용 약관은 앱 안의 NOTICE.txt에 있어요.",
+    "href": "https://github.com/207studio-oss/ttoryeot",
+    "link": {
+      "en": "Source on GitHub",
+      "ko": "GitHub에서 소스 보기"
+    }
+  },
+  "more": {
+    "en": "Other systems",
+    "ko": "다른 운영체제"
+  },
+  "downloads": [
+    {
+      "os": "mac",
+      "name": {
+        "en": "macOS",
+        "ko": "macOS"
+      },
+      "detail": {
+        "en": "Apple silicon and Intel, macOS 12 or later",
+        "ko": "Apple 실리콘·Intel, macOS 12 이상"
+      },
+      "button": {
+        "en": "Download for Mac",
+        "ko": "Mac용 다운로드"
+      },
+      "href": "https://github.com/207studio-oss/ttoryeot-desktop/releases/download/v0.2.0/ttoryeot-desktop-0.2.0-macos-universal.dmg"
+    },
+    {
+      "os": "windows",
+      "name": {
+        "en": "Windows installer",
+        "ko": "Windows 설치 파일"
+      },
+      "detail": {
+        "en": "Windows 10 and 11, x64",
+        "ko": "Windows 10·11 (x64)"
+      },
+      "button": {
+        "en": "Download for Windows",
+        "ko": "Windows용 다운로드"
+      },
+      "note": {
+        "en": "The installer is not code-signed yet, so Windows may show “Windows protected your PC”. Choose More info, then Run anyway.",
+        "ko": "아직 코드 서명을 하지 않아 Windows가 ‘Windows의 PC 보호’를 띄울 수 있어요. ‘추가 정보’를 누른 뒤 ‘실행’을 누르세요."
+      },
+      "href": "https://github.com/207studio-oss/ttoryeot-desktop/releases/download/v0.2.0/ttoryeot-desktop-0.2.0-windows-x64-setup.exe"
+    },
+    {
+      "os": "windows-zip",
+      "name": {
+        "en": "Windows portable zip",
+        "ko": "Windows 휴대용 zip"
+      },
+      "detail": {
+        "en": "Windows 10 and 11, x64, runs without an installer",
+        "ko": "Windows 10·11 (x64), 설치 없이 실행"
+      },
+      "button": {
+        "en": "Download for Windows (zip)",
+        "ko": "Windows용 다운로드(zip)"
+      },
+      "href": "https://github.com/207studio-oss/ttoryeot-desktop/releases/download/v0.2.0/ttoryeot-desktop-0.2.0-windows-x64.zip"
+    },
+    {
+      "os": "linux",
+      "name": {
+        "en": "Linux · command-line tool",
+        "ko": "Linux · 명령줄 도구"
+      },
+      "detail": {
+        "en": "No desktop app for Linux yet. The CLI and MCP server install from the release page.",
+        "ko": "Linux 데스크톱 앱은 아직 없어요. CLI·MCP 서버는 릴리스 페이지에서 받아요."
+      },
+      "button": {
+        "en": "Command-line tool for Linux",
+        "ko": "Linux용 명령줄 도구"
+      },
+      "href": "https://github.com/207studio-oss/ttoryeot/releases/latest"
+    }
+  ],
+  "video": null,
+  "shots": [
+    {
+      "src": "/assets/apps/ttoryeot/desktop/ttoryeot-tabs-1200.webp",
+      "alt": {
+        "en": "Several HWP and HWPX files open as tabs",
+        "ko": "HWP·HWPX 파일 여러 개를 탭으로 연 화면"
+      },
+      "w": 1200,
+      "h": 750
+    }
+  ]
+}
