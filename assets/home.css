@@ -1860,12 +1860,14 @@ html { touch-action: manipulation; }
 }
 
 /* Ttoryeot desktop: what the app does, a download button that follows the visitor's system with a menu
-   for the others, and a screenshot. Content comes from _products/ttoryeot-desktop.json. */
+   for the others, and screenshots when there are any (.tt-text: copy only). Content comes from
+   _products/ttoryeot-desktop.json. */
 .tt { padding-block: clamp(64px, 8vw, 112px) 0; }
 .tt h2 { max-width: 22ch; margin: 0; font-family: var(--font-display); font-size: clamp(28px, 4.2vw, 54px); font-weight: 700; line-height: 1.02; letter-spacing: -0.035em; text-wrap: balance; }
 .tt-body { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(24px, 4vw, 56px); align-items: start; margin-top: var(--space-6); }
 .tt-body.tt-solo { grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); align-items: center; }
 .tt-body.tt-solo .tt-shots { margin-top: 0; }
+.tt-body.tt-text { grid-template-columns: minmax(0, 1fr); max-width: 760px; }
 .tt-lead { margin: 0; color: var(--ink); font-size: 18px; line-height: 1.5; }
 .tt-points { margin: var(--space-4) 0 0; padding: 0; list-style: none; color: var(--muted); font-size: 15px; line-height: 1.55; }
 .tt-points li { position: relative; padding: 6px 0 6px 18px; }
