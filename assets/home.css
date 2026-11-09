@@ -1859,6 +1859,40 @@ html { touch-action: manipulation; }
   .js .walk { --mimi-h: 96px; }
 }
 
+/* Ttoryeot desktop: what the app does, a download button that follows the visitor's system with a menu
+   for the others, and a screenshot. Content comes from _products/ttoryeot-desktop.json. */
+.tt { padding-block: clamp(64px, 8vw, 112px) 0; }
+.tt h2 { max-width: 22ch; margin: 0; font-family: var(--font-display); font-size: clamp(28px, 4.2vw, 54px); font-weight: 700; line-height: 1.02; letter-spacing: -0.035em; text-wrap: balance; }
+.tt-body { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(24px, 4vw, 56px); align-items: start; margin-top: var(--space-6); }
+.tt-body.tt-solo { grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); align-items: center; }
+.tt-body.tt-solo .tt-shots { margin-top: 0; }
+.tt-lead { margin: 0; color: var(--ink); font-size: 18px; line-height: 1.5; }
+.tt-points { margin: var(--space-4) 0 0; padding: 0; list-style: none; color: var(--muted); font-size: 15px; line-height: 1.55; }
+.tt-points li { position: relative; padding: 6px 0 6px 18px; }
+.tt-points li::before { position: absolute; top: 0.95em; left: 0; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); content: ""; }
+.tt-dl { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: var(--space-5); }
+.tt-dl-main { min-height: 48px; }
+.tt-dl-more summary { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); font-size: 14px; font-weight: 600; cursor: pointer; }
+.tt-dl-more[open] summary { color: var(--gold); }
+.tt-dl-more ul { position: absolute; z-index: 3; left: 0; top: calc(100% + 6px); width: min(380px, 100%); margin: 0; padding: 6px; list-style: none; border: 1px solid var(--line-strong); border-radius: var(--radius-s); background: var(--night-2); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45); }
+.tt-dl-more a { display: flex; flex-direction: column; gap: 2px; min-height: 44px; padding: 8px 12px; border-radius: 8px; color: var(--ink); text-decoration: none; }
+.tt-dl-more a:hover, .tt-dl-more a:focus-visible { background: rgba(233, 196, 106, 0.12); }
+.tt-dl-more a span { color: var(--muted); font-size: 13px; line-height: 1.4; }
+.tt-dl-more a[aria-current="true"] b { color: var(--gold); }
+.tt-dl-note { margin: 0 12px 8px; color: var(--muted); font-size: 12px; line-height: 1.45; }
+.tt-dl > .tt-dl-note { flex-basis: 100%; margin: 0; }
+.tt-oss { margin: var(--space-5) 0 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
+.tt-shots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(8px, 2vw, 24px); margin: var(--space-6) 0 0; padding: 0; list-style: none; }
+.tt-shots-one { grid-template-columns: minmax(0, 1fr); }
+.tt-shots img { display: block; width: 100%; height: auto; border-radius: var(--radius-s); box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35); }
+.tt-shots-one img { max-width: 1000px; }
+.tt-body .tt-shots { margin: 0; }
+.tt-ph { display: grid; place-items: center; width: 100%; padding: 12px; border: 2px dashed var(--line-strong); border-radius: var(--radius-s); color: var(--muted); font-size: 13px; text-align: center; }
+@media (max-width: 900px) {
+  .tt-body, .tt-body.tt-solo { grid-template-columns: minmax(0, 1fr); }
+  .tt-shots { grid-template-columns: minmax(0, 1fr); }
+}
+
 /* Compare: the same HWP page as Hancom 한글 and Ttoryeot draw it, side by side at every width.
    Tapping a spot fills the two lens panes below with that spot from both pages, enlarged. */
 .compare { padding-block: clamp(64px, 8vw, 112px); }
