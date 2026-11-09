@@ -37,7 +37,7 @@
     <p class="p-sub">내 컴퓨터를 태블릿에서.</p>
     <p class="p-lede">Pairy는 Mac의 화면과 키보드·트랙패드 조작을 iPad나 iPhone으로 이어 줘요. 화면을 직접 만지고, 입력하고, iPhone을 리모컨으로 써요.</p>
     <p class="p-acts"><a class="p-btn p-btn-main" href="https://apps.apple.com/app/id6815584225" target="_blank" rel="noopener">App Store <span aria-hidden="true">↗</span></a><a class="p-btn" href="#mac">Mac용 Pairy <span aria-hidden="true">↓</span></a></p>
-    <p class="p-for">iPad, iPhone, Vision Pro와 Apple 실리콘 Mac을 함께 쓰는 분께.</p>
+    <p class="p-for">iPad, iPhone, Vision Pro와 Apple 실리콘 Mac을 함께 쓰는 분께. <a href="#desktop">Windows 데스크톱 미리보기</a>도 제공해요.</p>
   </div>
   <img class="p-shot" src="/assets/apps/pairy/remote-1200.webp" srcset="/assets/apps/pairy/remote-720.webp 720w, /assets/apps/pairy/remote-1200.webp 1200w" sizes="(max-width: 860px) calc(100vw - 48px), 580px" width="1200" height="690" alt="iPad에 Mac 화면을 띄운 Pairy, 옆의 iPhone은 리모컨" fetchpriority="high">
 </section>
@@ -86,6 +86,22 @@
       <li>Pairy를 쓰는 동안 Mac은 켜 두고 네트워크에 연결해 두세요.</li>
     </ol>
     <p class="p-small">Apple 실리콘(M1 이상) Mac과 macOS 15 이상이 필요해요.</p>
+  </div>
+</section>
+
+<section class="p-sec p-mac" id="desktop" aria-labelledby="desktop-h">
+  <div>
+    <h2 id="desktop-h">Windows 데스크톱 미리보기</h2>
+    <p>Windows 화면을 공유하는 호스트와 데스크톱 접속 앱을 써 볼 수 있어요. 위의 App Store 앱·Mac 동반 앱과 별도로 제공하는 초기 시험판이에요.</p>
+    <p class="p-acts"><a class="p-btn p-btn-main" href="https://github.com/207studio/207studio.github.io/releases/download/pairy-desktop-0.1.0-preview.1/Pairy-desktop-0.1.0-preview.1-windows-x64.zip">Windows 미리보기 다운로드</a><a class="p-btn" href="https://github.com/207studio/207studio.github.io/releases/tag/pairy-desktop-0.1.0-preview.1">출시 안내·파일 검증값</a></p>
+    <ol class="p-install">
+      <li>ZIP을 모두 풀고 START-HERE.txt를 읽어 주세요. 폴더의 파일을 함께 보관하세요.</li>
+      <li>두 컴퓨터에 <a href="https://tailscale.com/download/windows">Tailscale</a>을 설치하고 같은 사용자 계정으로 로그인하세요.</li>
+      <li>공유할 Windows에서 Share-screen.cmd를 열어요. 접속할 컴퓨터에서는 Connect.cmd를 열고 호스트의 Tailscale IP를 입력하세요.</li>
+      <li>호스트 창을 닫으면 공유가 끝나요. 접속 앱 창을 닫으면 연결을 종료해요.</li>
+    </ol>
+    <p class="p-small">미리보기 0.1.0 · Windows 10/11 64비트 · 설치 없이 쓰는 ZIP · 코드 서명 없음. 기본 모니터를 최대 1080p/30fps로 전송해요. 소리·클립보드 동기화·한글 조합 입력은 아직 지원하지 않아요.</p>
+    <p class="p-small">Windows 한 대 안에서 화면 전송과 Tailscale 계정 확인 시험을 통과했어요. 서로 다른 기기 간 연결과 Linux·Mac·iPad 호환성은 아직 검증하지 않았어요. 이번 미리보기에는 Linux·Mac 데스크톱 다운로드가 없어요.</p>
   </div>
 </section>
 

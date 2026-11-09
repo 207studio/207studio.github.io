@@ -37,7 +37,7 @@
     <p class="p-sub">Your computer, on your tablet.</p>
     <p class="p-lede">Pairy brings your Mac's desktop, keyboard and trackpad controls to your iPad or iPhone. Touch it, type on it, and use your iPhone as the remote.</p>
     <p class="p-acts"><a class="p-btn p-btn-main" href="https://apps.apple.com/app/id6815584225" target="_blank" rel="noopener">App Store <span aria-hidden="true">↗</span></a><a class="p-btn" href="#mac">Pairy for Mac <span aria-hidden="true">↓</span></a></p>
-    <p class="p-for">For iPad, iPhone and Vision Pro, with an Apple silicon Mac.</p>
+    <p class="p-for">For iPad, iPhone and Vision Pro, with an Apple silicon Mac. Also available: <a href="#desktop">Windows desktop preview</a>.</p>
   </div>
   <img class="p-shot" src="/assets/apps/pairy/remote-1200.webp" srcset="/assets/apps/pairy/remote-720.webp 720w, /assets/apps/pairy/remote-1200.webp 1200w" sizes="(max-width: 860px) calc(100vw - 48px), 580px" width="1200" height="690" alt="Pairy on an iPad showing a Mac desktop, with an iPhone beside it as the remote" fetchpriority="high">
 </section>
@@ -86,6 +86,22 @@
       <li>Keep your Mac awake and online while you use Pairy.</li>
     </ol>
     <p class="p-small">Requires an Apple silicon Mac (M1 or later) with macOS 15 or later.</p>
+  </div>
+</section>
+
+<section class="p-sec p-mac" id="desktop" aria-labelledby="desktop-h">
+  <div>
+    <h2 id="desktop-h">Windows desktop preview</h2>
+    <p>Try a Windows screen-sharing host and desktop viewer. This early preview is separate from the App Store app and the Mac companion above.</p>
+    <p class="p-acts"><a class="p-btn p-btn-main" href="https://github.com/207studio/207studio.github.io/releases/download/pairy-desktop-0.1.0-preview.1/Pairy-desktop-0.1.0-preview.1-windows-x64.zip">Download Windows preview</a><a class="p-btn" href="https://github.com/207studio/207studio.github.io/releases/tag/pairy-desktop-0.1.0-preview.1">Release notes and checksum</a></p>
+    <ol class="p-install">
+      <li>Extract the ZIP completely and read START-HERE.txt. Keep all files together.</li>
+      <li>Install <a href="https://tailscale.com/download/windows">Tailscale</a> on both computers and sign in as the same user.</li>
+      <li>Open Share-screen.cmd on the Windows host. Open Connect.cmd on the viewer and enter the host's Tailscale IP.</li>
+      <li>Close the host window to stop sharing. Close the viewer to disconnect.</li>
+    </ol>
+    <p class="p-small">Preview 0.1.0 · Windows 10/11 x64 · Portable ZIP · Unsigned. Primary display, up to 1080p/30 fps. No audio, clipboard sync or IME text input yet.</p>
+    <p class="p-small">Local screen streaming and Tailscale identity checks passed on Windows. Separate-device connections and Linux, Mac and iPad compatibility remain unverified. Linux and Mac desktop downloads are not available in this preview.</p>
   </div>
 </section>
 
