@@ -122,11 +122,13 @@
 /* Walk. One scroll handler drives the pinned stage (see the CSS): per app a dwell where its
    card rests in front, then an eased change where it falls back in depth and the next card
    rises to the front. Mimi walks in place during a change and her bubble fades out and back
-   with the next app's line. Reduced motion or a short screen keeps the static grid. */
+   with the next app's line. A screen under 440px tall keeps the static grid. Reduced motion
+   keeps the stage, but the cards only fade (no depth) and Mimi stands at one size. */
 (function () {
   var section = document.querySelector("[data-walk]");
   if (!section) return;
-  var live = window.matchMedia("(prefers-reduced-motion: no-preference) and (min-height: 560px)");
+  var live = window.matchMedia("(min-height: 440px)");
+  var still = window.matchMedia("(prefers-reduced-motion: reduce)");
   var scroller = section.querySelector("[data-walk-scroller]");
   var stage = section.querySelector("[data-walk-stage]");
   var stops = [].slice.call(section.querySelectorAll("[data-stop]"));
@@ -169,9 +171,9 @@
   // The old card is mostly gone by the midpoint and the new one paints over it, so the two
   // never read as one muddle of half-opaque text.
   function place(k, i, move) {
-    var z = 0, o = 0, out = Math.min(1, move * 1.6);
-    if (k === i) { z = BACK * out; o = 1 - out; }
-    else if (k === i + 1) { z = DEPTH * (1 - move); o = Math.min(1, Math.max(0, (move - 0.15) / 0.35)); }
+    var z = 0, o = 0, out = Math.min(1, move * 1.6), deep = !still.matches;
+    if (k === i) { z = deep ? BACK * out : 0; o = 1 - out; }
+    else if (k === i + 1) { z = deep ? DEPTH * (1 - move) : 0; o = Math.min(1, Math.max(0, (move - 0.15) / 0.35)); }
     stops[k].style.transform = "translate3d(0,0," + z.toFixed(1) + "px)";
     stops[k].style.opacity = o.toFixed(3);
   }
@@ -185,7 +187,7 @@
     for (var k = 0; k < N; k++) place(k, i, move);
     // Mimi walks toward the viewer the whole way: the walk cycle runs in CSS, and she grows
     // from NEAR to full size as the tour goes from the first app to the last.
-    section.style.setProperty("--mimi-s", (NEAR + (1 - NEAR) * pos / (N - 1)).toFixed(4));
+    section.style.setProperty("--mimi-s", still.matches ? "1" : (NEAR + (1 - NEAR) * pos / (N - 1)).toFixed(4));
     say.style.opacity = Math.min(1, Math.abs(move - 0.5) * 2).toFixed(3);
     fill.style.transform = "scaleX(" + (pos / (N - 1)).toFixed(4) + ")";
     if (here !== active) light(here);
@@ -229,6 +231,7 @@
 
   mode();
   live.addEventListener("change", mode);
+  still.addEventListener("change", function () { if (on) tick(); });
   var rt = 0;
   window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(function () { if (on) { measure(); tick(); } }, 150); });
 })();
