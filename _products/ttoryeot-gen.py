@@ -56,6 +56,8 @@ def video(data, lang):
 
 
 def shots(data, lang):
+    if not data["shots"]:
+        return ""
     out = []
     one = len(data["shots"]) == 1
     sizes = "(max-width: 900px) 92vw, (max-width: 1250px) 45vw, 592px" if one and not data.get("video") else (
@@ -78,20 +80,22 @@ def render(data, lang):
     points = "".join(f"<li>{escape(p[lang])}</li>" for p in data["points"])
     film, stills = video(data, lang), shots(data, lang)
     # With a video the screenshots go underneath it; without one the screenshot takes the right column.
-    solo = "" if film else " tt-solo"
+    # With neither, the copy stands alone in one column.
+    side = film or stills
+    layout = "" if film else (" tt-solo" if stills else " tt-text")
     below = stills if film else ""
     return (f'  <section class="tt" id="ttoryeot" aria-labelledby="tt-title">\n'
             f'    <div class="wrap">\n'
             f'      <p class="eyebrow">{escape(data["eyebrow"][lang])}</p>\n'
             f'      <h2 id="tt-title">{escape(data["title"][lang])}</h2>\n'
-            f'      <div class="tt-body{solo}">\n'
+            f'      <div class="tt-body{layout}">\n'
             f'        <div class="tt-copy"><p class="tt-lead">{escape(data["lead"][lang])}</p><ul class="tt-points">{points}</ul>'
             f'{downloads(data, lang)}'
             f'<p class="tt-oss">{escape(o[lang])} <a class="text-link" href="{escape(o["href"])}">{escape(o["link"][lang])} <span aria-hidden="true">↗</span></a></p></div>\n'
-            f'        {film or stills}\n'
-            f'      </div>\n'
-            f'      {below}\n'
-            f'    </div>\n'
+            + (f'        {side}\n' if side else '')
+            + f'      </div>\n'
+            + (f'      {below}\n' if below else '')
+            + f'    </div>\n'
             f'  </section>\n')
 
 
