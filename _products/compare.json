@@ -1,5 +1,5 @@
 {
-  "_readme": "Home page comparison: the same page of the same HWPX file as Hancom 한글 and Ttoryeot (또렷) render it, side by side. Run python3 _products/compare-gen.py after editing. Only verified renders from the 또렷 PM go here (source: OpenBot Shared/207/preview-compare/assets/README.md and SHA256SUMS, delivered 2026-11-03): both PNGs must be the same page, the same pixel size, unedited. With no samples the section is not rendered. Paths are site paths under /assets/apps/ttoryeot/compare/.",
+  "_readme": "Home page comparison: the same page of the same HWPX file as Hancom 한글 and Ttoryeot (또렷) render it, side by side. Run python3 _products/compare-gen.py after editing. Only verified renders from the 또렷 PM go here (delivered with SHA256SUMS by the 또렷 PM, 2026-11-03): both PNGs must be the same page, the same pixel size, unedited. With no samples the section is not rendered. Paths are site paths under /assets/apps/ttoryeot/compare/.",
   "caption": {
     "en": "The same page of the same document, as rendered by Hancom 한글 12.30.0 (Mac) and by 또렷, unedited.",
     "ko": "같은 문서의 같은 쪽을 한글 12.30.0(Mac)과 또렷으로 그린 그대로입니다."
