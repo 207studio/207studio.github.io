@@ -1,6 +1,24 @@
 {
   "base_url": "https://207studio.dev",
   "last_updated": "2026-10-24",
+  "page_lastmod": {
+    "": "2026-11-10",
+    "ko/": "2026-11-10",
+    "about/": "2026-11-07",
+    "ko/about/": "2026-11-07",
+    "blog/": "2026-11-07",
+    "ko/blog/": "2026-11-07",
+    "legal/terms/": "2026-11-09",
+    "legal/privacy/": "2026-11-09",
+    "legal/refunds/": "2026-11-09",
+    "pairy/": "2026-11-09",
+    "pairy/support.html": "2026-11-09",
+    "pairy/privacy.html": "2026-11-09",
+    "ko/pairy/": "2026-11-09",
+    "stonewars/": "2026-11-09",
+    "stonewars/support.html": "2026-11-03",
+    "stonewars/privacy.html": "2026-11-03"
+  },
   "support_email": "support@207studio.dev",
   "listing": {
     "title": "Products – Developer Kits and Classroom Tools | 207 Studio",

@@ -131,3 +131,7 @@ pre { white-space: pre-wrap; overflow-wrap: anywhere; }
   .foot-grid { grid-template-columns: 1fr 1fr; }
   .foot-brand { grid-column: 1 / -1; }
 }
+
+/* Skip link, same as the home page: hidden until focused. */
+.skip { position: absolute; top: -100px; left: 20px; z-index: 100; padding: 14px 18px; border-radius: 0 0 12px 12px; background: var(--ink); color: var(--bg); text-decoration: none; }
+.skip:focus { top: 0; }
