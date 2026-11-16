@@ -114,8 +114,8 @@
         "ko": "Windows CLI·MCP 설치 파일 · v0.3.2"
       },
       "detail": {
-        "en": "Windows 10 and 11, x64; command-line tools, not the desktop app",
-        "ko": "Windows 10·11 (x64), 데스크톱 앱이 아닌 명령줄 도구"
+        "en": "Windows 10 and 11, x64; recommended for developers and AI agents, not the desktop app",
+        "ko": "Windows 10·11 (x64), 개발자·AI 에이전트용 추천, 데스크톱 앱 아님"
       },
       "button": {
         "en": "Download Windows CLI and MCP",
@@ -134,8 +134,8 @@
         "ko": "Windows CLI·MCP 휴대용 zip · v0.3.2"
       },
       "detail": {
-        "en": "Windows 10 and 11, x64; command-line tools, no installer",
-        "ko": "Windows 10·11 (x64), 설치 없는 명령줄 도구"
+        "en": "Windows 10 and 11, x64; for developers and AI agents, no installer",
+        "ko": "Windows 10·11 (x64), 개발자·AI 에이전트용, 설치 없이 실행"
       },
       "button": {
         "en": "Download Windows CLI and MCP (zip)",
