@@ -50,6 +50,10 @@
       }
     ]
   },
+  "phone": {
+    "en": "On a phone, search for 한글 뷰어 또렷 in the Toss app.",
+    "ko": "휴대폰에서는 토스 앱에서 ‘한글 뷰어 또렷’을 검색해 이용할 수 있어요."
+  },
   "more": {
     "en": "Other systems",
     "ko": "다른 운영체제"

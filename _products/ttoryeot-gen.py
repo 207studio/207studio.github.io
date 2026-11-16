@@ -93,7 +93,8 @@ def render(data, lang):
             f'      <div class="tt-body{layout}">\n'
             f'        <div class="tt-copy"><p class="tt-lead">{escape(data["lead"][lang])}</p><ul class="tt-points">{points}</ul>'
             f'{downloads(data, lang)}'
-            f'<p class="tt-oss">{escape(o[lang])} {links}</p></div>\n'
+            + (f'<p class="tt-oss">{escape(data["phone"][lang])}</p>' if data.get("phone") else '')
+            + f'<p class="tt-oss">{escape(o[lang])} {links}</p></div>\n'
             + (f'        {side}\n' if side else '')
             + f'      </div>\n'
             + (f'      {below}\n' if below else '')
