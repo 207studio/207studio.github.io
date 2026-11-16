@@ -10,8 +10,8 @@
       "what": {"en": "A remote desktop app for your tablet. See your computer screen and control it with touch, trackpad and keyboard.", "ko": "태블릿용 원격 데스크톱 앱이에요. 컴퓨터 화면을 보면서 터치, 트랙패드, 키보드로 조작해요."},
       "for": {"en": "iPad, iPhone and Vision Pro owners with an Apple silicon Mac.", "ko": "Apple 실리콘 Mac과 iPad, iPhone, Vision Pro를 함께 쓰는 사람."},
       "points": {
-        "en": ["Full HD streaming", "Touch, trackpad and keyboard input", "Encrypted connections between your devices"],
-        "ko": ["Full HD 스트리밍", "터치, 트랙패드, 키보드 입력", "기기 사이 암호화 연결"]
+        "en": ["Sharp, smooth streaming up to 120 Hz", "Touch, trackpad and keyboard input", "Encrypted connections between your devices"],
+        "ko": ["최대 120Hz의 선명하고 부드러운 화면 전송", "터치, 트랙패드, 키보드 입력", "기기 사이 암호화 연결"]
       },
       "icon": "/assets/apps/pairy/icon-168.webp",
       "shot": {"src": "/assets/apps/pairy/remote", "w": 1200, "h": 690, "alt": {"en": "Pairy on an iPad showing a Mac desktop, with an iPhone beside it as the remote", "ko": "iPad에 Mac 화면을 띄운 Pairy, 옆의 iPhone은 리모컨"}},
@@ -27,7 +27,7 @@
       "say": {"en": "Chalkieboard is a lesson board for teachers on iPad.", "ko": "초키보드는 선생님을 위한 iPad 판서 앱이에요."},
       "icon": "/assets/apps/chalkieboard/icon-168.webp",
       "shot": {"src": "/assets/apps/chalkieboard/home", "w": 1200, "h": 690, "alt": {"en": "Chalkieboard's lesson home on iPad: start a lesson, the timetable, a timer, a student picker and the clock", "ko": "iPad의 초키보드 수업 홈: 수업 시작, 시간표, 타이머, 학생 뽑기, 시계"}},
-      "what": {"en": "An all-in-one board and lesson app for elementary classes. It is built to cover a teacher's whole lesson day in one app. It collects no personal data during class.", "ko": "초등 수업을 위한 올인원 판서·수업 앱이에요. 선생님의 하루 수업을 앱 하나로 해낼 수 있게 만들었어요. 수업 중에는 개인정보를 수집하지 않아요."},
+      "what": {"en": "An all-in-one board and lesson app for elementary classes. It is built to cover a teacher's whole lesson day in one app.", "ko": "초등 수업을 위한 올인원 판서·수업 앱이에요. 선생님의 하루 수업을 앱 하나로 해낼 수 있게 만들었어요."},
       "for": {"en": "elementary school teachers who teach with an iPad.", "ko": "아이패드로 수업하는 초등 선생님."},
       "points": {
         "en": ["Handwriting on the board, plus subject tools", "Open lesson files, including PPTX and HWP, right in the app", "Send the board to the classroom display with AirPlay"],
@@ -52,9 +52,9 @@
       "id": "kiwi",
       "name": {"en": "Cool Kiwi", "ko": "쿨 키위"},
       "_name_note": "Working name, not final. Rename here (one line), then run walk-gen.py.",
-      "tag": {"en": "Messenger · working name", "ko": "메신저 · 가칭"},
-      "line": {"en": "A messenger app. More soon.", "ko": "메신저 앱이에요. 곧 소개할게요."},
-      "say": {"en": "Cool Kiwi is a messenger. More soon.", "ko": "쿨 키위는 메신저예요. 곧 더 알려 드릴게요."},
+      "tag": {"en": "Teacher tool · working name", "ko": "교사용 도구 · 가칭"},
+      "line": {"en": "A desk tool for teachers' messages and to-dos. More soon.", "ko": "선생님의 메시지와 할 일을 돕는 PC 도구예요. 곧 소개할게요."},
+      "say": {"en": "Cool Kiwi helps teachers with messages and to-dos. More soon.", "ko": "쿨 키위는 선생님의 메시지와 할 일을 도와요. 곧 더 알려 드릴게요."},
       "todo": "TODO: what it is (one line), who it is for, 3 key points, link or status."
     },
     {

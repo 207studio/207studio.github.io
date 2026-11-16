@@ -22,7 +22,7 @@ Double-click the zip to unzip it, then move PairyMac.app into Applications.
 
 ## In development
 
-- [Chalkieboard](https://chalkieboard.207studio.dev/) (초키보드): an iPad lesson board app for elementary school teachers. Board writing with subject tools, PPTX and HWP lesson files opened in the app, and AirPlay to the classroom display. No personal data is collected during class. In beta on TestFlight. Support: https://chalkieboard.207studio.dev/support/ · Tester guide: https://chalkieboard.207studio.dev/beta/
+- [Chalkieboard](https://chalkieboard.207studio.dev/) (초키보드): an iPad lesson board app for elementary school teachers. Board writing with subject tools, PPTX and HWP lesson files opened in the app, and AirPlay to the classroom display. In beta on TestFlight. Support: https://chalkieboard.207studio.dev/support/ · Tester guide: https://chalkieboard.207studio.dev/beta/
 - CheckyBoard: a Windows app for checking paper exams one question at a time. The teacher marks each answer, and the app makes answer sheets, splits scans into per-question boxes, and produces scores, item analysis and report cards.
 - [StoneWars](https://207studio.dev/stonewars/): five in a row on a 15×15 board in 3D for iPhone, with eight stone classes. Play against the built-in AI; more modes are being added. In development.
 
