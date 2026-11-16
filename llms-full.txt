@@ -7,14 +7,14 @@
 https://apps.apple.com/app/id6815584225 - remote desktop for your tablet. Free on the App Store with no subscription (an optional in-app tip unlocks nothing); the Mac companion is a free notarized download.
 Page: https://207studio.dev/pairy/ (how it works, screenshots, the Mac companion download)
 
-## Pairy for Mac 1.4.2 (build 142)
+## Pairy for Mac 1.4.4 (build 144)
 
-Download: https://github.com/207studio/207studio.github.io/releases/download/pairy-mac-1.4.2-142/Pairy-mac-1.4.2-142-notarized.zip
+Download: https://github.com/207studio/207studio.github.io/releases/download/pairy-mac-1.4.4-144/Pairy-mac-1.4.4-144-notarized.zip
 
 Apple Silicon only, macOS 15 or later. Notarized with Developer ID.
 
-File: Pairy-mac-1.4.2-142-notarized.zip (22075699 bytes)
-SHA-256: 38584e50e1963fd45369ebe496bce3324515651f1f81946a5248dcca23fc1ded
+File: Pairy-mac-1.4.4-144-notarized.zip (22286848 bytes)
+SHA-256: a622410bd42bb49f1fbc12a398463ffcf52f4644dd5cb7aa41f587162644d2f5
 
 Double-click the zip to unzip it, then move PairyMac.app into Applications.
 
