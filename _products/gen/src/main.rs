@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use std::env;
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -16,6 +17,9 @@ struct SiteData {
     products: Vec<Product>,
     #[serde(default)]
     downloads: Vec<Download>,
+    /// Sitemap lastmod per page path ("" is the home page), for pages that changed after last_updated.
+    #[serde(default)]
+    page_lastmod: HashMap<String, String>,
 }
 
 /// A file served from a GitHub Release asset (the Pairy Mac app). Listed in llms.txt and llms-full.txt.
@@ -812,21 +816,34 @@ fn render_sitemap(data: &SiteData, posts: &[Post]) -> String {
     let base = &data.base_url;
     let updated = data.last_updated.as_str();
     let product_lastmod = |product: &Product| product.lastmod.as_deref().unwrap_or(updated).to_string();
+    let page_lastmod = |page: &str| data.page_lastmod.get(page).map(String::as_str).unwrap_or(updated).to_string();
     let listed = !data.products.is_empty();
-    let mut entries: Vec<(String, String)> = vec![(format!("{base}/"), updated.to_string())];
+    let mut entries: Vec<(String, String)> = vec![(format!("{base}/"), page_lastmod(""))];
     if listed {
         entries.push((canonical_products(base), updated.to_string()));
     }
     for product in &data.products {
         entries.push((canonical_product(base, &product.slug), product_lastmod(product)));
     }
-    entries.push((format!("{base}/blog/"), updated.to_string()));
+    entries.push((format!("{base}/blog/"), page_lastmod("blog/")));
     for post in posts {
         let lastmod = post.lastmod.as_deref().unwrap_or(&post.date);
         entries.push((format!("{base}/blog/{}/", post.slug), lastmod.to_string()));
     }
-    for page in ["legal/terms/", "legal/privacy/", "legal/refunds/", "about/", "pairy/", "ko/"] {
-        entries.push((format!("{base}/{page}"), updated.to_string()));
+    for page in [
+        "legal/terms/",
+        "legal/privacy/",
+        "legal/refunds/",
+        "about/",
+        "pairy/",
+        "pairy/support.html",
+        "pairy/privacy.html",
+        "stonewars/",
+        "stonewars/support.html",
+        "stonewars/privacy.html",
+        "ko/",
+    ] {
+        entries.push((format!("{base}/{page}"), page_lastmod(page)));
     }
     if listed {
         entries.push((format!("{base}/ko/products/"), updated.to_string()));
@@ -835,7 +852,7 @@ fn render_sitemap(data: &SiteData, posts: &[Post]) -> String {
         entries.push((format!("{base}/ko/products/{}/", product.slug), product_lastmod(product)));
     }
     for page in ["ko/about/", "ko/blog/", "ko/pairy/"] {
-        entries.push((format!("{base}/{page}"), updated.to_string()));
+        entries.push((format!("{base}/{page}"), page_lastmod(page)));
     }
 
     let mut out = String::from(
