@@ -10,7 +10,7 @@ p=argparse.ArgumentParser(description=__doc__)
 p.add_argument('--preview',action='store_true');p.add_argument('--output',type=Path)
 p.add_argument('--preview-data',type=Path);p.add_argument('--intro-root',type=Path)
 a=p.parse_args();source_root=a.intro_root or ROOT
-if (a.preview_data or a.intro_root) and not a.preview:p.error('preview-only option')
+if a.preview_data and not a.preview:p.error('preview-only data')
 if a.preview and (not a.output or any(a.output.resolve().is_relative_to(r.resolve()) for r in [ROOT,source_root])):p.error('preview output must be outside site trees')
 data=json.loads((a.preview_data or ROOT/'_products/constellation-video.json').read_text())
 keys={}
@@ -23,12 +23,12 @@ for key,(ext,limit,required) in keys.items():
   if required:missing.append(key)
   continue
  if not src.startswith('/assets/constellation/') or '..' in Path(src).parts:raise SystemExit('invalid local asset: '+key)
- f=(a.output if a.preview else ROOT)/src.lstrip('/')
+ f=(a.output if a.preview else source_root)/src.lstrip('/')
  if not f.is_file() or f.suffix!=ext or f.stat().st_size>limit:raise SystemExit('missing, wrong format or oversized: '+key)
  if key.startswith('captions') and not f.read_text().startswith('WEBVTT'):raise SystemExit('invalid VTT: '+key)
 if not a.preview:
  if missing:raise SystemExit('video assets missing: '+', '.join(missing))
- if not all(data.get('clearance',{}).get(k) is True for k in ['licence','ai_label','watermark']):raise SystemExit('publication clearance incomplete')
+ if not all(data.get('clearance',{}).get(k) is True for k in ['publication_authorized','ai_label','watermark']):raise SystemExit('publication clearance incomplete')
 outputs=[]
 for lang,route in [('en','index.html'),('ko','ko/index.html')]:
  ko=lang=='ko';url='https://constellation.207studio.dev'+('/ko/' if ko else '/')
@@ -47,7 +47,7 @@ for lang,route in [('en','index.html'),('ko','ko/index.html')]:
  if '/assets/constellation-video.css' not in source:source=source.replace('</head>','<link rel="stylesheet" href="/assets/constellation-video.css"></head>')
  anchor='</main>' if a.intro_root else '  <section class="studio"'
  assert source.count(anchor)==1
- dest=(a.output/route) if a.preview else ROOT/route
+ dest=(a.output/route) if a.preview else source_root/route
  outputs.append((dest,source.replace(anchor,block+'\n'+anchor)))
 for dest,html in outputs:
  dest.parent.mkdir(parents=True,exist_ok=True);dest.write_text(html);print(dest)
