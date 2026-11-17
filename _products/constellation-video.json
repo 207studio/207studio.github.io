@@ -1,13 +1,29 @@
 {
-  "mp4": null,
-  "webm": null,
-  "poster": null,
+  "title": {
+    "en": "Inside the workshop",
+    "ko": "별채 작업실 이야기"
+  },
+  "summary": {
+    "en": "How a person and AI bots make 207 Studio’s apps together.",
+    "ko": "사람과 AI 봇이 함께 207 Studio의 앱을 만드는 이야기입니다."
+  },
+  "mp4_en": null,
+  "webm_en": null,
+  "poster_en": null,
   "captions_en": null,
-  "captions_ko": null,
   "transcript_en": null,
+  "mp4_ko": null,
+  "webm_ko": null,
+  "poster_ko": null,
+  "captions_ko": null,
   "transcript_ko": null,
-  "width": 1920,
-  "height": 1080,
-  "title": {"en": "Inside the workshop", "ko": "별채 작업실 이야기"},
-  "summary": {"en": "How a person and AI bots make 207 Studio’s apps together.", "ko": "사람과 AI 봇이 함께 207 Studio의 앱을 만드는 이야기입니다."}
+  "clearance": {
+    "licence": false,
+    "ai_label": false,
+    "watermark": false
+  },
+  "ai_label": {
+    "ko": "AI로 생성한 이미지·인물이 포함된 영상입니다. 실제 인물을 촬영한 영상이 아닙니다.",
+    "en": "This video includes AI-generated imagery and people. No real people were filmed."
+  }
 }
