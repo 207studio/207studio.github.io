@@ -91,17 +91,76 @@
     </div>
   </section>
 
-  <section class="project-index wrap" id="walk" aria-labelledby="walk-title"><h2 id="walk-title">What we make.</h2>
-<ol class="project-list" data-project-list>
-<li class="project-card"><img src="/assets/apps/pairy/icon-168.webp" width="64" height="64" alt="" loading="lazy"><p class="project-status">On the App Store</p><h3>Pairy</h3><p>A live Mac screen on your iPad, with touch, keyboard and clipboard going back.</p><a href="/pairy/">More about Pairy <span aria-hidden="true">→</span></a></li>
-<li class="project-card"><img src="/assets/apps/chalkieboard/icon-168.webp" width="64" height="64" alt="" loading="lazy"><p class="project-status">Beta (TestFlight) · iPad</p><h3>Chalkieboard</h3><p>A lesson board app for teachers on iPad.</p><a href="https://chalkieboard.207studio.dev/">More about Chalkieboard <span aria-hidden="true">→</span></a></li>
-<li class="project-card"><p class="project-status">In development · Windows</p><h3>CheckyBoard</h3><p>Check paper exams one question at a time.</p><a href="/checkyboard/">More about CheckyBoard <span aria-hidden="true">→</span></a></li>
-<li class="project-card"><p class="project-status">Teacher tool · working name</p><h3>Cool Kiwi</h3><p>Messages and to-dos for teachers. More soon.</p><a href="/cool-kiwi/">More about Cool Kiwi <span aria-hidden="true">→</span></a></li>
-<li class="project-card"><p class="project-status">In development · iPhone</p><h3>StoneWars</h3><p>Five in a row, where every stone has a character.</p><a href="/stonewars/">More about StoneWars <span aria-hidden="true">→</span></a></li>
-<li class="project-card"><p class="project-status">Coming soon</p><h3>Decky Duck</h3><p>More soon.</p><a href="/dekiduck/">More about Decky Duck <span aria-hidden="true">→</span></a></li>
-<li class="project-card"><p class="project-status">Free · macOS, Windows</p><h3>Ttoryeot</h3><p>Open HWP files and edit HWPX as you see it, without 한글 installed.</p><a href="/ttoryeot/">More about Ttoryeot <span aria-hidden="true">→</span></a></li>
-</ol>
-</section>
+  <section class="walk" id="walk" aria-labelledby="walk-title" data-walk>
+    <header class="walk-head wrap">
+      <h2 id="walk-title">What we make.</h2>
+      <p class="walk-note">Seven products, one at a time.</p>
+    </header>
+    <div class="walk-scroller" data-walk-scroller>
+      <div class="walk-stage" data-walk-stage>
+        <ol class="walk-track" data-walk-track>
+          <li class="stop is-on" data-stop data-say="This is Pairy. Your Mac screen, live on your iPad.">
+            <div class="poster">
+              <img class="poster-icon" src="/assets/apps/pairy/icon-168.webp" width="84" height="84" alt="" loading="lazy" decoding="async">
+              <p class="poster-head"><span class="poster-tag"><span class="poster-n">01</span>On the App Store</span><span class="poster-name">Pairy</span></p>
+              <p class="poster-acts"><a class="act act-main" href="/pairy/">More about Pairy <span aria-hidden="true">→</span></a></p>
+              <p class="poster-desc">A live Mac screen on your iPad, with touch, keyboard and clipboard going back.</p>
+              <img class="poster-shot" src="/assets/apps/pairy/remote-1200.webp" srcset="/assets/apps/pairy/remote-720.webp 720w, /assets/apps/pairy/remote-1200.webp 1200w" sizes="(max-width: 900px) calc(100vw - 72px), 724px" width="1200" height="690" alt="Pairy on an iPad showing a Mac desktop, with an iPhone beside it as the remote" loading="lazy" decoding="async">
+            </div>
+          </li>
+          <li class="stop" data-stop data-say="Chalkieboard is a lesson board for teachers on iPad.">
+            <div class="poster">
+              <img class="poster-icon" src="/assets/apps/chalkieboard/icon-168.webp" width="84" height="84" alt="" loading="lazy" decoding="async">
+              <p class="poster-head"><span class="poster-tag"><span class="poster-n">02</span>Beta (TestFlight) · iPad</span><span class="poster-name">Chalkieboard</span></p>
+              <p class="poster-acts"><a class="act act-main" href="https://chalkieboard.207studio.dev/" target="_blank" rel="noopener">More about Chalkieboard <span aria-hidden="true">→</span></a></p>
+              <p class="poster-desc">A lesson board app for teachers on iPad.</p>
+              <img class="poster-shot" src="/assets/apps/chalkieboard/home-1200.webp" srcset="/assets/apps/chalkieboard/home-720.webp 720w, /assets/apps/chalkieboard/home-1200.webp 1200w" sizes="(max-width: 900px) calc(100vw - 72px), 724px" width="1200" height="690" alt="Chalkieboard&#x27;s lesson home on iPad: start a lesson, the timetable, a timer, a student picker and the clock" loading="lazy" decoding="async">
+            </div>
+          </li>
+          <li class="stop" data-stop data-say="CheckyBoard checks paper exams one question at a time.">
+            <div class="poster">
+              <p class="poster-head"><span class="poster-tag"><span class="poster-n">03</span>In development · Windows</span><span class="poster-name">CheckyBoard</span></p>
+              <p class="poster-acts"><a class="act act-main" href="/checkyboard/">More about CheckyBoard <span aria-hidden="true">→</span></a></p>
+              <p class="poster-desc">Check paper exams one question at a time.</p>
+            </div>
+          </li>
+          <li class="stop" data-stop data-say="Messages and to-dos for teachers. More soon.">
+            <div class="poster">
+              <p class="poster-head"><span class="poster-tag"><span class="poster-n">04</span>Teacher tool · working name</span><span class="poster-name">Cool Kiwi</span></p>
+              <p class="poster-acts"><a class="act act-main" href="/cool-kiwi/">More about Cool Kiwi <span aria-hidden="true">→</span></a></p>
+              <p class="poster-desc">Messages and to-dos for teachers. More soon.</p>
+            </div>
+          </li>
+          <li class="stop" data-stop data-say="StoneWars is five in a row. Every stone has a character.">
+            <div class="poster">
+              <p class="poster-head"><span class="poster-tag"><span class="poster-n">05</span>In development · iPhone</span><span class="poster-name">StoneWars</span></p>
+              <p class="poster-acts"><a class="act act-main" href="/stonewars/">More about StoneWars <span aria-hidden="true">→</span></a></p>
+              <p class="poster-desc">Five in a row, where every stone has a character.</p>
+            </div>
+          </li>
+          <li class="stop" data-stop data-say="Decky Duck is coming soon.">
+            <div class="poster">
+              <p class="poster-head"><span class="poster-tag"><span class="poster-n">06</span>Coming soon</span><span class="poster-name">Decky Duck</span></p>
+              <p class="poster-acts"><a class="act act-main" href="/dekiduck/">More about Decky Duck <span aria-hidden="true">→</span></a></p>
+              <p class="poster-desc">More soon.</p>
+            </div>
+          </li>
+          <li class="stop" data-stop data-say="Ttoryeot opens HWP files and edits HWPX without 한글 installed.">
+            <div class="poster">
+              <p class="poster-head"><span class="poster-tag"><span class="poster-n">07</span>Free · macOS, Windows</span><span class="poster-name">Ttoryeot</span></p>
+              <p class="poster-acts"><a class="act act-main" href="/ttoryeot/">More about Ttoryeot <span aria-hidden="true">→</span></a></p>
+              <p class="poster-desc">Open HWP files and edit HWPX as you see it, without 한글 installed.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+    <div class="walk-end" data-walk-end>
+      <p class="walk-end-t">That’s all seven.</p>
+      <p class="walk-end-p">Pairy is on the App Store, and Ttoryeot is out for Mac and Windows. The rest are still in the workshop.</p>
+      <a class="text-link" href="#contact">Say hello <span aria-hidden="true">↓</span></a>
+    </div>
+  </section>
 
 
   <section class="studio" id="studio" aria-labelledby="studio-title">
