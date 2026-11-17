@@ -92,17 +92,76 @@
     </div>
   </section>
 
-  <section class="project-index wrap" id="walk" aria-labelledby="walk-title"><h2 id="walk-title">만들고 있는 것들.</h2>
-<ol class="project-list" data-project-list>
-<li class="project-card"><img src="/assets/apps/pairy/icon-168.webp" width="64" height="64" alt="" loading="lazy"><p class="project-status">App Store</p><h3>Pairy</h3><p>Mac 화면을 iPad에 띄우고, 터치와 키보드, 클립보드를 다시 Mac으로 보냅니다.</p><a href="/ko/pairy/">Pairy 자세히 보기 <span aria-hidden="true">→</span></a></li>
-<li class="project-card"><img src="/assets/apps/chalkieboard/icon-168.webp" width="64" height="64" alt="" loading="lazy"><p class="project-status">베타 (TestFlight) · iPad</p><h3>초키보드</h3><p>선생님을 위한 아이패드 수업 판서 앱.</p><a href="https://chalkieboard.207studio.dev/ko/">초키보드 자세히 보기 <span aria-hidden="true">→</span></a></li>
-<li class="project-card"><p class="project-status">개발 중 · Windows</p><h3>체키보드</h3><p>종이 시험을 문항별로 모아 보며 채점해요.</p><a href="/ko/checkyboard/">체키보드 자세히 보기 <span aria-hidden="true">→</span></a></li>
-<li class="project-card"><p class="project-status">선생님 도구 · 가칭</p><h3>쿨 키위</h3><p>선생님의 메시지와 할 일을 돕는 도구예요. 곧 소개할게요.</p><a href="/ko/cool-kiwi/">쿨 키위 자세히 보기 <span aria-hidden="true">→</span></a></li>
-<li class="project-card"><p class="project-status">개발 중 · iPhone</p><h3>스톤워즈</h3><p>돌마다 캐릭터가 있는 오목 게임.</p><a href="/ko/stonewars/">스톤워즈 자세히 보기 <span aria-hidden="true">→</span></a></li>
-<li class="project-card"><p class="project-status">준비 중</p><h3>데키덕</h3><p>곧 소개할게요.</p><a href="/ko/dekiduck/">데키덕 자세히 보기 <span aria-hidden="true">→</span></a></li>
-<li class="project-card"><p class="project-status">무료 · macOS, Windows</p><h3>또렷</h3><p>한글 없이 HWP 문서를 열고, HWPX는 보이는 그대로 고쳐요.</p><a href="/ko/ttoryeot/">또렷 자세히 보기 <span aria-hidden="true">→</span></a></li>
-</ol>
-</section>
+  <section class="walk" id="walk" aria-labelledby="walk-title" data-walk>
+    <header class="walk-head wrap">
+      <h2 id="walk-title">만들고 있는 것들.</h2>
+      <p class="walk-note">일곱 가지를 하나씩 소개해요.</p>
+    </header>
+    <div class="walk-scroller" data-walk-scroller>
+      <div class="walk-stage" data-walk-stage>
+        <ol class="walk-track" data-walk-track>
+          <li class="stop is-on" data-stop data-say="Pairy예요. Mac 화면이 iPad에 그대로 떠요.">
+            <div class="poster">
+              <img class="poster-icon" src="/assets/apps/pairy/icon-168.webp" width="84" height="84" alt="" loading="lazy" decoding="async">
+              <p class="poster-head"><span class="poster-tag"><span class="poster-n">01</span>App Store</span><span class="poster-name">Pairy</span></p>
+              <p class="poster-acts"><a class="act act-main" href="/ko/pairy/">Pairy 자세히 보기 <span aria-hidden="true">→</span></a></p>
+              <p class="poster-desc">Mac 화면을 iPad에 띄우고, 터치와 키보드, 클립보드를 다시 Mac으로 보냅니다.</p>
+              <img class="poster-shot" src="/assets/apps/pairy/remote-1200.webp" srcset="/assets/apps/pairy/remote-720.webp 720w, /assets/apps/pairy/remote-1200.webp 1200w" sizes="(max-width: 900px) calc(100vw - 72px), 724px" width="1200" height="690" alt="iPad에 Mac 화면을 띄운 Pairy, 옆의 iPhone은 리모컨" loading="lazy" decoding="async">
+            </div>
+          </li>
+          <li class="stop" data-stop data-say="초키보드는 선생님을 위한 iPad 판서 앱이에요.">
+            <div class="poster">
+              <img class="poster-icon" src="/assets/apps/chalkieboard/icon-168.webp" width="84" height="84" alt="" loading="lazy" decoding="async">
+              <p class="poster-head"><span class="poster-tag"><span class="poster-n">02</span>베타 (TestFlight) · iPad</span><span class="poster-name">초키보드</span></p>
+              <p class="poster-acts"><a class="act act-main" href="https://chalkieboard.207studio.dev/ko/" target="_blank" rel="noopener">초키보드 자세히 보기 <span aria-hidden="true">→</span></a></p>
+              <p class="poster-desc">선생님을 위한 아이패드 수업 판서 앱.</p>
+              <img class="poster-shot" src="/assets/apps/chalkieboard/home-1200.webp" srcset="/assets/apps/chalkieboard/home-720.webp 720w, /assets/apps/chalkieboard/home-1200.webp 1200w" sizes="(max-width: 900px) calc(100vw - 72px), 724px" width="1200" height="690" alt="iPad의 초키보드 수업 홈: 수업 시작, 시간표, 타이머, 학생 뽑기, 시계" loading="lazy" decoding="async">
+            </div>
+          </li>
+          <li class="stop" data-stop data-say="체키보드로 종이 시험을 문항별로 채점해요.">
+            <div class="poster">
+              <p class="poster-head"><span class="poster-tag"><span class="poster-n">03</span>개발 중 · Windows</span><span class="poster-name">체키보드</span></p>
+              <p class="poster-acts"><a class="act act-main" href="/ko/checkyboard/">체키보드 자세히 보기 <span aria-hidden="true">→</span></a></p>
+              <p class="poster-desc">종이 시험을 문항별로 모아 보며 채점해요.</p>
+            </div>
+          </li>
+          <li class="stop" data-stop data-say="선생님의 메시지와 할 일을 돕는 도구예요. 곧 소개할게요.">
+            <div class="poster">
+              <p class="poster-head"><span class="poster-tag"><span class="poster-n">04</span>선생님 도구 · 가칭</span><span class="poster-name">쿨 키위</span></p>
+              <p class="poster-acts"><a class="act act-main" href="/ko/cool-kiwi/">쿨 키위 자세히 보기 <span aria-hidden="true">→</span></a></p>
+              <p class="poster-desc">선생님의 메시지와 할 일을 돕는 도구예요. 곧 소개할게요.</p>
+            </div>
+          </li>
+          <li class="stop" data-stop data-say="스톤워즈는 오목이에요. 돌마다 캐릭터가 있어요.">
+            <div class="poster">
+              <p class="poster-head"><span class="poster-tag"><span class="poster-n">05</span>개발 중 · iPhone</span><span class="poster-name">스톤워즈</span></p>
+              <p class="poster-acts"><a class="act act-main" href="/ko/stonewars/">스톤워즈 자세히 보기 <span aria-hidden="true">→</span></a></p>
+              <p class="poster-desc">돌마다 캐릭터가 있는 오목 게임.</p>
+            </div>
+          </li>
+          <li class="stop" data-stop data-say="데키덕은 준비 중이에요.">
+            <div class="poster">
+              <p class="poster-head"><span class="poster-tag"><span class="poster-n">06</span>준비 중</span><span class="poster-name">데키덕</span></p>
+              <p class="poster-acts"><a class="act act-main" href="/ko/dekiduck/">데키덕 자세히 보기 <span aria-hidden="true">→</span></a></p>
+              <p class="poster-desc">곧 소개할게요.</p>
+            </div>
+          </li>
+          <li class="stop" data-stop data-say="또렷은 한글 없이 HWP 파일을 열고, HWPX는 바로 고쳐요.">
+            <div class="poster">
+              <p class="poster-head"><span class="poster-tag"><span class="poster-n">07</span>무료 · macOS, Windows</span><span class="poster-name">또렷</span></p>
+              <p class="poster-acts"><a class="act act-main" href="/ko/ttoryeot/">또렷 자세히 보기 <span aria-hidden="true">→</span></a></p>
+              <p class="poster-desc">한글 없이 HWP 문서를 열고, HWPX는 보이는 그대로 고쳐요.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+    <div class="walk-end" data-walk-end>
+      <p class="walk-end-t">일곱 개를 다 봤어요.</p>
+      <p class="walk-end-p">Pairy는 App Store에, 또렷은 Mac과 Windows에서 받을 수 있어요. 나머지는 아직 작업 중이에요.</p>
+      <a class="text-link" href="#contact">인사 건네기 <span aria-hidden="true">↓</span></a>
+    </div>
+  </section>
 
 
   <section class="studio" id="studio" aria-labelledby="studio-title">
