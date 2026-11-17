@@ -25,5 +25,9 @@
   "ai_label": {
     "ko": "AI로 생성한 이미지·인물이 포함된 영상입니다. 실제 인물을 촬영한 영상이 아닙니다.",
     "en": "This video includes AI-generated imagery and people. No real people were filmed."
+  },
+  "provenance": {
+    "ko": "207 Studio 제작 · OpenAI 생성 이미지와 ElevenLabs 생성 음악·효과음, 자체 코드 애니메이션·편집.",
+    "en": "Produced by 207 Studio with OpenAI-generated imagery, ElevenLabs-generated music and sound effects, and original coded animation and editing."
   }
 }

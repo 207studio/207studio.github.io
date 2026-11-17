@@ -39,9 +39,9 @@ for lang,route in [('en','index.html'),('ko','ko/index.html')]:
   media=f'<video controls playsinline preload="none" width="1280" height="720"{poster}>{sources}{tracks}</video>'
  else:media='<div class="constellation-video-placeholder">'+('영상 준비 중' if ko else 'Video pending')+'</div>'
  transcript=f'<a href="{escape(data["transcript_"+lang])}">{"대본 읽기" if ko else "Read the transcript"}</a>' if data.get('transcript_'+lang) else '<span>'+('대본 준비 중' if ko else 'Transcript pending')+'</span>'
- warning=('<p class="constellation-video-preview">'+('미리보기 전용 · 공개 전 권리·자막 확인 필요' if ko else 'Preview only · rights and captions pending verification')+'</p>') if a.preview else ''
+ warning=('<p class="constellation-video-preview">'+('미리보기 전용 · 공개 권한 확인 대기' if ko else 'Preview only · publication clearance pending')+'</p>') if a.preview else ''
  about='' if a.intro_root else f'<a href="{url}">{"별채 소개" if ko else "About Constellation"} <span aria-hidden="true">→</span></a>'
- block=f'''<!-- constellation-video:start --><section class="constellation-video wrap" aria-labelledby="constellation-video-title"><h2 id="constellation-video-title">{escape(data['title'][lang])}</h2><p>{escape(data['summary'][lang])}</p>{warning}{media}<p class="constellation-video-label">{escape(data['ai_label'][lang])}</p><p class="constellation-video-links">{transcript} {about}</p></section><!-- constellation-video:end -->'''
+ block=f'''<!-- constellation-video:start --><section class="constellation-video wrap" aria-labelledby="constellation-video-title"><h2 id="constellation-video-title">{escape(data['title'][lang])}</h2><p>{escape(data['summary'][lang])}</p>{warning}{media}<p class="constellation-video-label">{escape(data['ai_label'][lang])}</p><p class="constellation-video-label">{escape(data['provenance'][lang])}</p><p class="constellation-video-links">{transcript} {about}</p></section><!-- constellation-video:end -->'''
  source=(source_root/route).read_text()
  source=re.sub(r'<!-- constellation-video:start -->.*?<!-- constellation-video:end -->\s*','',source,flags=re.S)
  if '/assets/constellation-video.css' not in source:source=source.replace('</head>','<link rel="stylesheet" href="/assets/constellation-video.css"></head>')
