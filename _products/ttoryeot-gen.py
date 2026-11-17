@@ -93,7 +93,7 @@ def render(data, lang):
             f'      <div class="tt-body{layout}">\n'
             f'        <div class="tt-copy"><p class="tt-lead">{escape(data["lead"][lang])}</p><ul class="tt-points">{points}</ul>'
             f'{downloads(data, lang)}'
-            f'<p class="tt-oss">{escape(o[lang])} {links}</p></div>\n'
+            f'<h3 id="cli-mcp">CLI · MCP</h3><p class="tt-oss">{escape(o[lang])} {links}</p></div>\n'
             + (f'        {side}\n' if side else '')
             + f'      </div>\n'
             + (f'      {below}\n' if below else '')
@@ -110,5 +110,5 @@ def write(path, lang, data):
 
 
 data = json.loads(DATA.read_text(encoding="utf-8"))
-write(ROOT / "index.html", "en", data)
-write(ROOT / "ko/index.html", "ko", data)
+write(ROOT / "ttoryeot/index.html", "en", data)
+write(ROOT / "ko/ttoryeot/index.html", "ko", data)
