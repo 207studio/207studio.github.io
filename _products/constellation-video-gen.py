@@ -13,6 +13,13 @@ a=p.parse_args();source_root=a.intro_root or ROOT
 if a.preview_data and not a.preview:p.error('preview-only data')
 if a.preview and (not a.output or any(a.output.resolve().is_relative_to(r.resolve()) for r in [ROOT,source_root])):p.error('preview output must be outside site trees')
 data=json.loads((a.preview_data or ROOT/'_products/constellation-video.json').read_text())
+basis=data.get('publication_basis')
+if not isinstance(basis,str) or not basis.strip():raise SystemExit('publication_basis is required')
+for field in ['title','summary','ai_label','provenance']:
+ text=data.get(field)
+ if not isinstance(text,dict):raise SystemExit('localized text is required: '+field)
+ for lang in ['en','ko']:
+  if not isinstance(text.get(lang),str) or not text[lang].strip():raise SystemExit('localized text is required: '+field+'_'+lang)
 keys={}
 for lang in ['en','ko']:
  for kind,ext,limit in [('mp4','.mp4',12*1024**2),('webm','.webm',10*1024**2),('poster','.webp',180*1024),('captions','.vtt',30*1024),('transcript','.txt',30*1024)]:keys[kind+'_'+lang]=(ext,limit,kind!='webm')
@@ -43,7 +50,7 @@ for lang,route in [('en','index.html'),('ko','ko/index.html')]:
  about='' if a.intro_root else f'<a href="{url}">{"별채 소개" if ko else "About Constellation"} <span aria-hidden="true">→</span></a>'
  block=f'''<!-- constellation-video:start --><section class="constellation-video wrap" aria-labelledby="constellation-video-title"><h2 id="constellation-video-title">{escape(data['title'][lang])}</h2><p>{escape(data['summary'][lang])}</p>{warning}{media}<p class="constellation-video-label">{escape(data['ai_label'][lang])}</p><p class="constellation-video-label">{escape(data['provenance'][lang])}</p><p class="constellation-video-links">{transcript} {about}</p></section><!-- constellation-video:end -->'''
  source=(source_root/route).read_text()
- source=re.sub(r'<!-- constellation-video:start -->.*?<!-- constellation-video:end -->\s*','',source,flags=re.S)
+ source=re.sub(r'<!-- constellation-video:start -->.*?<!-- constellation-video:end -->(?:\r?\n)?','',source,flags=re.S)
  if '/assets/constellation-video.css' not in source:source=source.replace('</head>','<link rel="stylesheet" href="/assets/constellation-video.css"></head>')
  anchor='</main>' if a.intro_root else '  <section class="studio"'
  assert source.count(anchor)==1
