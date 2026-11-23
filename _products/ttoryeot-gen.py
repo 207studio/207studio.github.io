@@ -27,6 +27,14 @@ def media(src, what):
     return src
 
 
+def checksums(data, lang):
+    c = data.get("checksums")
+    if not c:
+        return ""
+    return (f'<p class="tt-dl-sums"><a href="{escape(c["href"])}">{escape(c[lang])}'
+            f' <span aria-hidden="true">↗</span></a></p>')
+
+
 def downloads(data, lang):
     items = data["downloads"]
     first = items[0]
@@ -36,10 +44,13 @@ def downloads(data, lang):
         + (f'<p class="tt-dl-note">{escape(d["note"][lang])}</p>' if d.get("note") else "")
         + "</li>"
         for d in items)
-    return (f'<div class="tt-dl" data-tt-dl>'
+    return (f'<div class="tt-dl-block">'
+            f'<div class="tt-dl" data-tt-dl>'
             f'<a class="btn btn-primary tt-dl-main" data-tt-main href="{escape(first["href"])}">'
             f'<span data-tt-label>{escape(first["button"][lang])}</span> <span class="btn-arrow" aria-hidden="true">↓</span></a>'
             f'<details class="tt-dl-more"><summary>{escape(data["more"][lang])}</summary><ul>{rows}</ul></details>'
+            f'</div>'
+            f'{checksums(data, lang)}'
             f'</div>')
 
 
