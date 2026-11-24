@@ -26,6 +26,10 @@
       "ko": "HWPX는 글자를 누르면 그 자리에 커서가 서고, 치는 대로 실제 글꼴·간격·줄 나눔으로 다시 그려요. 글자 모양·문단 모양은 그대로예요."
     },
     {
+      "en": "Hold Ctrl on Windows or Cmd (⌘) on macOS and turn the mouse wheel to zoom the document from 25% to 400%.",
+      "ko": "Windows에서는 Ctrl, macOS에서는 Command(⌘)를 누른 채 마우스 휠을 돌려 문서를 25~400%로 확대·축소해요."
+    },
+    {
       "en": "⌘S or Ctrl+S saves under a new name, never over the original file.",
       "ko": "⌘S/Ctrl+S는 원본 파일을 덮지 않고 새 이름으로 저장해요."
     },
@@ -66,8 +70,8 @@
     {
       "os": "mac",
       "name": {
-        "en": "macOS desktop · v0.2.4",
-        "ko": "macOS 데스크톱 · v0.2.4"
+        "en": "macOS desktop · v0.2.5",
+        "ko": "macOS 데스크톱 · v0.2.5"
       },
       "detail": {
         "en": "Apple silicon and Intel, macOS 12 or later",
@@ -77,13 +81,13 @@
         "en": "Download for Mac",
         "ko": "Mac용 다운로드"
       },
-      "href": "https://github.com/207studio-oss/ttoryeot-desktop/releases/download/v0.2.4/ttoryeot-desktop-0.2.4-macos-universal.dmg"
+      "href": "https://github.com/207studio-oss/ttoryeot-desktop/releases/download/v0.2.5/ttoryeot-desktop-0.2.5-macos-universal.dmg"
     },
     {
       "os": "windows",
       "name": {
-        "en": "Windows desktop installer · v0.2.4",
-        "ko": "Windows 데스크톱 설치 파일 · v0.2.4"
+        "en": "Windows desktop installer · v0.2.5",
+        "ko": "Windows 데스크톱 설치 파일 · v0.2.5"
       },
       "detail": {
         "en": "Windows 10 and 11, x64",
@@ -97,13 +101,13 @@
         "en": "The installer is not code-signed yet, so Windows may show “Windows protected your PC”. Choose More info, then Run anyway.",
         "ko": "아직 코드 서명을 하지 않아 Windows가 ‘Windows의 PC 보호’를 띄울 수 있어요. ‘추가 정보’를 누른 뒤 ‘실행’을 누르세요."
       },
-      "href": "https://github.com/207studio-oss/ttoryeot-desktop/releases/download/v0.2.4/ttoryeot-desktop-0.2.4-windows-x64-setup.exe"
+      "href": "https://github.com/207studio-oss/ttoryeot-desktop/releases/download/v0.2.5/ttoryeot-desktop-0.2.5-windows-x64-setup.exe"
     },
     {
       "os": "windows-zip",
       "name": {
-        "en": "Windows desktop portable zip · v0.2.4",
-        "ko": "Windows 데스크톱 휴대용 zip · v0.2.4"
+        "en": "Windows desktop portable zip · v0.2.5",
+        "ko": "Windows 데스크톱 휴대용 zip · v0.2.5"
       },
       "detail": {
         "en": "Windows 10 and 11, x64, runs without an installer",
@@ -113,7 +117,7 @@
         "en": "Download for Windows (zip)",
         "ko": "Windows용 다운로드(zip)"
       },
-      "href": "https://github.com/207studio-oss/ttoryeot-desktop/releases/download/v0.2.4/ttoryeot-desktop-0.2.4-windows-x64.zip"
+      "href": "https://github.com/207studio-oss/ttoryeot-desktop/releases/download/v0.2.5/ttoryeot-desktop-0.2.5-windows-x64.zip"
     },
     {
       "os": "windows-cli",
@@ -171,7 +175,7 @@
   "checksums": {
     "en": "SHA256SUMS (file checksums)",
     "ko": "SHA256SUMS (파일 검증값)",
-    "href": "https://github.com/207studio-oss/ttoryeot-desktop/releases/download/v0.2.4/SHA256SUMS"
+    "href": "https://github.com/207studio-oss/ttoryeot-desktop/releases/download/v0.2.5/SHA256SUMS"
   },
   "video": null,
   "shots": []
