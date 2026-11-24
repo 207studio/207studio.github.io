@@ -12,17 +12,15 @@ PAGES = {"en": ROOT / "ttoryeot/index.html", "ko": ROOT / "ko/ttoryeot/index.htm
 
 
 class DesktopReleaseTest(unittest.TestCase):
-    def test_windows_downloads(self):
-        for kind, filename in (("windows", "ttoryeot-desktop-0.2.6-windows-x64-setup.exe"),
-                               ("windows-zip", "ttoryeot-desktop-0.2.6-windows-x64.zip")):
-            item = ITEMS[kind]
-            url = f"{BASE}/v0.2.6/{filename}"
-            self.assertEqual(item["href"], url)
-            for lang, page in PAGES.items():
-                html = unescape(page.read_text())
-                self.assertIn(url, html)
-                self.assertIn(item["name"][lang], html)
-                self.assertIn("v0.2.6", item["name"][lang])
+    def test_windows_installer(self):
+        item = ITEMS["windows"]
+        url = f"{BASE}/v0.2.6/ttoryeot-desktop-0.2.6-windows-x64-setup.exe"
+        self.assertEqual(item["href"], url)
+        for lang, page in PAGES.items():
+            html = unescape(page.read_text())
+            self.assertIn(url, html)
+            self.assertIn(item["name"][lang], html)
+            self.assertIn("v0.2.6", item["name"][lang])
 
     def test_mac_and_checksums(self):
         url = f"{BASE}/v0.2.5/ttoryeot-desktop-0.2.5-macos-universal.dmg"
@@ -42,11 +40,16 @@ class DesktopReleaseTest(unittest.TestCase):
             for kind in ("windows-cli", "windows-cli-zip", "linux"):
                 self.assertIn(ITEMS[kind]["href"], html)
 
-    def test_portable_is_app_only(self):
-        for lang, phrase in (("en", "only the app"), ("ko", "앱만 포함")):
-            detail = ITEMS["windows-zip"]["detail"][lang]
-            self.assertIn(phrase, detail)
-            self.assertIn(detail, unescape(PAGES[lang].read_text()))
+    def test_windows_portable_remains_on_verified_release(self):
+        item = ITEMS["windows-zip"]
+        url = f"{BASE}/v0.2.5/ttoryeot-desktop-0.2.5-windows-x64.zip"
+        self.assertEqual(item["href"], url)
+        for lang, page in PAGES.items():
+            html = unescape(page.read_text())
+            self.assertIn(url, html)
+            self.assertIn(item["name"][lang], html)
+            self.assertIn("v0.2.5", item["name"][lang])
+            self.assertNotIn(f"{BASE}/v0.2.6/ttoryeot-desktop-0.2.6-windows-x64.zip", html)
 
     def test_llms_platform_versions(self):
         mac = "ttoryeot-desktop/releases/tag/v0.2.5"
@@ -57,9 +60,9 @@ class DesktopReleaseTest(unittest.TestCase):
             line = next(line for line in output.splitlines() if "- [Ttoryeot]" in line)
             template_line = next(line for line in template.splitlines() if "- [Ttoryeot]" in line)
             self.assertEqual(template_line.replace("{{downloads}}", ""), line)
-            for phrase in (mac, windows, "only the app", "v0.3.2"):
+            for phrase in (mac, windows, "offers an x64 installer at", "v0.3.2"):
                 self.assertIn(phrase, line)
-            for phrase in ("two-page view", "annotated PDF"):
+            for phrase in ("portable ZIP", "two-page view", "annotated PDF"):
                 self.assertNotIn(phrase, line)
         for lang, page in PAGES.items():
             html = unescape(page.read_text()).lower()
