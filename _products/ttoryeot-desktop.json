@@ -86,8 +86,8 @@
     {
       "os": "windows",
       "name": {
-        "en": "Windows desktop installer · v0.2.5",
-        "ko": "Windows 데스크톱 설치 파일 · v0.2.5"
+        "en": "Windows desktop installer · v0.2.6",
+        "ko": "Windows 데스크톱 설치 파일 · v0.2.6"
       },
       "detail": {
         "en": "Windows 10 and 11, x64",
@@ -98,10 +98,10 @@
         "ko": "Windows용 다운로드"
       },
       "note": {
-        "en": "The installer is not code-signed yet, so Windows may show “Windows protected your PC”. Choose More info, then Run anyway.",
-        "ko": "아직 코드 서명을 하지 않아 Windows가 ‘Windows의 PC 보호’를 띄울 수 있어요. ‘추가 정보’를 누른 뒤 ‘실행’을 누르세요."
+        "en": "If Windows shows “Windows protected your PC”, choose More info, then Run anyway.",
+        "ko": "Windows가 ‘Windows의 PC 보호’를 띄우면 ‘추가 정보’를 누른 뒤 ‘실행’을 누르세요."
       },
-      "href": "https://github.com/207studio-oss/ttoryeot-desktop/releases/download/v0.2.5/ttoryeot-desktop-0.2.5-windows-x64-setup.exe"
+      "href": "https://github.com/207studio-oss/ttoryeot-desktop/releases/download/v0.2.6/ttoryeot-desktop-0.2.6-windows-x64-setup.exe"
     },
     {
       "os": "windows-zip",
@@ -173,8 +173,8 @@
     }
   ],
   "checksums": {
-    "en": "SHA256SUMS (file checksums)",
-    "ko": "SHA256SUMS (파일 검증값)",
+    "en": "v0.2.5 SHA256SUMS (file checksums)",
+    "ko": "v0.2.5 SHA256SUMS (파일 검증값)",
     "href": "https://github.com/207studio-oss/ttoryeot-desktop/releases/download/v0.2.5/SHA256SUMS"
   },
   "video": null,
