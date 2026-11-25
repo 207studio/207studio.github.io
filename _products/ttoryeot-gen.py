@@ -51,6 +51,9 @@ def downloads(data, lang):
             f'<details class="tt-dl-more"><summary>{escape(data["more"][lang])}</summary><ul>{rows}</ul></details>'
             f'</div>'
             f'{checksums(data, lang)}'
+            f'<p class="tt-dl-sums" data-tt-windows-sums hidden>'
+            f'<a>{escape(data["windows_checksums"][lang])} <span aria-hidden="true">↗</span></a></p>'
+            f'<script src="/assets/ttoryeot-windows-release.js" defer></script>'
             f'</div>')
 
 
