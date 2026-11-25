@@ -14,13 +14,15 @@ PAGES = {"en": ROOT / "ttoryeot/index.html", "ko": ROOT / "ko/ttoryeot/index.htm
 class DesktopReleaseTest(unittest.TestCase):
     def test_windows_installer(self):
         item = ITEMS["windows"]
-        url = f"{BASE}/v0.2.6/ttoryeot-desktop-0.2.6-windows-x64-setup.exe"
+        url = "https://github.com/207studio-oss/ttoryeot-desktop/releases/latest"
         self.assertEqual(item["href"], url)
         for lang, page in PAGES.items():
             html = unescape(page.read_text())
             self.assertIn(url, html)
             self.assertIn(item["name"][lang], html)
-            self.assertIn("v0.2.6", item["name"][lang])
+            self.assertIn('src="/assets/ttoryeot-windows-release.js"', html)
+            self.assertIn("data-tt-windows-sums hidden", html)
+            self.assertIn(DATA["windows_checksums"][lang], html)
 
     def test_mac_and_checksums(self):
         url = f"{BASE}/v0.2.5/ttoryeot-desktop-0.2.5-macos-universal.dmg"
@@ -53,7 +55,7 @@ class DesktopReleaseTest(unittest.TestCase):
 
     def test_llms_platform_versions(self):
         mac = "ttoryeot-desktop/releases/tag/v0.2.5"
-        windows = "ttoryeot-desktop/releases/tag/v0.2.6"
+        windows = "https://207studio.dev/ttoryeot/#ttoryeot"
         for filename in ("llms.txt", "llms-full.txt"):
             output = (ROOT / filename).read_text()
             template = (ROOT / "_products/templates" / filename).read_text()
