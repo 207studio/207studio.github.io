@@ -1,6 +1,24 @@
 {
   "base_url": "https://207studio.dev",
   "last_updated": "2026-10-24",
+  "page_lastmod": {
+    "": "2026-11-10",
+    "ko/": "2026-11-10",
+    "about/": "2026-11-07",
+    "ko/about/": "2026-11-07",
+    "blog/": "2026-11-07",
+    "ko/blog/": "2026-11-07",
+    "legal/terms/": "2026-11-09",
+    "legal/privacy/": "2026-11-09",
+    "legal/refunds/": "2026-11-09",
+    "pairy/": "2026-11-09",
+    "pairy/support.html": "2026-11-09",
+    "pairy/privacy.html": "2026-11-09",
+    "ko/pairy/": "2026-11-09",
+    "stonewars/": "2026-11-09",
+    "stonewars/support.html": "2026-11-03",
+    "stonewars/privacy.html": "2026-11-03"
+  },
   "support_email": "support@207studio.dev",
   "listing": {
     "title": "Products – Developer Kits and Classroom Tools | 207 Studio",
@@ -13,15 +31,15 @@
     {
       "id": "pairy-mac",
       "name": "Pairy for Mac",
-      "version": "1.4.2",
-      "build": "142",
+      "version": "1.4.4",
+      "build": "144",
       "platform": "Apple Silicon only, macOS 15 or later. Notarized with Developer ID.",
-      "requires": {"en": "Apple Silicon · macOS 15+ · Version 1.4.2", "ko": "Apple Silicon · macOS 15 이상 · 버전 1.4.2"},
+      "requires": {"en": "Apple Silicon · macOS 15+ · Version 1.4.4", "ko": "Apple Silicon · macOS 15 이상 · 버전 1.4.4"},
       "install": {"en": "Double-click the zip to unzip it, then move PairyMac.app into Applications.", "ko": "zip 파일을 더블클릭해 압축을 풀고 PairyMac.app을 응용 프로그램 폴더로 옮기세요."},
-      "file": "Pairy-mac-1.4.2-142-notarized.zip",
-      "url": "https://github.com/207studio/207studio.github.io/releases/download/pairy-mac-1.4.2-142/Pairy-mac-1.4.2-142-notarized.zip",
-      "sha256": "38584e50e1963fd45369ebe496bce3324515651f1f81946a5248dcca23fc1ded",
-      "size": 22075699
+      "file": "Pairy-mac-1.4.4-144-notarized.zip",
+      "url": "https://github.com/207studio/207studio.github.io/releases/download/pairy-mac-1.4.4-144/Pairy-mac-1.4.4-144-notarized.zip",
+      "sha256": "a622410bd42bb49f1fbc12a398463ffcf52f4644dd5cb7aa41f587162644d2f5",
+      "size": 22286848
     }
   ],
   "organization": {

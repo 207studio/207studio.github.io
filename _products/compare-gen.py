@@ -112,5 +112,5 @@ def write(path, lang, data):
 
 
 data = json.loads(DATA.read_text(encoding="utf-8"))
-write(ROOT / "index.html", "en", data)
-write(ROOT / "ko/index.html", "ko", data)
+write(ROOT / "ttoryeot/index.html", "en", data)
+write(ROOT / "ko/ttoryeot/index.html", "ko", data)

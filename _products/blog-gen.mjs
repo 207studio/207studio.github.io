@@ -309,8 +309,9 @@ for (const post of posts) {
 
   const page = `${head(post.meta_title || post.title, post.description, canonical, ogImage)}
 <body>
+<a class="skip" href="#main">Skip to content</a>
 ${header('blog')}
-<main class="wrap product-page blog-post">
+<main id="main" class="wrap product-page blog-post">
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/blog/">Writing</a> / <span>${esc(post.title)}</span></nav>
 <article class="prose">
 <h1>${inline(h1)}</h1>
@@ -338,8 +339,9 @@ const listItems = posts
 
 const listPage = `${head('Writing \u2013 notes on browser rendering and classroom tools | 207 Studio', 'Practical notes from 207 Studio on rendering documents in the browser, offline classroom tools, and the code behind them.', `${BASE}/blog/`, '', { ko: `${BASE}/ko/blog/`, cardImage: posts.find((p) => p.image) ? `${BASE}${posts.find((p) => p.image).image}` : '' })}
 <body>
+<a class="skip" href="#main">Skip to content</a>
 ${header('blog')}
-<main class="wrap product-page blog-index">
+<main id="main" class="wrap product-page blog-index">
 <nav class="crumbs" aria-label="Breadcrumb"><span>Writing</span></nav>
 <h1>Writing</h1>
 <p class="lede">Notes on rendering documents in the browser, building offline classroom tools, and the parts that are easy to get wrong.</p>

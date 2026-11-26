@@ -1882,6 +1882,9 @@ html { touch-action: manipulation; }
 .tt-dl-more a span { color: var(--muted); font-size: 13px; line-height: 1.4; }
 .tt-dl-more a[aria-current="true"] b { color: var(--gold); }
 .tt-dl-note { margin: 0 12px 8px; color: var(--muted); font-size: 12px; line-height: 1.45; }
+.tt-dl-sums { margin: 8px 0 0; font-size: 13px; }
+.tt-dl-sums a { color: var(--muted); text-decoration: underline; text-underline-offset: 2px; }
+.tt-dl-sums a:hover, .tt-dl-sums a:focus-visible { color: var(--ink); }
 .tt-dl > .tt-dl-note { flex-basis: 100%; margin: 0; }
 .tt-oss { margin: var(--space-5) 0 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
 .tt-oss .text-link + .text-link { margin-left: 14px; }
