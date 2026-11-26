@@ -68,8 +68,11 @@ for app in APPS:
     for lang in S:
         if app["id"] == "stonewars" and lang == "en":
             continue
+        route = href_for(app["page"], lang)
+        if "#" in route:
+            continue  # the row links into a home section; it has no page of its own
         scripts = ["compare.js", "tt-download.js"] if app["id"] == "ttoryeot" else []
-        PAGES[href_for(app["page"], lang)] = {"kind": "project", "scripts": scripts}
+        PAGES[route] = {"kind": "project", "scripts": scripts}
 
 
 def head(kind, route):

@@ -1,5 +1,5 @@
 {
-  "_readme": "The seven apps on the home page walk, in order. Run python3 _products/walk-gen.py after editing. Each app's name sits on one line (en + ko), so a rename is a one-line change. A link may add href_ko for the Korean page. The download key names an entry in site-data.json downloads (URL, SHA-256, requirements). Facts come only from the repo, the site and the App Store. Anything marked TODO still needs facts from the owners. say is Mimi's one line for the app. icon (168 px webp) and shot (src without the -1200/-720.webp suffix, its size and alt) are real app images; an app without them shows text only.",
+  "_readme": "The eight apps on the home page walk, in order. Run python3 _products/walk-gen.py after editing. Each app's name sits on one line (en + ko), so a rename is a one-line change. A link may add href_ko for the Korean page. The download key names an entry in site-data.json downloads (URL, SHA-256, requirements). Facts come only from the repo, the site and the App Store. Anything marked TODO still needs facts from the owners. say is Mimi's one line for the app. icon (168 px webp) and shot (src without the -1200/-720.webp suffix, its size and alt) are real app images; an app without them shows text only.",
   "apps": [
     {
       "id": "pairy",
@@ -243,6 +243,34 @@
         "href_ko": "/ko/stonewars/",
         "en": "More about StoneWars",
         "ko": "스톤워즈 자세히 보기"
+      }
+    },
+    {
+      "id": "byeolchae",
+      "status": "development",
+      "name": {
+        "en": "Constellation",
+        "ko": "별채"
+      },
+      "_name_note": "English name Constellation chosen by the owner (card, 2026-11-26). Change a name line, then run walk-gen.py and _products/build.sh.",
+      "tag": {
+        "en": "In development",
+        "ko": "개발 중"
+      },
+      "line": {
+        "en": "Our own workspace where a team of AI bots works together, on iPhone, Mac and the web.",
+        "ko": "AI 봇들이 한 팀으로 일하는 우리만의 작업실. 아이폰, 맥, 웹에서."
+      },
+      "say": {
+        "en": "Constellation is our own workspace, where a team of AI bots works together.",
+        "ko": "별채는 AI 봇들이 한 팀으로 일하는 우리만의 작업실이에요."
+      },
+      "_page_note": "No page of its own: private, internal TestFlight only, no public download. The row links to the home's workshop video section (#workshop). No screenshots (they show bot names and chats).",
+      "page": {
+        "href": "/#workshop",
+        "href_ko": "/ko/#workshop",
+        "en": "About Constellation",
+        "ko": "별채 이야기"
       }
     },
     {
