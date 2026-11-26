@@ -15,6 +15,11 @@ PAGES = {
     "/legal/privacy/": {"kind": "read", "scripts": []},
     "/legal/terms/": {"kind": "read", "scripts": []},
     "/legal/refunds/": {"kind": "read", "scripts": []},
+    "/pairy/support.html": {"kind": "read", "scripts": []},
+    "/pairy/privacy.html": {"kind": "read", "scripts": []},
+    "/stonewars/": {"kind": "project", "scripts": []},
+    "/stonewars/support.html": {"kind": "read", "scripts": []},
+    "/stonewars/privacy.html": {"kind": "read", "scripts": []},
 }
 PAGES.update({
     f"{prefix}/{section}/": {"kind": "read", "scripts": []}

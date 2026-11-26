@@ -2,6 +2,7 @@
 """Structural checks for the redesigned pages (no browser). Run from the repo root.
 
   python3 _products/tools/check-pages.py [--all]      # default: the pages that already carry the chrome markers; --all: every page
+  python3 _products/tools/check-pages.py --root DIR --prefix PREFIX
 
 For each checked page: exactly one <h1>; heading levels never skip down by more than one; unique ids; every <img> has alt;
 every link with target=_blank has rel containing noopener; every <a> has an href; <html lang> matches the path (/ko/ -> ko);
@@ -11,6 +12,7 @@ site-project / site-read, fonts/pretendard) and none of the old ones; <title>, m
 hreflang pairs point at each other; every local stylesheet, script and image the page names exists.
 Exit code 1 on any failure.
 """
+import argparse
 import re
 import sys
 from html.parser import HTMLParser
@@ -99,9 +101,9 @@ class P(HTMLParser):
             self.sums_open = False
 
 
-def pages(all_pages: bool):
-    for p in sorted(ROOT.rglob("*.html")):
-        rel = p.relative_to(ROOT).as_posix()
+def pages(root: Path, all_pages: bool):
+    for p in sorted(root.rglob("*.html")):
+        rel = p.relative_to(root).as_posix()
         if rel.split("/")[0] in SKIP or rel.startswith("google"):
             continue
         text = p.read_text(encoding="utf-8")
@@ -112,20 +114,39 @@ def pages(all_pages: bool):
         yield rel, text
 
 
-def exists(ref: str) -> bool:
+def exists(ref: str, root: Path, prefix: str) -> bool:
     path = ref.split("#")[0].split("?")[0]
     if not path.startswith("/") or path.startswith("//"):
         return True
-    f = ROOT / path.lstrip("/")
+    # Project paths are served by the sibling repo; shared paths by the studio repo.
+    if path.startswith(prefix):
+        f = root / path.removeprefix(prefix)
+    else:
+        f = ROOT / path.lstrip("/")
     return f.is_file() or (f.is_dir() and (f / "index.html").is_file())
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description="Check the structure of redesigned HTML pages.")
+    parser.add_argument("--all", action="store_true", help="also check pages without chrome markers")
+    parser.add_argument("--root", type=Path, help="sibling repository root")
+    parser.add_argument("--prefix", help="public path prefix for the sibling repository, e.g. /pairy/")
+    args = parser.parse_args()
+    if (args.root is None) != (args.prefix is None):
+        parser.error("--root and --prefix must be used together")
+    root = args.root.resolve() if args.root is not None else ROOT
+    prefix = args.prefix if args.prefix is not None else "/"
+    if not root.is_dir():
+        parser.error(f"not a directory: {root}")
+    if not prefix.startswith("/") or not prefix.endswith("/"):
+        parser.error("--prefix must start and end with /")
+
     fails = []
     count = 0
     alts = {}
-    for rel, text in pages("--all" in sys.argv):
+    for rel, text in pages(root, args.all):
         count += 1
+        own = prefix + (rel.removesuffix("index.html") if Path(rel).name == "index.html" else rel)
         pr = P()
         pr.feed(text)
         def bad(msg):
@@ -145,7 +166,7 @@ def main() -> int:
             bad(f"{pr.blank_no_rel} target=_blank link(s) without rel=noopener")
         if pr.a_no_href:
             bad(f"{pr.a_no_href} <a> without href")
-        want = "ko" if rel.startswith("ko/") else "en"
+        want = "ko" if own.startswith("/ko/") else "en"
         if pr.lang != want:
             bad(f"<html lang={pr.lang!r}> but the path says {want!r}")
         if not pr.main_id:
@@ -172,9 +193,8 @@ def main() -> int:
         if not (pr.title and pr.desc and (pr.canonical or not need_canon) and pr.viewport):
             bad("title, meta description, canonical and viewport are all required")
         for ref in pr.css + pr.scripts + pr.imgs:
-            if not exists(ref):
+            if not exists(ref, root, prefix):
                 bad(f"missing file {ref}")
-        own = "/" + (rel[: -len("index.html")] if rel.endswith("index.html") else rel)
         if pr.canonical and pr.canonical.endswith(own):  # a redirect stub names another page as canonical; leave it out
             alts[rel] = (pr.canonical, pr.alt)
     # hreflang reciprocity: A names B -> B names A

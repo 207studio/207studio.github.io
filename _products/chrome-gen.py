@@ -1,7 +1,9 @@
 """Fill the shared chrome markers on every redesigned HTML page."""
 
+import argparse
 import sys
 from html.parser import HTMLParser
+from pathlib import Path
 from urllib.parse import urlsplit, urlunsplit
 
 sys.dont_write_bytecode = True
@@ -46,8 +48,7 @@ def local_href(href):
     return href
 
 
-def render(path, text):
-    route = "/" + path.relative_to(ROOT).as_posix().removesuffix("index.html")
+def render(route, text):
     if route not in PAGES:
         raise ValueError(f"unknown redesigned route {route}")
     kind = PAGES[route]["kind"]
@@ -62,17 +63,31 @@ def render(path, text):
 
 
 def main():
-    for path in sorted(ROOT.rglob("*.html")):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--external", nargs=2, metavar=("ROOT", "PREFIX"))
+    args = parser.parse_args()
+    root, prefix = ROOT, "/"
+    if args.external:
+        directory, prefix = args.external
+        root = Path(directory).resolve()
+        if not root.is_dir():
+            parser.error(f"not a directory: {directory}")
+        if not prefix.startswith("/") or not prefix.endswith("/"):
+            parser.error("PREFIX must start and end with /")
+
+    for path in sorted(root.rglob("*.html")):
         text = path.read_text(encoding="utf-8")
         if marker("head", "start") not in text:
             continue
+        rel = path.relative_to(root).as_posix()
+        route = prefix + (rel.removesuffix("index.html") if path.name == "index.html" else rel)
         try:
-            updated = render(path, text)
+            updated = render(route, text)
         except ValueError as error:
-            raise SystemExit(f"{path.relative_to(ROOT)}: {error}") from error
+            raise SystemExit(f"{rel}: {error}") from error
         if updated != text:
             path.write_text(updated, encoding="utf-8")
-            print("wrote chrome", path.relative_to(ROOT))
+            print("wrote chrome", rel)
 
 
 if __name__ == "__main__":
