@@ -9,8 +9,8 @@ APPS = json.loads((ROOT / "_products/apps.json").read_text(encoding="utf-8"))["a
 POSTS = json.loads((ROOT / "_blog/posts.json").read_text(encoding="utf-8"))
 
 PAGES = {
-    "/": {"kind": "home", "scripts": []},
-    "/ko/": {"kind": "home", "scripts": []},
+    "/": {"kind": "home", "scripts": ["walk.js"]},
+    "/ko/": {"kind": "home", "scripts": ["walk.js"]},
     "/404.html": {"kind": "read", "scripts": []},
     "/legal/privacy/": {"kind": "read", "scripts": []},
     "/legal/terms/": {"kind": "read", "scripts": []},
@@ -116,7 +116,7 @@ def top(lang, route, alternate):
         menu_nav.append(f'<a href="{href}">{label}</a>')
     language = language_link(s, alternate, ' class="pill"')
     return f'''<a class="skip" href="#main">{s['skip']}</a>
-<div class="sky" aria-hidden="true"><i class="sky-a"></i><i class="sky-b"></i></div>
+<div class="sky" aria-hidden="true"><b class="sky-tile sky-still"></b><i class="sky-a"><b class="sky-tile sky-star"></b><b class="sky-tile sky-dots"></b></i><i class="sky-b"><b class="sky-tile sky-star"></b><b class="sky-tile sky-dots"></b></i></div>
 <header class="head" data-head><div class="head-in">
 <a class="pill brand" href="{home}" aria-label="207 Studio"><span class="brand-star">{STAR}</span><span class="brand-word">207 Studio</span></a>
 <nav class="pill head-nav" aria-label="{s['main']}">{"".join(nav)}</nav>

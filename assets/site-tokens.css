@@ -81,6 +81,8 @@
   --sky-b: var(--paper-star-b), var(--paper-b);
   --sky-dots-a: var(--paper-a);
   --sky-dots-b: var(--paper-b);
+  --sky-star-a: var(--paper-star-a);
+  --sky-star-b: var(--paper-star-b);
   color-scheme: light;
 }
 
@@ -113,6 +115,8 @@
   --sky-b: var(--night-star-b), var(--night-b);
   --sky-dots-a: var(--night-a);
   --sky-dots-b: var(--night-b);
+  --sky-star-a: var(--night-star-a);
+  --sky-star-b: var(--night-star-b);
   color-scheme: dark;
 }
 @media (prefers-color-scheme: dark) {
@@ -144,6 +148,8 @@
     --sky-b: var(--night-star-b), var(--night-b);
     --sky-dots-a: var(--night-a);
     --sky-dots-b: var(--night-b);
+    --sky-star-a: var(--night-star-a);
+    --sky-star-b: var(--night-star-b);
     color-scheme: dark;
   }
 }
@@ -346,4 +352,18 @@
     radial-gradient(2.76px 2.76px at 25px 277px, rgb(var(--paper-star-rgb) / 0.99) 38%, transparent 62%) 0 0 / 293px 389px;
   --paper-star-a: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 389 523'%3E%3Cpath transform='translate(69.9 131.9) scale(0.552)' d='M12 0C12.7 7.4 16.6 11.3 24 12C16.6 12.7 12.7 16.6 12 24C11.3 16.6 7.4 12.7 0 12C7.4 11.3 11.3 7.4 12 0Z' fill='%23d4a02e' fill-opacity='1'/%3E%3Cpath transform='translate(300.3 401.3) scale(0.36)' d='M12 0C12.7 7.4 16.6 11.3 24 12C16.6 12.7 12.7 16.6 12 24C11.3 16.6 7.4 12.7 0 12C7.4 11.3 11.3 7.4 12 0Z' fill='%23c6922c' fill-opacity='.95'/%3E%3C/svg%3E") 0 0 / 389px 523px;
   --paper-star-b: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 431 577'%3E%3Cpath transform='translate(262.2 146.2) scale(0.408)' d='M12 0C12.7 7.4 16.6 11.3 24 12C16.6 12.7 12.7 16.6 12 24C11.3 16.6 7.4 12.7 0 12C7.4 11.3 11.3 7.4 12 0Z' fill='%23c6922c' fill-opacity='.95'/%3E%3Cpath transform='translate(96 440) scale(0.48)' d='M12 0C12.7 7.4 16.6 11.3 24 12C16.6 12.7 12.7 16.6 12 24C11.3 16.6 7.4 12.7 0 12C7.4 11.3 11.3 7.4 12 0Z' fill='%23d4a02e' fill-opacity='1'/%3E%3C/svg%3E") 0 0 / 431px 577px;
+}
+
+/* The sky in depth (the apps' star parallax; assets/site.js "sky"): each layer of stars moves by its share of the page's scroll,
+   the finest and farthest least, the largest dots most (values from the apps' values.css, 유일 님 2026-11-18). A layer moved one
+   whole tile is where it started and wraps, so each --sky-wrap-* is its own tile's height. All shares 0 is no depth. */
+:root {
+  --sky-depth-still: 0.04;
+  --sky-depth-a: 0.07;
+  --sky-depth-b: 0.1;
+  --sky-wrap-still: 419px;
+  --sky-wrap-a: 457px;
+  --sky-wrap-star-a: 523px;
+  --sky-wrap-b: 389px;
+  --sky-wrap-star-b: 577px;
 }

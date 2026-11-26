@@ -18,6 +18,9 @@ It reads both trees with the standard library only and reports every difference 
               downloads) still exists and is byte-identical unless named with --allow: the pairy and stonewars repos and old
               links load them (live /pairy/ loads /assets/pages.css and /assets/pairy.css from this repo)
   refs        in the new tree every local href/src/srcset/url() resolves to a file or a page (paths served by other repos are skipped)
+  motion      the effects of the live site stay: the home walk (data-walk, the same data-stop count and data-say lines as the baseline, walk.js
+              linked, Mimi's sprite, reduced-motion handling), and the apps' star parallax (every redesigned page carries the five sky tiles;
+              site.js moves them; the depth shares in the tokens are above 0)
   privacy     no e-mail address other than support@207studio.dev appears in any page or text file
 Pass --allow NAME (repeatable) to accept a named file change, --allow-link URL for a link that is meant to go.
 """
@@ -261,6 +264,42 @@ def main() -> int:
         for r in re.findall(r"url\(['\"]?(/[^)'\"#]+)", css.read_text(encoding="utf-8")):
             if not r.startswith("data:") and not exists(r):
                 fails.append(f"refs: {css.name} points at a missing file {r}")
+    # motion: the live site's effects are carried into the new look (owner order 2026-11-26: keep every effect)
+    def say_lines(root, rel):
+        t = (root / rel).read_text(encoding="utf-8")
+        return t.count("data-stop"), re.findall(r'data-say="([^"]*)"', t), t
+    for rel in ("index.html", "ko/index.html"):
+        n_old, say_old, _ = say_lines(base_root, rel)
+        n_new, say_new, text = say_lines(ROOT, rel)
+        if n_new != n_old or sorted(say_new) != sorted(say_old):
+            fails.append(f"motion: {rel} must keep {n_old} walk stops with the baseline's Mimi lines (found {n_new})")
+        for need in ("data-walk", "data-walk-scroller", "data-walk-stage", "data-walk-track", 'src="/assets/walk.js"'):
+            if need not in text:
+                fails.append(f"motion: {rel} lost {need}")
+    css_home = (ROOT / "assets/site-home.css").read_text(encoding="utf-8")
+    for need in ("/assets/mimi-walk-front.webp", "mimi-walk", "perspective", "position: sticky", "prefers-reduced-motion"):
+        if need not in css_home:
+            fails.append(f"motion: assets/site-home.css lost {need}")
+    walk_js = (ROOT / "assets/walk.js").read_text(encoding="utf-8")
+    for need in ("prefers-reduced-motion", "IntersectionObserver", "data-say", "focusin"):
+        if need not in walk_js:
+            fails.append(f"motion: assets/walk.js lost {need}")
+    site_js = (ROOT / "assets/site.js").read_text(encoding="utf-8")
+    for need in ("sky-tile", "prefers-reduced-motion", "translate3d"):
+        if need not in site_js:
+            fails.append(f"motion: assets/site.js lost the star parallax ({need})")
+    if "sky-tile { transform: none" not in (ROOT / "assets/site.css").read_text(encoding="utf-8"):
+        fails.append("motion: assets/site.css lost the reduced-motion rule for the sky tiles")
+    tokens = (ROOT / "assets/site-tokens.css").read_text(encoding="utf-8")
+    for name in ("still", "a", "b"):
+        m = re.search(r"--sky-depth-" + name + r":\s*([0-9.]+)", tokens)
+        if not m or float(m.group(1)) <= 0:
+            fails.append(f"motion: --sky-depth-{name} must stay above 0 (the star parallax)")
+    for url, pg in new["pages"].items():
+        f = ROOT / (url.lstrip("/") + ("index.html" if url.endswith("/") else ""))
+        if f.is_file() and "chrome:head:start" in f.read_text(encoding="utf-8"):
+            if f.read_text(encoding="utf-8").count('class="sky-tile') != 5:
+                fails.append(f"motion: {url} must carry the five sky tiles")
     # privacy
     for mail, where in new["emails"].items():
         if mail not in EMAIL_OK and mail not in old["emails"]:

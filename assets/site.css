@@ -39,13 +39,22 @@ img, video { height: auto; }
 [hidden] { display: none !important; }
 html:not(.js) .js-only { display: none; }
 
-/* The sky: the studio apps' stars, fixed behind the page. Dots on every page, the four-pointed stars too on the home (body.home). */
-.sky { position: fixed; inset: 0; z-index: var(--z-sky); pointer-events: none; background: var(--sky); }
+/* The sky: the studio apps' stars, fixed behind the page. Dots on every page, the four-pointed stars too on the home (body.home).
+   Each layer is a tile taller than the screen by one tile height above and below; assets/site.js moves it by its share of the scroll
+   (the apps' star parallax) and a whole tile later it is where it started. The two twinkling groups dim by opacity alone. */
+.sky { position: fixed; inset: 0; z-index: var(--z-sky); overflow: hidden; pointer-events: none; }
 .sky > i { position: absolute; inset: 0; display: block; }
-.sky-a { background: var(--sky-dots-a); animation: sky-a 9s ease-in-out infinite; }
-.sky-b { background: var(--sky-dots-b); animation: sky-b 13s ease-in-out -3.3s infinite; }
-.home .sky-a { background: var(--sky-a); }
-.home .sky-b { background: var(--sky-b); }
+.sky-tile { position: absolute; left: 0; right: 0; top: calc(-1 * var(--wrap)); bottom: calc(-1 * var(--wrap)); display: block; }
+.sky[data-moving] .sky-tile { will-change: transform; }
+.sky-still { --wrap: var(--sky-wrap-still); --depth: var(--sky-depth-still); background: var(--sky); }
+.sky-a { animation: sky-a 9s ease-in-out infinite; }
+.sky-b { animation: sky-b 13s ease-in-out -3.3s infinite; }
+.sky-a .sky-dots { --wrap: var(--sky-wrap-a); --depth: var(--sky-depth-a); background: var(--sky-dots-a); }
+.sky-b .sky-dots { --wrap: var(--sky-wrap-b); --depth: var(--sky-depth-b); background: var(--sky-dots-b); }
+.sky-a .sky-star { --wrap: var(--sky-wrap-star-a); --depth: var(--sky-depth-a); background: var(--sky-star-a); }
+.sky-b .sky-star { --wrap: var(--sky-wrap-star-b); --depth: var(--sky-depth-b); background: var(--sky-star-b); }
+.sky-star { display: none; }
+.home .sky-star { display: block; }
 @keyframes sky-a { 0%, 100% { opacity: var(--sky-low-a); } 50% { opacity: 1; } }
 @keyframes sky-b { 0%, 100% { opacity: 1; } 55% { opacity: var(--sky-low-b); } }
 body:not(.home) .sky { opacity: 0.5; }   /* pages of words: the stars stay, fainter */
@@ -238,5 +247,6 @@ details.fold > :last-child { margin-bottom: var(--space-5); }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .sky > i { animation: none; }
+  .sky-tile { transform: none !important; }
   *, *::before, *::after { transition-duration: 0.01ms !important; }
 }

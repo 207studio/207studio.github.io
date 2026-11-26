@@ -28,8 +28,9 @@ def row(app, lang):
     status = escape(app["status"])
     tag = escape(app["tag"][lang])
     description = escape(app["line"][lang])
+    say = escape(app["say"][lang], quote=True)
     return (
-        f'<a class="row"{link_attrs(href)}>{tile}'
+        f'<a class="row" data-stop data-say="{say}"{link_attrs(href)}>{tile}'
         f'<div><div class="row-title">{escape(name)}<span class="chip" data-status="{status}"><i class="dot"></i>{tag}</span></div>'
         f'<div class="row-desc">{description}</div></div><span class="row-go" aria-hidden="true">→</span></a>'
     )
