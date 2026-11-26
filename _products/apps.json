@@ -3,6 +3,7 @@
   "apps": [
     {
       "id": "pairy",
+      "status": "available",
       "name": {
         "en": "Pairy",
         "ko": "Pairy"
@@ -64,6 +65,7 @@
     },
     {
       "id": "chalkieboard",
+      "status": "beta",
       "name": {
         "en": "Chalkieboard",
         "ko": "초키보드"
@@ -125,6 +127,7 @@
     },
     {
       "id": "checkyboard",
+      "status": "development",
       "name": {
         "en": "CheckyBoard",
         "ko": "체키보드"
@@ -170,6 +173,7 @@
     },
     {
       "id": "kiwi",
+      "status": "development",
       "name": {
         "en": "Cool Kiwi",
         "ko": "쿨 키위"
@@ -197,6 +201,7 @@
     },
     {
       "id": "stonewars",
+      "status": "development",
       "name": {
         "en": "StoneWars",
         "ko": "스톤워즈"
@@ -242,6 +247,7 @@
     },
     {
       "id": "dekiduck",
+      "status": "soon",
       "name": {
         "en": "Decky Duck",
         "ko": "데키덕"
@@ -268,6 +274,7 @@
     },
     {
       "id": "ttoryeot",
+      "status": "available",
       "name": {
         "en": "Ttoryeot",
         "ko": "또렷"

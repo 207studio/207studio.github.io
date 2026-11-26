@@ -1,0 +1,369 @@
+/* 207 Studio website: the design values (redesign 2026-11-26).
+   One file holds every colour, typeface, size, curve and shadow the website uses, under the role names the 207 Studio apps use, so the
+   site and the apps look like one thing and a value changed here changes every page. The pages' stylesheets
+   (assets/site.css, site-home.css, site-project.css, site-read.css) say `var(--…)` and never write a colour, a font name
+   or a radius of their own. The values are copied from the apps' own design values;
+   what is not the apps' (page widths, display sizes, web-only roles) is marked WEB below.
+   Change a value only together with the design owner.
+
+   Two layers. Layer 1 is 207's palette. Layer 2 is what a page asks for (--bg, --ink, --accent, …), set once for the paper look
+   (cream paper, the default of this block) and once for the night look. A page never uses layer 1.
+   The look is `data-look="night"|"paper"` on <html>. assets/look.js sets it before the first paint from the visitor's choice or
+   the device; with no script the device decides through the prefers-color-scheme block at the end of layer 2.
+   The night role block exists twice (the attribute rule and the media rule). They must stay identical:
+   tools/check-tokens.py fails if they differ. */
+
+/* Latin faces, as in the apps: Latin only. The space, no-break space and middle dot (U+0020, U+00A0, U+00B7) are left to the Korean
+   face so Korean word gaps and '이름 · 직함' keep Korean widths. Korean is Pretendard (assets/fonts/pretendard.css, loaded by every page). */
+@font-face { font-family: "Instrument Sans"; src: url("/assets/fonts/instrument-sans-latin.woff2") format("woff2"); font-style: normal; font-weight: 400 700; font-display: swap; unicode-range: U+0021-007E, U+00A1-00B6, U+00B8-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "DM Sans"; src: url("/assets/fonts/dm-sans-500-latin.woff2") format("woff2"); font-style: normal; font-weight: 500; font-display: swap; unicode-range: U+0021-007E, U+00A1-00B6, U+00B8-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "DM Sans"; src: url("/assets/fonts/dm-sans-700-latin.woff2") format("woff2"); font-style: normal; font-weight: 700; font-display: swap; unicode-range: U+0021-007E, U+00A1-00B6, U+00B8-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+/* ── 1. 207's palette ─────────────────────────────────────────────────────────────────────────── */
+:root {
+  --night: #0d1333;          /* the page at night */
+  --night-bar: #10163c;      /* the second ground at night */
+  --night-raised: #182052;
+  --night-deep: #19204d;     /* wells and code at night */
+  --night-under: #0a0f29;
+  --night-shade: 4 6 20;     /* the night's shadow colour (#040614) as r g b */
+  --cream: #f4ecd8;          /* words at night; the icon's small star */
+  --cream-rgb: 244 236 216;
+  --lilac: #b9b4cc;          /* quiet words at night */
+  --paper: #fdfcf8;          /* the paper page */
+  --paper-low: #f6f3ea;      /* the paper's second ground */
+  --white: #ffffff;
+  --indigo: #1b1838;         /* words on paper */
+  --indigo-rgb: 27 24 56;
+  --indigo-soft: #5b5672;    /* quiet words on paper */
+  --navy: #121a44;           /* the icon's ground; words on gold */
+  --gold: #e9c46a;           /* the star; the one thing to press */
+  --gold-rgb: 233 196 106;
+  --gold-light: #f3d68f;
+  --gold-deep: #7a5a12;      /* gold as words or a line on paper (6.2 : 1) */
+  --gold-deep-rgb: 122 90 18;
+  --gold-warm-rgb: 214 164 58;      /* the star on paper */
+  --paper-star-rgb: 198 146 44;     /* the sky's dots on paper */
+  --paper-star-deep-rgb: 168 120 30;
+  --coral: #cd7c5c;
+  --brick: #c2412d;
+  --sage: #a8bda0;
+  --pine: #2c5a45;
+  --periwinkle: #606bd4;
+}
+
+/* ── 2. What a page asks for: the paper look (the default of this block) ───────────────────────── */
+:root {
+  --bg: var(--paper);
+  --side: var(--paper-low);          /* the second ground: alternate sections, the footer */
+  --raised: var(--white);
+  --ink: var(--indigo);
+  --muted: var(--indigo-soft);
+  --hint-see: 90%;
+  --line: rgb(var(--indigo-rgb) / 0.13);
+  --hover: rgb(var(--indigo-rgb) / 0.05);
+  --selected: rgb(var(--indigo-rgb) / 0.09);
+  --code: var(--paper-low);
+  --accent-ink: var(--gold-deep);
+  --danger: var(--brick);
+  --on-danger: var(--white);
+  --ok: var(--pine);
+  --bot-bubble: color-mix(in srgb, var(--ink) 5%, var(--bg));
+  --card-quiet: var(--raised);
+  --shade: var(--indigo-rgb);
+  --drop-shadow: 0.16;
+  --star: rgb(var(--gold-warm-rgb));
+  --star-small: rgb(var(--paper-star-deep-rgb));
+  --sky-low-a: 0.5;
+  --sky-low-b: 0.45;
+  --sky: var(--paper-still);
+  --sky-a: var(--paper-star-a), var(--paper-a);
+  --sky-b: var(--paper-star-b), var(--paper-b);
+  --sky-dots-a: var(--paper-a);
+  --sky-dots-b: var(--paper-b);
+  --sky-star-a: var(--paper-star-a);
+  --sky-star-b: var(--paper-star-b);
+  color-scheme: light;
+}
+
+/* The night look. Written twice, identical: first for the attribute, then for a device that asks for dark when no script has set one. */
+:root[data-look="night"] {
+  --bg: var(--night);
+  --side: var(--night-bar);
+  --raised: var(--night-raised);
+  --ink: var(--cream);
+  --muted: var(--lilac);
+  --hint-see: 75%;
+  --line: rgb(var(--cream-rgb) / 0.16);
+  --hover: rgb(var(--cream-rgb) / 0.06);
+  --selected: rgb(var(--cream-rgb) / 0.11);
+  --code: var(--night-deep);
+  --accent-ink: var(--gold);
+  --danger: var(--coral);
+  --on-danger: var(--navy);
+  --ok: var(--sage);
+  --bot-bubble: color-mix(in srgb, var(--ink) 8%, var(--bg));
+  --card-quiet: color-mix(in srgb, var(--ink) 6%, var(--bot-bubble));
+  --shade: var(--night-shade);
+  --drop-shadow: 0.4;
+  --star: var(--gold);
+  --star-small: var(--cream);
+  --sky-low-a: 0.22;
+  --sky-low-b: 0.18;
+  --sky: var(--night-still);
+  --sky-a: var(--night-star-a), var(--night-a);
+  --sky-b: var(--night-star-b), var(--night-b);
+  --sky-dots-a: var(--night-a);
+  --sky-dots-b: var(--night-b);
+  --sky-star-a: var(--night-star-a);
+  --sky-star-b: var(--night-star-b);
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-look]) {
+    --bg: var(--night);
+    --side: var(--night-bar);
+    --raised: var(--night-raised);
+    --ink: var(--cream);
+    --muted: var(--lilac);
+    --hint-see: 75%;
+    --line: rgb(var(--cream-rgb) / 0.16);
+    --hover: rgb(var(--cream-rgb) / 0.06);
+    --selected: rgb(var(--cream-rgb) / 0.11);
+    --code: var(--night-deep);
+    --accent-ink: var(--gold);
+    --danger: var(--coral);
+    --on-danger: var(--navy);
+    --ok: var(--sage);
+    --bot-bubble: color-mix(in srgb, var(--ink) 8%, var(--bg));
+    --card-quiet: color-mix(in srgb, var(--ink) 6%, var(--bot-bubble));
+    --shade: var(--night-shade);
+    --drop-shadow: 0.4;
+    --star: var(--gold);
+    --star-small: var(--cream);
+    --sky-low-a: 0.22;
+    --sky-low-b: 0.18;
+    --sky: var(--night-still);
+    --sky-a: var(--night-star-a), var(--night-a);
+    --sky-b: var(--night-star-b), var(--night-b);
+    --sky-dots-a: var(--night-a);
+    --sky-dots-b: var(--night-b);
+    --sky-star-a: var(--night-star-a);
+    --sky-star-b: var(--night-star-b);
+    color-scheme: dark;
+  }
+}
+
+/* ── 3. Roles that do not change with the look ──────────────────────────────────────────────────
+   Declared on :root only. A subtree never re-sets the look, so these resolve once. */
+:root {
+  --accent: var(--gold);             /* the star, the one thing to press, and nothing else */
+  --on-accent: var(--navy);
+  --working: var(--periwinkle);      /* dots and marks only, never words */
+  --hint: color-mix(in srgb, var(--muted) var(--hint-see), transparent);
+  --float-ring: color-mix(in srgb, var(--ink) 14%, transparent);
+  --field: var(--hover);
+  --field-focus: color-mix(in srgb, var(--ink) 28%, transparent);
+  --pressed: var(--selected);
+  --well: rgb(var(--shade) / 0.18);
+  --scrim: rgb(var(--shade) / 0.22);
+  --seg-ground: rgb(var(--shade) / 0.22);
+  --disabled-ground: color-mix(in srgb, var(--ink) 12%, transparent);
+  --glyph-ground: var(--white);
+
+  /* The quiet material: a flat film of the ground's own colour. A chat bubble in the apps; a card or a row here. No shine, no rim light. */
+  /* WEB: solid, not see-through as in the apps. Words sit on cards here, and the contrast numbers (tools/check-tokens.py) are measured on the solid colour. */
+  --surface-quiet: var(--bot-bubble);
+  --surface-quiet-edge: inset 0 0 0 1px var(--line), 0 1px 2px rgb(var(--shade) / 0.1), 0 5px 14px rgb(var(--shade) / 0.08);
+  --popover: var(--bot-bubble);
+  --popover-edge: var(--surface-quiet-edge), 0 8px 26px rgb(var(--shade) / 0.18);
+  --card-ground: var(--card-quiet);
+  --card-edge: color-mix(in srgb, var(--ink) 14%, var(--bg));
+  /* Glass: what floats (the header, round buttons, the menu button) is a see-through film that blurs what passes behind it. */
+  --bubble-see: 64%;
+  --glass-blur: 2px;
+  --glass-blur-words: 4px;
+  --bubble-glass: color-mix(in srgb, var(--bot-bubble) var(--bubble-see), transparent);
+  --glass: var(--bubble-glass);
+  /* WEB: the header's capsules carry words and pass over the painting and over text, so their film is thick (88 %), as the apps' rule for
+     capsules that carry words asks (88-92 % and a blur). _products/tools/check-tokens.py measures their words over the worst backdrops. */
+  --head-see: 88%;
+  --head-glass: color-mix(in srgb, var(--bot-bubble) var(--head-see), transparent);
+  --glass-filter: blur(var(--glass-blur)) saturate(1.4);
+  --glass-filter-words: blur(var(--glass-blur-words)) saturate(1.4);
+  --shadow-float: 0 8px 22px rgb(var(--shade) / 0.2);
+  --shadow-card: 0 8px 20px -10px rgb(var(--shade) / var(--drop-shadow));
+  --shadow-sheet: 0 18px 56px rgb(var(--shade) / 0.28);
+
+  /* Type */
+  --font-korean: "Pretendard Variable", "Pretendard", system-ui, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+  --font-body: "Instrument Sans", var(--font-korean);
+  --font-display: "DM Sans", var(--font-korean);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  /* The apps' UI sizes (xs..2xl): 11, 12.5, 13.5, 15, 17, 22. The names are the apps' current ones. */
+  --text-xs: 11px;
+  --text-s: 12.5px;
+  --text-m: 13.5px;
+  --text-l: 15px;
+  --text-xl: 17px;
+  --text-2xl: 22px;
+  /* WEB: reading and display sizes a page needs and an app does not */
+  --text-read: 17px;                 /* running text on every page; Korean uses --lh-read-ko */
+  --lh-read: 1.65;
+  --lh-read-ko: 1.75;
+  --lh-ui: 1.4;
+  --display-s: clamp(28px, 4.2vw, 36px);
+  --display-m: clamp(36px, 6vw, 56px);
+  --display-l: clamp(48px, 9vw, 96px);
+  --display-hero: clamp(40px, 7vw, 80px);   /* a project page's name */
+  --display-wordmark: clamp(64px, 13vw, 132px);
+  --track-display: -0.02em;
+  --track-eyebrow: 0.08em;
+
+  /* Space: the apps' steps (2, 4, 8, 12, 16, 20, 24, 32) and, WEB, four page steps */
+  --space-1: 2px;
+  --space-2: 4px;
+  --space-3: 8px;
+  --space-4: 12px;
+  --space-5: 16px;
+  --space-6: 20px;
+  --space-7: 24px;
+  --space-8: 32px;
+  --space-9: 48px;
+  --space-10: 72px;
+  --space-11: 104px;
+  --space-12: 144px;
+  /* Control heights: the apps (22, 28, 32, 36, 40; touch 44) */
+  --control-xs: 22px;
+  --control-s: 28px;
+  --control-m: 32px;
+  --control-l: 36px;
+  --control-xl: 40px;
+  --touch: 44px;
+
+  /* Curves: the apps' one rule. A surface's corner is the corner of what it holds plus the gap between them. Touch values here;
+     a pointer takes the smaller desk values below. */
+  --curve-talk: 25px;                /* cards, bubbles, code blocks, media: half the 50 high message box */
+  --curve-nest: 11px;                /* what sits inside a card at inset 14 */
+  --float-pad: 16px;
+  --curve-float: calc(var(--curve-talk) + var(--float-pad));   /* large panels and the menu sheet */
+  --curve-pop: calc(var(--curve-nest) + 6px);                  /* popover menus */
+  --composer-h: 50px;                /* the primary button's height: the apps' message box */
+  --round-d: 44px;                   /* round buttons: the star, the menu */
+  --pill-h: 44px;                    /* secondary buttons, chips that can be pressed, language pill */
+  --row-h: 72px;                     /* a project or file row */
+  --menu-row: 44px;                  /* a menu row, a footer link: touch 44, a pointer 30 (the apps' menu row) */
+  --row-gap: 4px;
+  --avatar: 52px;                    /* a project's icon in a row */
+
+  /* WEB: widths */
+  --page: 1120px;                    /* the widest content */
+  --read: 680px;                     /* running text */
+  --gutter: clamp(16px, 5vw, 32px);
+
+  /* Motion: short and plain. A value of 0 under reduced motion (site.css). */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur-1: 120ms;
+  --dur-2: 200ms;
+  --dur-3: 320ms;
+
+  /* Layers */
+  --z-sky: 0;
+  --z-page: 1;
+  --z-header: 30;
+  --z-menu: 40;
+}
+/* A pointer is fine enough for the apps' desktop sizes. A touch screen keeps 44 and 50. */
+@media (pointer: fine) {
+  :root {
+    --curve-talk: 20px;
+    --curve-nest: 6px;
+    --composer-h: 40px;
+    --round-d: 36px;
+    --pill-h: 32px;
+    --menu-row: 30px;
+  }
+}
+/* Someone who asked for less transparency or more contrast gets each surface's own colour and no blur. */
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  :root {
+    --glass: var(--bot-bubble);
+    --head-glass: var(--bot-bubble);
+    --glass-filter: none;
+    --glass-filter-words: none;
+    --bubble-glass: var(--bot-bubble);
+  }
+}
+
+/* ── 4. The sky ─────────────────────────────────────────────────────────────────────────────────
+   The apps' own stars, copied from their design values: not pictures but small dots of the icon's cream and gold, on tiles of
+   different sizes so no pattern shows, and the icon's four-pointed star here and there. One set stands still (the ground's own
+   picture). Two more are layers that slowly brighten and dim by opacity alone (site.css `.sky-a`, `.sky-b`, 9 s and 13 s). On a
+   page of words only the dots are used, as behind the apps' list: a four-pointed star could be taken for a letter. The star sets
+   (--*-star-a, --*-star-b) are for the home page only. Nothing here is blurred. Do not edit these values. */
+:root {
+  --night-still:
+    radial-gradient(1.44px 1.44px at 239px 294px, rgb(var(--cream-rgb) / 0.61) 30%, transparent 62%) 0 0 / 311px 419px,
+    radial-gradient(1.44px 1.44px at 105px 102px, rgb(var(--cream-rgb) / 0.61) 30%, transparent 62%) 0 0 / 311px 419px,
+    radial-gradient(1.32px 1.32px at 103px 56px, rgb(var(--cream-rgb) / 0.66) 30%, transparent 62%) 0 0 / 311px 419px,
+    radial-gradient(1.44px 1.44px at 283px 363px, rgb(var(--cream-rgb) / 0.64) 30%, transparent 62%) 0 0 / 311px 419px,
+    radial-gradient(1.44px 1.44px at 210px 239px, rgb(var(--cream-rgb) / 0.64) 30%, transparent 62%) 0 0 / 311px 419px,
+    radial-gradient(1.08px 1.08px at 88px 327px, rgb(var(--cream-rgb) / 0.72) 30%, transparent 62%) 0 0 / 311px 419px;
+  --night-a:
+    radial-gradient(1.56px 1.56px at 156px 432px, rgb(var(--cream-rgb) / 1) 30%, transparent 62%) 0 0 / 353px 457px,
+    radial-gradient(1.92px 1.92px at 224px 202px, rgb(var(--cream-rgb) / 0.96) 30%, transparent 62%) 0 0 / 353px 457px,
+    radial-gradient(1.92px 1.92px at 106px 144px, rgb(var(--cream-rgb) / 0.97) 30%, transparent 62%) 0 0 / 353px 457px,
+    radial-gradient(1.56px 1.56px at 240px 20px, rgb(var(--gold-rgb) / 1) 30%, transparent 62%) 0 0 / 353px 457px,
+    radial-gradient(2.04px 2.04px at 18px 270px, rgb(var(--cream-rgb) / 0.95) 30%, transparent 62%) 0 0 / 353px 457px,
+    radial-gradient(2.16px 2.16px at 37px 113px, rgb(var(--cream-rgb) / 0.93) 30%, transparent 62%) 0 0 / 353px 457px,
+    radial-gradient(2.04px 2.04px at 344px 96px, rgb(var(--gold-rgb) / 0.95) 30%, transparent 62%) 0 0 / 353px 457px;
+  --night-b:
+    radial-gradient(2.28px 2.28px at 54px 324px, rgb(var(--gold-rgb) / 0.95) 30%, transparent 62%) 0 0 / 293px 389px,
+    radial-gradient(2.16px 2.16px at 271px 26px, rgb(var(--cream-rgb) / 0.95) 30%, transparent 62%) 0 0 / 293px 389px,
+    radial-gradient(2.40px 2.40px at 241px 315px, rgb(var(--gold-rgb) / 0.93) 30%, transparent 62%) 0 0 / 293px 389px,
+    radial-gradient(1.56px 1.56px at 224px 235px, rgb(var(--gold-rgb) / 1) 30%, transparent 62%) 0 0 / 293px 389px,
+    radial-gradient(1.92px 1.92px at 33px 54px, rgb(var(--cream-rgb) / 0.98) 30%, transparent 62%) 0 0 / 293px 389px,
+    radial-gradient(2.28px 2.28px at 192px 339px, rgb(var(--gold-rgb) / 0.94) 30%, transparent 62%) 0 0 / 293px 389px,
+    radial-gradient(2.16px 2.16px at 25px 277px, rgb(var(--cream-rgb) / 0.95) 30%, transparent 62%) 0 0 / 293px 389px;
+  --night-star-a: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 389 523'%3E%3Cpath transform='translate(70 132) scale(0.504)' d='M12 0C12.7 7.4 16.6 11.3 24 12C16.6 12.7 12.7 16.6 12 24C11.3 16.6 7.4 12.7 0 12C7.4 11.3 11.3 7.4 12 0Z' fill='%23e9c46a' fill-opacity='1'/%3E%3Cpath transform='translate(300.4 401.4) scale(0.312)' d='M12 0C12.7 7.4 16.6 11.3 24 12C16.6 12.7 12.7 16.6 12 24C11.3 16.6 7.4 12.7 0 12C7.4 11.3 11.3 7.4 12 0Z' fill='%23f4ecd8' fill-opacity='.75'/%3E%3C/svg%3E") 0 0 / 389px 523px;
+  --night-star-b: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 431 577'%3E%3Cpath transform='translate(262.3 146.3) scale(0.36)' d='M12 0C12.7 7.4 16.6 11.3 24 12C16.6 12.7 12.7 16.6 12 24C11.3 16.6 7.4 12.7 0 12C7.4 11.3 11.3 7.4 12 0Z' fill='%23f4ecd8' fill-opacity='.85'/%3E%3Cpath transform='translate(96.1 440.1) scale(0.432)' d='M12 0C12.7 7.4 16.6 11.3 24 12C16.6 12.7 12.7 16.6 12 24C11.3 16.6 7.4 12.7 0 12C7.4 11.3 11.3 7.4 12 0Z' fill='%23e9c46a' fill-opacity='.9'/%3E%3C/svg%3E") 0 0 / 431px 577px;
+  --paper-still:
+    radial-gradient(1.92px 1.92px at 239px 294px, rgb(var(--paper-star-deep-rgb) / 0.84) 38%, transparent 62%) 0 0 / 311px 419px,
+    radial-gradient(1.92px 1.92px at 105px 102px, rgb(var(--paper-star-rgb) / 0.85) 38%, transparent 62%) 0 0 / 311px 419px,
+    radial-gradient(1.68px 1.68px at 103px 56px, rgb(var(--paper-star-rgb) / 0.92) 38%, transparent 62%) 0 0 / 311px 419px,
+    radial-gradient(1.80px 1.80px at 283px 363px, rgb(var(--paper-star-rgb) / 0.89) 38%, transparent 62%) 0 0 / 311px 419px,
+    radial-gradient(1.80px 1.80px at 210px 239px, rgb(var(--paper-star-rgb) / 0.89) 38%, transparent 62%) 0 0 / 311px 419px,
+    radial-gradient(1.44px 1.44px at 88px 327px, rgb(var(--paper-star-rgb) / 0.95) 38%, transparent 62%) 0 0 / 311px 419px;
+  --paper-a:
+    radial-gradient(2.04px 2.04px at 156px 432px, rgb(var(--paper-star-rgb) / 1) 38%, transparent 62%) 0 0 / 353px 457px,
+    radial-gradient(2.52px 2.52px at 224px 202px, rgb(var(--paper-star-rgb) / 1) 38%, transparent 62%) 0 0 / 353px 457px,
+    radial-gradient(2.40px 2.40px at 106px 144px, rgb(var(--paper-star-rgb) / 1) 38%, transparent 62%) 0 0 / 353px 457px,
+    radial-gradient(2.04px 2.04px at 240px 20px, rgb(var(--paper-star-deep-rgb) / 1) 38%, transparent 62%) 0 0 / 353px 457px,
+    radial-gradient(2.64px 2.64px at 18px 270px, rgb(var(--paper-star-rgb) / 0.99) 38%, transparent 62%) 0 0 / 353px 457px,
+    radial-gradient(2.88px 2.88px at 37px 113px, rgb(var(--paper-star-rgb) / 0.96) 38%, transparent 62%) 0 0 / 353px 457px,
+    radial-gradient(2.64px 2.64px at 344px 96px, rgb(var(--paper-star-deep-rgb) / 0.99) 38%, transparent 62%) 0 0 / 353px 457px;
+  --paper-b:
+    radial-gradient(2.88px 2.88px at 54px 324px, rgb(var(--paper-star-deep-rgb) / 0.98) 38%, transparent 62%) 0 0 / 293px 389px,
+    radial-gradient(2.88px 2.88px at 271px 26px, rgb(var(--paper-star-rgb) / 0.99) 38%, transparent 62%) 0 0 / 293px 389px,
+    radial-gradient(3.12px 3.12px at 241px 315px, rgb(var(--paper-star-deep-rgb) / 0.96) 38%, transparent 62%) 0 0 / 293px 389px,
+    radial-gradient(2.16px 2.16px at 224px 235px, rgb(var(--paper-star-deep-rgb) / 1) 38%, transparent 62%) 0 0 / 293px 389px,
+    radial-gradient(2.52px 2.52px at 33px 54px, rgb(var(--paper-star-rgb) / 1) 38%, transparent 62%) 0 0 / 293px 389px,
+    radial-gradient(2.88px 2.88px at 192px 339px, rgb(var(--paper-star-deep-rgb) / 0.97) 38%, transparent 62%) 0 0 / 293px 389px,
+    radial-gradient(2.76px 2.76px at 25px 277px, rgb(var(--paper-star-rgb) / 0.99) 38%, transparent 62%) 0 0 / 293px 389px;
+  --paper-star-a: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 389 523'%3E%3Cpath transform='translate(69.9 131.9) scale(0.552)' d='M12 0C12.7 7.4 16.6 11.3 24 12C16.6 12.7 12.7 16.6 12 24C11.3 16.6 7.4 12.7 0 12C7.4 11.3 11.3 7.4 12 0Z' fill='%23d4a02e' fill-opacity='1'/%3E%3Cpath transform='translate(300.3 401.3) scale(0.36)' d='M12 0C12.7 7.4 16.6 11.3 24 12C16.6 12.7 12.7 16.6 12 24C11.3 16.6 7.4 12.7 0 12C7.4 11.3 11.3 7.4 12 0Z' fill='%23c6922c' fill-opacity='.95'/%3E%3C/svg%3E") 0 0 / 389px 523px;
+  --paper-star-b: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 431 577'%3E%3Cpath transform='translate(262.2 146.2) scale(0.408)' d='M12 0C12.7 7.4 16.6 11.3 24 12C16.6 12.7 12.7 16.6 12 24C11.3 16.6 7.4 12.7 0 12C7.4 11.3 11.3 7.4 12 0Z' fill='%23c6922c' fill-opacity='.95'/%3E%3Cpath transform='translate(96 440) scale(0.48)' d='M12 0C12.7 7.4 16.6 11.3 24 12C16.6 12.7 12.7 16.6 12 24C11.3 16.6 7.4 12.7 0 12C7.4 11.3 11.3 7.4 12 0Z' fill='%23d4a02e' fill-opacity='1'/%3E%3C/svg%3E") 0 0 / 431px 577px;
+}
+
+/* The sky in depth (the apps' star parallax; assets/site.js "sky"): each layer of stars moves by its share of the page's scroll,
+   the finest and farthest least, the largest dots most (values from the apps' values.css, 유일 님 2026-11-18). A layer moved one
+   whole tile is where it started and wraps, so each --sky-wrap-* is its own tile's height. All shares 0 is no depth. */
+:root {
+  --sky-depth-still: 0.04;
+  --sky-depth-a: 0.07;
+  --sky-depth-b: 0.1;
+  --sky-wrap-still: 419px;
+  --sky-wrap-a: 457px;
+  --sky-wrap-star-a: 523px;
+  --sky-wrap-b: 389px;
+  --sky-wrap-star-b: 577px;
+}

@@ -1,10 +1,11 @@
 // Blog generator for 207studio.dev
 // Usage (from the repo root): node _products/blog-gen.mjs
 // Reads: _products/site-data.json, _blog/posts.json, _blog/<slug>.md
-// Writes: blog/index.html, blog/<slug>/index.html, blog/blog.css
+// Writes: blog/index.html and blog/<slug>/index.html
 // Markdown subset: #, ##, ###, paragraphs, - lists, | tables |, ``` code, > quote, --- hr,
 // **bold**, `code`, [text](url). No raw HTML passthrough.
 
+import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -158,43 +159,9 @@ function splitFaq(md) {
   return { body: before.join('\n'), faq };
 }
 
-const CSS = `:root{--bg:#fafbf8;--ink:#102b32;--muted:#52646a;--line:#d6dedb;--lime:#d5f66b}
-.prose{max-width:760px}
-.prose h1{font-size:clamp(1.9rem,4vw,2.7rem);line-height:1.2;margin:.2em 0 .4em}
-.prose h2{font-size:clamp(1.3rem,2.4vw,1.6rem);line-height:1.3;margin:2.2em 0 .5em}
-.prose h3{font-size:1.1rem;margin:1.6em 0 .4em}
-.prose p,.prose li{font-size:1.02rem}
-.prose p{margin:.9em 0}
-.prose ul,.prose ol{margin:.9em 0 .9em 1.2em;padding:0}
-.prose li{margin:.4em 0}
-.prose a{text-underline-offset:2px}
-.prose code{background:#eef2ec;padding:.12em .3em;border-radius:4px;font-size:.92em}
-.prose pre{background:#102b32;color:#f4f7f2;padding:16px 18px;border-radius:10px;overflow:auto;font-size:.9rem;line-height:1.5}
-.prose pre code{background:none;color:inherit;padding:0;font-size:inherit}
-.prose blockquote{margin:1.2em 0;padding:.2em 0 .2em 1em;border-left:3px solid var(--lime);color:var(--muted)}
-.prose hr{border:0;border-top:1px solid var(--line);margin:2.4em 0}
-.prose .table-wrap{overflow-x:auto;margin:1.4em 0}
-.prose table{border-collapse:collapse;width:100%;font-size:.95rem}
-.prose th,.prose td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
-.prose th{background:#eef2ec;font-weight:600}
-.prose details{border-bottom:1px solid var(--line);padding:10px 0}
-.prose details summary{cursor:pointer;font-weight:600}
-.prose details p{margin:.5em 0 0;color:var(--muted)}
-.post-figure{margin:0 0 2em;padding:0;max-width:760px}
-.post-figure img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:12px}
-.post-figure figcaption{margin-top:.6em;color:var(--muted);font-size:.9rem}
-.post-meta{margin:0 0 2em;color:var(--muted);font-size:.92rem}
-.post-list{list-style:none;padding:0;margin:0;max-width:820px}
-.post-list li{border-bottom:1px solid var(--line);padding:18px 0}
-.post-list h2{margin:0 0 .3em;font-size:1.25rem}
-.post-list h2 a{text-decoration:none}
-.post-list p{margin:0 0 .4em;color:var(--muted)}
-.post-list time{font-size:.88rem;color:var(--muted)}
-`;
-
+// opts.jsonLd: optional structured data for the page.
 // opts.ko: the Korean twin's URL (adds hreflang). opts.cardImage: og/twitter image for pages without a hero image.
 function head(title, description, canonical, ogImage, opts = {}) {
-  const extraCss = opts.extraCss || '/blog/blog.css';
   const image = ogImage
     ? `<meta property="og:image" content="${esc(ogImage)}">\n<meta name="twitter:image" content="${esc(ogImage)}">\n`
     : opts.cardImage ? `<meta property="og:image" content="${esc(opts.cardImage)}">\n` : '';
@@ -202,17 +169,15 @@ function head(title, description, canonical, ogImage, opts = {}) {
   const alternates = opts.ko
     ? `<link rel="alternate" hreflang="en" href="${esc(canonical)}">\n<link rel="alternate" hreflang="ko" href="${esc(opts.ko)}">\n<link rel="alternate" hreflang="x-default" href="${esc(canonical)}">\n`
     : '';
+  const jsonLd = opts.jsonLd ? scriptTag(opts.jsonLd) + '\n' : '';
   return `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#102b32">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="/products/products.css">
-<link rel="stylesheet" href="${extraCss}">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
 <link rel="canonical" href="${esc(canonical)}">
@@ -224,20 +189,9 @@ ${image}<meta property="og:site_name" content="207 Studio">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${esc(title)}">
 <meta name="twitter:description" content="${esc(description)}">
-${twImage ? `<meta name="twitter:image" content="${esc(twImage)}">\n` : ''}<link rel="stylesheet" href="/assets/pages.css">
+${twImage ? `<meta name="twitter:image" content="${esc(twImage)}">\n` : ''}${jsonLd}<!-- chrome:head:start -->
+<!-- chrome:head:end -->
 </head>`;
-}
-
-function header(current) {
-  const blog = current === 'blog' ? ' aria-current="page"' : '';
-  return `<header class="site-header wrap"><a class="brand" href="/"><span class="brand-mark">207</span><span>STUDIO</span></a><nav aria-label="Main navigation"><a href="/">Home</a><a href="/blog/"${blog}>Writing</a></nav></header>`;
-}
-
-const FOOT_GRID = '<div class="foot-grid"><div class="foot-brand"><a class="brand" href="/">207 Studio</a><p>Software for making and teaching.</p></div><nav class="foot-col" aria-label="Work"><h2>Work</h2><a href="/blog/">Writing</a><a href="https://apps.apple.com/app/id6815584225" target="_blank" rel="noopener">Pairy</a></nav><nav class="foot-col" aria-label="Studio"><h2>Studio</h2><a href="/about/">About</a><a href="mailto:support@207studio.dev">Support</a><a href="/llms.txt">llms.txt</a></nav><nav class="foot-col" aria-label="Legal"><h2>Legal</h2><a href="/legal/privacy/">Privacy Policy</a><a href="/legal/terms/">Terms of Use</a><a href="/legal/refunds/">Refund Policy</a></nav></div><img class="foot-word" src="/assets/footer-207.svg" alt="" aria-hidden="true" width="1513" height="700" loading="lazy" decoding="async">';
-
-function footer(ko) {
-  const lang = ko ? `<a href="${esc(ko)}" lang="ko" hreflang="ko">\ud55c\uad6d\uc5b4</a>` : '';
-  return `<footer class="site-footer wrap">${FOOT_GRID}<div class="foot-bottom"><span>\u00a9 2026 207 Studio \u00b7 South Korea</span>${lang}</div></footer>`;
 }
 
 const scriptTag = (obj) =>
@@ -307,11 +261,12 @@ for (const post of posts) {
     ? `<figure class="post-figure"><img src="${esc(post.image)}"${post.image_width ? ` width="${post.image_width}" height="${post.image_height}"` : ''} alt="${esc(post.image_alt || '')}" loading="eager">${post.image_caption ? `<figcaption>${inline(post.image_caption)}</figcaption>` : ''}</figure>`
     : '';
 
-  const page = `${head(post.meta_title || post.title, post.description, canonical, ogImage)}
+  const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
+  const page = `${head(post.meta_title || post.title, post.description, canonical, ogImage, { jsonLd })}
 <body>
-<a class="skip" href="#main">Skip to content</a>
-${header('blog')}
-<main id="main" class="wrap product-page blog-post">
+<!-- chrome:top:start -->
+<!-- chrome:top:end -->
+<main id="main" class="wrap read">
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/blog/">Writing</a> / <span>${esc(post.title)}</span></nav>
 <article class="prose">
 <h1>${inline(h1)}</h1>
@@ -320,8 +275,8 @@ ${figure}
 ${article}
 </article>
 </main>
-${footer()}
-${scriptTag({ '@context': 'https://schema.org', '@graph': graph })}
+<!-- chrome:foot:start -->
+<!-- chrome:foot:end -->
 </body>
 </html>
 `;
@@ -339,9 +294,9 @@ const listItems = posts
 
 const listPage = `${head('Writing \u2013 notes on browser rendering and classroom tools | 207 Studio', 'Practical notes from 207 Studio on rendering documents in the browser, offline classroom tools, and the code behind them.', `${BASE}/blog/`, '', { ko: `${BASE}/ko/blog/`, cardImage: posts.find((p) => p.image) ? `${BASE}${posts.find((p) => p.image).image}` : '' })}
 <body>
-<a class="skip" href="#main">Skip to content</a>
-${header('blog')}
-<main id="main" class="wrap product-page blog-index">
+<!-- chrome:top:start -->
+<!-- chrome:top:end -->
+<main id="main" class="wrap read">
 <nav class="crumbs" aria-label="Breadcrumb"><span>Writing</span></nav>
 <h1>Writing</h1>
 <p class="lede">Notes on rendering documents in the browser, building offline classroom tools, and the parts that are easy to get wrong.</p>
@@ -349,15 +304,17 @@ ${header('blog')}
 ${listItems}
 </ul>
 </main>
-${footer(`${BASE}/ko/blog/`)}
+<!-- chrome:foot:start -->
+<!-- chrome:foot:end -->
 </body>
 </html>
 `;
 written.push(write('blog/index.html', listPage));
-written.push(write('blog/blog.css', CSS));
 
 // sitemap.xml, llms.txt and llms-full.txt come from the Rust generator (_products/gen), which reads _blog/posts.json too.
 
 console.log(`posts: ${posts.length}`);
 for (const r of rendered) console.log(`  ${r.post.slug}: h1="${r.h1}" faq=${r.faq.length}`);
 console.log(`wrote ${written.length} files`);
+
+execFileSync('python3', [path.join(root, '_products/chrome-gen.py')], { stdio: 'inherit' });

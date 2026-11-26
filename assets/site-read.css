@@ -1,0 +1,61 @@
+/* 207 Studio website: pages of words (About, Terms, Privacy, Refunds, Writing, a post, 404). Loaded after site.css.
+   the redesign spec, section 6.3. One column, 680 wide, the type of a long read: no pictures behind the words, no hairlines between
+   sections (space does that), the ground's own stars as dots only. */
+
+.read { max-width: calc(var(--read) + 2 * var(--gutter)); padding-block: var(--space-9) var(--space-8); }
+.read > h1, .read > header h1 { margin-bottom: var(--space-5); font-size: var(--display-m); }
+.read .lede, .read .lead { max-width: none; margin-bottom: var(--space-8); color: var(--muted); font-size: var(--text-xl); line-height: 1.55; }
+.read h2 { margin: var(--space-9) 0 var(--space-4); font-size: var(--text-2xl); letter-spacing: -0.01em; }
+.read h3 { margin: var(--space-8) 0 var(--space-3); font-size: var(--text-xl); letter-spacing: 0; }
+.read p, .read li { max-width: none; }
+.read > p:first-of-type.muted { margin-bottom: var(--space-7); font-size: var(--text-m); }
+.read a { word-break: break-word; }
+.read img { display: block; border-radius: var(--curve-talk); }
+.read .muted { color: var(--muted); }
+.read .notice { margin-top: var(--space-6); }
+/* A notice written as a section (the sibling Pairy and StoneWars support pages): heading above its buttons, not beside them. */
+.read section.notice { display: block; }
+.read section.notice h2 { margin: 0 0 var(--space-3); font-size: var(--text-xl); letter-spacing: 0; }
+.read section + section { margin-top: var(--space-9); }
+
+/* Breadcrumb and meta */
+.crumbs { margin: 0 0 var(--space-7); color: var(--muted); font-size: var(--text-m); }
+.crumbs ol, .crumbs ul { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-3); margin: 0; padding: 0; list-style: none; }
+.crumbs li { margin: 0; }
+.crumbs li + li::before { content: "/"; margin-right: var(--space-3); color: var(--hint); }
+.crumbs a { color: var(--muted); }
+.post-meta { margin: 0 0 var(--space-8); color: var(--muted); font-size: var(--text-m); }
+
+/* The list of posts: rows. */
+.post-list { display: grid; gap: var(--row-gap); margin: 0; padding: var(--space-3); list-style: none; border-radius: var(--curve-talk); background: var(--bot-bubble); box-shadow: var(--surface-quiet-edge); }
+.post-list li { margin: 0; padding: var(--space-5); border-radius: var(--curve-nest); }
+@media (hover: hover) { .post-list li:hover { background: var(--hover); } }
+.post-list h2 { margin: 0 0 var(--space-2); font: 700 var(--text-xl) / 1.3 var(--font-display); letter-spacing: 0; }
+.post-list h2 a { text-decoration: none; }
+.post-list p { margin: 0; color: var(--muted); font-size: var(--text-l); }
+
+/* A post */
+.prose { font-size: var(--text-read); }
+.prose h2 { margin-top: var(--space-9); }
+.prose figure, .post-figure { margin: var(--space-7) 0; }
+.prose figure img, .post-figure img { width: 100%; box-shadow: var(--shadow-card); }
+.prose figcaption { margin-top: var(--space-3); color: var(--muted); font-size: var(--text-m); }
+.prose details { margin: var(--space-3) 0; border-radius: var(--curve-nest); background: var(--hover); }
+.prose details > summary { display: flex; align-items: center; min-height: var(--touch); padding: 0 var(--space-5); font-weight: 600; list-style: none; cursor: pointer; }
+.prose details > summary::-webkit-details-marker { display: none; }
+.prose details > summary::after { content: ""; width: 8px; height: 8px; margin-left: auto; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(45deg); transition: transform var(--dur-2) var(--ease); }
+.prose details[open] > summary::after { transform: rotate(-135deg); }
+.prose details > p { margin: 0; padding: 0 var(--space-5) var(--space-5); color: var(--muted); }
+
+/* 404 */
+.not-found { padding-block: var(--space-10); text-align: left; }
+.not-found h1 { margin-bottom: var(--space-5); }
+.not-found pre { max-width: 100%; white-space: pre-wrap; overflow-wrap: anywhere; }
+
+/* Support and privacy pages of the Pairy and StoneWars repos (they keep their own section classes): a row of language links as pills,
+   the sections' anchors clear of the floating header, and the "last updated" line quiet. */
+.lang-nav { display: flex; flex-wrap: wrap; gap: var(--space-3); margin: 0 0 var(--space-8); }
+.lang-nav a { display: inline-flex; align-items: center; height: var(--pill-h); padding-inline: var(--space-5); border-radius: calc(var(--pill-h) / 2); background: var(--bot-bubble); box-shadow: var(--surface-quiet-edge); font-size: var(--text-m); font-weight: 600; text-decoration: none; }
+@media (hover: hover) { .lang-nav a:hover { background: var(--selected); } }
+.lang-section { scroll-margin-top: calc(var(--round-d) + var(--space-9)); }
+.read .updated { margin: 0 0 var(--space-7); color: var(--muted); font-size: var(--text-m); }

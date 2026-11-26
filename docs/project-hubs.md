@@ -4,6 +4,10 @@ The approved 2026-11-17 map keeps one EN/KO home per project. The studio index l
 
 Run `python3 _products/project-pages-gen.py` after editing `_products/apps.json`, `_products/ttoryeot-desktop.json`, or `_products/compare.json`. It writes the new project pages, the Ttoryeot sections and the concise studio index. Historical comparison versions and sample asset paths are retained. `project-redirects.js` handles old studio fragment URLs; ordinary fallback links remain available without JavaScript.
 
+On redesigned pages, `_products/chrome.py` defines the shared head assets, navigation and footer. Leave the `chrome:head`, `chrome:top` and `chrome:foot` marker pairs in the page templates so `_products/chrome-gen.py` can fill them. The project and blog generators run it as their final step. Run `bash _products/build.sh` from the repository root to regenerate the whole site.
+
+For a sibling project repository, run `python3 _products/chrome-gen.py --external ROOT PREFIX` to fill its chrome and `python3 _products/tools/check-pages.py --root ROOT --prefix PREFIX` to check its redesigned pages, using its public path such as `/pairy/` for `PREFIX`.
+
 Deployment sources:
 
 - `207studio/207studio.github.io`: studio EN/KO, Ttoryeot, CheckyBoard, Cool Kiwi, Decky Duck, KO Pairy and KO StoneWars, shared assets and discovery files.
