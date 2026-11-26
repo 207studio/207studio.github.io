@@ -5,6 +5,7 @@
 // Markdown subset: #, ##, ###, paragraphs, - lists, | tables |, ``` code, > quote, --- hr,
 // **bold**, `code`, [text](url). No raw HTML passthrough.
 
+import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -361,3 +362,5 @@ written.push(write('blog/blog.css', CSS));
 console.log(`posts: ${posts.length}`);
 for (const r of rendered) console.log(`  ${r.post.slug}: h1="${r.h1}" faq=${r.faq.length}`);
 console.log(`wrote ${written.length} files`);
+
+execFileSync('python3', [path.join(root, '_products/chrome-gen.py')], { stdio: 'inherit' });

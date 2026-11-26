@@ -65,3 +65,4 @@ import subprocess
 import sys
 for script in ("ttoryeot-gen.py", "compare-gen.py", "walk-gen.py"):
     subprocess.run([sys.executable, str(ROOT / "_products" / script)], check=True)
+subprocess.run([sys.executable, str(ROOT / "_products" / "chrome-gen.py")], check=True)
