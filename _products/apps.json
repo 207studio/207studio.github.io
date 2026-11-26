@@ -29,12 +29,12 @@
       },
       "points": {
         "en": [
-          "Full HD streaming",
+          "Sharp, smooth streaming up to 120 Hz",
           "Touch, trackpad and keyboard input",
           "Encrypted connections between your devices"
         ],
         "ko": [
-          "Full HD 스트리밍",
+          "최대 120Hz의 선명하고 부드러운 화면 전송",
           "터치, 트랙패드, 키보드 입력",
           "기기 사이 암호화 연결"
         ]
@@ -91,8 +91,8 @@
         }
       },
       "what": {
-        "en": "An all-in-one board and lesson app for elementary classes. It is built to cover a teacher's whole lesson day in one app. It collects no personal data during class.",
-        "ko": "초등 수업을 위한 올인원 판서·수업 앱이에요. 선생님의 하루 수업을 앱 하나로 해낼 수 있게 만들었어요. 수업 중에는 개인정보를 수집하지 않아요."
+        "en": "An all-in-one board and lesson app for elementary classes. It is built to cover a teacher's whole lesson day in one app.",
+        "ko": "초등 수업을 위한 올인원 판서·수업 앱이에요. 선생님의 하루 수업을 앱 하나로 해낼 수 있게 만들었어요."
       },
       "for": {
         "en": "elementary school teachers who teach with an iPad.",
