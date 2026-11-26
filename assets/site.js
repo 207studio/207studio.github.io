@@ -24,12 +24,13 @@
 
 /* The sky in depth: the apps' star parallax (유일 님, 2026-11-18: going down the page the stars rise a little behind it, going back
    up they sink). Each .sky-tile moves by its share of the scroll (--depth, tokens) and wraps by its tile height (--wrap). Transform
-   only: one passive scroll listener, at most one animation frame waiting, one translate3d per layer. At rest nothing runs. Under
-   "reduce motion" nothing moves. */
+   only: one passive scroll listener, at most one animation frame waiting, one translate3d per layer. At rest nothing runs.
+   It does NOT follow "reduce motion" (유일 님, 2026-11-26: on Windows with animation effects off the stars stood still and the
+   owner wants them to move). The drift is slow and small (4 to 10 percent of the scroll, no zoom, no flashing); the twinkle still stops under
+   "reduce motion" (site.css) and so do the walk's depth moves (walk.js). */
 (function () {
   var sky = document.querySelector(".sky");
-  var calm = window.matchMedia("(prefers-reduced-motion: reduce)");
-  if (!sky || !calm.addEventListener) return;
+  if (!sky) return;
   var layers = [], waiting = false, rest = 0;
 
   function measure() {
@@ -53,22 +54,10 @@
     if (!waiting) { waiting = true; requestAnimationFrame(paint); }
   }
 
-  function mode() {
-    window.removeEventListener("scroll", onScroll);
-    if (calm.matches) {
-      layers.forEach(function (l) { l.el.style.transform = ""; });
-      sky.removeAttribute("data-moving");
-      return;
-    }
-    measure();
-    paint();
-    window.addEventListener("scroll", onScroll, { passive: true });
-  }
+  function again() { measure(); paint(); }
 
-  function again() { if (!calm.matches) { measure(); paint(); } }
-
-  mode();
-  calm.addEventListener("change", mode);
+  again();
+  window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", again);
   window.addEventListener("load", again);   // every stylesheet is in by now, whatever the connection was
 })();

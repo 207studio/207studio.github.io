@@ -103,7 +103,7 @@
 }
 @media (min-height: 440px) and (max-height: 559px) and (min-width: 901px) { .js .walk .row-desc { display: none; } }
 
-@media (prefers-reduced-motion: reduce) { .walk-mimi { animation: none; } }
+/* Mimi's walk cycle also runs under reduced motion (the owner's order, 2026-11-26): it is in place, small and slow. Her size and the cards' depth moves do not (walk.js). */
 
 /* The film: the video in a card; the notes under it in the quiet type. The block is generated (constellation-video-gen.py), so its own classes are styled here. */
 .constellation-video { padding-block: var(--space-9) 0; }
