@@ -12,6 +12,7 @@ Page: https://207studio.dev/pairy/ (how it works, screenshots, the Mac companion
 ## In development
 
 - [Cool Kiwi](https://207studio.dev/cool-kiwi/): a teacher tool for messages and to-dos; working name.
+- [Constellation](https://207studio.dev/#workshop) (별채): our own workspace where a team of AI bots works together, on iPhone, Mac and the web. In development; private, with no public download.
 - [Decky Duck](https://207studio.dev/dekiduck/): coming soon.
 
 - [Chalkieboard](https://chalkieboard.207studio.dev/) (초키보드): an iPad lesson board app for elementary school teachers. Board writing with subject tools, PPTX and HWP lesson files opened in the app, and AirPlay to the classroom display. In beta on TestFlight. Support: https://chalkieboard.207studio.dev/support/ · Tester guide: https://chalkieboard.207studio.dev/beta/
