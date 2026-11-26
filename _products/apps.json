@@ -248,6 +248,7 @@
     {
       "id": "byeolchae",
       "status": "development",
+      "icon": "/assets/apps/byeolchae/icon-216.webp",
       "name": {
         "en": "Constellation",
         "ko": "별채"
