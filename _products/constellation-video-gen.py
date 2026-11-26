@@ -38,7 +38,7 @@ if not a.preview:
  if not all(data.get('clearance',{}).get(k) is True for k in ['publication_authorized','ai_label','watermark']):raise SystemExit('publication clearance incomplete')
 outputs=[]
 for lang,route in [('en','index.html'),('ko','ko/index.html')]:
- ko=lang=='ko';url='https://constellation.207studio.dev'+('/ko/' if ko else '/')
+ ko=lang=='ko'
  if data.get('mp4_'+lang):
   sources=''.join(f'<source src="{escape(data[k+"_"+lang])}" type="video/{k}">' for k in ['webm','mp4'] if data.get(k+'_'+lang))
   tracks=''.join(f'<track kind="captions" src="{escape(data["captions_"+code])}" srclang="{code}" label="{label}"'+(' default' if code==lang else '')+'>' for code,label in [('ko','한국어'),('en','English')] if data.get('captions_'+code))
@@ -47,8 +47,7 @@ for lang,route in [('en','index.html'),('ko','ko/index.html')]:
  else:media='<div class="constellation-video-placeholder">'+('영상 준비 중' if ko else 'Video pending')+'</div>'
  transcript=f'<a href="{escape(data["transcript_"+lang])}">{"대본 읽기" if ko else "Read the transcript"}</a>' if data.get('transcript_'+lang) else '<span>'+('대본 준비 중' if ko else 'Transcript pending')+'</span>'
  warning=('<p class="constellation-video-preview">'+('미리보기 전용 · 공개 권한 확인 대기' if ko else 'Preview only · publication clearance pending')+'</p>') if a.preview else ''
- about='' if a.intro_root else f'<a href="{url}">{"별채 소개" if ko else "About Constellation"} <span aria-hidden="true">→</span></a>'
- block=f'''<!-- constellation-video:start --><section class="constellation-video wrap" aria-labelledby="constellation-video-title"><h2 id="constellation-video-title">{escape(data['title'][lang])}</h2><p>{escape(data['summary'][lang])}</p>{warning}{media}<p class="constellation-video-label">{escape(data['ai_label'][lang])}</p><p class="constellation-video-label">{escape(data['provenance'][lang])}</p><p class="constellation-video-links">{transcript} {about}</p></section><!-- constellation-video:end -->'''
+ block=f'''<!-- constellation-video:start --><section class="constellation-video wrap" aria-labelledby="constellation-video-title"><h2 id="constellation-video-title">{escape(data['title'][lang])}</h2><p>{escape(data['summary'][lang])}</p>{warning}{media}<p class="constellation-video-label">{escape(data['ai_label'][lang])}</p><p class="constellation-video-label">{escape(data['provenance'][lang])}</p><p class="constellation-video-links">{transcript}</p></section><!-- constellation-video:end -->'''
  source=(source_root/route).read_text()
  markers=r'<!-- constellation-video:start -->.*?<!-- constellation-video:end -->'
  chrome_page='<!-- chrome:head:start -->' in source
