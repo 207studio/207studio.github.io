@@ -142,8 +142,9 @@
 @media (min-width: 720px) { .p-pts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .p-pts li { position: relative; margin: 0; padding-left: var(--space-6); }
 .p-pts li::before { content: ""; position: absolute; top: 0.7em; left: 0; width: 6px; height: 6px; border-radius: 50%; background: var(--hint); }
-.p-mac > div { max-width: 62ch; padding: var(--space-8); border-radius: var(--curve-talk); background: var(--bot-bubble); box-shadow: var(--surface-quiet-edge); }
+.p-mac > div { padding: var(--space-8); border-radius: var(--curve-talk); background: var(--bot-bubble); box-shadow: var(--surface-quiet-edge); }
 .p-mac .p-acts { margin-top: var(--space-6); }
+.p-mac > div > p, .p-mac > div > ol { max-width: 62ch; }
 .p-install { margin: var(--space-6) 0 0; padding-left: 1.3em; }
 .p-install li + li { margin-top: var(--space-2); }
 .p-small { color: var(--muted); font-size: var(--text-m); }
