@@ -18,7 +18,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 SKIP = {".git", "docs", "tools", "_products", "_blog", "_cloudflare", "node_modules", ".github", "assets"}
-OLD_CSS = ("home.min.css", "home.css", "pages.css", "pairy.css", "project-hubs.css", "constellation-video.css", "products.css", "blog.css", "stonewars/style.css")
+OLD_CSS = {"home.min.css", "home.css", "pages.css", "pairy.css", "project-hubs.css", "constellation-video.css", "products.css", "blog.css"}   # by file name, not suffix: site-home.css is new
 NEW_CSS = {"site-tokens.css", "site.css", "site-home.css", "site-project.css", "site-read.css", "pretendard.css"}
 MARKERS = ("chrome:head", "chrome:top", "chrome:foot")
 
@@ -158,7 +158,7 @@ def main() -> int:
         if pr.styles or pr.style_attr:
             bad(f"{pr.styles} <style> and {pr.style_attr} style attribute(s): the look belongs in assets/site*.css")
         names = {c.split("/")[-1] for c in pr.css}
-        old = [c for c in pr.css if any(c.endswith(o) for o in OLD_CSS)]
+        old = [c for c in pr.css if c.split("?")[0].rsplit("/", 1)[-1] in OLD_CSS or c.split("?")[0].endswith("stonewars/style.css")]
         if old:
             bad(f"old stylesheet(s) linked: {old}")
         for need in ("site-tokens.css", "site.css", "pretendard.css"):
