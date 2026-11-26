@@ -114,24 +114,6 @@
 .constellation-video .constellation-video-links { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-7); margin: var(--space-5) 0 0; font-size: var(--text-m); font-weight: 600; }
 .constellation-video .constellation-video-preview { color: var(--muted); font-size: var(--text-m); }
 
-/* The studio */
-.studio-grid { display: grid; gap: var(--space-8); }
-@media (min-width: 900px) { .studio-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--space-10); } }
-.studio-grid h2 { font-size: var(--display-m); }
-.studio-grid h2 .soft { color: var(--muted); }
-.studio-lead { color: var(--ink); font-size: var(--text-2xl); line-height: 1.45; }
-.facts { display: grid; gap: var(--space-1); margin: var(--space-7) 0 0; padding: var(--space-3); border-radius: var(--curve-talk); background: var(--bot-bubble); box-shadow: var(--surface-quiet-edge); }
-.facts > div { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: var(--space-5); padding: var(--space-4) var(--space-5); border-radius: var(--curve-nest); }
-.facts dt { color: var(--muted); font-size: var(--text-m); }
-.facts dd { margin: 0; font-size: var(--text-l); font-weight: 500; }
-.studio .quote { margin-top: var(--space-9); }
-
-/* Contact */
-.contact-card { display: grid; gap: var(--space-7); padding: var(--space-9) var(--space-8); border-radius: var(--curve-float); background: var(--bot-bubble); box-shadow: var(--surface-quiet-edge); }
-@media (min-width: 900px) { .contact-card { grid-template-columns: minmax(0, 1fr) auto; align-items: center; } }
-.contact-card h2 { font-size: var(--display-s); max-width: 22ch; }
-.contact-card p { margin: var(--space-3) 0 0; color: var(--muted); }
-
 /* Old home links (#ttoryeot, #compare, #pairy) kept for no-script visitors and old shared links: a quiet line, not a section. */
 .project-legacy { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-6); padding-block: var(--space-5) 0; color: var(--muted); font-size: var(--text-s); }
 .project-legacy a { color: var(--muted); }

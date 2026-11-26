@@ -1,7 +1,9 @@
 /* 207 Studio home: the walk. Load with defer on the two home pages only.
    One scroll handler drives the pinned stage (see site-home.css): per app a dwell where its card rests in front, then an eased
    change where it falls back in depth and the next card rises to the front. Mimi walks in place during a change and her bubble
-   fades out and back with the next app's line. A screen under 440px tall keeps the static list. Reduced motion keeps the stage,
+   fades out and back with the next app's line. A screen under 440px tall keeps the static list. Her walk cycle runs while the stage
+   is on screen (decided from the scroll position, not an observer, so it never depends on one) and the walk measures itself again
+   whenever the page's size or look settles. Reduced motion keeps the stage,
    but the cards only fade (no depth) and Mimi stands at one size. The cards are the work list's own links: with no script the
    page is that list. Moved from the studio's home script (assets/home.js) unchanged in behaviour. */
 (function () {
@@ -15,12 +17,12 @@
   var stops = [].slice.call(section.querySelectorAll("[data-stop]"));
   if (!scroller || !stage || !track || stops.length < 2) return;
   var N = stops.length, DWELL = 0.55, BACK = -420, DEPTH = -600, NEAR = 0.8;
-  var top = 0, run = 1, active = -1, ticking = false, on = false;
+  var top = 0, run = 1, active = -1, ticking = false, on = false, walking = true;
 
   section.style.setProperty("--stops", String(N));
 
   var mimi = document.createElement("div");
-  mimi.className = "walk-mimi";
+  mimi.className = "walk-mimi is-walking";
   mimi.setAttribute("aria-hidden", "true");
   var say = document.createElement("p");
   say.className = "walk-say";
@@ -68,6 +70,8 @@
     var i = Math.min(N - 1, Math.floor(t));
     var move = i < N - 1 ? ease(Math.min(Math.max((t - i - DWELL) / (1 - DWELL), 0), 1)) : 0;
     var pos = i + move, here = Math.round(pos);
+    var seen = window.pageYOffset + window.innerHeight > top && window.pageYOffset < top + run + stage.offsetHeight;
+    if (seen !== walking) { walking = seen; mimi.classList.toggle("is-walking", seen); }
     for (var k = 0; k < N; k++) place(k, i, move);
     // Mimi walks toward the viewer the whole way: the walk cycle runs in CSS, and she grows
     // from NEAR to full size as the tour goes from the first app to the last.
@@ -97,15 +101,6 @@
     window.addEventListener("scroll", onScroll, { passive: true });
   }
 
-  // The walk cycle only runs while the stage is on screen.
-  if ("IntersectionObserver" in window) {
-    new IntersectionObserver(function (entries) {
-      mimi.classList.toggle("is-walking", entries[0].isIntersecting);
-    }).observe(stage);
-  } else {
-    mimi.classList.add("is-walking");
-  }
-
   // Keyboard: Tab to a card scrolls the page to that card's dwell, so the stage and focus agree.
   track.addEventListener("focusin", function (e) {
     var stop = e.target.closest("[data-stop]");
@@ -117,6 +112,12 @@
   mode();
   live.addEventListener("change", mode);
   still.addEventListener("change", function () { if (on) tick(); });
+  // The page settles after this script runs (styles, fonts and images arrive on their own time, mostly on a phone's connection),
+  // and each change moves where the walk starts and how long it is. Measure again whenever the page's size or look is final.
   var rt = 0;
-  window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(function () { if (on) { measure(); tick(); } }, 150); });
+  function settle() { clearTimeout(rt); rt = setTimeout(function () { if (on) { measure(); tick(); } }, 120); }
+  window.addEventListener("resize", settle);
+  window.addEventListener("load", settle);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(settle);
+  if ("ResizeObserver" in window) new ResizeObserver(settle).observe(document.body);
 })();

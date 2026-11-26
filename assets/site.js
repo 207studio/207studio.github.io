@@ -41,6 +41,7 @@
 
   function paint() {
     waiting = false;
+    if (!layers.length) measure();   // the styles can arrive after this script on a slow connection: ask again until they have
     var y = window.pageYOffset;
     layers.forEach(function (l) { l.el.style.transform = "translate3d(0," + (-((y * l.share) % l.wrap)).toFixed(2) + "px,0)"; });
   }
@@ -64,7 +65,10 @@
     window.addEventListener("scroll", onScroll, { passive: true });
   }
 
+  function again() { if (!calm.matches) { measure(); paint(); } }
+
   mode();
   calm.addEventListener("change", mode);
-  window.addEventListener("resize", function () { if (!calm.matches) { measure(); paint(); } });
+  window.addEventListener("resize", again);
+  window.addEventListener("load", again);   // every stylesheet is in by now, whatever the connection was
 })();

@@ -63,7 +63,7 @@ for lang,route in [('en','index.html'),('ko','ko/index.html')]:
   if count>1 or redesigned:
    raise SystemExit(f'{route}: expected one constellation-video block')
  source=re.sub(markers+r'(?:\r?\n)?','',source,flags=re.S)
- anchor='</main>' if a.intro_root else '<section class="sec studio"' if chrome_page else '  <section class="studio"'
+ anchor='</main>' if a.intro_root else '<nav class="project-legacy' if chrome_page else '  <section class="studio"'
  assert source.count(anchor)==1
  outputs.append((dest,source.replace(anchor,block+'\n'+anchor)))
 for dest,html in outputs:
