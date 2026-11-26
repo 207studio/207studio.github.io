@@ -14,9 +14,6 @@
 .hero-art picture, .hero-art img { display: block; width: 100%; height: 100%; }
 .hero-art img { object-fit: cover; object-position: 50% 60%; }
 @media (min-width: 960px) { .hero-art { aspect-ratio: 1 / 1; } .hero-art img { object-position: 84% 60%; } }
-.hero-latest { position: absolute; left: var(--space-5); bottom: var(--space-5); gap: var(--space-3); max-width: calc(100% - 2 * var(--space-5)); }
-.hero-latest b { font-family: var(--font-display); }
-.hero-latest .muted { font-weight: 400; }
 
 /* What we make: two groups of rows, each in its own card. */
 .work-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--space-3) var(--space-7); margin-bottom: var(--space-8); }
@@ -24,7 +21,7 @@
 .work-end { margin: var(--space-8) 0 0; color: var(--muted); font-size: var(--text-m); }
 
 /* The film: the video in a card; the notes under it in the quiet type. The block is generated (constellation-video-gen.py), so its own classes are styled here. */
-.constellation-video { padding-block: var(--space-10) 0; }
+.constellation-video { padding-block: var(--space-9) 0; }
 .constellation-video > h2 { margin-bottom: var(--space-3); }
 .constellation-video > p { max-width: 52ch; color: var(--muted); }
 .constellation-video video { display: block; width: 100%; margin-top: var(--space-6); overflow: hidden; border-radius: var(--curve-talk); background: var(--code); box-shadow: var(--shadow-card); aspect-ratio: 16 / 9; }

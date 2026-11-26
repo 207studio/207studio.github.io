@@ -6,7 +6,7 @@
 /* The top of a page: the project's tile, its kind, its name, one line, the first action. */
 .project-hero { display: grid; gap: var(--space-7); padding-block: var(--space-9) var(--space-8); }
 @media (min-width: 720px) { .project-hero.has-tile { grid-template-columns: auto minmax(0, 1fr); align-items: start; gap: var(--space-8); } }
-.project-hero .tile { --avatar: 96px; border-radius: var(--curve-talk); box-shadow: var(--shadow-card); }
+.project-hero .tile { --avatar: 96px; border-radius: var(--curve-talk); background: var(--bot-bubble); box-shadow: var(--surface-quiet-edge); font-size: 40px; }
 .project-hero h1 { margin: 0 0 var(--space-4); font-size: var(--display-l); line-height: 1.02; }
 .project-hero > p, .project-hero > div > p { max-width: 46ch; color: var(--muted); font-size: var(--text-xl); line-height: 1.55; }
 .project-hero .eyebrow { margin-bottom: var(--space-4); color: var(--muted); font-size: var(--text-s); }
@@ -39,6 +39,7 @@
 .tt-points li { position: relative; margin: 0; padding: var(--space-3) 0 var(--space-3) var(--space-6); }
 .tt-points li::before { content: ""; position: absolute; top: 1.15em; left: 0; width: 6px; height: 6px; border-radius: 50%; background: var(--hint); }
 .tt-dl-block { margin-top: var(--space-8); }
+.tt h3 { margin: var(--space-8) 0 var(--space-3); font-size: var(--text-xl); letter-spacing: 0; }
 .tt-dl { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4) var(--space-5); }
 .tt-dl-main { min-width: 220px; }
 .tt-dl-more { flex-basis: 100%; border-radius: var(--curve-nest); background: var(--hover); }

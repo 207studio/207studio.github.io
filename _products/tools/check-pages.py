@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Structural checks for the redesigned pages (no browser). Run from the repo root.
 
-  python3 tools/check-pages.py [--all]      # default: the pages that already carry the chrome markers; --all: every page
+  python3 _products/tools/check-pages.py [--all]      # default: the pages that already carry the chrome markers; --all: every page
 
 For each checked page: exactly one <h1>; heading levels never skip down by more than one; unique ids; every <img> has alt;
 every link with target=_blank has rel containing noopener; every <a> has an href; <html lang> matches the path (/ko/ -> ko);
@@ -16,7 +16,7 @@ import sys
 from html.parser import HTMLParser
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 SKIP = {".git", "docs", "tools", "_products", "_blog", "_cloudflare", "node_modules", ".github", "assets"}
 OLD_CSS = ("home.min.css", "home.css", "pages.css", "pairy.css", "project-hubs.css", "constellation-video.css", "products.css", "blog.css", "stonewars/style.css")
 NEW_CSS = {"site-tokens.css", "site.css", "site-home.css", "site-project.css", "site-read.css", "pretendard.css"}

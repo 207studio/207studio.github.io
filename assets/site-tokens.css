@@ -179,6 +179,10 @@
   --glass-blur-words: 4px;
   --bubble-glass: color-mix(in srgb, var(--bot-bubble) var(--bubble-see), transparent);
   --glass: var(--bubble-glass);
+  /* WEB: the header's capsules carry words and pass over the painting and over text, so their film is thick (88 %), as the apps' rule for
+     capsules that carry words asks (88-92 % and a blur). _products/tools/check-tokens.py measures their words over the worst backdrops. */
+  --head-see: 88%;
+  --head-glass: color-mix(in srgb, var(--bot-bubble) var(--head-see), transparent);
   --glass-filter: blur(var(--glass-blur)) saturate(1.4);
   --glass-filter-words: blur(var(--glass-blur-words)) saturate(1.4);
   --shadow-float: 0 8px 22px rgb(var(--shade) / 0.2);
@@ -277,6 +281,7 @@
 @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
   :root {
     --glass: var(--bot-bubble);
+    --head-glass: var(--bot-bubble);
     --glass-filter: none;
     --glass-filter-words: none;
     --bubble-glass: var(--bot-bubble);

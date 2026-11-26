@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Keep-list guard for the 207studio.dev redesign: what must not change while every page is restyled.
 
-  python3 tools/redesign-guard.py --baseline origin/main          # compare the working tree with a git ref
-  python3 tools/redesign-guard.py --baseline-dir /path/to/old     # or with a checked-out folder
+  python3 _products/tools/redesign-guard.py --baseline origin/main          # compare the working tree with a git ref
+  python3 _products/tools/redesign-guard.py --baseline-dir /path/to/old     # or with a checked-out folder
 
 It reads both trees with the standard library only and reports every difference in these groups; exit code 1 if any:
   routes      every page of the baseline still exists (redirect stubs too) with the same canonical, hreflang pairs, robots meta,
@@ -14,6 +14,9 @@ It reads both trees with the standard library only and reports every difference 
   hooks       the data-tt-* and data-compare* attributes the scripts read are still on the same pages
   files       CNAME, robots.txt, app-ads.txt, google*.html, llms.txt, llms-full.txt, favicon.ico, apple-touch-icon.png are
               byte-identical unless named with --allow; sitemap.xml keeps the same set of URLs
+  served      every other non-HTML file the baseline serves (assets/*, blog/blog.css, products/products.css, images, fonts,
+              downloads) still exists and is byte-identical unless named with --allow: the pairy and stonewars repos and old
+              links load them (live /pairy/ loads /assets/pages.css and /assets/pairy.css from this repo)
   refs        in the new tree every local href/src/srcset/url() resolves to a file or a page (paths served by other repos are skipped)
   privacy     no e-mail address other than support@207studio.dev appears in any page or text file
 Pass --allow NAME (repeatable) to accept a named file change, --allow-link URL for a link that is meant to go.
@@ -26,7 +29,7 @@ import tempfile
 from html.parser import HTMLParser
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 SKIP_DIRS = {".git", "docs", "tools", "_products", "_blog", "_cloudflare", "node_modules", ".github"}
 DOWNLOAD_EXT = (".hwpx", ".pdf", ".zip", ".dmg", ".exe", ".mp4", ".webm", ".vtt", ".txt", ".png", ".json")
 BYTE_FILES = ["CNAME", "robots.txt", "app-ads.txt", "llms.txt", "llms-full.txt", "favicon.ico", "apple-touch-icon.png"]
@@ -220,6 +223,27 @@ def main() -> int:
     if old["sitemap"] != new["sitemap"]:
         for u in sorted(old["sitemap"] - new["sitemap"]):
             fails.append(f"files: sitemap lost {u}")
+    # served files: every non-HTML file the baseline serves (old stylesheets and scripts that the pairy and stonewars repos and old
+    # links still load, images, fonts, downloads) stays and stays byte-identical, until a coordinated clean-up says otherwise
+    import hashlib
+    def served(root):
+        out = {}
+        for f in root.rglob("*"):
+            if not f.is_file() or f.suffix == ".html":
+                continue
+            rel = f.relative_to(root).as_posix()
+            if rel.split("/")[0] in SKIP_DIRS or rel in ("sitemap.xml", "README.md", ".gitignore"):
+                continue
+            out[rel] = hashlib.sha256(f.read_bytes()).hexdigest()
+        return out
+    sold, snew = served(base_root), served(ROOT)
+    for rel, digest in sorted(sold.items()):
+        if rel in args.allow:
+            continue
+        if rel not in snew:
+            fails.append(f"served: {rel} is gone (another repo or an old link may still load it)")
+        elif snew[rel] != digest:
+            fails.append(f"served: {rel} changed; old pages still load it, add a new file instead")
     # refs: the new tree must not point at a file that is not there
     def exists(path: str) -> bool:
         path = path.split("#")[0].split("?")[0]

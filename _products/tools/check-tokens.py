@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Check assets/site-tokens.css (the website's design values).
 
-  python3 tools/check-tokens.py            # run from the repo root
+  python3 _products/tools/check-tokens.py            # run from the repo root
 
 1. The night role block exists twice (the attribute rule and the prefers-color-scheme rule). They must be identical.
 2. Every pair of colours a page puts words on is measured in both looks (WCAG relative luminance contrast) and must pass.
@@ -13,7 +13,7 @@ import re
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 TOKENS = ROOT / "assets" / "site-tokens.css"
 
 
@@ -202,6 +202,28 @@ PAIRS = [
 SHAPES = [("--ink", "--bg", 3.0), ("--star", "--bg", 1.0), ("--working", "--bg", 3.0)]
 
 
+# Words on the header's glass pass over whatever is behind the header: the painting, text, the page. The worst backdrops are
+# pure white, pure black and both looks' bright and dark page colours. The words (ink) must keep 4.5 : 1 on the glass over each,
+# also with the selected (current page) tint on top.
+BACKDROPS = [(255, 255, 255, 1.0), (0, 0, 0, 1.0), "--cream", "--night", "--paper", "--indigo"]
+
+
+def glass_pairs(env, look, failures):
+    worst = 99.0
+    glass = parse_color(expand(env, env["--head-glass"]))
+    ink = parse_color(expand(env, env["--ink"]))
+    selected = parse_color(expand(env, env["--selected"]))
+    for bd in BACKDROPS:
+        back = bd if isinstance(bd, tuple) else parse_color(expand(env, env[bd]))
+        under = over(glass, back)
+        for label, ground in (("glass", under), ("glass + selected", over(selected, under))):
+            c = ratio(over(ink, ground), ground)
+            worst = min(worst, c)
+            if c < 4.5:
+                failures.append(f"{look}: words on {label} over backdrop {bd if isinstance(bd, str) else bd[:3]} are {c:.2f} : 1, need 4.5")
+    print(f"{look}: header glass, words over 6 backdrops (x2 with the selected tint): tightest {worst:.2f} : 1 (needs 4.5)")
+
+
 def main() -> int:
     css = TOKENS.read_text(encoding="utf-8")
     rules = blocks(css)
@@ -247,22 +269,39 @@ def main() -> int:
             c = ratio(over(fg, bg), bg)
             if c < need:
                 failures.append(f"{look}: {fg_name} against {bg_name} is {c:.2f} : 1, needs {need}")
+        glass_pairs(env, look, failures)
         worst = min(results, key=lambda r: r[2] / r[3])
         print(f"{look}: {len(results)} text pairs measured; tightest {worst[0]} on {worst[1]} = {worst[2]:.2f} : 1 (needs {worst[3]})")
 
-    # 3. colours outside the tokens file
+    # 3. colours outside the tokens file: hex, rgb(), hsl(), named colours, and color-mix() with anything but var(), transparent or in srgb
     if "--colours" in sys.argv:
-        pat = re.compile(r"#[0-9a-fA-F]{3,8}\b|\brgba?\(|\bhsla?\(")
+        named = re.compile(r"(?<![\w-])(white|black|red|green|blue|yellow|orange|purple|gray|grey|silver|navy|gold|cream|tan|pink|brown|teal|cyan|magenta|lime|maroon|olive|aqua|fuchsia)(?![\w-])")
         count = 0
         for p in sorted((ROOT / "assets").glob("site*.css")):
             if p.name == "site-tokens.css":
                 continue
-            for n, line in enumerate(strip_comments(p.read_text(encoding="utf-8")).splitlines(), 1):
-                for m in pat.finditer(line):
-                    if "var(--" in line[max(0, m.start() - 6): m.start()]:
-                        continue
+            text = strip_comments(p.read_text(encoding="utf-8"))
+            for n, line in enumerate(text.splitlines(), 1):
+                hits = []
+                for m in re.finditer(r"#[0-9a-fA-F]{3,8}\b|\brgba?\(|\bhsla?\(", line):
+                    if "var(--" not in line[max(0, m.start() - 6): m.start()]:
+                        hits.append(m.group(0))
+                for m in re.finditer(r"color-mix\(", line):
+                    depth, k = 1, m.end()
+                    while k < len(line) and depth:
+                        depth += {"(": 1, ")": -1}.get(line[k], 0)
+                        k += 1
+                    inner = re.sub(r"var\(--[\w-]+\)", "", line[m.end(): k - 1])
+                    inner = re.sub(r"in srgb|transparent|[\d.]+%|,", "", inner).strip()
+                    if inner:
+                        hits.append("color-mix(" + inner + ")")
+                decl = line.split("{", 1)[-1]
+                for m in named.finditer(re.sub(r"var\(--[\w-]+\)|url\([^)]*\)|\"[^\"]*\"", "", decl)):
+                    if re.search(r"(color|background|border|outline|box-shadow|fill|stroke)[\w-]*\s*:[^;]*" + m.group(1), decl):
+                        hits.append(m.group(1))
+                if hits:
                     count += 1
-                    print(f"colour outside tokens: {p.name}:{n}: {line.strip()[:90]}")
+                    print(f"colour outside tokens: {p.name}:{n}: {sorted(set(hits))}: {line.strip()[:80]}")
         if count:
             failures.append(f"{count} colour(s) written outside site-tokens.css")
 
