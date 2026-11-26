@@ -13,6 +13,9 @@
 .read img { display: block; border-radius: var(--curve-talk); }
 .read .muted { color: var(--muted); }
 .read .notice { margin-top: var(--space-6); }
+/* A notice written as a section (the sibling Pairy and StoneWars support pages): heading above its buttons, not beside them. */
+.read section.notice { display: block; }
+.read section.notice h2 { margin: 0 0 var(--space-3); font-size: var(--text-xl); letter-spacing: 0; }
 .read section + section { margin-top: var(--space-9); }
 
 /* Breadcrumb and meta */
