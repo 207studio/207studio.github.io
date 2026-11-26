@@ -209,6 +209,7 @@
   --display-s: clamp(28px, 4.2vw, 36px);
   --display-m: clamp(36px, 6vw, 56px);
   --display-l: clamp(48px, 9vw, 96px);
+  --display-hero: clamp(40px, 7vw, 80px);   /* a project page's name */
   --display-wordmark: clamp(64px, 13vw, 132px);
   --track-display: -0.02em;
   --track-eyebrow: 0.08em;

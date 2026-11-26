@@ -7,7 +7,7 @@
 .project-hero { display: grid; gap: var(--space-7); padding-block: var(--space-9) var(--space-8); }
 @media (min-width: 720px) { .project-hero.has-tile { grid-template-columns: auto minmax(0, 1fr); align-items: start; gap: var(--space-8); } }
 .project-hero .tile { --avatar: 96px; border-radius: var(--curve-talk); background: var(--bot-bubble); box-shadow: var(--surface-quiet-edge); font-size: 40px; }
-.project-hero h1 { margin: 0 0 var(--space-4); font-size: var(--display-l); line-height: 1.02; }
+.project-hero h1 { margin: 0 0 var(--space-4); font-size: var(--display-hero); line-height: 1.04; }
 .project-hero > p, .project-hero > div > p { max-width: 46ch; color: var(--muted); font-size: var(--text-xl); line-height: 1.55; }
 .project-hero .eyebrow { margin-bottom: var(--space-4); color: var(--muted); font-size: var(--text-s); }
 .project-hero .actions { margin-top: var(--space-7); }
@@ -151,3 +151,9 @@
 .p-film-fig { margin: var(--space-7) 0 0; }
 .p-film-fig video { display: block; width: 100%; border-radius: var(--curve-talk); background: var(--code); box-shadow: var(--shadow-card); }
 .p-film-fig figcaption { margin-top: var(--space-3); color: var(--muted); font-size: var(--text-m); }
+
+/* A row of short cards (StoneWars KO page): three across on a desk, stacked on a phone. */
+.card-grid { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.card-grid .card { padding: var(--space-7); }
+.card-grid .card h2 { margin-bottom: var(--space-3); font-size: var(--text-2xl); }
+.project-content .small { color: var(--muted); }

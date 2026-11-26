@@ -45,6 +45,7 @@ class P(HTMLParser):
         self.imgs = []
         self.main_id = False
         self.first_link = None
+        self.sums_open = False   # <p data-tt-windows-sums hidden>: its <a> gets its href from script on purpose
         self.body_seen = False
         self.skip_first = False
 
@@ -82,13 +83,20 @@ class P(HTMLParser):
             self.imgs.append(a.get("src", ""))
             if "alt" not in a:
                 self.imgs_no_alt += 1
+        if "data-tt-windows-sums" in a:
+            self.sums_open = True
         if tag == "a":
-            if "href" not in a:
+            if "href" not in a and not self.sums_open:
                 self.a_no_href += 1
             elif self.body_seen and self.first_link is None:
                 self.first_link = a["href"]
             if a.get("target") == "_blank" and "noopener" not in (a.get("rel") or ""):
                 self.blank_no_rel += 1
+
+
+    def handle_endtag(self, tag):
+        if tag == "p":
+            self.sums_open = False
 
 
 def pages(all_pages: bool):
@@ -160,7 +168,8 @@ def main() -> int:
             bad("no page stylesheet (site-home, site-project or site-read) is linked")
         if "look.js" not in {s.split("/")[-1] for s in pr.scripts}:
             bad("assets/look.js is not loaded")
-        if not (pr.title and pr.desc and pr.canonical and pr.viewport):
+        need_canon = rel != "404.html"   # the 404 page has no canonical on purpose (the guard keeps it that way)
+        if not (pr.title and pr.desc and (pr.canonical or not need_canon) and pr.viewport):
             bad("title, meta description, canonical and viewport are all required")
         for ref in pr.css + pr.scripts + pr.imgs:
             if not exists(ref):
