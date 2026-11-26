@@ -243,10 +243,11 @@ details.fold > :last-child { margin-bottom: var(--space-5); }
   .foot-work h2 { grid-column: 1 / -1; }
 }
 
-/* Reduced motion: nothing twinkles, nothing slides. */
+/* Reduced motion: nothing twinkles, no transition slides. The slow star drift with the scroll (assets/site.js) and Mimi's walk cycle
+   (site-home.css) keep going: the owner wants both to move on a Windows PC with animation effects off, which a browser reports as
+   reduced motion. The walk's depth moves (walk.js) still become fades. */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .sky > i { animation: none; }
-  .sky-tile { transform: none !important; }
   *, *::before, *::after { transition-duration: 0.01ms !important; }
 }

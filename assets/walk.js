@@ -3,8 +3,8 @@
    change where it falls back in depth and the next card rises to the front. Mimi walks in place during a change and her bubble
    fades out and back with the next app's line. A screen under 440px tall keeps the static list. Her walk cycle runs while the stage
    is on screen (decided from the scroll position, not an observer, so it never depends on one) and the walk measures itself again
-   whenever the page's size or look settles. Reduced motion keeps the stage,
-   but the cards only fade (no depth) and Mimi stands at one size. The cards are the work list's own links: with no script the
+   whenever the page's size or look settles. Reduced motion keeps the stage and Mimi's walk cycle (the owner wants her to walk on a
+   Windows PC with animation effects off), but the cards only fade (no depth) and she stays at one size. The cards are the work list's own links: with no script the
    page is that list. Moved from the studio's home script (assets/home.js) unchanged in behaviour. */
 (function () {
   var section = document.querySelector("[data-walk]");
