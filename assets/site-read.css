@@ -48,3 +48,11 @@
 .not-found { padding-block: var(--space-10); text-align: left; }
 .not-found h1 { margin-bottom: var(--space-5); }
 .not-found pre { max-width: 100%; white-space: pre-wrap; overflow-wrap: anywhere; }
+
+/* Support and privacy pages of the Pairy and StoneWars repos (they keep their own section classes): a row of language links as pills,
+   the sections' anchors clear of the floating header, and the "last updated" line quiet. */
+.lang-nav { display: flex; flex-wrap: wrap; gap: var(--space-3); margin: 0 0 var(--space-8); }
+.lang-nav a { display: inline-flex; align-items: center; height: var(--pill-h); padding-inline: var(--space-5); border-radius: calc(var(--pill-h) / 2); background: var(--bot-bubble); box-shadow: var(--surface-quiet-edge); font-size: var(--text-m); font-weight: 600; text-decoration: none; }
+@media (hover: hover) { .lang-nav a:hover { background: var(--selected); } }
+.lang-section { scroll-margin-top: calc(var(--round-d) + var(--space-9)); }
+.read .updated { margin: 0 0 var(--space-7); color: var(--muted); font-size: var(--text-m); }
