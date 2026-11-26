@@ -22,7 +22,7 @@
 <meta name="twitter:title" content="Pairy: your Mac, on your iPad">
 <meta name="twitter:description" content="Your computer's desktop, keyboard and trackpad controls on your tablet. App Store app plus a notarized Mac companion.">
 <meta name="twitter:image" content="https://207studio.dev/assets/og-pairy.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Pairy: Connecting Devices","description":"Pairy brings your computer's desktop, keyboard and trackpad controls to your tablet.","applicationCategory":"UtilitiesApplication","operatingSystem":"iPadOS, iOS, visionOS; companion for macOS 15 or later on Apple silicon","url":"https://207studio.dev/pairy/","installUrl":"https://apps.apple.com/app/id6815584225","downloadUrl":"https://github.com/207studio/207studio.github.io/releases/download/pairy-mac-1.4.2-142/Pairy-mac-1.4.2-142-notarized.zip","softwareVersion":"1.4.2","image":"https://207studio.dev/assets/og-pairy.png","publisher":{"@type":"Organization","name":"207 Studio","url":"https://207studio.dev"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Pairy: Connecting Devices","description":"Pairy brings your computer's desktop, keyboard and trackpad controls to your tablet.","applicationCategory":"UtilitiesApplication","operatingSystem":"iPadOS, iOS, visionOS; companion for macOS 15 or later on Apple silicon","url":"https://207studio.dev/pairy/","installUrl":"https://apps.apple.com/app/id6815584225","downloadUrl":"https://github.com/207studio/207studio.github.io/releases/download/pairy-mac-1.4.4-144/Pairy-mac-1.4.4-144-notarized.zip","softwareVersion":"1.4.4","image":"https://207studio.dev/assets/og-pairy.png","publisher":{"@type":"Organization","name":"207 Studio","url":"https://207studio.dev"}}</script>
 <link rel="stylesheet" href="/assets/pages.css">
 <link rel="stylesheet" href="/assets/pairy.css">
 </head>
@@ -69,7 +69,7 @@
     <li><img src="/assets/apps/pairy/store-06-pick-mac-1200.webp" srcset="/assets/apps/pairy/store-06-pick-mac-640.webp 640w, /assets/apps/pairy/store-06-pick-mac-1200.webp 1200w" sizes="min(560px, 82vw)" width="1200" height="900" alt="Pick any of your Macs." loading="lazy" decoding="async"></li>
   </ul>
   <ul class="p-pts">
-    <li>Full HD streaming</li>
+    <li>Sharp, smooth streaming up to 120 Hz</li>
     <li>Touch trackpad and keyboard input</li>
     <li>Encrypted connections between your devices</li>
     <li>An oil-painted night sky and a simple dashboard</li>
@@ -80,7 +80,7 @@
   <div>
     <h2 id="mac-h">Pairy for Mac</h2>
     <p>The companion the iPad and iPhone app connects to, downloaded straight from us.</p>
-    <p class="p-acts"><a class="p-btn p-btn-main" href="https://github.com/207studio/207studio.github.io/releases/download/pairy-mac-1.4.2-142/Pairy-mac-1.4.2-142-notarized.zip">Download Pairy for Mac</a></p>
+    <p class="p-acts"><a class="p-btn p-btn-main" href="https://github.com/207studio/207studio.github.io/releases/download/pairy-mac-1.4.4-144/Pairy-mac-1.4.4-144-notarized.zip">Download Pairy for Mac</a></p>
     <ol class="p-install">
       <li>Double-click the zip to unzip it, then move PairyMac.app into Applications.</li>
       <li>Open it and allow Screen Recording and Accessibility when macOS asks.</li>
@@ -111,7 +111,29 @@
   <h2 id="need">Good to know</h2>
   <p>You need a Tailscale account; its own terms and plan conditions apply. Picture quality and responsiveness depend on your devices and network. Questions: <a href="mailto:support@207studio.dev">support@207studio.dev</a>.</p>
 </section>
-</main>
+<section class="p-sec" id="setup"><h2>Detailed setup</h2>
+<h3>What Pairy is</h3>
+<p>Pairy shows your Mac desktop on an iPad at full screen. Touch the screen to move the pointer, use two fingers to scroll, and open the floating menu for the keyboard, dictation, clipboard and display controls.</p>
+<p>The iPhone app adds a remote mode. While the iPad is showing a Mac, an iPhone on the same local network can pair with the iPad and act as a wireless keyboard and trackpad. The iPad keeps the Mac picture. The iPhone sends only input. With a hardware keyboard connected, the iPhone shows the trackpad without the software keyboard. The iPhone also has a viewer mode that connects directly to a Mac through Tailscale and shows its screen.</p>
+<p>The iPad and iPhone app is free, with no forced ads. You can support us with an optional tip or by choosing to watch an ad; neither unlocks anything. The Mac companion is free and shows no ads.</p>
+
+<h3>How the connection works</h3>
+<p>Pairy embeds Tailscale. Sign in to the same Tailscale account on the Mac and on the iPad. Pairy finds your Macs, and Tailscale encrypts the connection between your devices. You do not enter an IP address or open a port on your router.</p>
+<p>The iPhone remote mode uses the local network instead. The iPhone finds an iPad that is already showing a Mac through Bonjour, and the iPad owner confirms the pairing. The iPhone sends keyboard and trackpad input to the iPad. The iPad forwards that input to the Mac over the existing Tailscale session. Video stays on the iPad in remote mode.</p>
+<p>iOS asks for Local Network access when you use the iPhone remote. Allow it, or the iPhone cannot find the iPad.</p>
+
+<h3>Set up</h3>
+<ol>
+<li>Download the Mac companion, move Pairy to Applications and open it.</li>
+<li>In the Mac app, sign in to Tailscale. Allow Screen Recording and Accessibility when macOS asks.</li>
+<li>Install Pairy on the iPad or iPhone and sign in to the same Tailscale account.</li>
+<li>Choose your Mac. When one online Mac is available, the app connects automatically. Otherwise select the Mac by name.</li>
+<li>Optional iPhone remote: open Pairy on the iPhone while the iPad shows the Mac, tap the iPad, and confirm on the iPad.</li>
+</ol>
+<p>Advanced: instead of web sign-in, tap Sign in with an auth key and paste an untagged key created by the Mac's Tailscale account. Pairy does not save the key on the device. A key from another account joins that account's tailnet. No Mac yet? Tap Try the Demo on the first screen to use a simulated Mac without an account or network.</p>
+
+</section>
+<section class="p-sec"><h2>Support and privacy</h2><p><a href="/pairy/support.html#en">Frequently asked questions and contact</a> · <a href="/pairy/privacy.html#en">Privacy policy</a></p></section></main>
 </div>
 <footer class="site-footer page-foot-hand"><div class="foot-grid"><div class="foot-brand"><a class="brand" href="/">207 Studio</a><p>Software for making and teaching.</p></div><nav class="foot-col" aria-label="Work"><h2>Work</h2><a href="/blog/">Writing</a><a href="/pairy/">Pairy</a></nav><nav class="foot-col" aria-label="Studio"><h2>Studio</h2><a href="/about/">About</a><a href="mailto:support@207studio.dev">Support</a><a href="/llms.txt">llms.txt</a></nav><nav class="foot-col" aria-label="Legal"><h2>Legal</h2><a href="/legal/privacy/">Privacy Policy</a><a href="/legal/terms/">Terms of Use</a><a href="/legal/refunds/">Refund Policy</a></nav></div><img class="foot-word" src="/assets/footer-207.svg" alt="" aria-hidden="true" width="1513" height="700" loading="lazy" decoding="async"><div class="foot-bottom"><span>© 2026 207 Studio · South Korea</span></div></footer>
 </body>

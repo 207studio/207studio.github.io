@@ -865,6 +865,9 @@ fn render_sitemap(data: &SiteData, posts: &[Post]) -> String {
             esc(&lastmod)
         ));
     }
+    for page in ["ttoryeot/", "ko/ttoryeot/", "checkyboard/", "ko/checkyboard/", "cool-kiwi/", "ko/cool-kiwi/", "dekiduck/", "ko/dekiduck/", "ko/stonewars/"] {
+        out.push_str(&format!("<url><loc>{}</loc></url>\n", esc(&format!("{base}/{page}"))));
+    }
     out.push_str("</urlset>\n");
     out
 }
