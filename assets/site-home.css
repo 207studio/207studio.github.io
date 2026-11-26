@@ -1,0 +1,51 @@
+/* 207 Studio website: the home page (/ and /ko/). Loaded after site.css. the redesign spec, section 6.1. */
+
+/* First screen: words on the left, the painting in its own frame on the right. No words over the painting. */
+.hero { padding-block: var(--space-9) var(--space-10); }
+.hero-grid { display: grid; gap: var(--space-9); align-items: center; }
+@media (min-width: 960px) { .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-10); } }
+.hero-copy .chip { margin-bottom: var(--space-7); }
+.wordmark { margin: 0 0 var(--space-7); font-size: var(--display-wordmark); line-height: 0.94; letter-spacing: var(--track-display); }
+.wordmark span { display: block; }
+.wordmark .wm-studio { color: var(--muted); }
+.hero-copy .intro { max-width: 30ch; margin-bottom: var(--space-8); color: var(--ink); font-size: var(--text-2xl); line-height: 1.4; }
+.hero-note { margin: var(--space-6) 0 0; color: var(--muted); font-size: var(--text-m); }
+.hero-art { position: relative; margin: 0; overflow: hidden; border-radius: var(--curve-float); background: var(--code); box-shadow: var(--shadow-sheet); aspect-ratio: 4 / 3; }
+.hero-art picture, .hero-art img { display: block; width: 100%; height: 100%; }
+.hero-art img { object-fit: cover; object-position: 50% 60%; }
+@media (min-width: 960px) { .hero-art { aspect-ratio: 1 / 1; } .hero-art img { object-position: 84% 60%; } }
+.hero-latest { position: absolute; left: var(--space-5); bottom: var(--space-5); gap: var(--space-3); max-width: calc(100% - 2 * var(--space-5)); }
+.hero-latest b { font-family: var(--font-display); }
+.hero-latest .muted { font-weight: 400; }
+
+/* What we make: two groups of rows, each in its own card. */
+.work-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--space-3) var(--space-7); margin-bottom: var(--space-8); }
+.work-head p { margin: 0; color: var(--muted); }
+.work-end { margin: var(--space-8) 0 0; color: var(--muted); font-size: var(--text-m); }
+
+/* The film: the video in a card; the notes under it in the quiet type. The block is generated (constellation-video-gen.py), so its own classes are styled here. */
+.constellation-video { padding-block: var(--space-10) 0; }
+.constellation-video > h2 { margin-bottom: var(--space-3); }
+.constellation-video > p { max-width: 52ch; color: var(--muted); }
+.constellation-video video { display: block; width: 100%; margin-top: var(--space-6); overflow: hidden; border-radius: var(--curve-talk); background: var(--code); box-shadow: var(--shadow-card); aspect-ratio: 16 / 9; }
+.constellation-video .constellation-video-label { margin: var(--space-3) 0 0; padding: 0; color: var(--muted); font-size: var(--text-m); line-height: 1.5; }
+.constellation-video .constellation-video-links { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-7); margin: var(--space-5) 0 0; font-size: var(--text-m); font-weight: 600; }
+.constellation-video .constellation-video-preview { color: var(--muted); font-size: var(--text-m); }
+
+/* The studio */
+.studio-grid { display: grid; gap: var(--space-8); }
+@media (min-width: 900px) { .studio-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--space-10); } }
+.studio-grid h2 { font-size: var(--display-m); }
+.studio-grid h2 .soft { color: var(--muted); }
+.studio-lead { color: var(--ink); font-size: var(--text-2xl); line-height: 1.45; }
+.facts { display: grid; gap: var(--space-1); margin: var(--space-7) 0 0; padding: var(--space-3); border-radius: var(--curve-talk); background: var(--bot-bubble); box-shadow: var(--surface-quiet-edge); }
+.facts > div { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: var(--space-5); padding: var(--space-4) var(--space-5); border-radius: var(--curve-nest); }
+.facts dt { color: var(--muted); font-size: var(--text-m); }
+.facts dd { margin: 0; font-size: var(--text-l); font-weight: 500; }
+.studio .quote { margin-top: var(--space-9); }
+
+/* Contact */
+.contact-card { display: grid; gap: var(--space-7); padding: var(--space-9) var(--space-8); border-radius: var(--curve-float); background: var(--bot-bubble); box-shadow: var(--surface-quiet-edge); }
+@media (min-width: 900px) { .contact-card { grid-template-columns: minmax(0, 1fr) auto; align-items: center; } }
+.contact-card h2 { font-size: var(--display-s); max-width: 22ch; }
+.contact-card p { margin: var(--space-3) 0 0; color: var(--muted); }
