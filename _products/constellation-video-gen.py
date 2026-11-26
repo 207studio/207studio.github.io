@@ -51,8 +51,9 @@ for lang,route in [('en','index.html'),('ko','ko/index.html')]:
  block=f'''<!-- constellation-video:start --><section class="constellation-video wrap" aria-labelledby="constellation-video-title"><h2 id="constellation-video-title">{escape(data['title'][lang])}</h2><p>{escape(data['summary'][lang])}</p>{warning}{media}<p class="constellation-video-label">{escape(data['ai_label'][lang])}</p><p class="constellation-video-label">{escape(data['provenance'][lang])}</p><p class="constellation-video-links">{transcript} {about}</p></section><!-- constellation-video:end -->'''
  source=(source_root/route).read_text()
  markers=r'<!-- constellation-video:start -->.*?<!-- constellation-video:end -->'
- redesigned='<!-- chrome:head:start -->' in source and not a.preview
- if not redesigned and '/assets/constellation-video.css' not in source:
+ chrome_page='<!-- chrome:head:start -->' in source
+ redesigned=chrome_page and not a.preview
+ if not chrome_page and '/assets/constellation-video.css' not in source:
   source=source.replace('</head>','<link rel="stylesheet" href="/assets/constellation-video.css"></head>')
  dest=(a.output/route) if a.preview else source_root/route
  if not a.preview:
@@ -63,7 +64,7 @@ for lang,route in [('en','index.html'),('ko','ko/index.html')]:
   if count>1 or redesigned:
    raise SystemExit(f'{route}: expected one constellation-video block')
  source=re.sub(markers+r'(?:\r?\n)?','',source,flags=re.S)
- anchor='</main>' if a.intro_root else '  <section class="studio"'
+ anchor='</main>' if a.intro_root else '<section class="sec studio"' if chrome_page else '  <section class="studio"'
  assert source.count(anchor)==1
  outputs.append((dest,source.replace(anchor,block+'\n'+anchor)))
 for dest,html in outputs:
